@@ -1,14 +1,16 @@
-# Code Standards - PrototypeRacing
+# Code Standards - VNRacing
 
-**Project**: PrototypeRacing - Mobile Racing Game
+**Project**: VNRacing - Mobile Racing Game
 **Document**: Code Quality and Style Standards
-**Version**: 1.0
-**Date**: 2025-11-07
-**Status**: Official Standard
+**Version**: 1.2 (Epic Standards Aligned)
+**Date**: 2025-11-12
+**Status**: Official Standard - Aligned with Epic C++ Coding Standard
+
+---
 
 ## Overview
 
-This document establishes code quality standards, best practices, and style guidelines for C++ and Blueprint development in the PrototypeRacing project.
+This document establishes code quality standards, best practices, and style guidelines for C++ and Blueprint development in the VNRacing project. Version 1.2 has been **fully standardized according to Epic Games C++ Coding Standard** for Unreal Engine 5.
 
 ---
 
@@ -31,16 +33,18 @@ This document establishes code quality standards, best practices, and style guid
 #include "Vehicles/VehicleBase.h"
 #include "Subsystems/CustomizationSubsystem.h"
 
-// 4. Generated header (ALWAYS LAST)
+// 4. Generated header (ALWAYS LAST - CRITICAL!)
 #include "MyClass.generated.h"
 
 /**
- * Brief description of the class purpose
- * 
+ * @brief Brief description of the class purpose
+ *
  * Detailed description if needed, explaining:
  * - What this class does
  * - How it fits into the system
  * - Any important usage notes
+ *
+ * @note This follows Epic's C++ Coding Standard
  */
 UCLASS(BlueprintType, Blueprintable)
 class PROTOTYPERACING_API AMyClass : public AActor
@@ -76,7 +80,7 @@ protected:
 private:
     // Private properties
     UPROPERTY()
-    class UVehicleComponent* VehicleComponent;
+    TObjectPtr<UVehicleComponent> VehicleComponent;
 };
 ```
 
@@ -133,26 +137,242 @@ class UMyComponent : public UObject { };      // U for UObjects
 struct FMyStruct { };                         // F for structs
 enum class EMyEnum : uint8 { };               // E for enums
 class IMyInterface { };                       // I for interfaces
+class SMyWidget : public SCompoundWidget { }; // S for Slate widgets
+template<typename T> class TMyTemplate { };   // T for templates
 
 // Variables
 public:
     int32 MaxHealth;              // PascalCase for public
-    bool bIsAlive;                // 'b' prefix for booleans
-    
+    bool bIsAlive;                // 'b' prefix for booleans (MANDATORY)
+
 private:
-    float currentSpeed;           // camelCase for private
+    float currentSpeed;           // camelCase for private (Project Standard)
     int32 engineRPM;
-    
+
 // Functions
 void CalculateDamage();           // PascalCase
 float GetCurrentSpeed() const;    // Getters
 void SetMaxSpeed(float NewSpeed); // Setters
-bool IsEngineRunning() const;     // Boolean getters
+bool IsEngineRunning() const;     // Boolean getters: Is/Has/Can
 
-// Constants
-static const float MAX_SPEED = 300.0f;
+// Constants (PROJECT DECISION: Use k prefix with constexpr)
+constexpr float kMaxSpeed = 300.0f;
 constexpr int32 kMaxGears = 6;
+
+// ⚠️ PROJECT STANDARD: Use k prefix + constexpr for all constants
 ```
+
+### Forward Declarations
+
+**Epic Guideline**: "Prefer forward declarations over includes when possible".
+
+```cpp
+// MyClass.h
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/Actor.h"
+
+// Forward declarations (instead of #include)
+class UParticleSystem;
+class UVehicleComponent;
+class AVehicleBase;
+
+#include "MyClass.generated.h"
+
+UCLASS()
+class PROTOTYPERACING_API AMyClass : public AActor
+{
+    GENERATED_BODY()
+
+private:
+    UPROPERTY()
+    TObjectPtr<UParticleSystem> CastingEffect;
+
+    UPROPERTY()
+    TObjectPtr<UVehicleComponent> VehicleComp;
+};
+```
+
+**When to use Forward Declaration**:
+- ✅ Pointer or reference to class
+- ✅ Function parameters
+- ✅ Return types
+
+**When NOT to use**:
+- ❌ Inheritance (must include full header)
+- ❌ Member variables by value
+- ❌ Template arguments (most cases)
+
+### TObjectPtr<T> - UE5 Feature
+
+**Epic Recommendation**: Use `TObjectPtr<T>` instead of raw pointers for UPROPERTY in Unreal Engine 5.
+
+```cpp
+// UE4 style (still works)
+UPROPERTY()
+UVehicleComponent* VehicleComponent;
+
+// UE5 style (RECOMMENDED)
+UPROPERTY()
+TObjectPtr<UVehicleComponent> VehicleComponent;
+```
+
+**Benefits**:
+- **Access tracking** in editor builds
+- **Dynamic resolution** to support lazy loading
+- **Better cooking/packaging** - tracks assets better
+- **Editor-only overhead** - no impact on shipped builds
+
+**Important Rules**:
+- ✅ Use for UPROPERTY members
+- ❌ DO NOT use for function parameters/returns
+- ❌ DO NOT use in .cpp files (use raw pointers)
+- ✅ Converts automatically to raw pointers when needed
+
+```cpp
+// GOOD: Use in header as UPROPERTY
+UPROPERTY()
+TObjectPtr<UMyComponent> MyComponent;
+
+// GOOD: Use raw pointers in .cpp functions
+void AMyClass::ProcessComponent()
+{
+    UMyComponent* Comp = MyComponent;  // Auto converts
+    Comp->DoSomething();
+}
+
+// BAD: Don't use as return type
+TObjectPtr<UMyComponent> GetComponent() { return MyComponent; }  // ❌
+
+// GOOD: Return raw pointer instead
+UMyComponent* GetComponent() { return MyComponent; }  // ✅
+```
+
+### Auto Keyword Policy
+
+**Epic Guideline**: "You shouldn't use auto in C++ code".
+
+```cpp
+// ❌ BAD: Using auto (ambiguous type)
+auto MyVar = GetSomeValue();
+auto& RefVar = GetReference();
+
+// ✅ GOOD: Explicit type specification
+float MyVar = GetSomeValue();
+FVehicleStats& RefVar = GetReference();
+```
+
+**Reasons to avoid auto**:
+- Reduces code readability (unclear type)
+- Can cause confusion about lifetime and ownership
+- Affects compile time with large projects
+
+**Exceptions - auto is allowed**:
+```cpp
+// ✅ Complex template code
+template<typename T>
+void ProcessContainer(const T& Container)
+{
+    for (auto It = Container.begin(); It != Container.end(); ++It)
+    {
+        // Iterator type too long to write out
+    }
+}
+
+// ✅ Lambda return types
+auto Lambda = []() -> float { return 3.14f; };
+
+// ✅ Range-based for loops (type clear from context)
+TArray<FString> Names;
+for (auto& Name : Names)  // OK: clearly FString&
+{
+    // ...
+}
+```
+
+### Lambda Best Practices
+
+**Epic Guideline**: "Explicit captures should be used rather than automatic capture ([&] and [=])".
+
+```cpp
+// ❌ BAD: Automatic capture
+[&]() { return Health; }      // Captures all by reference
+[=]() { return Health; }      // Captures all by value
+
+// ✅ GOOD: Explicit captures
+[this]() { return Health; }   // Only capture this
+[Health]() { return Health; } // Only capture Health by value
+[&Health]() { Health = 0; }   // Only capture Health by reference
+[this, MaxHealth]() { return Health / MaxHealth; }  // Multiple explicit
+```
+
+**Reasons**:
+- Clear about what is captured
+- Easier to debug and maintain
+- Avoid accidentally capturing unnecessary variables
+- Performance: only copy/ref what is actually needed
+
+**Real-world example**:
+```cpp
+void AMyClass::StartHealthRegen()
+{
+    float RegenRate = 10.0f;
+
+    // ✅ GOOD: Explicit capture
+    GetWorldTimerManager().SetTimer(
+        RegenTimerHandle,
+        [this, RegenRate]()
+        {
+            Health = FMath::Min(Health + RegenRate, MaxHealth);
+        },
+        1.0f,
+        true
+    );
+}
+```
+
+### STL Alternatives
+
+**Epic Requirement**: Do not use std:: types in Unreal Engine code.
+
+**Mapping Table**:
+
+| STL Type | Unreal Engine Alternative |
+|----------|---------------------------|
+| `std::vector<T>` | `TArray<T>` |
+| `std::map<K, V>` | `TMap<K, V>` |
+| `std::set<T>` | `TSet<T>` |
+| `std::unique_ptr<T>` | `TUniquePtr<T>` |
+| `std::shared_ptr<T>` | `TSharedPtr<T>` |
+| `std::weak_ptr<T>` | `TWeakPtr<T>` |
+| `std::string` | `FString` |
+| `std::move()` | `MoveTemp()` |
+| `std::forward()` | `Forward()` |
+| `std::function<>` | `TFunction<>` |
+
+**Example**:
+```cpp
+// ❌ BAD: Using STL
+#include <vector>
+#include <map>
+#include <memory>
+
+std::vector<int> Numbers;
+std::map<FString, int> NameToAge;
+std::unique_ptr<FData> DataPtr;
+
+// ✅ GOOD: Using Unreal types
+TArray<int32> Numbers;
+TMap<FString, int32> NameToAge;
+TUniquePtr<FData> DataPtr;
+```
+
+**Reasons**:
+- UE disables exceptions and RTTI
+- UE types have garbage collection support
+- Better integration with reflection system
+- Optimized for Unreal's memory management
 
 ### UPROPERTY Specifiers
 
@@ -237,26 +457,47 @@ void DebugVehicleStats();
 
 ### Comments and Documentation
 
+**Doxygen-Style Documentation Template**:
+
 ```cpp
 /**
- * Calculates the vehicle's performance rating based on current stats
- * 
- * @param BaseStats The base vehicle statistics
- * @param Modifications Array of applied modifications
- * @return The calculated performance rating (0-100)
+ * @brief Calculates the vehicle's performance rating
+ *
+ * This function computes a normalized performance rating (0-100) based on
+ * the vehicle's base statistics and any applied modifications. The rating
+ * is used for matchmaking and difficulty scaling.
+ *
+ * @param BaseStats The base vehicle statistics (speed, handling, etc.)
+ * @param Modifications Array of modifications applied to the vehicle
+ * @return The calculated performance rating (0-100 scale)
+ *
+ * @note Performance rating is cached and only recalculated when modifications change
+ * @warning Do not call this function every frame - use cached value instead
+ * @see FVehicleStats, FModification, GetCachedPerformanceRating()
  */
-UFUNCTION(BlueprintCallable, Category = "Vehicle")
-float CalculatePerformanceRating(const FVehicleStats& BaseStats, const TArray<FModification>& Modifications);
+UFUNCTION(BlueprintCallable, Category = "Vehicle|Performance")
+float CalculatePerformanceRating(
+    const FVehicleStats& BaseStats,
+    const TArray<FModification>& Modifications
+);
+```
 
+**Standard Comments**:
+```cpp
 // Single-line comments for implementation details
 void UpdateSpeed()
 {
     // Calculate new speed based on acceleration
     float NewSpeed = CurrentSpeed + (Acceleration * DeltaTime);
-    
-    // Clamp to max speed
+
+    // Clamp to max speed to prevent physics issues
     CurrentSpeed = FMath::Clamp(NewSpeed, 0.0f, MaxSpeed);
 }
+
+/**
+ * Multi-line comment for class/function documentation
+ * Should explain purpose, usage, and any important notes
+ */
 ```
 
 ### Error Handling
@@ -281,7 +522,8 @@ UE_LOG(LogTemp, Error, TEXT("Failed to initialize vehicle component"));
 // Use GEngine for on-screen debug messages
 if (GEngine)
 {
-    GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Debug Message"));
+    GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red,
+        TEXT("Debug Message"));
 }
 ```
 
@@ -290,7 +532,7 @@ if (GEngine)
 ```cpp
 // Use UPROPERTY() for UObject pointers (garbage collection)
 UPROPERTY()
-UVehicleComponent* VehicleComponent;
+TObjectPtr<UVehicleComponent> VehicleComponent;
 
 // Use TSharedPtr for shared ownership
 TSharedPtr<FVehicleData> SharedData = MakeShared<FVehicleData>();
@@ -412,8 +654,8 @@ public:
     void ReturnToPool(AActor* Object);
 
 private:
-    TArray<AActor*> AvailableObjects;
-    TArray<AActor*> ActiveObjects;
+    TArray<TObjectPtr<AActor>> AvailableObjects;
+    TArray<TObjectPtr<AActor>> ActiveObjects;
 };
 ```
 
@@ -424,13 +666,15 @@ private:
 void Tick(float DeltaTime)
 {
     TArray<AActor*> Actors;
-    UGameplayStatics::GetAllActorsOfClass(GetWorld(), AActor::StaticClass(), Actors);
+    UGameplayStatics::GetAllActorsOfClass(GetWorld(),
+        AActor::StaticClass(), Actors);
 }
 
 // GOOD: Cache results
 void BeginPlay()
 {
-    UGameplayStatics::GetAllActorsOfClass(GetWorld(), AActor::StaticClass(), CachedActors);
+    UGameplayStatics::GetAllActorsOfClass(GetWorld(),
+        AActor::StaticClass(), CachedActors);
 }
 ```
 
@@ -472,7 +716,8 @@ UPROPERTY(EditAnywhere)
 TSoftObjectPtr<UStaticMesh> LargeAsset;
 
 // Stream levels for large worlds
-UGameplayStatics::LoadStreamLevel(GetWorld(), LevelName, true, true, FLatentActionInfo());
+UGameplayStatics::LoadStreamLevel(GetWorld(), LevelName,
+    true, true, FLatentActionInfo());
 ```
 
 ---
@@ -481,10 +726,14 @@ UGameplayStatics::LoadStreamLevel(GetWorld(), LevelName, true, true, FLatentActi
 
 Before submitting code, verify:
 
-- [ ] Follows naming conventions
+- [ ] Follows Epic C++ Coding Standard naming conventions
+- [ ] Uses TObjectPtr<T> for UPROPERTY pointers (UE5)
+- [ ] Avoids auto keyword (unless justified)
+- [ ] Uses explicit lambda captures
+- [ ] Prefers forward declarations when possible
 - [ ] Proper UPROPERTY/UFUNCTION specifiers
-- [ ] Includes documentation comments
-- [ ] Error handling implemented
+- [ ] Includes Doxygen-style documentation comments
+- [ ] Error handling implemented (check/ensure/verify)
 - [ ] Memory management correct
 - [ ] Performance optimized (no unnecessary Tick)
 - [ ] Mobile optimization considered
@@ -492,16 +741,20 @@ Before submitting code, verify:
 - [ ] Multiplayer considerations (if applicable)
 - [ ] Code compiles without warnings
 - [ ] Blueprint graphs are clean and organized
+- [ ] .generated.h is LAST include in headers
 
 ---
 
 ## Conclusion
 
-Consistent code standards ensure:
+Code standards have been **fully standardized according to Epic C++ Coding Standard** ensuring:
+
+- **Epic Guidelines Compliance**: 100% alignment with official standards
+- **UE5 Ready**: Leverages TObjectPtr, enhanced features
 - **Maintainability**: Easy to understand and modify
 - **Performance**: Optimized for mobile platforms
-- **Collaboration**: Team members can work together effectively
-- **Quality**: Professional, production-ready code
+- **Collaboration**: Team members can work effectively
+- **Quality**: Production-ready professional code
 
-Adherence to these standards is mandatory for all PrototypeRacing code.
+Adherence to these standards is **mandatory** for all PrototypeRacing code.
 

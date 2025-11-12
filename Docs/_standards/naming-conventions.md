@@ -1,18 +1,16 @@
-# Naming Conventions - PrototypeRacing
+# Naming Conventions - VNRacing
 
-**Project**: VN Racing Game
-
+**Project**: VNRacing - Mobile Racing Game
 **Document**: Naming Conventions Standard
+**Version**: 1.2 (Epic Standards Aligned)
+**Date**: 2025-11-12
+**Status**: Official Standard - Aligned with Epic C++ Coding Standard
 
-**Version**: 1.0
-
-**Date**: 2025-11-07
-
-**Status**: Official Standard
+---
 
 ## Overview
 
-This document establishes standardized naming conventions for all assets, code, and documentation in the PrototypeRacing project to ensure consistency, clarity, and maintainability across the entire codebase.
+This document establishes standardized naming conventions for all assets, code, and documentation in the VNRacing project to ensure consistency, clarity, and maintainability across the entire codebase. Version 1.2 has been **fully standardized according to Epic Games C++ Coding Standard**.
 
 ---
 
@@ -120,7 +118,57 @@ This document establishes standardized naming conventions for all assets, code, 
 | `L_` | Level/Map | `L_Hanoi_Downtown` |
 | `HLOD_` | Hierarchical LOD | `HLOD_CityBlock` |
 
-### Miscellaneous
+### Enhanced Input System - UE5
+
+**Naming conventions for Enhanced Input System** - new standard from UE 5.1:
+
+| Prefix | Asset Type | Example | Notes |
+|--------|------------|---------|-------|
+| `IA_` | Input Action | `IA_Move`, `IA_Jump`, `IA_Fire` | Core input actions |
+| `IMC_` | Input Mapping Context | `IMC_Default`, `IMC_Vehicle`, `IMC_Menu` | Context-based mappings |
+| `PMI_` | Player Mappable Input Config | `PMI_Keyboard`, `PMI_Gamepad`, `PMI_VR` | Per-device configs |
+| `IM_` | Input Modifier | `IM_DeadZone`, `IM_Smooth`, `IM_Negate` | Pre-processors |
+| `IT_` | Input Trigger | `IT_Hold`, `IT_Tap`, `IT_Pressed` | Trigger conditions |
+
+**Enhanced Input Naming Examples**:
+```
+Input/
+├── Actions/
+│   ├── IA_Move
+│   ├── IA_Look_Mouse
+│   ├── IA_Look_Gamepad
+│   ├── IA_Jump
+│   ├── IA_Sprint
+│   └── IA_Interact
+├── MappingContexts/
+│   ├── IMC_KBM_Default
+│   ├── IMC_Controller_Default
+│   ├── IMC_Vehicle_Driving
+│   └── IMC_Menu
+├── PlayerMappableConfigs/
+│   ├── PMI_KeyboardMouse
+│   ├── PMI_Gamepad
+│   └── PMI_VR
+└── CustomModifiers/
+    ├── IM_CustomDeadZone
+    └── IM_AccelerationCurve
+```
+
+### Gameplay Ability System - Lyra Conventions
+
+If project uses **Gameplay Ability System** (GAS), apply naming conventions from Lyra Starter Game:
+
+| Prefix | Asset Type | Example | Notes |
+|--------|------------|---------|-------|
+| `GA_` | Gameplay Ability | `GA_Jump`, `GA_Sprint`, `GA_MeleeAttack` | Ability classes |
+| `GE_` | Gameplay Effect | `GE_Damage`, `GE_Heal`, `GE_SpeedBoost` | Effects/buffs |
+| `GCN_` | Gameplay Cue Notify | `GCN_Impact`, `GCN_Explosion` | Visual/audio cues |
+| `GCNL_` | Latent Gameplay Cue Notify | `GCNL_Projectile`, `GCNL_Trail` | Actor-based cues |
+| `Phase_` | Game Phase Ability | `Phase_MainMenu`, `Phase_Gameplay` | Phase managers |
+| `AbilitySet_` | Ability Set | `AbilitySet_Hero`, `AbilitySet_Enemy` | Ability collections |
+| `InputData_` | Input Config | `InputData_Hero`, `InputData_Vehicle` | Lyra input configs |
+
+### Miscellaneous Assets
 
 | Prefix | Asset Type | Example |
 |--------|------------|---------|
@@ -136,22 +184,25 @@ This document establishes standardized naming conventions for all assets, code, 
 
 ### Classes
 
-```cpp
-// Prefix with A for Actors
-class APlayerVehicle : public APawn { };
+**Epic Standard Class Prefixes**:
 
-// Prefix with U for UObjects and Components
+```cpp
+// A - Actor derived classes
+class APlayerVehicle : public APawn { };
+class ARaceGameMode : public AGameMode { };
+
+// U - UObject derived classes (including Components)
 class UCarCustomizationSubsystem : public UGameInstanceSubsystem { };
 class UVehicleMovementComponent : public UActorComponent { };
 
-// Prefix with F for structs
+// F - Structs (Plain Old Data)
 struct FVehicleStats
 {
     float MaxSpeed;
     float Acceleration;
 };
 
-// Prefix with E for enums
+// E - Enumerations
 enum class EVehicleType : uint8
 {
     Sedan,
@@ -159,63 +210,178 @@ enum class EVehicleType : uint8
     SportsCar
 };
 
-// Prefix with I for interfaces
+// I - Interfaces
 class IVehicleInterface
 {
+public:
     virtual void StartEngine() = 0;
+    virtual void StopEngine() = 0;
 };
+
+// S - Slate Widgets (Epic UI Framework)
+class SMyCustomWidget : public SCompoundWidget
+{
+    // Slate widget implementation
+};
+
+// T - Template Classes (Epic Standard)
+template<typename T>
+class TMyContainer
+{
+    TArray<T> Items;
+};
+
+// Examples from Engine:
+// TArray<T>, TMap<K,V>, TSet<T>, TObjectPtr<T>
 ```
+
+**⚠️ Important**: Each class prefix has clear meaning about inheritance hierarchy.
 
 ### Variables
 
+**Epic Guidelines - Project Adaptation**:
+
 ```cpp
-// Public variables: PascalCase
+class AMyVehicle : public APawn
+{
 public:
+    // Public member variables: PascalCase
     float MaxSpeed;
     int32 CurrentGear;
-    
-// Private variables: camelCase
+
+    // Booleans: MUST have 'b' prefix (MANDATORY)
+    bool bIsEngineRunning;
+    bool bCanDrift;
+    bool bHasNitro;
+
+protected:
+    // Protected variables: PascalCase (consistent with public)
+    float EngineTemperature;
+
 private:
+    // Private variables: camelCase (Project Standard)
+    // Note: Epic doesn't mandate strict style, but project chooses camelCase
     float currentSpeed;
     int32 engineRPM;
-    
-// Booleans: Prefix with 'b'
-bool bIsEngineRunning;
-bool bCanDrift;
+    float fuelLevel;
 
-// Pointers: No special prefix (use descriptive names)
-UVehicleMovementComponent* MovementComponent;
-APlayerController* OwningController;
+    // Pointers: Descriptive names (no Hungarian notation)
+    UPROPERTY()
+    TObjectPtr<UVehicleMovementComponent> MovementComponent;
+
+    UPROPERTY()
+    TObjectPtr<APlayerController> OwningController;
+};
 ```
+
+**⚠️ Project Decision**:
+- **Public/Protected**: PascalCase
+- **Private**: camelCase
+- **Booleans**: ALWAYS use `b` prefix regardless of visibility
+- Reason: Balance between Epic style and readability
 
 ### Functions
 
+**Epic Standard**:
+
 ```cpp
-// PascalCase for all functions
+// PascalCase for ALL functions
 void CalculateSpeed();
 void ApplyDamage(float DamageAmount);
 float GetCurrentSpeed() const;
 
-// Getters/Setters
+// Getters/Setters pattern
 float GetMaxSpeed() const;
 void SetMaxSpeed(float NewMaxSpeed);
 
-// Boolean getters: Use 'Is', 'Has', 'Can'
+int32 GetCurrentGear() const;
+void SetCurrentGear(int32 NewGear);
+
+// Boolean getters: Use 'Is', 'Has', 'Can', 'Should'
 bool IsEngineRunning() const;
 bool HasNitro() const;
 bool CanDrift() const;
+bool ShouldRespawn() const;
+
+// Event handlers: Use 'On' prefix
+void OnVehicleDamaged(float Damage);
+void OnNitroActivated();
+
+// Callback functions: Use 'Handle' or 'On'
+void HandleTimerExpired();
+void OnComponentHit(/* parameters */);
 ```
 
 ### Constants
 
-```cpp
-// Use UPPER_CASE or prefix with 'k'
-static const float MAX_SPEED = 300.0f;
-static const int32 kMaxGears = 6;
+**Epic Recommendation**: Choose one style and be consistent.
 
-// Or use constexpr
+**Option 1: k prefix with constexpr (RECOMMENDED)**
+```cpp
+// ✅ PROJECT STANDARD: Use this style
+constexpr float kMaxSpeed = 300.0f;
+constexpr int32 kMaxGears = 6;
 constexpr float kGravity = 9.81f;
+constexpr int32 kMaxPlayers = 8;
 ```
+
+**Option 2: UPPER_CASE with static const (Alternative)**
+```cpp
+// ⚠️ Alternative (not used in this project)
+static const float MAX_SPEED = 300.0f;
+static const int32 MAX_GEARS = 6;
+```
+
+**⚠️ PROJECT DECISION**: Use **Option 1** (k prefix + constexpr) for all constants to:
+- Be consistent with modern C++ practices
+- Be clear about scope and lifetime
+- Align with Epic's newer code
+
+### Template Classes
+
+**Epic Standard T Prefix**:
+
+```cpp
+// Template classes use T prefix
+template<typename T>
+class TObjectPtr
+{
+    T* Ptr;
+};
+
+template<typename KeyType, typename ValueType>
+class TMap
+{
+    // Implementation
+};
+
+// Custom template examples
+template<typename T>
+class TCircularBuffer
+{
+    TArray<T> Buffer;
+    int32 Head;
+    int32 Tail;
+};
+
+template<typename ItemType>
+class TInventoryContainer
+{
+    TArray<ItemType> Items;
+    int32 MaxCapacity;
+};
+```
+
+**Engine Template Types to Know**:
+- `TArray<T>` - Dynamic array
+- `TMap<K, V>` - Key-value map
+- `TSet<T>` - Unique set
+- `TObjectPtr<T>` - UE5 object pointer
+- `TSubclassOf<T>` - Class type reference
+- `TSoftObjectPtr<T>` - Soft reference
+- `TSharedPtr<T>` - Shared pointer
+- `TWeakPtr<T>` - Weak pointer
+- `TUniquePtr<T>` - Unique pointer
 
 ---
 
@@ -266,6 +432,17 @@ Content/
 ├── VFX/
 │   ├── NS_ExhaustSmoke
 │   └── NS_NitroFlame
+├── Input/  (NEW - Enhanced Input System)
+│   ├── Actions/
+│   │   ├── IA_Move
+│   │   ├── IA_Jump
+│   │   └── IA_Fire
+│   ├── MappingContexts/
+│   │   ├── IMC_Default
+│   │   ├── IMC_Vehicle
+│   │   └── IMC_Menu
+│   └── Modifiers/
+│       └── IM_DeadZone
 └── Maps/
     ├── L_Hanoi_Downtown
     ├── L_HCMC_Highway
@@ -386,6 +563,8 @@ NS_Lantern_Festival        // Festival lantern VFX
 - ✅ `T_VehicleBody_Red_D`
 - ✅ `NS_ExhaustSmoke_Heavy`
 - ✅ `WBP_MainMenu_VNTour`
+- ✅ `IA_Move` (Enhanced Input)
+- ✅ `IMC_Default` (Enhanced Input)
 
 ---
 
@@ -393,25 +572,51 @@ NS_Lantern_Festival        // Festival lantern VFX
 
 Before creating or renaming assets, verify:
 
-- [ ] Correct prefix for asset type
+- [ ] Correct prefix for asset type (according to Epic standard)
 - [ ] Descriptive and clear name
-- [ ] Follows PascalCase convention
+- [ ] Follows PascalCase convention (assets) or camelCase (private vars)
 - [ ] No spaces or special characters
 - [ ] Consistent with existing naming patterns
 - [ ] Vietnamese cultural elements properly represented
 - [ ] Documentation uses kebab-case
 - [ ] File organized in correct folder
+- [ ] Enhanced Input assets use IA_/IMC_/etc. prefixes (UE5)
+- [ ] Template classes use T prefix
+- [ ] Constants use k prefix with constexpr
+- [ ] Booleans have b prefix
+
+---
+
+## Migration Notes (UE4 to UE5)
+
+### New Naming Conventions in UE5
+
+1. **Enhanced Input System**:
+   - Old: Action/Axis Mappings in Project Settings
+   - New: IA_, IMC_, PMI_ prefixed assets
+
+2. **TObjectPtr Usage**:
+   - No naming change, but type changed
+   - `UComponent* Comp` → `TObjectPtr<UComponent> Comp`
+
+3. **Lyra Conventions** (if using GAS):
+   - GA_, GE_, GCN_ prefixes for Gameplay Abilities
 
 ---
 
 ## Conclusion
 
-Consistent naming conventions are critical for:
+Naming conventions have been **fully standardized** according to:
+
+- **Epic C++ Coding Standard**: Class prefixes, function naming
+- **Unreal Engine 5 Best Practices**: Enhanced Input, TObjectPtr
+- **Industry Standards**: Lyra project conventions (GAS)
+- **Project Consistency**: Clear decisions on ambiguous cases
+
+Adherence to these conventions is **mandatory** to ensure:
 - **Team Collaboration**: Everyone understands asset purpose
 - **Asset Management**: Easy to find and organize assets
 - **Code Maintenance**: Clear and readable codebase
 - **Scalability**: Project grows without naming chaos
 - **Professionalism**: High-quality, production-ready project
-
-Adherence to these naming conventions is mandatory for all PrototypeRacing project assets and code.
 
