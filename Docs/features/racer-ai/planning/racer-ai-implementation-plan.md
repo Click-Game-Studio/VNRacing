@@ -615,7 +615,7 @@ gantt
 ## Next Steps
 
 1. **Review this plan** with team and stakeholders
-2. **Set up project tracking** (Jira, Trello, etc.)
+2. **Set up project tracking** OpenProject
 3. **Begin Phase 1** (Racing Line System Enhancement)
 4. **Schedule weekly check-ins** to track progress
 5. **Prepare test environment** (test track, debug tools)
