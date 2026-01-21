@@ -1,10 +1,32 @@
 # Asset Organization Standards - VNRacing
 
-**Project**: VNRacing - Mobile Racing Game
-**Document**: Asset Organization and Management Standards
-**Version**: 1.2 (Epic Standards Aligned)
-**Date**: 2025-11-12
+**Project**: VNRacing - Mobile Racing Game  
+**Document**: Asset Organization and Management Standards  
+**Version**: 1.0.0  
+**Date**: 2026-01-20  
 **Status**: Official Standard - Aligned with UE5 Best Practices
+
+---
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Content Folder Structure](#content-folder-structure)
+- [Asset Naming Standards](#asset-naming-standards)
+- [Asset Management Best Practices](#asset-management-best-practices)
+- [LOD (Level of Detail) Standards](#lod-level-of-detail-standards)
+- [Unreal Engine 5 Rendering Features](#unreal-engine-5-rendering-features)
+- [World Partition System - UE5](#world-partition-system---ue5)
+- [Enhanced Input Organization](#enhanced-input-organization)
+- [Texture Optimization](#texture-optimization)
+- [Asset Validation](#asset-validation)
+- [Mobile Optimization](#mobile-optimization)
+- [Version Control Best Practices](#version-control-best-practices)
+- [Performance Monitoring](#performance-monitoring)
+- [Deprecated Assets](#deprecated-assets)
+- [Conclusion](#conclusion)
+
+---
 
 ## Overview
 

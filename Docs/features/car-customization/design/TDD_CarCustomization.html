@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>CarCustomization.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11.6.0/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="car-customization">Car Customization</h1>
+<p>Tài liệu mô tả chi tiết về kiến trúc hệ thống cho tính năng tùy chỉnh xe (Car Customization) . Mục tiêu là xây dựng một hệ thống linh hoạt, dễ mở rộng và tích hợp tốt với các phần khác của game.</p>
+<h2 id="ph%E1%BA%A7n-1-data-structure-design">Phần 1: Data Structure Design</h2>
+<h3 id="11-gi%E1%BB%9Bi-thi%E1%BB%87u">1.1. Giới thiệu</h3>
+<p>Phần này mô tả cách tổ chức dữ liệu để quản lý việc tùy chỉnh xe. Ưu tiên sự rõ ràng, khả năng mở rộng và tận dụng các công cụ của Unreal Engine như Data Tables và Structs.</p>
+<h3 id="12-m%E1%BB%A5c-ti%C3%AAu">1.2. Mục tiêu</h3>
+<ul>
+<li><strong>Rõ ràng:</strong> Cần phân biệt giữa <em>Options có sẵn</em> (như phụ kiện, màu sắc được định nghĩa trong Data Tables) và <em>cấu hình cụ thể</em> mà người chơi đã chọn cho chiếc xe của họ (lưu trong Struct).</li>
+<li><strong>Lắp ráp:</strong> Xe của người chơi được tạo thành từ một mô hình cơ bản, sau đó &quot;lắp ráp&quot; thêm các phụ kiện, màu sắc, decal vào các vị trí (slot) tương ứng.</li>
+<li><strong>Dữ liệu:</strong> Sử dụng Data Tables giúp designer dễ dàng thêm/bớt/sửa các option mà không cần đụng vào code.</li>
+<li><strong>Dễ mở rộng:</strong> Thiết kế dùng enum và map giúp việc thêm loại phụ kiện mới hay chỉ số mới sau này trở nên đơn giản hơn.</li>
+</ul>
+<h3 id="13-c%E1%BA%A5u-tr%C3%BAc-d%E1%BB%AF-li%E1%BB%87u-c%E1%BB%A5-th%E1%BB%83-unreal-engine-c--blueprints">1.3. Cấu trúc dữ liệu cụ thể (Unreal Engine C++ / Blueprints)</h3>
+<h4 id="131-c%C3%A1c-lo%E1%BA%A1i-enums">1.3.1. Các loại (Enums)</h4>
+<ul>
+<li><strong><code>ECarPartSlot</code> (Enum):</strong> Liệt kê tất cả các vị trí có thể gắn phụ kiện. Sẽ cần thêm giá trị mới vào đây nếu có loại bộ phận (phụ kiện) mới.
+<ul>
+<li><code>Ví dụ:</code> <code>FrontBumper</code> (Cản trước), <code>RearBumper</code> (Cản sau), <code>SideSkirts</code> (Ốp sườn), <code>Spoiler</code> (Cánh gió), <code>Hood</code> (Nắp capo), <code>Exhaust</code> (Ống xả), <code>Wheels</code> (Bánh xe), <code>Engine</code> (Động cơ), <code>Gearbox</code> (Hộp số), <code>Intake</code> (Hút gió), <code>Suspension</code> (Hệ thống treo), <code>Brakes</code> (Phanh).</li>
+</ul>
+</li>
+<li><strong><code>ECarColorSlot</code> (Enum):</strong> Liệt kê các khu vực có thể đổi màu.
+<ul>
+<li><code>Ví dụ:</code> <code>Body</code> (Thân xe), <code>Wheels</code> (Mâm xe), <code>Calipers</code> (Heo dầu/Kẹp phanh), <code>InteriorTrim</code> (Nội thất - có thể thêm sau).</li>
+</ul>
+</li>
+<li><strong><code>ECarPaintMaterialType</code> (Enum):</strong> Các kiểu hoàn thiện của sơn.
+<ul>
+<li><code>Ví dụ:</code> <code>Solid</code> (Màu đặc), <code>Matte</code> (Mờ), <code>Metallic</code> (Ánh kim), <code>Foil</code> (Giấy bóng), <code>CarbonFiber</code> (Sợi carbon - có thể thêm sau).</li>
+</ul>
+</li>
+</ul>
+<h4 id="132-struct-l%C6%B0u-c%E1%BA%A5u-h%C3%ACnh-xe">1.3.2. Struct lưu cấu hình xe</h4>
+<ul>
+<li><strong><code>FCarConfiguration</code> (Struct):</strong> Đây là &quot;bản thiết kế&quot; hoàn chỉnh cho một chiếc xe cụ thể của người chơi.
+<ul>
+<li><code>BaseCarID</code> (FName): ID của loại xe gốc (ví dụ: &quot;Nissan_Silvia_S15&quot;).</li>
+<li><code>AppliedStyleID</code> (FName): ID của bộ body kit đang dùng (nếu có).</li>
+<li><code>CustomParts</code> (TMap&lt;ECarPartSlot, FName&gt;): Lưu ID của từng bộ phận đang gắn trên xe, theo từng vị trí (ví dụ: vị trí <code>Spoiler</code> đang gắn bộ phận có ID là &quot;Spoiler_Sport&quot;).</li>
+<li><code>CustomColors</code> (TMap&lt;ECarColorSlot, FColorInstanceInfo&gt;): Lưu thông tin màu sắc cho từng khu vực (ví dụ: khu vực <code>Body</code> đang dùng màu &quot;Color_Red_Metallic&quot;).</li>
+<li><code>AppliedDecalID</code> (FName): ID của deca   l đang dán (nếu có).</li>
+</ul>
+</li>
+</ul>
+<h4 id="133-struct-l%C6%B0u-th%C3%B4ng-tin-m%C3%A0u-c%E1%BB%A5-th%E1%BB%83">1.3.3. Struct lưu thông tin màu cụ thể</h4>
+<ul>
+<li><strong><code>FColorInstanceInfo</code> (Struct):</strong> Chi tiết về màu đang áp dụng.
+<ul>
+<li><code>ColorID</code> (FName): ID của màu trong <code>DT_CarColors</code>.</li>
+<li><em>(Hoặc có thể lưu trực tiếp giá trị màu <code>FLinearColor</code> và loại sơn <code>ECarPaintMaterialType</code> nếu không cần quản lý màu theo ID/chi phí)</em>.</li>
+</ul>
+</li>
+</ul>
+<h4 id="134-struct-%C4%91%E1%BB%8Bnh-ngh%C4%A9a-c%C3%A1c-option-d%C3%B9ng-cho-data-table-rows">1.3.4. Struct định nghĩa các option (Dùng cho Data Table Rows)</h4>
+<p>Các struct này quy định thông tin cho mỗi hàng trong Data Tables.</p>
+<ul>
+<li><strong><code>FPerformanceModifiers</code> (Struct):</strong> Cho biết một bộ phận ảnh hưởng đến chỉ số xe như thế nào.
+<ul>
+<li><code>TopSpeedModifier</code> (float): Thay đổi Tốc độ tối đa.</li>
+<li><code>AccelerationModifier</code> (float): Thay đổi Gia tốc.</li>
+<li><code>HandlingModifier</code> (float): Thay đổi Khả năng điều khiển.</li>
+<li><code>BrakingModifier</code> (float): Thay đổi Lực phanh.</li>
+<li><code>WeightModifier</code> (float): Thay đổi Trọng lượng.</li>
+<li><code>EnginePowerModifier</code> (float): Thay đổi Sức mạnh động cơ.</li>
+<li><em>(Có thể thêm chỉ số khác nếu cần)</em>.</li>
+</ul>
+</li>
+<li><strong><code>FCarPartDefinition</code> (TableRowBase Struct):</strong> Định nghĩa một bộ phận.
+<ul>
+<li><code>PartID</code> (FName): ID định danh (ví dụ: &quot;Spoiler_Sport&quot;).</li>
+<li><code>DisplayName</code> (FText): Tên hiển thị cho người chơi.</li>
+<li><code>Description</code> (FText): Mô tả ngắn.</li>
+<li><code>CompatibleSlots</code> (TArray<ECarPartSlot>): Các vị trí có thể gắn bộ phận này.</li>
+<li><code>AssetReference</code> (TSoftObjectPtr&lt;UStaticMesh / USkeletalMesh&gt;): Đường dẫn đến file mesh 3D của bộ phận.</li>
+<li><code>PerformanceModifiers</code> (FPerformanceModifiers): Ảnh hưởng đến chỉ số xe.</li>
+<li><code>Cost</code> (int32): Giá tiền trong game.</li>
+<li><code>Prerequisites</code> (TArray<FName>): (Tùy chọn) ID các bộ phận khác cần có trước.</li>
+</ul>
+</li>
+<li><strong><code>FCarStyleDefinition</code> (TableRowBase Struct):</strong> Định nghĩa một bộ body kit.
+<ul>
+<li><code>StyleID</code> (FName): ID định danh (ví dụ: &quot;Style_RacingKit&quot;).</li>
+<li><code>DisplayName</code> (FText): Tên hiển thị.</li>
+<li><code>Description</code> (FText): Mô tả.</li>
+<li><code>PartOverrides</code> (TMap&lt;ECarPartSlot, FName&gt;): Danh sách các bộ phận (<code>PartID</code>) mà bộ kit này sẽ thay thế khi áp dụng.</li>
+<li><code>Cost</code> (int32): Giá tiền.</li>
+</ul>
+</li>
+<li><strong><code>FCarColorDefinition</code> (TableRowBase Struct):</strong> Định nghĩa một màu sơn.
+<ul>
+<li><code>ColorID</code> (FName): ID định danh (ví dụ: &quot;Color_Red_Metallic&quot;).</li>
+<li><code>DisplayName</code> (FText): Tên hiển thị.</li>
+<li><code>ColorValue</code> (FLinearColor): Giá trị màu RGB thực tế.</li>
+<li><code>MaterialType</code> (ECarPaintMaterialType): Loại sơn (bóng, mờ, kim loại...).</li>
+<li><code>Cost</code> (int32): Giá tiền.</li>
+</ul>
+</li>
+<li><strong><code>FCarDecalDefinition</code> (TableRowBase Struct):</strong> Định nghĩa một decal.
+<ul>
+<li><code>DecalID</code> (FName): ID định danh.</li>
+<li><code>DisplayName</code> (FText): Tên hiển thị.</li>
+<li><code>TextureReference</code> (TSoftObjectPtr<UTexture2D>): Đường dẫn đến file ảnh (texture) của decal.</li>
+<li><code>Cost</code> (int32): Giá tiền.</li>
+</ul>
+</li>
+<li><strong><code>FBaseCarDefinition</code> (TableRowBase Struct - Nên có):</strong> Định nghĩa thông tin cơ bản của một loại xe.
+<ul>
+<li><code>CarID</code> (FName): ID định danh (ví dụ: &quot;Nissan_Silvia_S15&quot;).</li>
+<li><code>DisplayName</code> (FText): Tên hiển thị.</li>
+<li><code>BaseMesh</code> (TSoftObjectPtr<USkeletalMesh>): Đường dẫn đến file mesh 3D gốc của xe.</li>
+<li><code>DefaultParts</code> (TMap&lt;ECarPartSlot, FName&gt;): Các bộ phận mặc định đi kèm xe.</li>
+<li><code>BasePerformanceStats</code> (FPerformanceStats): Chỉ số gốc của xe khi chưa độ.</li>
+</ul>
+</li>
+</ul>
+<h3 id="14-c%C3%A1c-b%E1%BA%A3ng-d%E1%BB%AF-li%E1%BB%87u-data-tables---v%C3%AD-d%E1%BB%A5">1.4. Các bảng dữ liệu (Data Tables - Ví dụ)</h3>
+<ul>
+<li><code>DT_BaseCars</code>: Chứa danh sách các loại xe gốc.</li>
+<li><code>DT_CarParts</code>: Chứa danh sách tất cả các bộ phận có thể độ.</li>
+<li><code>DT_CarStyles</code>: Chứa danh sách các bộ body kit.</li>
+<li><code>DT_CarColors</code>: Chứa danh sách các màu sơn.</li>
+<li><code>DT_CarDecals</code>: Chứa danh sách các decal.</li>
+</ul>
+<h3 id="15-s%C6%A1-%C4%91%E1%BB%93-t%E1%BB%95ng-quan-v%E1%BB%81-c%C3%A1c-lo%E1%BA%A1i-d%E1%BB%AF-li%E1%BB%87u">1.5. Sơ đồ tổng quan về các loại dữ liệu</h3>
+<pre><code class="language-mermaid"><div class="mermaid">classDiagram
+    class ECarPartSlot {
+        <<enumeration>>
+        FrontBumper
+        RearBumper
+        SideSkirts
+        Spoiler
+        Hood
+        Exhaust
+        Wheels
+        Engine
+        Gearbox
+        Intake
+        Suspension
+        Brakes
+    }
+
+    class ECarColorSlot {
+        <<enumeration>>
+        Body
+        Wheels
+        Calipers
+        InteriorTrim
+    }
+
+    class ECarPaintMaterialType {
+        <<enumeration>>
+        Solid
+        Matte
+        Metallic
+        Foil
+        CarbonFiber
+    }
+
+    class FPerformanceStats {
+        +float TopSpeed
+        +float Acceleration
+        +float Handling
+        +float Braking
+        +float Weight
+        +float EnginePower
+    }
+
+    class FCarConfiguration {
+        +FName BaseCarID
+        +FName AppliedStyleID
+        +TMap<ECarPartSlot, FName> CustomParts
+        +TMap<ECarColorSlot, FColorInstanceInfo> CustomColors
+        +FName AppliedDecalID
+    }
+
+    class FColorInstanceInfo {
+        +FName ColorID
+        %% Hoặc có thể lưu trực tiếp giá trị màu FLinearColor và loại sơn ECarPaintMaterialType
+        %% nếu không cần quản lý màu theo ID/chi phí:
+        %% +FLinearColor ActualColorValue
+        %% +ECarPaintMaterialType ActualPaintType
+    }
+
+    class FPerformanceModifiers {
+        +float TopSpeedModifier
+        +float AccelerationModifier
+        +float HandlingModifier
+        +float BrakingModifier
+        +float WeightModifier
+        +float EnginePowerModifier
+    }
+
+    class FCarPartDefinition {
+        <<(TableRowBase Struct)>>
+        +FName PartID
+        +FText DisplayName
+        +FText Description
+        +TArray<ECarPartSlot> CompatibleSlots
+        +TSoftObjectPtr<UStaticMesh / USkeletalMesh> AssetReference
+        +FPerformanceModifiers PerformanceModifiers
+        +int32 Cost
+        +TArray<FName> Prerequisites
+    }
+
+    class FCarStyleDefinition {
+        <<(TableRowBase Struct)>>
+        +FName StyleID
+        +FText DisplayName
+        +FText Description
+        +TMap<ECarPartSlot, FName> PartOverrides
+        +int32 Cost
+    }
+
+    class FCarColorDefinition {
+        <<(TableRowBase Struct)>>
+        +FName ColorID
+        +FText DisplayName
+        +FLinearColor ColorValue
+        +ECarPaintMaterialType MaterialType
+        +int32 Cost
+    }
+
+    class FCarDecalDefinition {
+        <<(TableRowBase Struct)>>
+        +FName DecalID
+        +FText DisplayName
+        +TSoftObjectPtr<UTexture2D> TextureReference
+        +int32 Cost
+    }
+
+    class FBaseCarDefinition {
+        <<(TableRowBase Struct)>>
+        +FName CarID
+        +FText DisplayName
+        +TSoftObjectPtr<USkeletalMesh> BaseMesh
+        +TMap<ECarPartSlot, FName> DefaultParts
+        +FPerformanceStats BasePerformanceStats
+    }
+
+    class DT_BaseCars {
+        <<DataTable>>
+        +Rows: FBaseCarDefinition
+    }
+
+    class DT_CarParts {
+        <<DataTable>>
+        +Rows: FCarPartDefinition
+    }
+
+    class DT_CarStyles {
+        <<DataTable>>
+        +Rows: FCarStyleDefinition
+    }
+
+    class DT_CarColors {
+        <<DataTable>>
+        +Rows: FCarColorDefinition
+    }
+
+    class DT_CarDecals {
+        <<DataTable>>
+        +Rows: FCarDecalDefinition
+    }
+
+    FCarConfiguration --> DT_BaseCars : BaseCarID (tham chiếu FBaseCarDefinition.CarID)
+    FCarConfiguration --> DT_CarStyles : AppliedStyleID (tham chiếu FCarStyleDefinition.StyleID)
+    FCarConfiguration --> DT_CarParts : CustomParts (giá trị FName tham chiếu FCarPartDefinition.PartID)
+    FCarConfiguration --> DT_CarColors : CustomColors (giá trị FColorInstanceInfo.ColorID tham chiếu FCarColorDefinition.ColorID)
+    FCarConfiguration --> DT_CarDecals : AppliedDecalID (tham chiếu FCarDecalDefinition.DecalID)
+
+    FBaseCarDefinition --> DT_CarParts : DefaultParts (giá trị FName tham chiếu FCarPartDefinition.PartID)
+    FCarStyleDefinition --> DT_CarParts : PartOverrides (giá trị FName tham chiếu FCarPartDefinition.PartID)
+
+    FCarPartDefinition --> ECarPartSlot : CompatibleSlots (chứa các)
+    FCarColorDefinition --> ECarPaintMaterialType : MaterialType (là một)
+
+    FCarConfiguration *-- FColorInstanceInfo : CustomColors (giá trị trong map là FColorInstanceInfo)
+    FCarPartDefinition *-- FPerformanceModifiers : PerformanceModifiers (bao gồm)
+    FBaseCarDefinition *-- FPerformanceStats : BasePerformanceStats (bao gồm)
+
+    %% Các DataTable chứa các hàng là các struct tương ứng (đã thể hiện qua thuộc tính +Rows: F...Definition)
+    %% DT_BaseCars ..> FBaseCarDefinition : định nghĩa các hàng
+    %% DT_CarParts ..> FCarPartDefinition : định nghĩa các hàng
+    %% DT_CarStyles ..> FCarStyleDefinition : định nghĩa các hàng
+    %% DT_CarColors ..> FCarColorDefinition : định nghĩa các hàng
+    %% DT_CarDecals ..> FCarDecalDefinition : định nghĩa các hàng
+</div></code></pre>
+<h3 id="15-quy-tr%C3%ACnh-ho%E1%BA%A1t-%C4%91%E1%BB%99ng-c%C6%A1-b%E1%BA%A3n">1.5. Quy trình hoạt động cơ bản</h3>
+<ol>
+<li>Người chơi chọn xe (<code>BaseCarID</code>).</li>
+<li>Hệ thống tạo ra một <code>FCarConfiguration</code> mới, có thể lấy thông tin bộ phận mặc định từ <code>DT_BaseCars</code>.</li>
+<li>Người chơi vào màn hình tùy chỉnh.</li>
+<li>Khi chọn một bộ phận (ví dụ: chọn cánh gió &quot;Spoiler_Sport&quot;), hệ thống cập nhật <code>CustomParts</code> trong <code>FCarConfiguration</code>.</li>
+<li>Khi chọn màu (ví dụ: chọn màu &quot;Color_Red_Metallic&quot; cho thân xe), hệ thống cập nhật <code>CustomColors</code>.</li>
+<li>Khi chọn bộ kit (ví dụ: &quot;Style_RacingKit&quot;), hệ thống dùng <code>PartOverrides</code> của bộ kit để cập nhật <code>CustomParts</code>.</li>
+<li><code>FCarConfiguration</code> cuối cùng được lưu lại (xem Phần 4).</li>
+<li>Khi cần hiển thị xe (trong gara, đường đua), hệ thống đọc <code>FCarConfiguration</code>, tìm các <code>PartID</code>, <code>ColorID</code>, <code>DecalID</code> tương ứng trong Data Tables, tải các file mesh/texture/màu sắc liên quan và áp dụng lên mô hình xe gốc. Chỉ số hiệu năng cũng được tính toán lại dựa trên các bộ phận đang gắn.</li>
+</ol>
+<pre><code class="language-mermaid"><div class="mermaid">graph TD
+    A["Người chơi chọn xe gốc"] --> B{"Tạo FCarConfiguration"};
+    B --> C["Người chơi vào màn hình tùy chỉnh"];
+    C --> D{"Chọn Bộ phận/Màu/Decal/Style"};
+    D --> E["Cập nhật FCarConfiguration"];
+    E --> D;
+    E --> F["Lưu FCarConfiguration (Phần 4)"];
+    F --> G["Tải FCarConfiguration khi cần"];
+    G --> H["Hiển thị xe / Tính chỉ số"];
+</div></code></pre>
+<p>Cách tổ chức này giúp hệ thống tùy chỉnh xe linh hoạt và dễ quản lý bằng dữ liệu.</p>
+<hr>
+<h2 id="ph%E1%BA%A7n-2-c%C3%A1ch-t%C3%ADnh-ch%E1%BB%89-s%E1%BB%91-xe-performance-calculation-logic">Phần 2: Cách tính chỉ số xe (Performance Calculation Logic)</h2>
+<h3 id="21-gi%E1%BB%9Bi-thi%E1%BB%87u">2.1. Giới thiệu</h3>
+<p>Các chỉ số hiệu năng (tốc độ, gia tốc,...) của xe dựa trên những gì người chơi đã tùy chỉnh. Sử dụng các thông tin từ Phần 1, đặc biệt là <code>FPerformanceModifiers</code> (chỉ số cộng thêm từ phụ kiện) và <code>BasePerformanceStats</code> (chỉ số gốc của xe).</p>
+<h3 id="22-c%C3%A1c-ch%E1%BB%89-s%E1%BB%91-quan-tr%E1%BB%8Dng">2.2. Các chỉ số quan trọng</h3>
+<p>Theo yêu cầu, các chỉ số chính đề xuất là:</p>
+<ul>
+<li>Tốc độ tối đa (Top Speed)</li>
+<li>Gia tốc (Acceleration)</li>
+<li>Khả năng điều khiển (Handling)</li>
+<li>Lực phanh (Braking)</li>
+<li>Trọng lượng (Weight)</li>
+<li>Sức mạnh động cơ (Engine Power)</li>
+</ul>
+<p>Sẽ dùng một struct (ví dụ: <code>FPerformanceStats</code>) để lưu các giá trị này (dạng số thực - float).</p>
+<h3 id="23-ch%E1%BB%89-s%E1%BB%91-c%E1%BB%99ng-th%C3%AAm-t%E1%BB%AB-ph%E1%BB%A5-ki%E1%BB%87n-performance-modifiers">2.3. Chỉ số cộng thêm từ phụ kiện (Performance Modifiers)</h3>
+<p>Mỗi phụ kiện trong <code>DT_CarParts</code> có một struct <code>FPerformanceModifiers</code> đi kèm, cho biết phụ kiện đó làm thay đổi chỉ số gốc của xe như thế nào.</p>
+<ul>
+<li>
+<p><strong>Struct <code>FPerformanceModifiers</code>:</strong></p>
+<ul>
+<li><code>TopSpeedModifier</code> (float)</li>
+<li><code>AccelerationModifier</code> (float)</li>
+<li><code>HandlingModifier</code> (float)</li>
+<li><code>BrakingModifier</code> (float)</li>
+<li><code>WeightModifier</code> (float)</li>
+<li><code>EnginePowerModifier</code> (float)</li>
+</ul>
+</li>
+<li>
+<p><strong>Cách tính:</strong> Ban đầu, để đơn giản, sẽ <strong>cộng dồn</strong> các giá trị này. Ví dụ, nếu <code>TopSpeedModifier</code> của một phụ kiện là <code>5.0</code>, tốc độ cuối cùng sẽ là <code>Tốc độ gốc + 5.0 + (Tổng TopSpeedModifier từ các phụ kiện khác)</code>. Giá trị âm nghĩa là giảm chỉ số đó.</p>
+</li>
+<li>
+<p><strong>Nâng cấp sau này:</strong> Nếu cần, có thể nâng cấp để hỗ trợ phép nhân hoặc công thức phức tạp hơn.</p>
+</li>
+</ul>
+<h3 id="24-ch%E1%BB%89-s%E1%BB%91-g%E1%BB%91c-c%E1%BB%A7a-xe-base-performance-stats">2.4. Chỉ số gốc của xe (Base Performance Stats)</h3>
+<p>Mỗi loại xe trong <code>DT_BaseCars</code> cần có chỉ số gốc khi chưa độ gì.</p>
+<ul>
+<li><strong>Trong <code>FBaseCarDefinition</code>:</strong> Cần có một trường <code>BasePerformanceStats</code> (kiểu <code>FPerformanceStats</code>) lưu các giá trị ban đầu này.</li>
+</ul>
+<h3 id="25-c%C3%B4ng-th%E1%BB%A9c-t%C3%ADnh-t%E1%BB%95ng-qu%C3%A1t">2.5. Công thức tính tổng quát</h3>
+<p>Để tính chỉ số cuối cùng cho chiếc xe đã độ (<code>FCarConfiguration</code>):</p>
+<ol>
+<li><strong>Lấy chỉ số gốc:</strong> Dựa vào <code>BaseCarID</code> trong <code>FCarConfiguration</code>, tìm thông tin xe trong <code>DT_BaseCars</code> và lấy ra <code>BasePerformanceStats</code>.</li>
+<li><strong>Chuẩn bị biến tổng:</strong> Tạo một biến <code>TotalModifiers</code> (kiểu <code>FPerformanceModifiers</code>) và đặt tất cả giá trị về 0.</li>
+<li><strong>Duyệt qua các phụ kiện đã gắn:</strong> Xem trong <code>CustomParts</code> của <code>FCarConfiguration</code>.</li>
+<li><strong>Lấy thông tin phụ kiện:</strong> Với mỗi <code>PartID</code> tìm được, lấy thông tin chi tiết (<code>FCarPartDefinition</code>) từ <code>DT_CarParts</code>.</li>
+<li><strong>Cộng dồn chỉ số:</strong> Cộng các giá trị trong <code>PerformanceModifiers</code> của phụ kiện đó vào biến <code>TotalModifiers</code>.</li>
+<li><strong>Tính kết quả cuối cùng:</strong> Lấy <code>BasePerformanceStats</code> cộng với <code>TotalModifiers</code> để ra chỉ số cuối cùng (<code>FPerformanceStats</code>).</li>
+</ol>
+<pre><code class="language-mermaid"><div class="mermaid">graph TD
+    A[Bắt đầu với FCarConfiguration] --> B(Lấy BasePerformanceStats từ DT_BaseCars);
+    B --> C{Khởi tạo TotalModifiers = 0};
+    C --> D{Duyệt qua CustomParts};
+    D -- Mỗi PartID --> E(Lấy FCarPartDefinition từ DT_CarParts);
+    E --> F(Lấy PerformanceModifiers của bộ phận);
+    F --> G(Cộng dồn vào TotalModifiers);
+    G --> D;
+    D -- Hết bộ phận --> H(Tính FinalStats = BasePerformanceStats + TotalModifiers);
+    H --> I[Trả về FinalStats];
+</div></code></pre>
+<h3 id="26-x%E1%BB%AD-l%C3%BD-%22styles%22-v%C3%A0-%22performance-packages%22">2.6. Xử lý &quot;Styles&quot; và &quot;Performance Packages&quot;</h3>
+<ul>
+<li><strong>Styles (<code>DT_CarStyles</code>):</strong> Khi áp dụng một Style, nó chỉ định sẵn các bộ phận (<code>PartOverrides</code>). Việc tính chỉ số vẫn dựa trên các bộ phận <em>thực tế</em> đang được gắn, dù là do chọn lẻ hay do áp dụng Style.</li>
+<li><strong>Performance Packages:</strong> Theo sơ đồ, chúng có vẻ là một lựa chọn riêng biệt. Có thể coi chúng như một loại bộ phận đặc biệt trong <code>DT_CarParts</code> (gắn vào một <code>ECarPartSlot</code> riêng như <code>PerformancePackageSlot</code>) và có <code>FPerformanceModifiers</code> lớn. Hoặc chúng có thể là hệ thống riêng, nhưng tích hợp vào <code>DT_CarParts</code> sẽ đơn giản hơn ban đầu.</li>
+</ul>
+<h3 id="27-chia-s%E1%BA%BB-ch%E1%BB%89-s%E1%BB%91-v%E1%BB%9Bi-h%E1%BB%87-th%E1%BB%91ng-kh%C3%A1c">2.7. Chia sẻ chỉ số với hệ thống khác</h3>
+<p>Các hệ thống khác (như vật lý xe, UI) cần lấy được <code>FPerformanceStats</code> cuối cùng. Cách làm:</p>
+<ul>
+<li>Lưu chỉ số đã tính vào một component gắn trên actor xe.</li>
+<li>Dùng interface (ví dụ, qua plugin vật lý) để hỏi chỉ số hiện tại.
+Việc tính toán này nên diễn ra mỗi khi cấu hình xe thay đổi và có thể lưu tạm (cache) để không phải tính lại liên tục khi đang đua.</li>
+</ul>
+<hr>
+<h2 id="ph%E1%BA%A7n-3-qu%E1%BA%A3n-l%C3%BD-assets-v%C3%A0-c%C3%A1ch-li%C3%AAn-k%E1%BA%BFt">Phần 3: Quản lý Assets và cách liên kết</h2>
+<h3 id="31-gi%E1%BB%9Bi-thi%E1%BB%87u">3.1. Giới thiệu</h3>
+<p>Phần này nói về cách quản lý các file asset (mesh 3D, material, texture) và cách liên kết chúng với các tùy chọn trong game. Sẽ dùng các công cụ của Unreal để load asset hiệu quả và giữ cho mọi thứ đơn giản.</p>
+<h3 id="32-c%C3%A1ch-tham-chi%E1%BA%BFu-%C4%91%E1%BA%BFn-asset">3.2. Cách tham chiếu đến asset</h3>
+<ul>
+<li><strong>Soft Object Pointers (<code>TSoftObjectPtr</code>):</strong> Quan trọng! Trong các Data Table (<code>DT_CarParts</code>, <code>DT_CarDecals</code>, <code>DT_BaseCars</code>), thay vì trỏ trực tiếp đến file asset, dùng <code>TSoftObjectPtr</code>. Nó chỉ lưu đường dẫn đến file.
+<ul>
+<li><strong>Lợi ích:</strong> Giúp game không tự động load tất cả các file mesh/texture khi chỉ mới mở Data Table. Asset chỉ được load khi thực sự cần dùng, giúp game khởi động nhanh hơn và đỡ tốn bộ nhớ.</li>
+</ul>
+</li>
+</ul>
+<h3 id="33-s%E1%BA%AFp-x%E1%BA%BFp-th%C6%B0-m%E1%BB%A5c-d%E1%BB%B1-%C3%A1n-%C4%91%E1%BB%81-xu%E1%BA%A5t">3.3. Sắp xếp thư mục dự án (đề xuất)</h3>
+<p>Việc tổ chức thư mục rõ ràng rất quan trọng khi số lượng asset tăng lên. Đây là đề xuất:</p>
+<pre class="hljs"><code><div>Content/
+├── Blueprints/
+│   └── ... (Các Blueprint khác)
+├── Cars/
+│   ├── [TenModelXeA]/
+│   │   ├── Meshes/       (Chứa file mesh .uasset)
+│   │   │   ├── SK_TenModelXeA_Base.uasset
+│   │   │   ├── SM_TenModelXeA_Spoiler_Stock.uasset
+│   │   │   └── ...
+│   │   ├── Materials/    (Chứa file material .uasset)
+│   │   │   ├── MI_TenModelXeA_Body.uasset
+│   │   │   └── ...
+│   │   ├── Textures/     (Chứa file texture .uasset)
+│   │   │   ├── T_TenModelXeA_Decal_Flames.uasset
+│   │   │   └── ...
+│   ├── [TenModelXeB]/
+│   │   └── ...
+│   └── Shared/           (Tài sản dùng chung cho nhiều xe)
+│       ├── Meshes/
+│       ├── Materials/
+│       └── Textures/
+├── Data/
+│   ├── DT_BaseCars.uasset
+│   ├── DT_CarParts.uasset
+│   └── ... (Các Data Table khác)
+└── UI/
+    └── Customization/
+</div></code></pre>
+<ul>
+<li><strong>Nhất quán:</strong> Giúp dễ tìm kiếm và quản lý.</li>
+<li><strong>Đặt tên:</strong> Dùng tiền tố rõ ràng (<code>SK_</code> cho Skeletal Mesh, <code>SM_</code> cho Static Mesh, <code>MI_</code> cho Material Instance, <code>T_</code> cho Texture, <code>DT_</code> cho Data Table).</li>
+</ul>
+<h3 id="34-load-v%C3%A0-%C3%A1p-d%E1%BB%A5ng-asset-khi-ch%E1%BA%A1y-game">3.4. Load và áp dụng asset khi chạy game</h3>
+<h4 id="341-qu%C3%A1-tr%C3%ACnh-load-asset">3.4.1. Quá trình load asset</h4>
+<ul>
+<li><strong>Tải bất đồng bộ:</strong> Khi người chơi chọn một bộ phận/decal, hoặc khi cần hiển thị xe, hệ thống sẽ dùng đường dẫn lưu trong <code>TSoftObjectPtr</code> để tải file tài sản. Quá trình này phải diễn ra <strong>bất đồng bộ</strong>.
+<ul>
+<li><strong>Cách làm:</strong> Dùng <code>StreamableManager</code> (C++) hoặc node <code>Async Load Asset</code> (Blueprints).</li>
+<li><strong>Lợi ích:</strong> Game không bị khựng lại trong lúc chờ tải file. Có thể hiện icon loading trên UI.</li>
+</ul>
+</li>
+</ul>
+<h4 id="342-%C3%A1p-d%E1%BB%A5ng-mesh-m%C3%B4-h%C3%ACnh-3d">3.4.2. Áp dụng mesh (mô hình 3D)</h4>
+<ul>
+<li><strong>Mesh gốc:</strong> Là file <code>SK_</code> (Skeletal Mesh) định nghĩa trong <code>DT_BaseCars</code>.</li>
+<li><strong>Mesh phụ kiện (<code>DT_CarParts</code>):</strong>
+<ul>
+<li>Thường là <code>SM_</code> (Static Mesh) cho cản, cánh gió, bánh xe... Chúng sẽ được gắn vào các điểm gọi là &quot;socket&quot; trên mesh gốc bằng cách tạo ra các <code>UStaticMeshComponent</code>.</li>
+<li>Đôi khi có thể là <code>SK_</code> nếu bộ phận cần có hoạt ảnh riêng.</li>
+<li><strong>Điểm gắn:</strong> <code>FCarPartDefinition</code> có thể thêm trường <code>SocketName</code> (FName) để chỉ định tên socket cần gắn trên mesh gốc.</li>
+</ul>
+</li>
+<li><strong>Quy trình:</strong> Khi xử lý <code>FCarConfiguration</code>:
+<ol>
+<li>Tải mesh gốc của xe.</li>
+<li>Duyệt qua <code>CustomParts</code>.</li>
+<li>Với mỗi <code>PartID</code>, lấy thông tin bộ phận (<code>FCarPartDefinition</code>).</li>
+<li>Tải bất đồng bộ file mesh (<code>AssetReference</code>).</li>
+<li>Khi tải xong: Tạo component (<code>UStaticMeshComponent</code> hoặc <code>USkeletalMeshComponent</code>), gán mesh vừa tải vào, và gắn component này vào đúng socket trên mesh gốc. Nhớ hủy/ẩn component của bộ phận cũ ở cùng vị trí.</li>
+</ol>
+</li>
+</ul>
+<h4 id="343-%C3%A1p-d%E1%BB%A5ng-material-v%C3%A0-m%C3%A0u">3.4.3. Áp dụng material và màu</h4>
+<ul>
+<li><strong>Master Material:</strong> Cần tạo các Master Material gốc linh hoạt (ví dụ: <code>M_CarPaint_Master</code>) có các tham số (parameter) để điều chỉnh màu (Base Color), độ kim loại (Metallic), độ nhám (Roughness),...</li>
+<li><strong>Dynamic Material Instances (DMIs):</strong> Khi chạy game, tạo ra các bản sao của Master Material (gọi là DMI) cho từng khu vực có thể tô màu (Thân xe, Mâm xe...). Mỗi DMI có thể được chỉnh tham số riêng.</li>
+<li><strong>Quy trình:</strong>
+<ol>
+<li>Khi xử lý <code>FCarConfiguration</code>, duyệt qua <code>CustomColors</code>.</li>
+<li>Với mỗi <code>ColorID</code>, lấy thông tin màu (<code>FCarColorDefinition</code>).</li>
+<li>Lấy giá trị màu (<code>ColorValue</code>) và loại sơn (<code>MaterialType</code>).</li>
+<li>Lấy hoặc tạo DMI cho phần mesh tương ứng (ví dụ: slot vật liệu của thân xe).</li>
+<li>Chỉnh các tham số của DMI đó (ví dụ: dùng <code>SetVectorParameterValue</code> để đổi màu).</li>
+</ol>
+</li>
+</ul>
+<h4 id="344-%C3%A1p-d%E1%BB%A5ng-decal-dtcardecals">3.4.4. Áp dụng decal (<code>DT_CarDecals</code>)</h4>
+<ul>
+<li><strong>Cách 1: Dùng Decal Component:</strong>
+<ul>
+<li>Sử dụng <code>UDecalComponent</code> của Unreal.</li>
+<li>Tải bất đồng bộ file texture (<code>TextureReference</code>) từ <code>FCarDecalDefinition</code>.</li>
+<li>Tạo DMI cho một Decal Master Material.</li>
+<li>Gán texture vừa tải vào tham số của DMI đó.</li>
+<li>Gắn <code>UDecalComponent</code> vào xe, chỉnh kích thước và vị trí chiếu.</li>
+</ul>
+</li>
+<li><strong>Cách 2: Dùng Material Layering (Phức tạp hơn):</strong>
+<ul>
+<li>Chỉnh sửa material của thân xe để có thêm một lớp (layer) dành cho decal.</li>
+<li>Dùng tham số texture trong DMI để áp dụng texture decal.</li>
+<li>Yêu cầu thiết lập material phức tạp hơn.</li>
+</ul>
+</li>
+<li><strong>Quy trình:</strong> Khi xử lý <code>FCarConfiguration</code>, tải texture của <code>AppliedDecalID</code> và áp dụng bằng cách đã chọn.</li>
+</ul>
+<h3 id="35-lu%E1%BB%93ng-t%E1%BA%A3i-v%C3%A0-%C3%A1p-d%E1%BB%A5ng">3.5. Luồng tải và áp dụng</h3>
+<ul>
+<li><code>FCarConfiguration</code> (Dữ liệu lưu) -&gt; ID (<code>FName</code>) của Bộ phận, màu, decal, xe gốc.</li>
+<li>ID (<code>FName</code>) -&gt; Hàng trong Data Table (<code>DT_CarParts</code>, <code>DT_CarColors</code>...).</li>
+<li>Data Table -&gt; <code>TSoftObjectPtr</code> (Đường dẫn file).</li>
+<li><code>TSoftObjectPtr</code> -&gt; File asset (<code>.uasset</code>).</li>
+<li>File asset -&gt; Hiển thị trong game qua Components và DMIs.</li>
+</ul>
+<pre><code class="language-mermaid"><div class="mermaid">graph TD
+    A[FCarConfiguration] -- Chứa ID --> B(ID Bộ phận/Màu/Decal/Xe gốc);
+    B -- Tra cứu --> C(Data Table);
+    C -- Chứa --> D(TSoftObjectPtr - Đường dẫn file);
+    D -- Tải bất đồng bộ --> E(File asset);
+    E -- Áp dụng --> F(Hiển thị trong game: Components, DMIs);
+</div></code></pre>
+<p>Cách này đảm bảo dữ liệu điều khiển hình ảnh, tài sản được tải hiệu quả và phù hợp với cách làm việc của Unreal Engine.</p>
+<hr>
+<h2 id="ph%E1%BA%A7n-4-save-v%C3%A0-load-d%E1%BB%AF-li%E1%BB%87u-game-data-persistence-and-saveload-mechanism">Phần 4: Save và Load dữ liệu game (Data Persistence and Save/Load Mechanism)</h2>
+<h3 id="41-m%C3%B4-t%E1%BA%A3">4.1. Mô tả</h3>
+<p>Giải thích cơ chế save và load lại những gì người chơi đã tùy chỉnh cho xe của họ và cách load lại dữ liệu đó khi họ chơi tiếp. Sử dụng hệ thống SaveGame có sẵn của Unreal Engine cho đơn giản và ổn định.</p>
+<h3 id="42-nh%E1%BB%AFng-th%C3%B4ng-tin-c%E1%BA%A7n-l%C6%B0u">4.2. Những thông tin cần lưu</h3>
+<p>Chủ yếu là cấu hình của từng chiếc xe trong gara của người chơi. Cụ thể là các thông tin trong struct <code>FCarConfiguration</code>:</p>
+<ul>
+<li>Các bộ phận đã chọn (<code>CustomParts</code>).</li>
+<li>Màu sắc đã áp dụng (<code>CustomColors</code>).</li>
+<li>Decal đã dán (<code>AppliedDecalID</code>).</li>
+<li>Bộ kit đang dùng (<code>AppliedStyleID</code>).</li>
+<li>Loại xe gốc (<code>BaseCarID</code>).</li>
+<li>Một ID duy nhất cho chiếc xe đó (nếu người chơi có thể sở hữu nhiều chiếc cùng loại).</li>
+</ul>
+<p>Nói cách khác, cần lưu một danh sách các <code>FCarConfiguration</code>.</p>
+<h3 id="43-c%C3%B4ng-c%E1%BB%A5-l%C6%B0u-tr%E1%BB%AF-h%E1%BB%87-th%E1%BB%91ng-savegame-c%E1%BB%A7a-unreal">4.3. Công cụ lưu trữ: hệ thống SaveGame của Unreal</h3>
+<p>Sẽ dùng lớp <code>USaveGame</code>.</p>
+<ul>
+<li><strong>Ưu điểm:</strong> Tự động xử lý việc chuyển đổi dữ liệu thành file (thường là file nhị phân), quản lý đọc/ghi file, hoạt động trên nhiều nền tảng, dễ dùng với C++ và Blueprints.</li>
+<li><strong>Cách làm:</strong> Tạo một lớp mới kế thừa từ <code>USaveGame</code>.</li>
+</ul>
+<h3 id="44-c%E1%BA%A5u-tr%C3%BAc-file-l%C6%B0u">4.4. Cấu trúc file lưu</h3>
+<p>Định nghĩa một lớp <code>USaveGame</code> riêng (ví dụ: <code>UVNRacingSaveGame</code>) để chứa mọi thứ cần lưu.</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Ví dụ Header: RacingSaveGame.h</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> once</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"CoreMinimal.h"</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"GameFramework/SaveGame.h"</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"Data/CarCustomizationData.h"</span> <span class="hljs-comment">// Chứa định nghĩa FCarConfiguration</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"RacingSaveGame.generated.h"</span></span>
+
+UCLASS()
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">YOURPROJECT_API</span> <span class="hljs-title">URacingSaveGame</span> :</span> <span class="hljs-keyword">public</span> USaveGame
+{
+    GENERATED_BODY()
+
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-comment">// Key: ID duy nhất của chiếc xe trong gara (ví dụ: một chuỗi GUID).</span>
+    <span class="hljs-comment">// Value: Cấu hình FCarConfiguration của chiếc xe đó.</span>
+    UPROPERTY(VisibleAnywhere, Category = <span class="hljs-string">"SaveGame | Garage"</span>)
+    TMap&lt;FString, FCarConfiguration&gt; PlayerGarage;
+
+    <span class="hljs-comment">// Dữ liệu người chơi khác</span>
+    UPROPERTY(VisibleAnywhere, Category = <span class="hljs-string">"SaveGame | Player"</span>)
+    int32 PlayerCurrency; <span class="hljs-comment">// Tiền của người chơi</span>
+
+    <span class="hljs-comment">// Có thể lưu thêm ID các phụ kiện/màu đã mở khóa</span>
+    <span class="hljs-comment">// UPROPERTY(VisibleAnywhere, Category = "SaveGame | Unlocks")</span>
+    <span class="hljs-comment">// TSet&lt;FName&gt; UnlockedPartIDs;</span>
+
+    <span class="hljs-comment">// Thông tin về file lưu</span>
+    UPROPERTY(VisibleAnywhere, Category = <span class="hljs-string">"SaveGame | Meta"</span>)
+    FString SaveSlotName; <span class="hljs-comment">// Tên slot lưu (ví dụ: "Slot1")</span>
+
+    UPROPERTY(VisibleAnywhere, Category = <span class="hljs-string">"SaveGame | Meta"</span>)
+    int32 UserIndex; <span class="hljs-comment">// Thường là 0 cho game offline</span>
+
+    UPROPERTY(VisibleAnywhere, Category = <span class="hljs-string">"SaveGame | Meta"</span>)
+    FDateTime SaveTimestamp; <span class="hljs-comment">// Thời gian lưu</span>
+
+    URacingSaveGame();
+};
+</div></code></pre>
+<ul>
+<li><strong><code>PlayerGarage</code>:</strong> Dùng <code>TMap</code> để lưu cấu hình (<code>FCarConfiguration</code>) cho mỗi xe, với key là ID duy nhất của xe đó (<code>FString</code>). ID này cần thiết nếu người chơi có thể có nhiều xe cùng loại.</li>
+<li><strong>Dữ liệu khác:</strong> Thêm các trường khác như tiền (<code>PlayerCurrency</code>), tiến trình game,...</li>
+<li><strong>Thông tin file:</strong> Lưu tên slot, thời gian lưu để quản lý.</li>
+</ul>
+<h3 id="45-quy-tr%C3%ACnh-save-v%C3%A0-load">4.5. Quy trình save và load</h3>
+<p>Dùng các hàm chuẩn của Unreal:</p>
+<ul>
+<li>
+<p><strong>Save game:</strong></p>
+<ol>
+<li>Lấy đối tượng <code>URacingSaveGame</code> hiện tại. Nếu chưa có (lần lưu đầu tiên), tạo mới bằng <code>UGameplayStatics::CreateSaveGameObject</code>. Nếu đã có (đã tải trước đó), dùng cái hiện có.</li>
+<li>Cập nhật <code>PlayerGarage</code> với <code>FCarConfiguration</code> mới nhất của tất cả xe trong gara (dữ liệu này nên được quản lý bởi một hệ thống trung tâm - xem mục 4.6).</li>
+<li>Cập nhật các trường khác như <code>PlayerCurrency</code>, <code>SaveTimestamp</code>.</li>
+<li>Gọi <code>UGameplayStatics::SaveGameToSlot(CurrentSaveGameObject, SlotName, UserIndex);</code>.</li>
+<li>Nên cân nhắc dùng <code>SaveGameToSlotAsync</code> nếu file lưu có thể lớn để tránh làm game bị đứng hình.</li>
+</ol>
+</li>
+<li>
+<p><strong>Load game:</strong></p>
+<ol>
+<li>Kiểm tra file lưu có tồn tại không: <code>UGameplayStatics::DoesSaveGameExist(SlotName, UserIndex);</code>.</li>
+<li>Nếu có, load nó: <code>URacingSaveGame* LoadedGame = Cast&lt;URacingSaveGame&gt;(UGameplayStatics::LoadGameFromSlot(SlotName, UserIndex));</code>.</li>
+<li>Nếu load thành công (<code>LoadedGame</code> hợp lệ), lưu đối tượng này lại (ví dụ: trong Game Instance) để dùng trong suốt phiên chơi.</li>
+<li>Đổ dữ liệu đã load vào các hệ thống trong game (ví dụ: cập nhật số tiền hiển thị, hiện danh sách xe trong gara từ <code>PlayerGarage</code>).</li>
+<li>Nếu không có file lưu hoặc load lỗi, tạo một đối tượng <code>URacingSaveGame</code> mặc định mới.</li>
+</ol>
+</li>
+<li>
+<p><strong>Save slots:</strong> Dùng các <code>SlotName</code> khác nhau (&quot;SaveSlot_0&quot;, &quot;SaveSlot_1&quot;...) để hỗ trợ nhiều file lưu. <code>UserIndex</code> thường là 0.</p>
+</li>
+</ul>
+<p><strong>Lưu đồ save game:</strong></p>
+<pre><code class="language-mermaid"><div class="mermaid">graph TD
+    A[Bắt đầu Save] --> B(Lấy/Tạo đối tượng SaveGame);
+    B --> C(Cập nhật dữ liệu trong SaveGame: Garage, Tiền...);
+    C --> D(Gọi UGameplayStatics::SaveGameToSlot);
+    D --> E[Kết thúc Save];
+</div></code></pre>
+<p><strong>Lưu đồ load game:</strong></p>
+<pre><code class="language-mermaid"><div class="mermaid">graph TD
+    A[Bắt đầu Load] --> B{Kiểm tra SaveGame Exist?};
+    B -- Có --> C(Gọi UGameplayStatics::LoadGameFromSlot);
+    C --> D{Load thành công?};
+    D -- Có --> E(Lưu đối tượng SaveGame đã load);
+    E --> F(Cập nhật hệ thống game từ dữ liệu đã load);
+    F --> G[Kết thúc Load];
+    B -- Không --> H(Tạo đối tượng SaveGame mặc định);
+    H --> G;
+    D -- Không --> H;
+</div></code></pre>
+<h3 id="46-qu%E1%BA%A3n-l%C3%BD-d%E1%BB%AF-li%E1%BB%87u-t%E1%BB%95ng-h%E1%BB%A3p">4.6. Quản lý dữ liệu tổng hợp</h3>
+<ul>
+<li><strong>Data Manager:</strong> Nên có một nơi quản lý tập trung, ví dụ một <code>UGameInstanceSubsystem</code> hoặc một đối tượng singleton, để giữ đối tượng <code>URacingSaveGame</code> đã được load.</li>
+<li><strong>Nhiệm vụ:</strong> Data Manager sẽ:
+<ul>
+<li>Giữ tham chiếu đến <code>URacingSaveGame</code>.</li>
+<li>Cung cấp hàm để get/set tiền.</li>
+<li>Cung cấp hàm để get/set <code>FCarConfiguration</code> của một xe cụ thể theo ID.</li>
+<li>Cung cấp hàm để cập nhật hoặc thêm xe mới vào dữ liệu (để chuẩn bị lưu).</li>
+<li>Thực hiện việc gọi hàm lưu/tải.</li>
+</ul>
+</li>
+<li><strong>Các hệ thống khác truy cập:</strong> UI, actor xem trước, plugin physics... sẽ hỏi DataManager này để lấy dữ liệu <code>FCarConfiguration</code> khi cần. Điều này giúp tách biệt logic lưu/tải khỏi logic sử dụng dữ liệu.</li>
+</ul>
+<hr>
+<h2 id="ph%E1%BA%A7n-5-k%E1%BA%BFt-n%E1%BB%91i-c%C3%A1c-h%E1%BB%87-th%E1%BB%91ng-v%C3%A0-plugin-system-integration-and-plugin-interfaces">Phần 5: Kết nối các hệ thống và plugin (System Integration and Plugin Interfaces)</h2>
+<h3 id="51-m%C3%B4-t%E1%BA%A3">5.1. Mô tả</h3>
+<p>Cách để các hệ thống khác của game như UI, chế độ review, và plugin vật lý/điều khiển xe, ... có thể truy cập và sử dụng dữ liệu xe của người chơi. Định nghĩa các &quot;interface&quot; rõ ràng và cách trao đổi dữ liệu giữa các hệ thống thông qua một hệ thống quản lý dữ liệu chính.</p>
+<h3 id="52-data-manager">5.2. Data Manager</h3>
+<p>Như đã nói ở Phần 4, cần một nơi quản lý dữ liệu tập trung (ví dụ: <code>UGameInstanceSubsystem</code> tên là <code>URacingDataManager</code>). Nhiệm vụ của nó là:</p>
+<ul>
+<li>Giữ dữ liệu <code>URacingSaveGame</code> đã được load.</li>
+<li>Cung cấp thông tin về các tùy chỉnh có sẵn (đọc từ Data Tables).</li>
+<li>Cung cấp thông tin về xe người chơi đã lưu (<code>PlayerGarage</code>).</li>
+<li>Quản lý xe đang được chọn/chỉnh sửa.</li>
+<li>Tính toán chỉ số hiệu năng cuối cùng.</li>
+<li>Xử lý việc lưu/tải game.</li>
+</ul>
+<p>Đây là nguồn thông tin chính xác duy nhất về dữ liệu khi game đang chạy.</p>
+<h3 id="53-interface-icardataprovider---optional">5.3. Interface (<code>ICarDataProvider</code>) - Optional</h3>
+<p>Để các hệ thống không bị phụ thuộc chặt chẽ vào nhau, <code>URacingDataManager</code> nên triển khai một interface C++ (ví dụ: <code>ICarDataProvider</code>). Các hệ thống khác sẽ tương tác với Data Manager qua interface này (lấy thông qua <code>URacingDataManager</code>).</p>
+<p><strong>Ví dụ Interface:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment">// ICarDataProvider.h</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> once</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"UObject/Interface.h"</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"Data/CarCustomizationData.h"</span> <span class="hljs-comment">// Chứa FStructs, Enums</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"ICarDataProvider.generated.h"</span></span>
+
+UINTERFACE(MinimalAPI, Blueprintable)
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UCarDataProvider</span> :</span> <span class="hljs-keyword">public</span> UInterface
+{
+    GENERATED_BODY()
+};
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Racing_API</span> <span class="hljs-title">ICarDataProvider</span>
+{</span>
+    GENERATED_BODY()
+
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-comment">// --- Lấy thông tin các tùy chọn có sẵn --- </span>
+    UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = <span class="hljs-string">"CarDataProvider|Options"</span>)
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">GetBaseCarDefinition</span><span class="hljs-params">(FName CarID, FBaseCarDefinition&amp; OutDef)</span></span>; <span class="hljs-comment">// Lấy thông tin xe gốc</span>
+
+    UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = <span class="hljs-string">"CarDataProvider|Options"</span>)
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">GetPartDefinition</span><span class="hljs-params">(FName PartID, FCarPartDefinition&amp; OutDef)</span></span>; <span class="hljs-comment">// Lấy thông tin phụ kiện</span>
+    
+    UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = <span class="hljs-string">"CarDataProvider|Options"</span>)
+    <span class="hljs-function">TArray&lt;FName&gt; <span class="hljs-title">GetAvailablePartIDsForSlot</span><span class="hljs-params">(ECarPartSlot Slot)</span></span>; <span class="hljs-comment">// Lấy danh sách ID phụ kiện cho vị trí cụ thể</span>
+
+    <span class="hljs-comment">// ... (Các hàm tương tự cho Màu, Decal, Style) ...</span>
+
+    <span class="hljs-comment">// --- Lấy dữ liệu người chơi --- </span>
+    UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = <span class="hljs-string">"CarDataProvider|PlayerData"</span>)
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">GetPlayerCarConfiguration</span><span class="hljs-params">(<span class="hljs-keyword">const</span> FString&amp; CarInstanceID, FCarConfiguration&amp; OutConfig)</span></span>; <span class="hljs-comment">// Lấy cấu hình xe đã lưu</span>
+
+    UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = <span class="hljs-string">"CarDataProvider|PlayerData"</span>)
+    <span class="hljs-function">TMap&lt;FString, FCarConfiguration&gt; <span class="hljs-title">GetAllPlayerCars</span><span class="hljs-params">()</span></span>; <span class="hljs-comment">// Lấy tất cả xe trong gara</span>
+
+    UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = <span class="hljs-string">"CarDataProvider|PlayerData"</span>)
+    <span class="hljs-function">int32 <span class="hljs-title">GetPlayerCurrency</span><span class="hljs-params">()</span></span>; <span class="hljs-comment">// Lấy thông tin tiền của người chơi</span>
+
+    <span class="hljs-comment">// --- Thay đổi dữ liệu người chơi (khi đang chạy) --- </span>
+    UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = <span class="hljs-string">"CarDataProvider|PlayerData"</span>)
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">UpdatePlayerCarConfiguration</span><span class="hljs-params">(<span class="hljs-keyword">const</span> FString&amp; CarInstanceID, <span class="hljs-keyword">const</span> FCarConfiguration&amp; NewConfig)</span></span>; <span class="hljs-comment">// Cập nhật cấu hình xe</span>
+
+    UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = <span class="hljs-string">"CarDataProvider|PlayerData"</span>)
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">AddNewCarToGarage</span><span class="hljs-params">(<span class="hljs-keyword">const</span> FString&amp; NewInstanceID, <span class="hljs-keyword">const</span> FCarConfiguration&amp; Config)</span></span>; <span class="hljs-comment">// Thêm xe mới</span>
+
+    UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = <span class="hljs-string">"CarDataProvider|PlayerData"</span>)
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetPlayerCurrency</span><span class="hljs-params">(int32 NewAmount)</span></span>; <span class="hljs-comment">// Đặt lại tiền</span>
+
+    <span class="hljs-comment">// --- Tính toán hiệu năng --- </span>
+    UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = <span class="hljs-string">"CarDataProvider|Performance"</span>)
+    <span class="hljs-function">FPerformanceStats <span class="hljs-title">CalculatePerformanceStats</span><span class="hljs-params">(<span class="hljs-keyword">const</span> FCarConfiguration&amp; Config)</span></span>; <span class="hljs-comment">// Tính chỉ số từ cấu hình</span>
+
+    UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = <span class="hljs-string">"CarDataProvider|Performance"</span>)
+    <span class="hljs-function">FPerformanceStats <span class="hljs-title">GetCalculatedPerformanceStatsForCar</span><span class="hljs-params">(<span class="hljs-keyword">const</span> FString&amp; CarInstanceID)</span></span>; <span class="hljs-comment">// Lấy chỉ số đã tính của xe</span>
+
+    <span class="hljs-comment">// --- Save/Load --- </span>
+    UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = <span class="hljs-string">"CarDataProvider|SaveLoad"</span>)
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">SaveGameData</span><span class="hljs-params">(<span class="hljs-keyword">const</span> FString&amp; SlotName, int32 UserIndex)</span></span>; <span class="hljs-comment">// Save game</span>
+
+    UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = <span class="hljs-string">"CarDataProvider|SaveLoad"</span>)
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">LoadGameData</span><span class="hljs-params">(<span class="hljs-keyword">const</span> FString&amp; SlotName, int32 UserIndex)</span></span>; <span class="hljs-comment">// Load game</span>
+};
+</div></code></pre>
+<h3 id="54-k%E1%BA%BFt-n%E1%BB%91i-c%C3%A1c-h%E1%BB%87-th%E1%BB%91ng">5.4. Kết nối các hệ thống</h3>
+<h4 id="541-giao-di%E1%BB%87n-ui---umg">5.4.1. Giao diện (UI - UMG)</h4>
+<ul>
+<li><strong>Cần:</strong> Hiện danh sách phụ kiện/màu/decal, hiện lựa chọn hiện tại, cho phép thay đổi, hiện giá tiền, hiện chỉ số xe.</li>
+<li><strong>Cách kết nối:</strong> Các widget UMG gọi các hàm thông qua <code>ICarDataProvider</code> như <code>GetAvailablePartIDsForSlot</code>, <code>GetPartDefinition</code>, <code>GetPlayerCarConfiguration</code>, <code>CalculatePerformanceStats</code>, <code>GetPlayerCurrency</code> để hiển thị thông tin. Khi người chơi chọn gì đó, UI gọi <code>UpdatePlayerCarConfiguration</code> để cập nhật dữ liệu (và có thể kích hoạt cập nhật màn hình preview).</li>
+</ul>
+<h4 id="542-car-review">5.4.2. Car review</h4>
+<ul>
+<li><strong>Cần:</strong> Lấy cấu hình xe đang được chỉnh sửa, tải và gắn các mesh/material/decal tương ứng.</li>
+<li><strong>Cách kết nối:</strong> Actor review (đặt trong màn hình review) lấy <code>ICarDataProvider</code>. Nó gọi <code>GetPlayerCarConfiguration</code> (hoặc hàm <code>GetCurrentlyEditedConfiguration</code> nếu cần) để lấy dữ liệu. Sau đó, dùng logic quản lý asset (Phần 3) để tải và áp dụng mọi thứ. Actor review nên lắng nghe một sự kiện từ <code>URacingDataManager</code> để biết khi nào cần cập nhật lại hình ảnh xe.</li>
+</ul>
+<h4 id="543-plugin-v%E1%BA%ADt-l%C3%BD%C4%91i%E1%BB%81u-khi%E1%BB%83n-xe">5.4.3. Plugin vật lý/Điều khiển Xe</h4>
+<ul>
+<li><strong>Cần:</strong> Lấy chỉ số hiệu năng cuối cùng (<code>FPerformanceStats</code>) của chiếc xe đang dùng để đua.</li>
+<li><strong>Cách kết nối:</strong>
+<ol>
+<li>Khi actor xe được tạo ra cho cuộc đua, nó lấy <code>ICarDataProvider</code>.</li>
+<li>Cần biết ID (<code>CarInstanceID</code>) của chiếc xe đang dùng.</li>
+<li>Gọi <code>GetCalculatedPerformanceStatsForCar(CarInstanceID)</code>.</li>
+<li>Plugin nhận được struct <code>FPerformanceStats</code>.</li>
+<li>Plugin dùng các giá trị trong struct đó (Tốc độ, Gia tốc,...) để điều chỉnh các thông số vật lý bên trong.</li>
+</ol>
+</li>
+<li><strong>Tách biệt:</strong> Plugin chỉ cần biết các chỉ số cuối cùng, không cần quan tâm đến hình ảnh hay cấu trúc <code>FCarConfiguration</code>.</li>
+</ul>
+<h4 id="544-ui-gara--hud">5.4.4. UI Gara / HUD</h4>
+<ul>
+<li><strong>Cần:</strong> Hiện danh sách xe trong gara, có thể hiện tóm tắt chỉ số.</li>
+<li><strong>Cách kết nối:</strong> Tương tự UI Customization, các UI này gọi các hàm của <code>ICarDataProvider</code> như <code>GetAllPlayerCars</code>, <code>GetCalculatedPerformanceStatsForCar</code> để hiển thị.</li>
+</ul>
+<h3 id="55-t%C3%B3m-t%E1%BA%AFt-lu%E1%BB%93ng-d%E1%BB%AF-li%E1%BB%87u">5.5. Tóm tắt luồng dữ liệu</h3>
+<pre><code class="language-mermaid"><div class="mermaid">graph TD
+    A[Tệp SaveGame] <-->|Save/Load| B(Data Manager / ICarDataProvider);
+    B -->|Đọc cấu hình/chi số| C(UI Tùy Chỉnh);
+    B -->|Đọc cấu hình/chi số| D(UI Gara / HUD);
+    B -->|Đọc cấu hình| E(Car Preview Actor);
+    B -->|Đọc chỉ số| F(Physics Plugin);
+
+    C -->|Cập nhật Cấu hình| B;
+    E -->|Load asset| G[(Assets: Meshes, Textures)];
+</div></code></pre>
+<h3 id="56-kh%E1%BA%A3-n%C4%83ng-m%E1%BB%9F-r%E1%BB%99ng">5.6. Khả năng mở rộng</h3>
+<p>Cách dùng interface này giúp hệ thống dễ mở rộng:</p>
+<ul>
+<li><strong>Hệ thống mới:</strong> Nếu có hệ thống mới cần dữ liệu tùy chỉnh, nó chỉ cần lấy <code>ICarDataProvider</code> và gọi hàm.</li>
+<li><strong>Dữ liệu mới:</strong> Thêm chỉ số mới chỉ cần cập nhật struct, Data Table, logic trong Data Manager và có thể thêm hàm mới vào interface.</li>
+<li><strong>Plugin độc lập:</strong> Plugin vật lý không bị ảnh hưởng nếu thay đổi cách hiển thị hình ảnh xe.</li>
+</ul>
+<p>Cách tích hợp này đảm bảo dữ liệu lưu chuyển đúng cách, hiệu quả và giữ cho các thành phần độc lập với nhau.</p>
+<hr>
+<h2 id="ph%E1%BA%A7n-6-m%E1%BB%9F-r%E1%BB%99ng-h%E1%BB%87-th%E1%BB%91ng-scalability-and-extension-points">Phần 6: Mở rộng hệ thống (Scalability and Extension Points)</h2>
+<h3 id="61-gi%E1%BB%9Bi-thi%E1%BB%87u">6.1. Giới thiệu</h3>
+<p>Cách thiết kế hệ thống Customization Car giúp dễ dàng thêm nội dung mới hoặc tính năng mới trong tương lai mà không cần phải viết lại quá nhiều code. Chìa khóa nằm ở việc dùng dữ liệu để định nghĩa (data-driven), chia nhỏ thành các phần độc lập (modular), giao tiếp rõ ràng (clear interfaces) và tách biệt chức năng (separation of concerns).</p>
+<h3 id="62-%C4%91i%E1%BB%83m-m%E1%BA%A1nh-c%E1%BB%A7a-data-tables">6.2. Điểm mạnh của Data Tables</h3>
+<p>Việc dùng nhiều Data Tables (<code>DT_BaseCars</code>, <code>DT_CarParts</code>, <code>DT_CarStyles</code>, <code>DT_CarColors</code>, <code>DT_CarDecals</code>) là yếu tố quan trọng nhất giúp mở rộng nội dung:</p>
+<ul>
+<li><strong>Thêm nội dung mới:</strong> Thường chỉ cần tạo file mesh/texture mới và thêm một hàng mới vào Data Table tương ứng là có xe mới, phụ kiện mới, màu mới, decal mới...</li>
+<li><strong>Chỉnh sửa nội dung:</strong> Muốn đổi giá tiền, thay đổi chỉ số cộng thêm của bộ phận, hay sửa tên hiển thị? Chỉ cần vào Data Table và sửa.</li>
+<li><strong>Ít sửa code:</strong> Việc thêm nội dung chủ yếu là nhập liệu, không phải sửa logic code phức tạp.</li>
+</ul>
+<h3 id="63-c%C3%A1c-tr%C6%B0%E1%BB%9Dng-h%E1%BB%A3p-m%E1%BB%9F-r%E1%BB%99ng-c%E1%BB%A5-th%E1%BB%83">6.3. Các trường hợp mở rộng cụ thể</h3>
+<h4 id="631-th%C3%AAm-xe-m%E1%BB%9Bi">6.3.1. Thêm xe mới</h4>
+<ol>
+<li><strong>Tạo asset:</strong> Làm model 3D (mesh <code>SK_</code>), các phụ kiện mặc định (<code>SM_</code>), material, ... cho xe mới, đặt vào thư mục <code>Content/Cars/[TenModelXeMoi]/...</code>.</li>
+<li><strong>Thêm vào <code>DT_BaseCars</code>:</strong> Tạo một hàng mới.
+<ul>
+<li>Đặt <code>CarID</code> (FName).</li>
+<li>Đặt <code>DisplayName</code>.</li>
+<li>Trỏ <code>BaseMesh</code> đến file <code>SK_</code> của xe.</li>
+<li>Điền <code>DefaultParts</code> (liệt kê ID các phụ kiện mặc định từ <code>DT_CarParts</code>).</li>
+<li>Điền <code>BasePerformanceStats</code> (chỉ số gốc).</li>
+</ul>
+</li>
+<li><strong>Kiểm tra phụ kiện mặc định:</strong> Đảm bảo các ID phụ kiện mặc định đã có trong <code>DT_CarParts</code>.</li>
+<li><strong>(Optional) Phụ kiện riêng:</strong> Nếu xe này có phụ kiện độc quyền, thêm chúng vào <code>DT_CarParts</code>.</li>
+<li><strong>Cập nhật UI:</strong> Chỉnh sửa UI chọn xe để hiển thị xe mới (có thể làm tự động bằng cách đọc <code>DT_BaseCars</code>).</li>
+</ol>
+<h4 id="632-th%C3%AAm-lo%E1%BA%A1i-ph%E1%BB%A5-ki%E1%BB%87n-m%E1%BB%9Bi-v%C3%AD-d%E1%BB%A5-g%C6%B0%C6%A1ng-chi%E1%BA%BFu-h%E1%BA%ADu-h%E1%BB%91c-gi%C3%B3-n%C3%B3c">6.3.2. Thêm loại phụ kiện mới (ví dụ: Gương chiếu hậu, hốc gió nóc)</h4>
+<ol>
+<li><strong>Sửa Enum <code>ECarPartSlot</code> (C++):</strong> Thêm giá trị mới (ví dụ: <code>Mirrors</code>, <code>RoofScoop</code>). Cần sửa code C++ và biên dịch lại.</li>
+<li><strong>Tạo asset:</strong> Làm model 3D (mesh <code>SM_</code>), material, ... cho loại phụ kiện mới (<code>SM_Mirror_Style1</code>, <code>SM_RoofScoop_Carbon</code>).</li>
+<li><strong>Thêm vào <code>DT_CarParts</code>:</strong> Tạo các hàng mới cho các phụ kiện này.
+<ul>
+<li>Đặt <code>PartID</code>, <code>DisplayName</code>, <code>Description</code>.</li>
+<li>Trong <code>CompatibleSlots</code>, thêm giá trị enum mới (ví dụ: <code>ECarPartSlot::Mirrors</code>).</li>
+<li>Trỏ <code>AssetReference</code> đến file mesh.</li>
+<li>Điền <code>PerformanceModifiers</code> và <code>Cost</code>.</li>
+</ul>
+</li>
+<li><strong>Cập nhật xe gốc (<code>DT_BaseCars</code>):</strong> Sửa các row trong bảng xe hiện có để thêm phụ kiện mặc định cho vị trí mới này vào <code>DefaultParts</code>.</li>
+<li><strong>Cập nhật kiểu dáng (<code>DT_CarStyles</code>):</strong> Nếu các bộ kit cần áp dụng cho loại phụ kiện mới, sửa <code>PartOverrides</code> của chúng.</li>
+<li><strong>Cập nhật logic gắn mesh:</strong> Xem lại code gắn mesh (trong actor xem trước) để đảm bảo nó xử lý được <code>ECarPartSlot</code> mới (có thể cần sửa nhẹ).</li>
+<li><strong>Cập nhật UI:</strong> Thêm tab/nút mới trong UI tùy chỉnh để người chơi chọn loại phụ kiện mới này.</li>
+</ol>
+<h4 id="633-th%C3%AAm-t%C3%B9y-ch%E1%BB%8Dn-cho-lo%E1%BA%A1i-ph%E1%BB%A5-ki%E1%BB%87n-hi%E1%BB%87n-c%C3%B3-v%C3%AD-d%E1%BB%A5-th%C3%AAm-c%C3%A1nh-gi%C3%B3-th%E1%BB%A9-3">6.3.3. Thêm tùy chọn cho loại phụ kiện hiện có (ví dụ: Thêm cánh gió thứ 3)</h4>
+<ol>
+<li><strong>Tạo asset:</strong> Làm model 3D cho phụ kiện mới (<code>SM_TenModelXeA_Spoiler_Drag</code>).</li>
+<li><strong>Thêm vào <code>DT_CarParts</code>:</strong> Tạo một hàng mới.
+<ul>
+<li>Đặt <code>PartID</code> duy nhất.</li>
+<li>Đặt <code>DisplayName</code>, <code>Description</code>.</li>
+<li>Đảm bảo <code>CompatibleSlots</code> có <code>ECarPartSlot::Spoiler</code>.</li>
+<li>Trỏ <code>AssetReference</code>.</li>
+<li>Điền <code>PerformanceModifiers</code> và <code>Cost</code>.</li>
+</ul>
+</li>
+<li><strong>Tích Hợp UI:</strong> Nếu UI được làm tốt (tự động đọc danh sách bộ phận cho từng vị trí từ <code>ICarDataProvider</code>), nó sẽ tự hiển thị tùy chọn mới mà không cần sửa code UI.</li>
+</ol>
+<h4 id="634-th%C3%AAm-ch%E1%BB%89-s%E1%BB%91-hi%E1%BB%87u-n%C4%83ng-m%E1%BB%9Bi-v%C3%AD-d%E1%BB%A5-l%E1%BB%B1c-c%E1%BA%A3n-gi%C3%B3">6.3.4. Thêm chỉ số hiệu năng mới (ví dụ: Lực cản gió)</h4>
+<ol>
+<li><strong>Sửa Structs (C++):</strong> Thêm trường mới (ví dụ: <code>AerodynamicDragModifier</code>) vào <code>FPerformanceModifiers</code>. Thêm trường tương ứng (ví dụ: <code>AerodynamicDrag</code>) vào <code>FPerformanceStats</code>. Cần sửa code C++ và biên dịch lại.</li>
+<li><strong>Cập nhật Data Tables:</strong> Sửa các hàng trong <code>DT_CarParts</code> và <code>DT_BaseCars</code> để thêm giá trị cho chỉ số/hệ số mới (hoặc để mặc định là 0).</li>
+<li><strong>Cập nhật logic tính toán:</strong> Sửa hàm <code>CalculatePerformanceStats</code> trong <code>URacingDataManager</code> để tính toán đúng với chỉ số mới.</li>
+<li><strong>Cập nhật interface (optional):</strong> Nếu cần truy cập trực tiếp chỉ số mới, thêm hàm getter vào <code>ICarDataProvider</code>.</li>
+<li><strong>Cập nhật hệ thống sử dụng:</strong> Sửa plugin vật lý và UI để đọc và sử dụng giá trị mới (<code>AerodynamicDrag</code>) từ <code>FPerformanceStats</code>.</li>
+</ol>
+<h3 id="64-c%C3%A1c-%C4%91i%E1%BB%83m-m%E1%BB%9F-r%E1%BB%99ng-kh%C3%A1c">6.4. Các điểm mở rộng khác</h3>
+<ul>
+<li><strong>Màu/loại sơn/decal mới:</strong> Chủ yếu là thêm assets và thêm hàng vào <code>DT_CarColors</code> / <code>DT_CarDecals</code>. Loại sơn mới (<code>ECarPaintMaterialType</code>) cần sửa enum và có thể sửa master material.</li>
+<li><strong>Tương tác bộ phận phụ:</strong> Nếu cần ràng buộc kiểu &quot;bộ phận A chỉ gắn được nếu có bộ phận B&quot;, có thể mở rộng <code>FCarPartDefinition</code> thêm danh sách không tương thích và thêm logic kiểm tra vào <code>URacingDataManager</code>.</li>
+<li><strong>Tích hợp hệ thống mới:</strong> Bất kỳ hệ thống nào cần dữ liệu tùy chỉnh chỉ cần lấy <code>ICarDataProvider</code> và gọi hàm.</li>
+</ul>
+<hr>
+
+</body>
+</html>

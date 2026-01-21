@@ -2,6 +2,9 @@
 phase: design
 title: Racer AI System Architecture
 description: Technical architecture, component design, and data models for intelligent racing AI
+version: 1.0.0
+last_synced: 2026-01-20
+status: Synced with Source Code
 ---
 
 # Racer AI System Architecture - VNRacing
@@ -10,406 +13,425 @@ description: Technical architecture, component design, and data models for intel
 
 **Document**: Racer AI System Architecture
 
-**Version**: 1.0
+**Version**: 1.0.0
 
-**Date**: 2025-11-12
+**Date**: 2026-01-20
 
-**Status**: Complete
+**Status**: ✅ Synced with Source Code
+
+---
+
+## Implementation Status Overview
+
+| Component | Status | Location |
+|-----------|--------|----------|
+| AIManagerSubsystem | ✅ Implemented | `Source/PrototypeRacing/Public/AISystem/AIManagerSubsystem.h` |
+| GuideLineSubsystem | ✅ Implemented | `Plugins/SimpleCarPhysics/Source/SimpleCarPhysics/Public/GuideLineSubsystem.h` |
+| SimulatePhysicsCar AI Functions | ✅ Implemented | `Plugins/SimpleCarPhysics/Source/SimpleCarPhysics/Public/PhysicsSimulateCar/SimulatePhysicsCar.h` |
+| FAIDifficultyProfile | ✅ Implemented | `Source/PrototypeRacing/Public/RaceMode/RaceTrackManager.h` |
+| EAIDifficulty Enum | ✅ Implemented | `Source/PrototypeRacing/Public/RaceMode/RaceTrackManager.h` |
+| RubberBanding Logic | ✅ Implemented | Built into SimulatePhysicsCar |
+| PID Steering Controller | ✅ Implemented | Built into SimulatePhysicsCar |
+| Lane Management | ✅ Implemented | GuideLineSubsystem |
+| AIDecisionComponent | ⏸️ Pending | Planned as separate component |
+| AIOvertakeController | ⏸️ Pending | Planned as separate component |
+| RacingLineManager | ⏸️ Pending | Partially covered by GuideLineSubsystem |
 
 ---
 
 ## Architecture Overview
 
-The Racer AI system is a modular, performance-optimized architecture designed for mobile racing games. It integrates with existing vehicle physics while adding intelligent decision-making, strategic behaviors, and dynamic difficulty adjustment.
+The Racer AI system uses a combination of subsystems and built-in vehicle functions to provide intelligent racing behavior. The current implementation integrates AI logic directly into `SimulatePhysicsCar` with management through `AIManagerSubsystem`.
 
-### High-Level System Architecture
+### High-Level System Architecture (Actual Implementation)
 
 ```mermaid
 graph TB
     subgraph "AI Management Layer"
-        AIMgr[AIManagerSubsystem]
-        RLMgr[RacingLineManager]
-        DiffMgr[DifficultyProfileManager]
+        AIMgr[UAIManagerSubsystem<br/>UGameInstanceSubsystem]
+        CarCustomMgr[UCarCustomizationManager]
     end
 
     subgraph "AI Vehicle Layer"
-        AICar[SimulatePhysicsCar AI]
-        DecisionComp[AIDecisionComponent]
-        OvertakeCtrl[AIOvertakeController]
-        RubberBand[RubberBandingComponent]
+        AICar[ASimulatePhysicsCar<br/>bIsAICar = true]
+        AutoDrive[AutoDrive Function]
+        PIDCtrl[PID Steering Controller]
+        RubberBand[RubberBanding Logic]
     end
 
     subgraph "Navigation Layer"
-        GuideLine[GuideLineSubsystem]
-        MainLine[Main Racing Line]
-        InsideLine[Inside Racing Line]
-        OutsideLine[Outside Racing Line]
+        GuideLine[UGuideLineSubsystem<br/>UWorldSubsystem]
+        RoadGuide[ARoadGuide Actors<br/>Middle/Left/Right]
+        LaneData[FLaneData<br/>Lane Contenders]
     end
 
-    subgraph "Control Layer"
-        PIDCtrl[PID Steering Controller]
-        ThrottleCtrl[Throttle Controller]
-        NOSCtrl[NOS Controller]
+    subgraph "Race Management"
+        RaceTrack[ARaceTrackManager]
+        DiffProfile[FAIDifficultyProfile]
+        AIDistrib[FTrackAIDistribution]
     end
 
     AIMgr -->|Manages| AICar
-    AIMgr -->|Configures Performance| AICar
-    DiffMgr -->|Provides Profile| AICar
-    RLMgr -->|Manages Lines| GuideLine
+    AIMgr -->|Gets Performance| CarCustomMgr
+    AIMgr -->|ConfigAiCarPerformance| AICar
 
-    AICar -->|Has| DecisionComp
-    AICar -->|Has| OvertakeCtrl
-    AICar -->|Has| RubberBand
+    AICar -->|AutoDrive| AutoDrive
+    AutoDrive -->|Queries| GuideLine
+    AutoDrive -->|Uses| PIDCtrl
+    AICar -->|ApplyRubberBandTuning| RubberBand
 
-    DecisionComp -->|Queries| GuideLine
-    DecisionComp -->|Controls| PIDCtrl
-    DecisionComp -->|Controls| ThrottleCtrl
-    DecisionComp -->|Controls| NOSCtrl
+    GuideLine -->|Manages| RoadGuide
+    GuideLine -->|Tracks| LaneData
 
-    OvertakeCtrl -->|Switches| RLMgr
-    RubberBand -->|Adjusts| ThrottleCtrl
-
-    GuideLine -->|Provides| MainLine
-    GuideLine -->|Provides| InsideLine
-    GuideLine -->|Provides| OutsideLine
-
-    PIDCtrl -->|Steers| AICar
-    ThrottleCtrl -->|Accelerates| AICar
-    NOSCtrl -->|Boosts| AICar
+    RaceTrack -->|Assigns| DiffProfile
+    RaceTrack -->|Uses| AIDistrib
 
     style AIMgr fill:#ff6b6b
     style AICar fill:#51cf66
     style GuideLine fill:#339af0
-    style DecisionComp fill:#ffd43b
+    style RaceTrack fill:#ffd43b
 ```
-
-### Key Architectural Principles
-
-1. **Component-Based Design**: AI behaviors are modular components attached to vehicles
-2. **Event-Driven Updates**: Minimize Tick usage, prefer timers and events
-3. **Distance-Based Optimization**: Update frequency scales with distance to player
-4. **Data-Driven Configuration**: All tuning parameters in Data Assets
-5. **Separation of Concerns**: Navigation, decision-making, and control are separate layers
 
 ---
 
-## Component Breakdown
+## Implemented Components
 
-### 1. AIManagerSubsystem (Existing - Enhanced)
+### 1. UAIManagerSubsystem ✅
+
+**Location**: `Source/PrototypeRacing/Public/AISystem/AIManagerSubsystem.h`
+
+**Type**: `UGameInstanceSubsystem`
 
 **Purpose**: Central manager for all AI racers in the game instance
 
-**Responsibilities**:
-- Register/unregister AI vehicles
-- Configure AI performance based on player stats
-- Manage global AI settings (freeze, difficulty distribution)
-- Coordinate rubber banding across all AI
-
-**Key Functions**:
+**Actual Implementation**:
 ```cpp
-class UAIManagerSubsystem : public UGameInstanceSubsystem
+UCLASS()
+class PROTOTYPERACING_API UAIManagerSubsystem : public UGameInstanceSubsystem
 {
+    GENERATED_BODY()
 public:
-    // Existing
-    void RegisterAICar(ASimulatePhysicsCar* AICar);
-    void UnregisterAICar(ASimulatePhysicsCar* AICar);
-    void ConfigAiCarPerformance(ASimulatePhysicsCar* AICar);
-    void SetFreezeAiCar(bool bFreeze);
-
-    // New for V5
-    void AssignDifficultyProfiles(ETrackDifficulty TrackDifficulty);
-    void UpdateRubberBanding(float DeltaTime);
-    FString GenerateAIName(EAIDifficulty Difficulty);
-
-private:
+    // AI car registry
+    UPROPERTY(BlueprintReadWrite, Category="AI Managers Subsystem")
     TArray<ASimulatePhysicsCar*> AICarsManager;
+
+    // Reference to car customization for performance stats
+    UPROPERTY(BlueprintReadWrite, Category="AI Managers Subsystem")
     UCarCustomizationManager* CarCustomizationManager;
-    TMap<EAIDifficulty, TArray<FString>> AINameTables;
+
+    // Performance delta between AI cars
+    UPROPERTY(BlueprintReadWrite, Category="AI Managers Subsystem")
+    float DeltaPerformance = 10.f;
+
+public:
+    virtual void Initialize(FSubsystemCollectionBase& Collection) override;
+    virtual void Deinitialize() override;
+
+    // Register AI car and configure its performance
+    UFUNCTION(BlueprintCallable, Category="AI Managers Subsystem")
+    void RegisterAICar(ASimulatePhysicsCar* AICar);
+
+    // Unregister AI car
+    UFUNCTION(BlueprintCallable, Category="AI Managers Subsystem")
+    void UnregisterAICar(ASimulatePhysicsCar* AICar);
+
+    // Configure AI car performance based on player stats
+    UFUNCTION(BlueprintCallable, Category="AI Managers Subsystem")
+    void ConfigAiCarPerformance(ASimulatePhysicsCar* AICar);
+
+    // Freeze/unfreeze all AI cars
+    UFUNCTION(BlueprintCallable, Category="AI Managers Subsystem")
+    void SetFreezeAiCar(bool bFreeze);
 };
 ```
 
-**Data Flow**:
-- **Input**: Player performance stats, track difficulty
-- **Output**: Configured AI vehicles with difficulty profiles
-- **Updates**: Every frame for rubber banding, on-demand for configuration
+**Key Behaviors**:
+- Initializes with dependency on `UCarCustomizationManager`
+- Configures AI performance based on player's car stats minus delta
+- Each subsequent AI gets progressively lower performance (`DeltaPerformance * AICarsManager.Num()`)
 
 ---
 
-### 2. RacingLineManager (New Component)
+### 2. UGuideLineSubsystem ✅
 
-**Purpose**: Manages multiple racing lines per track and lane assignments
+**Location**: `Plugins/SimpleCarPhysics/Source/SimpleCarPhysics/Public/GuideLineSubsystem.h`
 
-**Responsibilities**:
-- Store references to Main/Inside/Outside racing lines
-- Assign AI to specific lanes to prevent clustering
-- Provide racing line queries for AI navigation
-- Calculate optimal racing line based on situation
+**Type**: `UWorldSubsystem`
 
-**Data Structure**:
+**Purpose**: Manages virtual lanes on the track for AI navigation
+
+**Actual Implementation**:
 ```cpp
-USTRUCT(BlueprintType)
-struct FRacingLineSet
+USTRUCT()
+struct FLaneData
+{
+    GENERATED_BODY()
+    UPROPERTY()
+    TArray<AActor*> LaneContenders;
+};
+
+UCLASS()
+class SIMPLECARPHYSICS_API UGuideLineSubsystem : public UWorldSubsystem
 {
     GENERATED_BODY()
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    USplineComponent* MainLine;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    USplineComponent* InsideLine;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    USplineComponent* OutsideLine;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    float LaneWidth = 400.0f; // cm
-};
-
-class URacingLineManager : public UActorComponent
-{
 public:
-    USplineComponent* GetRacingLine(ERacingLineType LineType);
-    USplineComponent* GetOptimalLineForOvertake(AActor* TargetVehicle);
-    USplineComponent* GetDefensiveLine(AActor* ThreatVehicle);
-    int32 AssignLaneOffset(AActor* Vehicle);
+    virtual void Initialize(FSubsystemCollectionBase& Collection) override;
 
-private:
-    FRacingLineSet RacingLines;
-    TMap<AActor*, int32> LaneAssignments;
+    bool HasMiddleGuideLine() const;
+
+    // Distance queries
+    UFUNCTION(BlueprintCallable)
+    float GetCurrentDistanceAlongSplineAtPosition(const FVector& Location);
+
+    UFUNCTION(BlueprintCallable)
+    float GetMiddleSplineLength();
+
+    // Position and rotation queries
+    UFUNCTION(BlueprintCallable)
+    void GetClosestPositionAndRotation(const FVector& WorldPosition, 
+        FVector& OutPosition, FRotator& OutRotation, int LaneOffset = 0);
+
+    UFUNCTION(BlueprintCallable)
+    FVector GetClosestPosition(const FVector& WorldPosition, int LaneOffset = 0);
+
+    UFUNCTION(BlueprintPure)
+    bool GetClosestRotation(const FVector& WorldPosition, FRotator& OutRotator);
+
+    UFUNCTION(BlueprintPure)
+    bool GetDirection(const FVector& WorldPosition, FVector& OutDirection);
+
+    // Lane management
+    int GetLaneClosestToThisPosition(const FVector& WorldPosition);
+    int GetLaneClosestToThisPositionAndLeastContender(const FVector& WorldPosition);
+    int GetLaneClosestToThisPositionAndLeastContenderForMachine(const FVector& WorldPosition);
+    int GetLaneWithLeastContender();
+    void SwitchToNewLane(AActor* Contender, int LaneSelected);
+    TArray<AActor*> GetContendersInLane(int32 LaneIndex) const;
+    TArray<AActor*> GetAllContenders();
+
+    // Force guide actors
+    void ForceGuideActor(ARoadGuide* NewMiddleGuideActor, 
+        ARoadGuide* InLeftGuideActor, ARoadGuide* InRightGuideActor);
+
+protected:
+    UPROPERTY()
+    TArray<FLaneData> LanesData;
+
+    UPROPERTY()
+    ARoadGuide* MiddleGuideActor;
+
+    UPROPERTY()
+    ARoadGuide* LeftGuideActor;
+
+    UPROPERTY()
+    ARoadGuide* RightGuideActor;
+
+    UPROPERTY()
+    USplineComponent* CurrentGuideLine;
+
+    UPROPERTY()
+    float LaneWidth;
 };
+```
+
+**Key Features**:
+- Requires 3 `ARoadGuide` actors per track (Middle, Left, Right)
+- Automatically calculates lane width from road configuration
+- Tracks lane contenders to prevent clustering
+- Provides lane selection algorithms for AI
+
+---
+
+### 3. ASimulatePhysicsCar AI Functions ✅
+
+**Location**: `Plugins/SimpleCarPhysics/Source/SimpleCarPhysics/Public/PhysicsSimulateCar/SimulatePhysicsCar.h`
+
+**AI-Related Properties**:
+```cpp
+#pragma region AI_Function
+
+public:
+    // AI identification
+    UPROPERTY(EditAnywhere, Blueprintable, BlueprintReadWrite, Category = "SimulateCar|Racer AI")
+    bool bIsAICar = false;
+
+    UPROPERTY(EditAnywhere, Blueprintable, BlueprintReadWrite, Category = "SimulateCar|Racer AI")
+    bool bAutoDrive = true;
+
+    UPROPERTY(EditAnywhere, Blueprintable, BlueprintReadWrite, Category = "SimulateCar|Racer AI")
+    bool bIsSlowDownAtNearlyFinishing = true;
+
+    // Events
+    UPROPERTY(BlueprintAssignable, BlueprintCallable, Category = "SimulateCar|AI Racer")
+    FOnRaceNearlyFinished OnRaceNearlyFinished;
+
+    // Freeze control
+    UPROPERTY(BlueprintReadOnly, Category = "SimulateCar|AI Racer")
+    bool bIsFreeze = false;
+
+    UFUNCTION(BlueprintCallable, Category="SimulateCar")
+    void SetFreeze(bool IsFreeze);
+
+    UFUNCTION(BlueprintCallable, Category="SimulateCar|Racer AI")
+    bool IsFreeze();
+
+    // Performance configuration (Blueprint Implementable)
+    UFUNCTION(BlueprintImplementableEvent, Category="SimulateCar|Racer AI")
+    void SetGamePerformance(float NewTopSpeed, float NewAcceleration, 
+        float NewThrottlePercentUponDriftFast, float NewTurnAngle, 
+        float NewSteerSpeedMin, float NewSteerSpeedMax, 
+        float NewSlowSpeed, float NewFastSpeed, 
+        float NewDriftTurnFastLateralFront, float NewDriftTurnFastLateralRear, 
+        float NewNitroBoostForce, float NewNitroDuration, 
+        float NewNitroFollowFillRate, float NewNitroAirborneFillRate, 
+        float NewNitroDriftFillRate, float NewNitroFullfillDuration);
+
+protected:
+    // Rubber banding configuration
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SimulateCar|AI Racer")
+    bool bIsRubberBandLogging = false;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SimulateCar|AI Racer")
+    bool bIsRubberBandEnable = false;
+
+    UPROPERTY(BlueprintReadWrite, Category = "SimulateCar|AI Racer")
+    ASimulatePhysicsCar* RacingPlayer = nullptr;
+
+    // Distance tracking
+    UPROPERTY(BlueprintReadWrite, Category = "SimulateCar|AI Racer")
+    int32 CurrentSplineLap = 0;
+
+    UPROPERTY(BlueprintReadWrite, Category = "SimulateCar|AI Racer")
+    float PrevSplineDistance = 0.0f;
+
+    // Rubber band distance limits
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SimulateCar|AI Racer")
+    float FronDistanceLimit = 7000.0f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SimulateCar|AI Racer")
+    float BackDistanceLimit = -7000.0f;
+
+    // Default performance values
+    UPROPERTY(BlueprintReadWrite, Category = "SimulateCar|AI Racer")
+    float DefaultMaxSpeed = MaxSpeed;
+
+    UPROPERTY(BlueprintReadWrite, Category = "SimulateCar|AI Racer")
+    float DefaultAcceleration = EngineTorque;
+
+public:
+    UPROPERTY(BlueprintReadWrite, Category = "SimulateCar|AI Racer")
+    float TotalDistance = 0.0f;
+
+protected:
+    // Rubber band timing
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SimulateCar|AI Racer")
+    float TimeToStartRubberBandTuning = 10.0f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SimulateCar|AI Racer")
+    float AIBoostDuration = 4.0f;
+
+    // Performance scaling
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SimulateCar|AI Racer")
+    float MaxScalePerformance = 1.5f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SimulateCar|AI Racer")
+    float MinScalePerformance = 0.5f;
+
+    UPROPERTY(BlueprintReadWrite, Category = "SimulateCar|AI Racer")
+    FTimerHandle StartRubberBandTuningTimer;
+
+    // Path variation
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SimulateCar|AI Racer")
+    float MaxOffset = 0.0f;
+
+    // PID Controller parameters
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SimulateCar|AI Racer")
+    float Kp = 1.0f;  // Proportional gain
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SimulateCar|AI Racer")
+    float Ki = 0.05f; // Integral gain
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SimulateCar|AI Racer")
+    float Kd = 0.1f;  // Derivative gain
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SimulateCar|AI Racer")
+    float PreviousError = 0.0f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SimulateCar|AI Racer")
+    float Integral = 0.0f;
+
+    // PID output limits
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SimulateCar|AI Racer")
+    float UpperLimit = 1.0f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SimulateCar|AI Racer")
+    float LowerLimit = -1.0f;
+
+    // Steering threshold
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SimulateCar|AI Racer")
+    float DistanceThreshold = 20.0f;
+
+    // Slow down rate near finish
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SimulateCar|AI Racer", 
+        meta = (ClampMin = "0.0", ClampMax = "1.0"))
+    float SlowDownRate = 0.8f;
+
+    // Strategy cooldown
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SimulateCar|AI Racer", 
+        meta = (ClampMin = "0.0", ClampMax = "1.0"))
+    float ReconsiderStrategyCooldown = 3.0f;
+
+    // AI Functions
+    UFUNCTION(BlueprintCallable, Category = "SimulateCar|Racer AI")
+    FRotator FindDirectionAI(float SampleDistance);
+
+    UFUNCTION()
+    void ReconsiderRaceStrategy();
+
+    UFUNCTION(BlueprintCallable, Category = "SimulateCar|Racer AI")
+    float CalculatePIDSteering(float Error, float DeltaTime);
+
+    UFUNCTION(BlueprintCallable, Category = "SimulateCar|Racer AI")
+    void AutoDrive(float DeltaTime);
+
+public:
+    UFUNCTION(BlueprintCallable, Category="SimulateCar|Racer AI")
+    void CalculateTotalDistance();
+
+protected:
+    UFUNCTION(BlueprintCallable, Category="SimulateCar|Racer AI")
+    void GetRacingPlayer();
+
+    UFUNCTION(BlueprintCallable, Category="SimulateCar|Racer AI")
+    void ApplyRubberBandTuning();
+
+    UFUNCTION(BlueprintCallable, Category="SimulateCar|Racer AI")
+    void TurnRubberBandTuningOn();
+
+    UFUNCTION(BlueprintCallable, Category="SimulateCar|Racer AI")
+    void AIBoostNitro();
+
+    UFUNCTION(BlueprintCallable, Category="SimulateCar|Racer AI")
+    void AISlowDown();
+
+#pragma endregion AI_Function
 ```
 
 ---
 
-### 3. AIDecisionComponent (New Component)
+### 4. FAIDifficultyProfile ✅
 
-**Purpose**: Implements the AI decision tree and state machine
+**Location**: `Source/PrototypeRacing/Public/RaceMode/RaceTrackManager.h`
 
-**State Machine**:
-```mermaid
-stateDiagram-v2
-    [*] --> NormalDriving
-
-    NormalDriving --> CheckingConditions: Global Cooldown Expired
-    CheckingConditions --> AvoidingObstacle: Obstacle Detected
-    CheckingConditions --> Overtaking: Can Overtake
-    CheckingConditions --> Defending: Being Threatened
-    CheckingConditions --> NormalDriving: No Conditions Met
-
-    AvoidingObstacle --> GlobalCooldown: Obstacle Cleared
-    Overtaking --> GlobalCooldown: Overtake Complete
-    Defending --> GlobalCooldown: Defence Complete
-
-    GlobalCooldown --> NormalDriving: Cooldown Expired
-
-    NormalDriving --> UsingNOS: NOS Available & Straight
-    Overtaking --> UsingNOS: NOS Available
-    UsingNOS --> NormalDriving: NOS Depleted
-```
-
-**Implementation**:
+**Actual Implementation**:
 ```cpp
-UENUM(BlueprintType)
-enum class EAIDecisionState : uint8
-{
-    NormalDriving,
-    CheckingConditions,
-    AvoidingObstacle,
-    Overtaking,
-    Defending,
-    UsingNOS,
-    GlobalCooldown
-};
-
-class UAIDecisionComponent : public UActorComponent
-{
-public:
-    void UpdateDecisionTree(float DeltaTime);
-    bool CanActivateSkill() const;
-    void ActivateSkill(EAISkillType SkillType);
-
-private:
-    EAIDecisionState CurrentState;
-    float GlobalCooldownRemaining;
-    float SkillDuration;
-
-    // Decision checks
-    bool CheckObstacleAhead(float& OutDistance);
-    bool CheckOvertakeOpportunity(AActor*& OutTarget);
-    bool CheckDefenceNeed(AActor*& OutThreat);
-    bool CheckNOSConditions();
-
-    // Probability-based activation
-    bool RollActivationChance(float Probability);
-};
-```
-
----
-
-### 4. AIOvertakeController (New Component)
-
-**Purpose**: Handles overtaking and defensive maneuvers
-
-**Overtake Logic**:
-```cpp
-struct FOvertakeContext
-{
-    AActor* TargetVehicle;
-    float SpeedDifferential;
-    USplineComponent* CurrentLine;
-    USplineComponent* OvertakeLine;
-    float BoostMultiplier = 1.2f;
-    float Duration = 3.0f;
-    int32 RetryCount = 0;
-};
-
-class UAIOvertakeController : public UActorComponent
-{
-public:
-    bool TryInitiateOvertake(AActor* TargetVehicle);
-    void UpdateOvertake(float DeltaTime);
-    void CancelOvertake();
-
-    bool TryInitiateDefence(AActor* ThreatVehicle);
-    void UpdateDefence(float DeltaTime);
-
-private:
-    FOvertakeContext ActiveOvertake;
-    bool bIsOvertaking;
-    bool bIsDefending;
-
-    USplineComponent* SelectOvertakeLine(AActor* Target);
-    USplineComponent* SelectDefenceLine(AActor* Threat);
-};
-```
-
-**Overtake Flow**:
-```mermaid
-sequenceDiagram
-    participant AI as AI Vehicle
-    participant Decision as DecisionComponent
-    participant Overtake as OvertakeController
-    participant RLMgr as RacingLineManager
-
-    AI->>Decision: Update Decision Tree
-    Decision->>Decision: Check Speed > Target Speed
-    Decision->>Overtake: TryInitiateOvertake(Target)
-    Overtake->>Overtake: Roll Probability (20%/50%/80%)
-    alt Success
-        Overtake->>RLMgr: GetOptimalLineForOvertake(Target)
-        RLMgr-->>Overtake: Return Clear Line
-        Overtake->>AI: Switch to Overtake Line
-        Overtake->>AI: Apply 120% Speed Boost
-        Overtake->>Overtake: Start 3s Timer
-        Note over Overtake: Monitor overtake progress
-        alt Overtake Successful
-            Overtake->>Decision: Complete, Start Cooldown
-        else Timeout
-            Overtake->>Overtake: Retry with 2s duration
-        end
-    else Fail
-        Overtake->>Decision: Continue Normal Driving
-    end
-```
-
----
-
-### 5. RubberBandingComponent (Enhanced Existing)
-
-**Purpose**: Dynamic difficulty adjustment based on race position
-
-**Enhanced Features**:
-```cpp
-USTRUCT(BlueprintType)
-struct FRubberBandConfig
-{
-    GENERATED_BODY()
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    float BackDistanceLimit = -7000.0f; // Behind player
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    float FrontDistanceLimit = 7000.0f; // Ahead of player
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    float MinScalePerformance = 0.8f;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    float MaxScalePerformance = 1.3f;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    float DisableTime = 10.0f; // Disable for first 10s
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    float CrashRecoverySpeed = 100.0f; // km/h
-};
-
-class URubberBandingComponent : public UActorComponent
-{
-public:
-    void UpdateRubberBanding(float DeltaTime);
-    void DisableTemporarily(float Duration);
-    bool ShouldApplyRubberBanding() const;
-
-private:
-    FRubberBandConfig Config;
-    float DisableTimer;
-    bool bIsEnabled;
-    ASimulatePhysicsCar* PlayerVehicle;
-
-    float CalculatePerformanceScale(float DistanceToPlayer);
-    void ApplyPerformanceScale(float Scale);
-};
-```
-
-**Rubber Banding Logic**:
-```mermaid
-flowchart TD
-    A[Race Start] --> B[Disable RubberBand<br/>Timer = 10s]
-    B --> C{Timer > 0?}
-    C -->|Yes| D[Decrement Timer<br/>No Scaling]
-    C -->|No| E{AI Crashed?}
-
-    E -->|Yes| F[Speed = 0]
-    F --> G[Disable RubberBand]
-    G --> H{Speed > 100 km/h?}
-    H -->|No| I[Boost Recovery]
-    H -->|Yes| J[Enable RubberBand]
-
-    E -->|No| K{Distance to Player?}
-    K -->|> 7000 Units| L[Far Behind<br/>Max Boost]
-    K -->|< -7000 Units| M[Far Ahead<br/>Min Performance]
-    K -->|Within Range| N[Scale Performance<br/>Based on Distance]
-
-    L --> O[Performance = 130%<br/>Continuous Boost]
-    M --> P[Performance = 80%]
-    N --> Q[Performance = Mapped<br/>80% - 130%]
-
-    J --> K
-    O --> K
-    P --> K
-    Q --> K
-    D --> C
-    I --> H
-
-    style B fill:#ff6b6b
-    style J fill:#51cf66
-    style G fill:#ffd43b
-```
-
----
-
-## Data Models
-
-### Difficulty Profile Structure
-
-```cpp
-UENUM(BlueprintType)
+UENUM(BlueprintType, Blueprintable)
 enum class EAIDifficulty : uint8
 {
-    Easy,    // Rookie
-    Medium,  // Racer
-    Hard     // Pro
+    Easy = 0 UMETA(DisplayName = "Rookie"),
+    Medium = 1 UMETA(DisplayName = "Racer"),
+    Hard = 2 UMETA(DisplayName = "Pro")
 };
 
 USTRUCT(BlueprintType)
@@ -418,10 +440,7 @@ struct FAIDifficultyProfile
     GENERATED_BODY()
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Profile")
-    EAIDifficulty DifficultyLevel;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Profile")
-    FString DisplayName;
+    EAIDifficulty DifficultyLevel = EAIDifficulty::Easy;
 
     // Performance Scaling
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Performance")
@@ -435,7 +454,7 @@ struct FAIDifficultyProfile
     float DefenceProbability = 0.7f; // 0.4 / 0.7 / 0.9
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Skills")
-    float NOSUsageFrequency = 0.5f; // How often to use NOS
+    float NOSUsageFrequency = 0.5f;
 
     // Behavior Tuning
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Behavior")
@@ -446,290 +465,232 @@ struct FAIDifficultyProfile
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Behavior")
     float RacingLineOffset = 200.0f; // Max offset from line (cm)
+
+    FAIDifficultyProfile() = default;
 };
 ```
 
+---
 
+### 5. Track AI Distribution ✅
 
-### Racing Line Offset Calculation
+**Location**: `Source/PrototypeRacing/Public/RaceMode/RaceTrackManager.h`
 
 ```cpp
-// Formula: D = Random[-a, a]
-// Where a = 0.5 * (Distance to nearest racing line)
-
-float CalculateRacingLineOffset(USplineComponent* CurrentLine, URacingLineManager* Manager)
+USTRUCT(BlueprintType)
+struct FTrackAIDistribution
 {
-    float DistanceToNearestLine = Manager->GetDistanceToNearestLine(CurrentLine);
-    float MaxOffset = DistanceToNearestLine * 0.5f;
-    return FMath::RandRange(-MaxOffset, MaxOffset);
-}
+    GENERATED_BODY()
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, 
+        meta = (ClampMin = "0.0", ClampMax = "1.0"))
+    float RookiePercent = 0.f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, 
+        meta = (ClampMin = "0.0", ClampMax = "1.0"))
+    float RacerPercent = 0.f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, 
+        meta = (ClampMin = "0.0", ClampMax = "1.0"))
+    float ProPercent = 0.f;
+};
 ```
 
-### AI Name Generation
+---
+
+### 6. AI Name System ✅
+
+**Location**: `Source/PrototypeRacing/Public/RaceMode/RaceTrackManager.h`
 
 ```cpp
-// Data Table: DT_AINames
 USTRUCT(BlueprintType)
-struct FAINameEntry : public FTableRowBase
+struct FAIName : public FTableRowBase
 {
     GENERATED_BODY()
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    EAIDifficulty Difficulty;
+    EAIDifficulty AIDifficulty = EAIDifficulty::Easy;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    TArray<FString> Names;
-};
+    FText Name = FText();
 
-// Easy AI Names
-TArray<FString> EasyNames = {
-    "Phuoc Razor", "Liam Dash", "Jake Sparks", "Ava Frost", "Ryan Jet",
-    "Ella Blaze", "Leo Flash", "Nora Loop", "Evan Glide", "Sophie Boost"
-};
-
-// Medium AI Names
-TArray<FString> MediumNames = {
-    "Marcus Steel", "Lena Rogue", "Darius Fang", "Ivy Surge", "Noah Vector",
-    "Kira Volt", "Ethan Comet", "Camila Torque", "Jaden Phantom", "Tara Axis"
-};
-
-// Hard AI Names
-TArray<FString> HardNames = {
-    "Rafael Wraith", "Naomi Lynx", "Phu Viper", "Aya Ignis", "Victor Razor",
-    "Son Cyclone", "Damien Reaper", "Lucia Vector", "Owen Thunder", "Hana Zephyr"
+    FAIName() = default;
 };
 ```
 
 ---
 
-## API Design
+## Data Flow
 
-### AIDecisionComponent Interface
+### AI Initialization Flow
 
-```cpp
-// Public API for AI decision-making
-class UAIDecisionComponent : public UActorComponent
-{
-public:
-    // Main update function (called from vehicle Tick or Timer)
-    UFUNCTION(BlueprintCallable, Category = "AI Decision")
-    void UpdateDecisionTree(float DeltaTime);
+```mermaid
+sequenceDiagram
+    participant RaceTrack as ARaceTrackManager
+    participant AIMgr as UAIManagerSubsystem
+    participant CarCustom as UCarCustomizationManager
+    participant AICar as ASimulatePhysicsCar
 
-    // State queries
-    UFUNCTION(BlueprintPure, Category = "AI Decision")
-    EAIDecisionState GetCurrentState() const { return CurrentState; }
-
-    UFUNCTION(BlueprintPure, Category = "AI Decision")
-    bool IsInCooldown() const { return GlobalCooldownRemaining > 0.0f; }
-
-    // Configuration
-    UFUNCTION(BlueprintCallable, Category = "AI Decision")
-    void SetDifficultyProfile(const FAIDifficultyProfile& Profile);
-
-    // Events
-    UPROPERTY(BlueprintAssignable, Category = "AI Decision")
-    FOnStateChanged OnStateChanged;
-
-    UPROPERTY(BlueprintAssignable, Category = "AI Decision")
-    FOnSkillActivated OnSkillActivated;
-};
+    RaceTrack->>AICar: Spawn AI Car
+    AICar->>AIMgr: RegisterAICar(this)
+    AIMgr->>CarCustom: GetCarConfiguration()
+    CarCustom-->>AIMgr: FCarConfiguration
+    AIMgr->>CarCustom: CalculatePerformanceStats()
+    CarCustom-->>AIMgr: FPerformanceStats
+    AIMgr->>AICar: SetArcadeMaxSpeed(TopSpeed - Delta)
+    AIMgr->>AICar: SetEngineTorque(Acceleration - Delta)
 ```
 
-### RacingLineManager Interface
+### AI Driving Loop
 
-```cpp
-class URacingLineManager : public UActorComponent
-{
-public:
-    // Racing line queries
-    UFUNCTION(BlueprintCallable, Category = "Racing Lines")
-    USplineComponent* GetRacingLine(ERacingLineType LineType);
+```mermaid
+sequenceDiagram
+    participant AICar as ASimulatePhysicsCar
+    participant GuideLine as UGuideLineSubsystem
+    participant PID as PID Controller
 
-    UFUNCTION(BlueprintCallable, Category = "Racing Lines")
-    TArray<USplineComponent*> GetAllRacingLines();
+    loop Every Tick (when bAutoDrive)
+        AICar->>AICar: AutoDrive(DeltaTime)
+        AICar->>GuideLine: GetClosestPosition()
+        GuideLine-->>AICar: Target Position
+        AICar->>AICar: FindDirectionAI()
+        AICar->>PID: CalculatePIDSteering(Error, DeltaTime)
+        PID-->>AICar: Steering Value
+        AICar->>AICar: SetSteeringInput()
+        AICar->>AICar: SetThrottleInput()
+    end
+```
 
-    // Lane management
-    UFUNCTION(BlueprintCallable, Category = "Racing Lines")
-    int32 AssignLaneOffset(AActor* Vehicle);
+### Rubber Banding Flow
 
-    UFUNCTION(BlueprintCallable, Category = "Racing Lines")
-    void ReleaseLaneOffset(AActor* Vehicle);
-
-    // Tactical queries
-    UFUNCTION(BlueprintCallable, Category = "Racing Lines")
-    USplineComponent* GetOptimalLineForOvertake(AActor* TargetVehicle);
-
-    UFUNCTION(BlueprintCallable, Category = "Racing Lines")
-    USplineComponent* GetDefensiveLine(AActor* ThreatVehicle);
-
-    UFUNCTION(BlueprintPure, Category = "Racing Lines")
-    float GetDistanceToNearestLine(USplineComponent* CurrentLine);
-};
+```mermaid
+flowchart TD
+    A[Race Start] --> B[Timer: 10s Delay]
+    B --> C{Timer Expired?}
+    C -->|No| D[No Rubber Banding]
+    C -->|Yes| E[TurnRubberBandTuningOn]
+    E --> F[ApplyRubberBandTuning]
+    
+    F --> G{Calculate Distance to Player}
+    G --> H{Distance > FrontDistanceLimit?}
+    H -->|Yes| I[Scale Down Performance<br/>MinScalePerformance]
+    H -->|No| J{Distance < BackDistanceLimit?}
+    J -->|Yes| K[Scale Up Performance<br/>MaxScalePerformance]
+    J -->|No| L[Normal Performance]
+    
+    I --> M[Apply to MaxSpeed & Torque]
+    K --> M
+    L --> M
+    
+    style B fill:#ff6b6b
+    style E fill:#51cf66
 ```
 
 ---
 
-## Design Decisions
+## Pending Components
 
-### 1. Component-Based Architecture
-**Decision**: Use UActorComponent for AI behaviors instead of inheritance
+### 1. AIDecisionComponent ⏸️
 
-**Rationale**:
-- Modular: Easy to add/remove AI capabilities
-- Reusable: Components can be attached to any vehicle
-- Testable: Each component can be tested independently
-- Flexible: Different AI can have different component combinations
+**Status**: Planned but not yet implemented as separate component
 
-**Trade-offs**:
-- Slightly more complex setup (attach components)
-- Small performance overhead (component iteration)
-- **Benefit**: Much easier to maintain and extend
+**Current State**: Decision logic is partially embedded in `AutoDrive()` function
 
-### 2. Event-Driven Decision Updates
-**Decision**: Use timers and events instead of Tick for decision-making
+**Planned Features**:
+- State machine for AI behaviors (Normal, Overtaking, Defending, etc.)
+- Global cooldown management
+- Probability-based skill activation
 
-**Rationale**:
-- Performance: Reduces CPU usage on mobile
-- Scalability: Can handle more AI without frame drops
-- Tunable: Update frequency can be adjusted per AI
+### 2. AIOvertakeController ⏸️
 
-**Implementation**:
-```cpp
-// In BeginPlay
-GetWorld()->GetTimerManager().SetTimer(
-    DecisionUpdateTimer,
-    this,
-    &UAIDecisionComponent::UpdateDecisionTree,
-    0.1f,  // Update every 100ms
-    true   // Loop
-);
-```
+**Status**: Planned but not yet implemented
 
-### 3. Probability-Based Skill Activation
-**Decision**: Use random probability checks for overtake/defence activation
+**Current State**: Basic lane switching exists in `GuideLineSubsystem`
 
-**Rationale**:
-- Variety: AI behavior is less predictable
-- Difficulty Scaling: Easy AI fails more often, Hard AI succeeds more
-- Realistic: Mimics human decision-making uncertainty
+**Planned Features**:
+- Overtake initiation based on speed differential
+- Lane selection for overtaking
+- Temporary speed boost during overtake
 
-**Alternative Considered**: Deterministic activation based on thresholds
-- **Rejected**: Too predictable, players can exploit patterns
+### 3. RacingLineManager ⏸️
 
-### 4. Three Racing Lines Per Track
-**Decision**: Require Main, Inside, Outside lines for each track
+**Status**: Partially covered by `GuideLineSubsystem`
 
-**Rationale**:
-- Strategic Depth: AI can choose different lines for overtaking
-- Visual Variety: Prevents all AI following same path
-- Realistic: Mimics real racing where drivers take different lines
+**Current State**: `GuideLineSubsystem` handles 3 racing lines (Middle, Left, Right)
 
-**Trade-offs**:
-- Content Workload: Level designers must place 3 splines per track
-- **Mitigation**: Create tools for automated line generation
-
-### 5. Distance-Based Rubber Banding
-**Decision**: Scale AI performance based on distance to player
-
-**Rationale**:
-- Balanced Races: Keeps AI competitive without being unfair
-- Player Engagement: Close races are more exciting
-- Adaptive: Works for both skilled and casual players
-
-**Tuning Parameters**:
-- Back Distance Limit: -7000 units (AI far behind)
-- Front Distance Limit: +7000 units (AI far ahead)
-- Scale Range: 80% - 130% performance
+**Planned Enhancements**:
+- Tactical line selection for overtaking
+- Defensive line selection
+- Dynamic lane assignment optimization
 
 ---
 
-## Non-Functional Requirements
+## Configuration Reference
 
-### Scalability Considerations
+### Default AI Parameters
 
-**Distance-Based LOD**:
-```cpp
-float GetAIUpdateFrequency(float DistanceToPlayer)
-{
-    if (DistanceToPlayer < 2000.0f)
-        return 0.05f;  // 20 Hz (close to player)
-    else if (DistanceToPlayer < 5000.0f)
-        return 0.1f;   // 10 Hz (medium distance)
-    else
-        return 0.2f;   // 5 Hz (far from player)
-}
-```
+| Parameter | Default Value | Description |
+|-----------|---------------|-------------|
+| `bIsAICar` | `false` | Identifies vehicle as AI |
+| `bAutoDrive` | `true` | Enables automatic driving |
+| `TimeToStartRubberBandTuning` | `10.0f` | Delay before rubber banding activates |
+| `FronDistanceLimit` | `7000.0f` | Distance ahead to slow down AI |
+| `BackDistanceLimit` | `-7000.0f` | Distance behind to speed up AI |
+| `MaxScalePerformance` | `1.5f` | Maximum performance multiplier |
+| `MinScalePerformance` | `0.5f` | Minimum performance multiplier |
+| `Kp` | `1.0f` | PID proportional gain |
+| `Ki` | `0.05f` | PID integral gain |
+| `Kd` | `0.1f` | PID derivative gain |
+| `SlowDownRate` | `0.8f` | Speed reduction near finish |
 
-### Reliability Requirements
+### Difficulty Profile Defaults
 
-- **Crash Recovery**: AI must recover gracefully from collisions
-- **Stuck Detection**: Detect and resolve AI stuck in geometry
-- **Failsafe**: If decision tree fails, fall back to basic racing line following
-- **Logging**: Log AI decisions for debugging and balancing
+| Difficulty | Performance Scale | Overtake Prob | Defence Prob |
+|------------|-------------------|---------------|--------------|
+| Easy (Rookie) | 0.9 | 0.2 | 0.4 |
+| Medium (Racer) | 1.0 | 0.5 | 0.7 |
+| Hard (Pro) | 1.1 | 0.8 | 0.9 |
 
 ---
 
 ## Integration Points
 
-### Existing Systems Integration
+### With CarCustomizationManager
 
-```mermaid
-graph LR
-    subgraph "New AI Systems"
-        Decision[AIDecisionComponent]
-        Overtake[AIOvertakeController]
-        RLMgr[RacingLineManager]
-    end
+- `AIManagerSubsystem` depends on `CarCustomizationManager`
+- AI performance is calculated relative to player's car stats
+- Uses `CalculatePerformanceStats()` to get baseline values
 
-    subgraph "Existing Systems"
-        SimCar[SimulatePhysicsCar]
-        GuideLine[GuideLineSubsystem]
-        AIMgr[AIManagerSubsystem]
-        CarCustom[CarCustomizationManager]
-    end
+### With RaceTrackManager
 
-    Decision -->|Uses| SimCar
-    Overtake -->|Uses| SimCar
-    RLMgr -->|Extends| GuideLine
+- `FPlayerRaceState` includes `FAIDifficultyProfile` for AI cars
+- `FTrackAIDistribution` defines AI difficulty mix per track
+- `FAIName` DataTable provides names by difficulty
 
-    AIMgr -->|Configures| Decision
-    AIMgr -->|Gets Player Stats| CarCustom
+### With GuideLineSubsystem
 
-    SimCar -->|Queries| GuideLine
-    SimCar -->|Queries| RLMgr
-
-    style Decision fill:#ffd43b
-    style Overtake fill:#ffd43b
-    style RLMgr fill:#ffd43b
-```
-
-### Modified Existing Components
-
-**SimulatePhysicsCar** (Enhanced):
-- Add component references (DecisionComponent, OvertakeController)
-- Expose functions for component access
-- Maintain backward compatibility
-
-**GuideLineSubsystem** (Enhanced):
-- Support multiple racing lines per track
-- Add lane offset management
-- Provide tactical line queries
-
-**AIManagerSubsystem** (Enhanced):
-- Assign difficulty profiles on spawn
-- Generate AI names
-- Coordinate global AI behaviors
+- Requires 3 `ARoadGuide` actors per track
+- Provides lane management for AI navigation
+- Tracks contenders per lane to prevent clustering
 
 ---
 
 ## Summary
 
-This architecture provides:
-- **Modular Design**: Component-based for flexibility
-- **Performance Optimized**: Event-driven, distance-based LOD
-- **Data-Driven**: All tuning in Data Assets
-- **Scalable**: Supports 8+ AI racers on mobile
-- **Maintainable**: Clear separation of concerns
+The Racer AI system is partially implemented with core functionality working:
 
-**Next Steps**: Proceed to Planning phase to break down implementation into tasks and milestones.
+**✅ Implemented**:
+- AI vehicle management via `UAIManagerSubsystem`
+- Lane-based navigation via `UGuideLineSubsystem`
+- PID steering controller in `SimulatePhysicsCar`
+- Rubber banding with distance-based performance scaling
+- Difficulty profiles and track distribution
+- AI name generation system
 
+**⏸️ Pending**:
+- Separate `AIDecisionComponent` for state machine
+- `AIOvertakeController` for tactical overtaking
+- Enhanced `RacingLineManager` for strategic line selection
+- Full implementation of Overtake/Defence behaviors per GDD
+
+**Next Steps**: Implement the pending components as separate `UActorComponent` classes to achieve the full design specified in `Racer_AI_V5.md`.

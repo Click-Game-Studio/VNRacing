@@ -1,0 +1,47 @@
+# VNRacing Documentation Repository
+# Only Docs folder is tracked
+
+# Unreal Engine Project (excluded)
+PrototypeRacing/
+
+# Backup folders
+*_Backup_*/
+Docs_Backup_*/
+
+# IDE and Editor
+.vs/
+.vscode/
+.idea/
+*.suo
+*.user
+*.sln.docstates
+
+# OS Files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+*.bak
+*~
+
+# Kiro specs (optional - keep if you want to track them)
+# .kiro/
+
+# Other project files (excluded)
+*.uproject
+*.sln
+*.csv
+*.txt
+struct.txt
+update-docs-version.ps1
+validation-results.json
+OpenProject_Tasks.csv
+AUGMENT.md
+BRIEF_AI_Agent_Integration.md
+.ai-devkit.json
+.augment/
+.kilocode/

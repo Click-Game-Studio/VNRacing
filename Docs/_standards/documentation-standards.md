@@ -1,14 +1,26 @@
 # Documentation Standards - VNRacing
 
-**Project**: VNRacing - Mobile Racing Game
-
-**Document**: Documentation Standards and Guidelines
-
-**Version**: 1.0 (Template Structure Aligned)
-
-**Date**: 2025-11-12
-
+**Project**: VNRacing - Mobile Racing Game  
+**Document**: Documentation Standards and Guidelines  
+**Version**: 1.0.0  
+**Date**: 2026-01-20  
 **Status**: Official Standard
+
+---
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Documentation Structure Standards](#documentation-structure-standards)
+- [Terminology Standards](#terminology-standards)
+- [Formatting Standards](#formatting-standards)
+- [Visual Standards](#visual-standards)
+- [Version Control Standards](#version-control-standards)
+- [Cross-Reference Standards](#cross-reference-standards)
+- [Quality Assurance Standards](#quality-assurance-standards)
+- [Tools and Resources](#tools-and-resources)
+- [Conclusion](#conclusion)
+- [Related Standards](#related-standards)
 
 ---
 

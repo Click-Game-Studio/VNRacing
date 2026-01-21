@@ -1,10 +1,44 @@
 # Naming Conventions - VNRacing
 
-**Project**: VNRacing - Mobile Racing Game
-**Document**: Naming Conventions Standard
-**Version**: 1.2 (Epic Standards Aligned)
-**Date**: 2025-11-12
+**Project**: VNRacing - Mobile Racing Game  
+**Document**: Naming Conventions Standard  
+**Version**: 1.0.0  
+**Date**: 2026-01-20  
 **Status**: Official Standard - Aligned with Epic C++ Coding Standard
+
+---
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Unreal Engine Asset Naming](#unreal-engine-asset-naming)
+  - [Blueprint Classes](#blueprint-classes)
+  - [Enumerations and Structures](#enumerations-and-structures)
+  - [Materials and Textures](#materials-and-textures)
+  - [Meshes](#meshes)
+  - [Animations](#animations)
+  - [Physics and Collision](#physics-and-collision)
+  - [Particles and VFX](#particles-and-vfx)
+  - [UI/UMG](#uiumg)
+  - [Audio](#audio)
+  - [Data Assets](#data-assets)
+  - [Maps/Levels](#mapslevels)
+  - [Enhanced Input System - UE5](#enhanced-input-system---ue5)
+  - [Gameplay Ability System - Lyra Conventions](#gameplay-ability-system---lyra-conventions)
+  - [Miscellaneous Assets](#miscellaneous-assets)
+- [C++ Naming Conventions](#c-naming-conventions)
+  - [Classes](#classes)
+  - [Variables](#variables)
+  - [Functions](#functions)
+  - [Constants](#constants)
+  - [Template Classes](#template-classes)
+- [File and Folder Naming](#file-and-folder-naming)
+- [Documentation Naming](#documentation-naming)
+- [Vietnamese Cultural Elements](#vietnamese-cultural-elements)
+- [Best Practices](#best-practices)
+- [Compliance Checklist](#compliance-checklist)
+- [Migration Notes (UE4 to UE5)](#migration-notes-ue4-to-ue5)
+- [Conclusion](#conclusion)
 
 ---
 

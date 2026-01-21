@@ -1,10 +1,35 @@
 # Code Standards - VNRacing
 
-**Project**: VNRacing - Mobile Racing Game
-**Document**: Code Quality and Style Standards
-**Version**: 1.2 (Epic Standards Aligned)
-**Date**: 2025-11-12
+**Project**: VNRacing - Mobile Racing Game  
+**Document**: Code Quality and Style Standards  
+**Version**: 1.0.0  
+**Date**: 2026-01-20  
 **Status**: Official Standard - Aligned with Epic C++ Coding Standard
+
+---
+
+## Table of Contents
+
+- [Overview](#overview)
+- [C++ Coding Standards](#c-coding-standards)
+  - [Header File Organization](#header-file-organization)
+  - [Source File Organization](#source-file-organization)
+  - [Naming Conventions](#naming-conventions)
+  - [Forward Declarations](#forward-declarations)
+  - [TObjectPtr - UE5 Feature](#tobjectptrt---ue5-feature)
+  - [Auto Keyword Policy](#auto-keyword-policy)
+  - [Lambda Best Practices](#lambda-best-practices)
+  - [STL Alternatives](#stl-alternatives)
+  - [UPROPERTY Specifiers](#uproperty-specifiers)
+  - [UFUNCTION Specifiers](#ufunction-specifiers)
+  - [Comments and Documentation](#comments-and-documentation)
+  - [Error Handling](#error-handling)
+  - [Memory Management](#memory-management)
+- [Blueprint Standards](#blueprint-standards)
+- [Performance Best Practices](#performance-best-practices)
+- [Mobile Optimization](#mobile-optimization)
+- [Code Review Checklist](#code-review-checklist)
+- [Conclusion](#conclusion)
 
 ---
 

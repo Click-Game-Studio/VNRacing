@@ -6,6 +6,8 @@ description: Define testing approach, test cases, and quality assurance
 
 # Testing Strategy
 
+> **Metadata Standards**: All phase documents must include YAML frontmatter with `phase`, `title`, and `description` fields as shown above. Additionally, include version and date in the document header following the format: **Version**: 1.0.0 | **Date**: YYYY-MM-DD
+
 ## Test Coverage Goals
 **What level of testing do we aim for?**
 

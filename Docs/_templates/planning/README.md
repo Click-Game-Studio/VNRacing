@@ -6,6 +6,8 @@ description: Break down work into actionable tasks and estimate timeline
 
 # Project Planning & Task Breakdown
 
+> **Metadata Standards**: All phase documents must include YAML frontmatter with `phase`, `title`, and `description` fields as shown above. Additionally, include version and date in the document header following the format: **Version**: 1.0.0 | **Date**: YYYY-MM-DD
+
 ## Milestones
 **What are the major checkpoints?**
 
