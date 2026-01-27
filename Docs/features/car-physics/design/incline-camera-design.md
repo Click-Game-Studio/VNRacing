@@ -328,12 +328,12 @@ FVector End = Start - FVector::UpVector * 100.0f; // 1m instead of 2m
 ```
 
 ### Memory Impact
-- Minimal: Only adds ~100 bytes per car (FInclineCameraSettings + state variables)
+- Minimal: Only adds approximately 100 bytes per car (FInclineCameraSettings + state variables)
 - No additional assets loaded
 
 ### CPU Impact
-- Raycast: ~0.05ms per update (10 updates/second)
-- Camera interpolation: ~0.02ms per frame
+- Raycast: approximately 0.05ms per update (10 updates/second)
+- Camera interpolation: approximately 0.02ms per frame
 - Total: <0.1ms per frame
 
 ## Testing Strategy

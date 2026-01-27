@@ -76,7 +76,7 @@ void APlayerVehicle::ServerFireWeapon_Implementation()
         return;
     }
     
-    // Validate cooldown
+    // Validate Cooldown
     float CurrentTime = GetWorld()->GetTimeSeconds();
     if (CurrentTime - LastFireTime < FireCooldown)
     {

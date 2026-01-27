@@ -32,7 +32,7 @@ Docs/
 ├── _standards/          # Code standards, naming conventions, asset organization
 ├── _cross-reference/    # Feature dependencies, API integration, data structures
 ├── _templates/          # Documentation templates for 5-phase development
-└── features/            # 11 feature-specific documentation folders
+└── features/            # 12 feature-specific documentation folders
     ├── car-physics/
     ├── car-customization/
     ├── progression-system/
@@ -43,7 +43,11 @@ Docs/
     ├── multiplayer/
     ├── minimap-system/
     ├── racer-ai/
-    └── tutorials/
+    ├── tutorials/
+    └── ui-ux/               # UI/UX Design System
+        ├── requirements/
+        ├── design/
+        └── implementation/
 ```
 
 ---
@@ -70,9 +74,9 @@ Docs/
 
 ## 📊 Documentation Statistics
 
-- **Total Files**: 187+ markdown files
+- **Total Files**: 190+ markdown files
 - **Foundation Docs**: 20 files (standards, architecture, cross-reference, templates)
-- **Feature Docs**: 167+ files across 11 features
+- **Feature Docs**: 170+ files across 12 features
 - **Version**: 1.0.0
 - **Last Updated**: 2026-01-20
 
@@ -93,6 +97,7 @@ Docs/
 | Minimap System | 🔄 Development | Real-time minimap, entity tracking |
 | Racer AI | 🔄 Development | AI opponents, difficulty scaling |
 | Tutorials | 🔄 Development | Interactive tutorials, tooltips |
+| UI/UX | 📋 Planning | UI/UX Design System |
 
 ---
 
@@ -108,13 +113,14 @@ Docs/
 
 ## 📝 Documentation Standards
 
-All documentation follows a **5-phase development lifecycle**:
+All documentation follows a **5-phase development lifecycle** (with optional 6th phase):
 
 1. **Requirements** - User stories, acceptance criteria
 2. **Design** - Architecture, data models, technical specs
 3. **Planning** - Task breakdown, milestones, estimates
 4. **Implementation** - Code patterns, integration guides
 5. **Testing** - Test strategies, validation procedures
+6. **Deployment** *(optional)* - Feature-specific deployment guides
 
 Each phase document includes:
 - YAML frontmatter with metadata

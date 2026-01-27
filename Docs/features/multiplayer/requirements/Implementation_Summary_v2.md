@@ -105,7 +105,7 @@ Recommended commit:       15 ngày (safe)
 ```
 Total Tasks:              72 tasks
 Total Story Points:       376 points
-Total Estimated Hours:    ~450-500 hours
+Total Estimated Hours:    ≈450-500 hours
 Avg Hours per Developer:  90-100 hours (over 15 days)
 ```
 

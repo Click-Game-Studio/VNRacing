@@ -215,7 +215,7 @@ description: Task breakdown, dependencies, timeline, and risk mitigation for tut
 ## Timeline & Estimates
 
 ### Scenario 1: Sequential Development (1 Developer)
-**Total Duration**: ~23 calendar days
+**Total Duration**: approximately 23 calendar days
 
 | Phase | Duration | Developer-Days | Notes |
 |-------|----------|----------------|-------|
@@ -226,7 +226,7 @@ description: Task breakdown, dependencies, timeline, and risk mitigation for tut
 | **Total** | **23 days** | **23** | Single developer workflow |
 
 ### Scenario 2: Optimized Parallel Development (Recommended)
-**Total Duration**: ~10 calendar days
+**Total Duration**: approximately 10 calendar days
 
 | Phase | Duration | Developer-Days | Team Size | Notes |
 |-------|----------|----------------|-----------|-------|
@@ -237,7 +237,7 @@ description: Task breakdown, dependencies, timeline, and risk mitigation for tut
 | **Total** | **10 days** | **23** | **2 developers** | Optimized parallel workflow |
 
 ### Scenario 3: Aggressive Timeline (Maximum Parallelization)
-**Total Duration**: ~8 calendar days
+**Total Duration**: approximately 8 calendar days
 
 | Phase | Duration | Developer-Days | Team Size | Notes |
 |-------|----------|----------------|-----------|-------|

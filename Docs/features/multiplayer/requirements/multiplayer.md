@@ -88,7 +88,7 @@ Sử dụng `Matchmaker` API của Nakama.
 
 * Control channel (reliable): TCP/QUIC cho lobby/messages.  
 * Gameplay (updates): UDP/QUIC với snapshot/interpolation.  
-* Sử dụng client-side prediction/ server reconciliation/...
+* Sử dụng client-side prediction/ server reconciliation, etc.
 
 ### **3.6 Trong trận: đồng bộ, mạng, và quản lý trạng thái**
 
@@ -121,7 +121,7 @@ Sử dụng `Matchmaker` API của Nakama.
 
 **Thời điểm**: tính toán sau khi trận kết thúc và kết quả đã được xác nhận.
 
-**Thu thập dữ liệu**: kết quả trận, mmr trước trận, ranking, time, skill metrics, report flags,...
+**Thu thập dữ liệu**: kết quả trận, mmr trước trận, ranking, time, skill metrics, report flags, etc.
 
 **Thuật toán**:
 

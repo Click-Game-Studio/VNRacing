@@ -2,10 +2,12 @@
 
 **Breadcrumbs:** [Docs](../README.md) > [Cross-Reference](./) > Data Structure Index
 
-**Project**: VNRacing - Mobile Racing Game  
-**Document**: Comprehensive Data Structure Reference  
-**Version**: 1.0.0 | **Date**: 2026-01-20  
+**Project**: VNRacing - Mobile Racing Game
+**Document**: Comprehensive Data Structure Reference
+**Version**: 1.0.1 | **Date**: 2026-01-26
 **Status**: 🔄 Development
+
+> **Last synced with source code: 2026-01-26**
 
 ## Overview
 
@@ -360,15 +362,16 @@ enum class EShopItemType : uint8
 };
 
 UENUM(BlueprintType)
-enum class ECurrency : uint8
+enum class ECurrencyType : uint8
 {
-    Coins,
-    Gems,
-    RealMoney
+    Cash = 0,
+    Coin = 1
 };
 ```
-**Used By**: Shop System, UI/UX
-**File**: `Source/PrototypeRacing/Public/Shop/ShopItem.h`
+**Used By**: Shop System, UI/UX, Profile System
+**File**: `Source/VNTour/Public/Profile/ProfileManagerSubsystem.h`
+**Note**: `Gems`, `SeasonalTokens`, `RealMoney` are planned but not yet implemented.
+**Last synced with source code**: 2026-01-26
 
 ---
 
@@ -570,15 +573,16 @@ struct FAnalyticsEvent
 UENUM(BlueprintType)
 enum class ERaceMode : uint8
 {
-    TimeTrial,
-    Circuit,
-    Sprint,
-    Elimination,
-    Drift,
-    VNTourCampaign
+    None = 0,
+    Circuit = 1,
+    Sprint = 2,
+    TimeAttack = 3
 };
 ```
 **Used By**: Race Modes, Progression System, UI/UX
+**File**: `Source/PrototypeRacing/Public/Progression/ProgressionData.h`
+**Note**: Elimination, Drift, and VNTourCampaign are planned but not yet in enum.
+**Last synced with source code**: 2026-01-26
 
 ### EGameState
 ```cpp
@@ -609,6 +613,39 @@ enum class EVehicleType : uint8
 };
 ```
 **Used By**: Car Physics, Car Customization, Profiles & Inventory
+
+### EAchievementCategory
+```cpp
+UENUM(BlueprintType)
+enum class EAchievementCategory : uint8
+{
+    None,
+    VNTour,
+    Racing,
+    CarRating,
+    FanService
+};
+```
+**Used By**: Progression System, Achievements
+**File**: `Source/VNTour/Public/Progression/ProgressionData.h`
+**Last synced with source code**: 2026-01-26
+
+### ECarRatingTier
+```cpp
+UENUM(BlueprintType)
+enum class ECarRatingTier : uint8
+{
+    None,
+    Bronze,
+    Silver,
+    Gold,
+    Platinum,
+    Master
+};
+```
+**Used By**: Progression System, Car Rating
+**File**: `Source/VNTour/Public/Progression/ProgressionData.h`
+**Last synced with source code**: 2026-01-26
 
 ---
 
@@ -895,14 +932,15 @@ enum class EMarkerType : uint8
 UENUM(BlueprintType)
 enum class ERaceMode : uint8
 {
-    TimeTrial,
-    Circuit,
-    Sprint,
-    Elimination,
-    Drift,
-    VNTourCampaign
+    None = 0,
+    Circuit = 1,
+    Sprint = 2,
+    TimeAttack = 3
 };
 ```
+**File**: `Source/PrototypeRacing/Public/Progression/ProgressionData.h`
+**Note**: Elimination, Drift, and VNTourCampaign are planned but not yet in enum.
+**Last synced with source code**: 2026-01-26
 
 ### EGameState
 ```cpp
@@ -931,6 +969,37 @@ enum class EVehicleType : uint8
     Motorcycle
 };
 ```
+
+### EAchievementCategory
+```cpp
+UENUM(BlueprintType)
+enum class EAchievementCategory : uint8
+{
+    None,
+    VNTour,
+    Racing,
+    CarRating,
+    FanService
+};
+```
+**File**: `Source/VNTour/Public/Progression/ProgressionData.h`
+**Last synced with source code**: 2026-01-26
+
+### ECarRatingTier
+```cpp
+UENUM(BlueprintType)
+enum class ECarRatingTier : uint8
+{
+    None,
+    Bronze,
+    Silver,
+    Gold,
+    Platinum,
+    Master
+};
+```
+**File**: `Source/VNTour/Public/Progression/ProgressionData.h`
+**Last synced with source code**: 2026-01-26
 
 ---
 

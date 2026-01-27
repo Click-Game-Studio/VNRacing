@@ -239,8 +239,8 @@ ECollisionCase AFakeCarBody::DetermineCollisionCase(const FVector& ImpactDirecti
     float RightDot = FVector::DotProduct(LocalImpact, Right);
 
     // Thresholds
-    const float CornerThreshold = 0.7f; // ~45 degrees
-    const float DirectThreshold = 0.9f; // ~25 degrees (nearly straight)
+    const float CornerThreshold = 0.7f; // approximately 45 degrees
+    const float DirectThreshold = 0.9f; // approximately 25 degrees (nearly straight)
 
     // Check for direct front/back collision first
     if (FMath::Abs(ForwardDot) > DirectThreshold && FMath::Abs(RightDot) < (1.0f - DirectThreshold))
@@ -472,7 +472,7 @@ Responses:
 // No additional overhead beyond physics tick
 void AFakeCarBody::AsyncPhysicsTick(float DeltaTime)
 {
-    SyncWithOwnerCar(); // ~0.01ms
+    SyncWithOwnerCar(); // approximately 0.01 ms
 }
 ```
 
@@ -484,16 +484,16 @@ void AFakeCarBody::AsyncPhysicsTick(float DeltaTime)
 ```
 
 ### Memory Impact
-- Fake body actor: ~500 bytes
+- Fake body actor: approximately 500 bytes
 - Kinematic mesh: Shares mesh asset with player car (no duplication)
-- Overlap box: ~100 bytes
-- **Total**: ~600 bytes per player car
+- Overlap box: approximately 100 bytes
+- **Total**: approximately 600 bytes per player car
 
 ### CPU Impact
-- Synchronization: ~0.01ms per frame
-- Overlap detection: ~0.02ms per overlap event
-- Shake effects: ~0.05ms per shake trigger
-- **Total**: <0.1ms per frame (negligible)
+- Synchronization: approximately 0.01 ms per frame
+- Overlap detection: approximately 0.02 ms per overlap event
+- Shake effects: approximately 0.05 ms per shake trigger
+- **Total**: <0.1 ms per frame (negligible)
 
 ## Testing Strategy
 

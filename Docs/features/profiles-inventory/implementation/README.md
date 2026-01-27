@@ -165,7 +165,7 @@ ProfileManager->UpdateTopSpeed(MaxSpeed);
 
 ### Item Definitions DataTable
 - Row Struct: `FItemDefinition`
-- Columns: `ItemID`, `DisplayName`, `Description`, `ItemType`, `Rarity`, `bIsStackable`, `Icon`, ...
+- Columns: `ItemID`, `DisplayName`, `Description`, `ItemType`, `Rarity`, `bIsStackable`, `Icon`, etc.
 
 ---
 

@@ -2470,7 +2470,7 @@ Output: Automated Test Suite (Jenkins)
 
 ### Critical Path
 **Backend → Core Dev → Integration**  
-Total critical path: ~14-15 days
+Total critical path: approximately 14-15 days
 
 ---
 

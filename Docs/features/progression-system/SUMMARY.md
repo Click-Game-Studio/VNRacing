@@ -69,7 +69,7 @@ HUD Layer (UPrototypeRacingUI + 5 child widget components)
 - ✅ Dependencies & Sequencing (Critical path + parallel tracks)
 - ✅ Risk Assessment (High/Medium risks with mitigation strategies)
 - ✅ Testing Checkpoints (2 weekly checkpoints)
-- ✅ Effort Summary (19 developer-days, ~2 weeks)
+- ✅ Effort Summary (19 developer-days, approximately 2 weeks)
 
 **Task Phases**:
 - **Phase 1**: Foundation & Core Extensions (Week 1) - 6.5 days

@@ -33,7 +33,7 @@ last_updated: 2026-01-20
   - [x] Kinematic fake body implementation (AFakeCarBody exists)
   - [ ] Overlap detection refinement and visual effects
   
-- [x] **Milestone 4: Airborne Mechanics** - PENDING
+- [x] **Milestone 4: Airborne Mechanics** - IN PROGRESS
   - ✅ Ramp boost system (ARampZone implemented)
   - ✅ Air control (FAirControlSettings)
   - ✅ Auto-rotate and landing (FAntiRollInAir)
@@ -47,7 +47,7 @@ last_updated: 2026-01-20
 | Incline Camera | ✅ Done | 100% | AFollowCarCamera, FInclineCameraSettings |
 | Environment Collision | ✅ Done | 100% | FCollisionCorrectionSettings, FWallCollisionData |
 | Car-to-Car Collision | 🔄 In Progress | 70% | AFakeCarBody, AKinematicFakeCarBody |
-| Ramp & Airborne | ⏸️ Pending | 100% | ARampZone, FAirborneState (tạm ngưng) |
+| Ramp & Airborne | ⏸️ In Progress | 100% | ARampZone, FAirborneState (tạm ngưng) |
 
 ## Remaining Tasks: Car-to-Car Collision
 
@@ -128,7 +128,7 @@ float LargeAngleThreshold = 45.0f;
 float OutwardImpulseStrength = 50.0f;
 ```
 
-### Ramp & Airborne (Verified - Pending)
+### Ramp & Airborne (Verified - In Progress)
 
 **ARampZone** (from `RampZone.h/.cpp`):
 ```cpp
@@ -194,7 +194,7 @@ graph TD
 | 1 | Suspension Physics | - | ✅ Done |
 | 2 | Incline Camera | - | ✅ Done |
 | 3 | Environment Collision | - | ✅ Done |
-| 4 | Ramp & Airborne | - | ⏸️ Pending |
+| 4 | Ramp & Airborne | - | ⏸️ In Progress |
 | 5 | Car-to-Car Collision | 3-4 | 🔄 In Progress |
 
 **Remaining**: 3-4 days for Car-to-Car Collision completion

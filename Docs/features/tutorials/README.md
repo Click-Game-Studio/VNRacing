@@ -1,13 +1,13 @@
 # Tutorial System
 
-**Version:** 1.0.0 | **Date:** 2026-01-20 | **Status:** Development
+**Version:** 1.0.1 | **Date:** 2026-01-26 | **Status:** Development
 
 ![Status: Development](https://img.shields.io/badge/Status-Development-blue)
 
 **Breadcrumbs:** [Docs](../../) > [Features](../) > Tutorials
 
-**Feature ID**: `tutorials`  
-**Priority**: High  
+**Feature ID**: `tutorials`
+**Priority**: High
 **Owner**: UX Team
 
 ---
@@ -51,9 +51,9 @@ The Tutorial System provides interactive onboarding for new players and contextu
 | BasicControls1 | Basic Controls 1 | 8 | First race, first curve |
 | BasicControls2 | Basic Controls 2 | 2 | Second race, first drift |
 | VnTourMap | VN Tour Map | 5 | After first race + profile |
-| BasicCarUpgrade | Basic Car Upgrade | TBD | Upgrade available |
-| AdvancedCarUpgrade | Advanced Car Upgrade | TBD | Pending |
-| BasicCarCustomize | Basic Car Customize | TBD | Pending |
+| BasicCarUpgrade | Basic Car Upgrade | [PENDING] | Upgrade available |
+| AdvancedCarUpgrade | Advanced Car Upgrade | [PENDING] | In Progress |
+| BasicCarCustomize | Basic Car Customize | [PENDING] | In Progress |
 
 ### Tooltips (Passive)
 | Type | Message | Auto-Dismiss |
@@ -84,13 +84,25 @@ The Tutorial System provides interactive onboarding for new players and contextu
 
 ## Key Features
 
-- **Slow Motion**: Time dilation (0.3x) during script tutorials
+- **Slow Motion**: Time dilation (0.1x) during script tutorials
 - **Control Locking**: Lock all controls except highlighted one
 - **Screen Masking**: Black overlay on non-interactive areas
-- **Auto-Dismiss**: Panels close after configured duration
+- **Auto-Dismiss**: Panels close after configured duration (default 5s for tooltips)
 - **Object Pooling**: 3 tooltip widgets pre-created
 - **Event-Driven**: No tick-based updates (mobile performance)
 - **Trigger Conditions**: Flexible step completion via UTriggerCondition
+
+## Implementation Status - Planned Features
+
+The following documented features are **not yet implemented** in the source code:
+
+| Feature | Requirement | Status | Notes |
+|---------|-------------|--------|-------|
+| Tutorial Skip Option | REQ-ST-013 | ⏳ Planned | Skip button after 60s inactivity - no skip logic in code |
+| Tutorial Retry Logic | REQ-ST-012 | ⏳ Planned | Re-highlight after 5 failures - no retry counter in code |
+| Crash Recovery | REQ-SYS-007 | ⏳ Planned | Resume tutorial after crash - not implemented |
+
+> **Last synced with source code: 2026-01-26**
 
 ## Control Types
 
@@ -118,4 +130,4 @@ ERacingControlType:
 
 ---
 
-**Last Updated:** 2026-01-20
+**Last Updated:** 2026-01-26

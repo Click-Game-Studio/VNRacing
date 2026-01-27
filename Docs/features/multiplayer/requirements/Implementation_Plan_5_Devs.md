@@ -47,7 +47,7 @@
 3. Core Multiplayer Replication - **3 ngày**
 4. Integration Testing - **4 ngày**
 
-**Total Critical Path**: ~16 ngày
+**Total Critical Path**: approximately 16 ngày
 
 **Parallel Paths** (có thể làm đồng thời):
 - UI Development (có thể bắt đầu sớm với mock data)

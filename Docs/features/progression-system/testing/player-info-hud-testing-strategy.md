@@ -408,13 +408,13 @@ profilegpu
 Title: [Component] Brief description
 Severity: Critical / High / Medium / Low
 Steps to Reproduce:
-1. ...
-2. ...
-Expected Result: ...
-Actual Result: ...
-Screenshots/Logs: ...
+1. [Step description]
+2. [Step description]
+Expected Result: [Expected behavior]
+Actual Result: [Actual behavior]
+Screenshots/Logs: [Attach relevant files]
 Device: Samsung Galaxy S21 / iPhone 12
-Build Version: ...
+Build Version: [Version number]
 ```
 
 **Example**:

@@ -1,7 +1,38 @@
 # Documentation Changelog - VNRacing
 
-**Current Version**: 1.0.0  
-**Last Updated**: 2026-01-20
+**Current Version**: 1.1.0
+**Last Updated**: 2026-01-26
+
+---
+
+## [1.1.0] - 2026-01-26
+
+### Added
+- **UI/UX Feature Documentation** (`Docs/features/ui-ux/`)
+  - Created consolidated UI documentation folder
+  - Added README.md with widget hierarchy and component details
+  - Added design/, implementation/, requirements/ subfolders
+
+### Changed
+- **Source Code ↔ Documentation Synchronization**
+  - Synchronized all 12 features with PrototypeRacing source code
+  - Updated 21 documentation files across all features
+  - Fixed critical parameter mismatches (car-physics BoostForce, etc.)
+  - Aligned enum definitions with actual code (ERaceMode, ECurrencyType, etc.)
+  - Marked unimplemented features as "Planned" in relevant docs
+
+### Fixed
+- **car-physics**: BoostForce (50000→800), YawStrength (1000→4), MaxPitchAngle (90→60)
+- **racer-ai**: Added missing parameters (NOSUsageFrequency, ReactionTime, SteeringPrecision)
+- **multiplayer**: Fixed class naming (UMatchmakingSubsystem→UMatchServiceSubsystem)
+- **profiles-inventory**: Fixed validation rules (3-20→4-16 chars)
+- **race-modes**: Fixed ERaceMode enum values
+- **setting-system**: Fixed volume defaults (80%→100%)
+
+### Documentation
+- Updated `Docs/_cross-reference/data-structure-index.md` with correct enums
+- Created `Docs/_reports/source-documentation-sync-report.md` with full sync status
+- All 12 features now at 100% documentation sync rate
 
 ---
 
@@ -32,7 +63,7 @@ Complete documentation for VNRacing mobile racing game, covering all 11 features
 | race-modes | 🔄 Development | 15 | Time Attack, Circuit, Sprint, Elimination modes |
 | multiplayer | ⏸️ Pending | 21 | Nakama matchmaking, Edgegap servers, leaderboards |
 | minimap-system | 🔄 Development | 14 | Real-time minimap, entity tracking, path drawing |
-| racer-ai | 🔄 Development | 13 | AI opponents, difficulty scaling, rubber-banding |
+| racer-ai | 🔄 Development | 13 | AI opponents, difficulty scaling, Rubber Banding |
 | tutorials | 🔄 Development | 12 | Interactive tutorials, tooltips, control locking |
 
 ### Key Features
@@ -62,7 +93,7 @@ Complete documentation for VNRacing mobile racing game, covering all 11 features
 - **Foundation Files**: 20 files
 - **Feature Files**: 167+ files across 11 features
 - **Version Consistency**: 100% (all files v1.0.0, 2026-01-20)
-- **Status Consistency**: All features marked as Development or Pending
+- **Status Consistency**: All features marked as 🔄 Development or ⏸️ Pending
 
 ### Technology Stack
 
@@ -104,7 +135,7 @@ For team members:
 All documentation has been verified for:
 - ✅ Version consistency (1.0.0)
 - ✅ Date consistency (2026-01-20)
-- ✅ Status accuracy (Development/Pending)
+- ✅ Status accuracy (🔄 Development/⏸️ Pending)
 - ✅ Source code alignment
 - ✅ Cross-reference accuracy
 - ✅ Mermaid diagram validity

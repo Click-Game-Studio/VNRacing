@@ -18,12 +18,14 @@ The Race Modes feature provides diverse racing experiences for PrototypeRacing, 
 
 ### Key Capabilities
 
-- **Time Attack**: Solo racing against the clock with ghost cars
-- **Circuit Race**: Multi-lap races with AI or multiplayer opponents
-- **Sprint Race**: Point-to-point races through city streets
-- **Elimination**: Last-place elimination each lap
-- **Drift Challenge**: Score-based drifting competitions
-- **Daily/Weekly Events**: Rotating special challenges
+- **TimeAttack**: ✅ Implemented - Solo racing against the clock with ghost cars
+- **Circuit**: ✅ Implemented (basic) - Multi-lap races with AI or multiplayer opponents
+- **Sprint**: ✅ Implemented (basic) - Point-to-point races through city streets
+- **Elimination**: ⏳ Planned (not in enum) - Last-place elimination each lap
+- **Drift Challenge**: ⏳ Planned (not in enum) - Score-based drifting competitions
+- **Daily/Weekly Events**: ⏳ Planned - Rotating special challenges
+
+> **ERaceMode Enum Status** (synced 2026-01-26): `None=0, Circuit=1, Sprint=2, TimeAttack=3`
 
 ---
 
@@ -51,9 +53,9 @@ race-modes/
 
 ## Race Modes
 
-### 1. Time Attack ✅
+### 1. TimeAttack ✅
 
-**Status**: Production  
+**Status**: Implemented (ERaceMode::TimeAttack = 3)
 **Description**: Solo racing against the clock with ghost car replays
 
 **Rules**:
@@ -75,9 +77,9 @@ race-modes/
 
 ---
 
-### 2. Circuit Race 🔄
+### 2. Circuit Race ✅
 
-**Status**: In Development  
+**Status**: Implemented (basic) (ERaceMode::Circuit = 1)
 **Description**: Traditional multi-lap races with opponents
 
 **Rules**:
@@ -104,9 +106,9 @@ race-modes/
 
 ---
 
-### 3. Sprint Race ⏳
+### 3. Sprint Race ✅
 
-**Status**: Planned  
+**Status**: Implemented (basic) (ERaceMode::Sprint = 2)
 **Description**: Point-to-point races through city streets
 
 **Rules**:
@@ -131,7 +133,7 @@ race-modes/
 
 ### 4. Elimination ⏳
 
-**Status**: Planned  
+**Status**: Planned (not yet in ERaceMode enum)
 **Description**: Last-place racer eliminated each lap
 
 **Rules**:
@@ -159,7 +161,7 @@ race-modes/
 
 ### 5. Drift Challenge ⏳
 
-**Status**: Planned  
+**Status**: Planned (not yet in ERaceMode enum)
 **Description**: Score-based drifting competitions
 
 **Rules**:
@@ -367,5 +369,6 @@ int32 CalculateCoins(ERaceMode Mode, int32 Position, int32 Stars)
 
 ---
 
-**Last Updated:** 2026-01-20
+**Last Updated:** 2026-01-26
+**Last synced with source code:** 2026-01-26
 
