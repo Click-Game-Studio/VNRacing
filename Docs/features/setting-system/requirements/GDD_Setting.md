@@ -23,11 +23,11 @@ GDD Mô tả các tùy chọn Setting của Game.
 | 2 | Wheel Drive | Controls | Active chế độ lái dùng Vô lăng | Toggle |  | Not Active |
 | 3 | Tilt To Steer | Controls | Active chế độ lái dùng Gyroscope (Motion Sensing) | Toggle |  | Not Active |
 | 4 | Hold to Drift | Controls | Chọn giữa việc Hold hoặc Tap để Drift | Yes/No | Yes: Giữ nút Drift để Drift, nhả để Cancel Drift No: Tap một lần để Drift, Tap lần nữa để Cancel Drift | No |
-| 5 | General | Sounds\&Musics | Kéo hết Volume tổng | Slider | 0-100 (Bậc 10\) | 80 |
-| 6 | Engine | Sounds\&Musics | Kéo Volume của động cơ xe. | Slider | 0-100 (Bậc 10\) | 80 |
-| 7 | Musics | Sounds\&Musics | Kéo Volume của Nhạc nền. | Slider | 0-100 (Bậc 10\) | 80 |
-| 8 | SFX | Sounds\&Musics | Kéo Volume của SFX trong game (Va chạm, NOS, Drift, v.v) | Slider | 0-100 (Bậc 10\) | 80 |
-| 9 | UI SFX | Sounds\&Musics | Kéo Volume của hệ thống Sound Effects ( UI) | Slider | 0-100 (Bậc 10\) | 80 |
+| 5 | General | Sounds\&Musics | Kéo hết Volume tổng | Slider | 0-100 (Bậc 10\) | 100 |
+| 6 | Engine | Sounds\&Musics | Kéo Volume của động cơ xe. | Slider | 0-100 (Bậc 10\) | 100 |
+| 7 | Musics | Sounds\&Musics | Kéo Volume của Nhạc nền. | Slider | 0-100 (Bậc 10\) | 100 |
+| 8 | SFX | Sounds\&Musics | Kéo Volume của SFX trong game (Va chạm, NOS, Drift, v.v) | Slider | 0-100 (Bậc 10\) | 100 |
+| 9 | UI SFX | Sounds\&Musics | Kéo Volume của hệ thống Sound Effects ( UI) | Slider | 0-100 (Bậc 10\) | 100 | ⏳ Planned |
 | 10 | Camera View | Display | Thay đổi các góc nhìn Camera | Multiple Choices | Default , Far, Near | Default |
 | 11 | Speed Unit | Display | Đổi đơn vị đo của đồng hồ số | Multiple Choices | KM/h, MP/h | KM/h |
 | 12 | Graphic Profiles | Graphic | Thay đổi hàng loạt các chỉ số Graphic theo Profiles | Multiple Choices | Performance, Balance, High, Ultra | Balance |
@@ -35,7 +35,7 @@ GDD Mô tả các tùy chọn Setting của Game.
 | 14 | Textures | Graphic | Tùy chọn chất lượng Texture | Multiple Choices | Low, Medium, High, Cinematic | Medium |
 | 15 | Bloom | Graphic | Tùy chọn bật tắt hiệu ứng Bloom | Yes/No | On/Off | On |
 | 16 | Motion Blur | Graphic | Tùy chọn bật tắt Motion Blur | Yes/No | On/Off | On |
-| 17 | Depth of Field | Graphic | Tùy chọn bật tắt Depth of Field | Yes/No | On/Off | On |
+| 17 | Depth of Field | Graphic | Tùy chọn bật tắt Depth of Field | Yes/No | On/Off | On | ⏳ Planned |
 | 18 | Anti \- Aliasing | Graphic | Thay đổi chất lượng khử răng cưa | Multiple Choices | Low, Medium, High, Cinematic | Medium |
 | 19 | Volumetric Lighting | Graphic | Thay đổi chất lượng ánh sáng | Multiple Choices | Low, Medium, High, Cinematic | Medium |
 | 20 | Shadow Resolutions | Graphic | Thay đổi chất lượng Shadow | Multiple Choices | Low, Medium, High, Cinematic | Medium |
@@ -44,4 +44,25 @@ GDD Mô tả các tùy chọn Setting của Game.
 | 23 | Chinese | Language | Đổi tùy chọn ngôn ngữ của Game sang Tiếng Trung | Toggle |  | Not Active |
 | 24 | Japanese | Language | Đổi tùy chọn ngôn ngữ của Game sang Tiếng Nhật | Toggle |  | Not Active |
 | 25 |  |  |  |  |  |  |
+
+---
+
+## Implementation Status
+
+**Last synced with source code: 2026-01-26**
+
+### Status Legend
+| Symbol | Meaning |
+|--------|---------|
+| ✅ | Implemented in code |
+| ⏳ Planned | Documented but not yet implemented in code |
+
+### Planned Features (Not Yet in Code)
+| # | Feature | Notes |
+|---|---------|-------|
+| 9 | UI SFX Volume | Separate volume control for UI sound effects - not yet in CarSettingSubsystem |
+| 17 | Depth of Field | Toggle for depth of field effect - not yet in CarSettingSubsystem |
+
+### Default Value Notes
+- Volume defaults updated from 80 to 100 to match code implementation (1.0 = 100%)
 

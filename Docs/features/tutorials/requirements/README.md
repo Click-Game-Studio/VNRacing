@@ -6,6 +6,24 @@ description: Interactive tutorial system for teaching VNRacing controls, mechani
 
 # Tutorial System Requirements
 
+## Implementation Status Summary
+
+> **Last synced with source code: 2026-01-26**
+
+| Feature | Status | Notes |
+|---------|--------|-------|
+| UScriptTutorialWidget | ✅ Implemented | Interactive tutorials with slow motion |
+| UTooltipTutorialWidget | ✅ Implemented | Passive tooltips with auto-dismiss |
+| Tutorial State Machine | ✅ Implemented | Inactive, Active, Paused, Completed states |
+| Slow Motion Effect | ✅ Implemented | TimeDilation = 0.1 |
+| Input Blocking | ✅ Implemented | During tutorials |
+| Auto-dismiss Tooltips | ✅ Implemented | Default 5 seconds |
+| Tutorial Skip Option (REQ-ST-013) | ⏳ Planned | Skip after 60s - not in code |
+| Tutorial Retry Logic (REQ-ST-012) | ⏳ Planned | Retry after 5 failures - not in code |
+| Crash Recovery (REQ-SYS-007) | ⏳ Planned | Not implemented |
+
+---
+
 ## Problem Statement
 **What problem are we solving?**
 
@@ -103,9 +121,9 @@ description: Interactive tutorial system for teaching VNRacing controls, mechani
 - Player force-closes app during tutorial → Resume tutorial on next launch OR skip if race already completed
 - Player pauses game during tutorial → Tutorial pauses, resumes when unpaused
 
-**EC-2: Tutorial Failure/Retry**
-- Player performs wrong action repeatedly (>5 times) → Re-highlight control, show reminder panel
-- Player ignores tutorial for extended period (>60s) → Show skip option (with warning)
+**EC-2: Tutorial Failure/Retry** ⏳ *Planned - Not Yet Implemented*
+- Player performs wrong action repeatedly (>5 times) → Re-highlight control, show reminder panel *(REQ-ST-012)*
+- Player ignores tutorial for extended period (>60s) → Show skip option (with warning) *(REQ-ST-013)*
 
 **EC-3: Tooltip Spam Prevention**
 - Multiple tooltip conditions trigger simultaneously → Queue tooltips, show one at a time with 2s gap
@@ -113,7 +131,7 @@ description: Interactive tutorial system for teaching VNRacing controls, mechani
 
 **EC-4: Save System Integration**
 - Tutorial completion must persist across sessions
-- Tutorial progress must survive app crashes
+- ⏳ Tutorial progress must survive app crashes *(Planned - REQ-SYS-007)*
 - Tutorial reset must be available via debug commands
 
 ## Success Criteria
@@ -149,8 +167,8 @@ description: Interactive tutorial system for teaching VNRacing controls, mechani
 - [ ] Tutorial text matches Figma designs exactly
 - [ ] Control highlighting is clearly visible against game background
 - [ ] Screen masking provides sufficient contrast (black overlay 80% opacity)
-- [ ] Slow motion feels smooth (time dilation 0.3x, not choppy)
-- [ ] Tutorial skip option available after 60 seconds of inactivity
+- [ ] Slow motion feels smooth (time dilation 0.1x, not choppy)
+- [ ] ⏳ Tutorial skip option available after 60 seconds of inactivity *(Planned - REQ-ST-013)*
 
 ### Measurable Outcomes
 - **Tutorial Completion Rate**: ≥95% of new players complete Basic Controls 1 tutorial
@@ -212,13 +230,17 @@ description: Interactive tutorial system for teaching VNRacing controls, mechani
 > WHEN a script tutorial ends (completion or skip),
 > THE SYSTEM SHALL restore normal time dilation (1.0x speed) within 0.5 seconds.
 
-**REQ-ST-012: Tutorial Retry on Failure**
+**REQ-ST-012: Tutorial Retry on Failure** ⏳ *Planned - Not Yet Implemented*
 > WHEN the player performs an incorrect action more than 5 times during a tutorial step,
 > THE SYSTEM SHALL re-highlight the correct control and display a reminder panel.
+>
+> **Implementation Status:** No retry counter exists in current code. This feature is planned for future implementation.
 
-**REQ-ST-013: Tutorial Skip Option**
+**REQ-ST-013: Tutorial Skip Option** ⏳ *Planned - Not Yet Implemented*
 > WHEN a tutorial has been active for more than 60 seconds without player progress,
 > THE SYSTEM SHALL display a skip button with a warning message.
+>
+> **Implementation Status:** No skip logic exists in current code. This feature is planned for future implementation.
 
 ### On-Screen Tooltip Requirements
 
@@ -280,9 +302,11 @@ description: Interactive tutorial system for teaching VNRacing controls, mechani
 > WHEN implementing tutorial UI updates,
 > THE SYSTEM SHALL use event dispatchers and SHALL NOT use Tick-based updates (mobile performance requirement).
 
-**REQ-SYS-007: Crash Recovery**
+**REQ-SYS-007: Crash Recovery** ⏳ *Planned - Not Yet Implemented*
 > WHEN the game crashes during an active tutorial,
 > THE SYSTEM SHALL resume the tutorial on next launch IF the triggering race has not been completed.
+>
+> **Implementation Status:** Crash recovery system is not implemented in current code. This feature is planned for future implementation.
 
 ## Constraints & Assumptions
 
@@ -320,7 +344,7 @@ description: Interactive tutorial system for teaching VNRacing controls, mechani
    - **Impact**: Affects tutorial completion tracking and player experience
    - **Stakeholder**: Product Owner
 
-3. **Q3**: For "Basic Car Upgrade" tutorial (pending details), should it trigger on first upgrade opportunity or after multiple races?
+3. **Q3**: For "Basic Car Upgrade" tutorial (In Progress details), should it trigger on first upgrade opportunity or after multiple races?
    - **Impact**: Affects tutorial pacing and player progression
    - **Stakeholder**: Game Designer
 
@@ -329,7 +353,7 @@ description: Interactive tutorial system for teaching VNRacing controls, mechani
    - **Stakeholder**: UX Designer
 
 ### Items Requiring Stakeholder Input
-- **Pending Tutorial Details**: Basic Car Upgrade, Advanced Car Upgrade, Basic Car Customize tutorials need complete step-by-step specifications
+- **In Progress Tutorial Details**: Basic Car Upgrade, Advanced Car Upgrade, Basic Car Customize tutorials need complete step-by-step specifications
 - **Analytics Requirements**: Confirm monitoring/analytics phase is deferred (user explicitly excluded deployment phase)
 
 ### Research Needed

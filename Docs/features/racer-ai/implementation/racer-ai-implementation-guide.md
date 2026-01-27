@@ -97,7 +97,7 @@ void TransitionToState(EAIDecisionState NewState);
 
 **State Machine**:
 - NormalDriving → CheckingConditions → Overtaking/Defending/AvoidingObstacle
-- Global cooldown (3-5s) between skills
+- Global Cooldown (3-5s) between skills
 
 ### 2. AIOvertakeController
 

@@ -31,7 +31,7 @@ last_updated: 2026-01-20
 | Incline Camera | ✅ Done | 100% |
 | Environment Collision | ✅ Done | 100% |
 | Car-to-Car Collision | 🔄 In Progress | 70% |
-| Ramp & Airborne | ⏸️ Pending | 100% |
+| Ramp & Airborne | ⏸️ In Progress | 100% |
 
 ## Unit Tests
 
@@ -90,7 +90,7 @@ OutwardImpulseStrength = 50.0f;
 - [ ] Player car pushes AI cars (100% of the time)
 - [ ] AI cars cannot push player car (0% of the time)
 
-### Ramp & Airborne ⏸️ PENDING (tạm ngưng)
+### Ramp & Airborne ⏸️ IN PROGRESS (tạm ngưng)
 
 - [x] Ramp boost achieves 4-6m height (±0.5m tolerance)
 - [x] Air steering reduced to 50% (±5%)

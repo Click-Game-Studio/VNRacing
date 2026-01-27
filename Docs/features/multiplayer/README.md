@@ -1,8 +1,8 @@
 # Multiplayer Feature
 
-**Version:** 1.0.0 | **Date:** 2026-01-20 | **Status:** Pending
+**Version:** 1.0.0 | **Date:** 2026-01-20 | **Status:** Planned
 
-![Status: Pending](https://img.shields.io/badge/Status-Pending-yellow)
+![Status: Planned](https://img.shields.io/badge/Status-Planned-yellow)
 
 **Breadcrumbs:** [Docs](../../) > [Features](../) > Multiplayer
 
@@ -34,7 +34,7 @@ multiplayer/
 ├── requirements/       # Matchmaking, server, networking requirements
 ├── design/            # Network architecture, replication, anti-cheat
 ├── planning/          # Implementation plan, team assignments, timeline
-├── implementation/    # UMatchmakingSubsystem, server code, replication
+├── implementation/    # UMatchServiceSubsystem, server code, replication
 └── testing/           # Network testing, latency, stress testing
 ```
 
@@ -82,41 +82,41 @@ graph TB
 
 ## Matchmaking System
 
-### UMatchmakingSubsystem
+### UMatchServiceSubsystem
 
 **Purpose**: Manages matchmaking flow via Nakama
 
 ```cpp
 UCLASS()
-class UMatchmakingSubsystem : public UGameInstanceSubsystem
+class UMatchServiceSubsystem : public UGameInstanceSubsystem
 {
     GENERATED_BODY()
 
 public:
     // Matchmaking
     UFUNCTION(BlueprintCallable)
-    void StartMatchmaking(const FMatchmakingParams& Params);
-    
+    void StartMatchmaking(const FMatchMakingRequest& Params);
+
     UFUNCTION(BlueprintCallable)
     void CancelMatchmaking();
-    
+
     UFUNCTION(BlueprintPure)
     EMatchmakingState GetMatchmakingState() const;
-    
+
     // Server Connection
     UFUNCTION(BlueprintCallable)
     void ConnectToServer(const FServerInfo& ServerInfo);
-    
+
     UFUNCTION(BlueprintCallable)
     void DisconnectFromServer();
-    
+
     // Events
     UPROPERTY(BlueprintAssignable)
     FOnMatchFound OnMatchFound;
-    
+
     UPROPERTY(BlueprintAssignable)
     FOnMatchmakingFailed OnMatchmakingFailed;
-    
+
     UPROPERTY(BlueprintAssignable)
     FOnServerConnected OnServerConnected;
 };
@@ -148,33 +148,48 @@ sequenceDiagram
 
 ## Matchmaking Parameters
 
-### FMatchmakingParams
+### FMatchMakingRequest
 ```cpp
 USTRUCT(BlueprintType)
-struct FMatchmakingParams
+struct FMatchMakingRequest
 {
     GENERATED_BODY()
-    
+
     UPROPERTY(BlueprintReadWrite)
-    ERaceMode RaceMode = ERaceMode::Circuit;
-    
+    int32 MapId;
+
     UPROPERTY(BlueprintReadWrite)
-    FString TrackID;
-    
+    FString MapName;
+
     UPROPERTY(BlueprintReadWrite)
-    int32 MinPlayers = 2;
-    
+    ERaceMode RaceMode;
+
     UPROPERTY(BlueprintReadWrite)
-    int32 MaxPlayers = 8;
-    
+    int MatchMakingRanking; // ELO-based ranking for matchmaking
+};
+```
+
+### FPlayerInfo
+```cpp
+USTRUCT(BlueprintType)
+struct FPlayerInfo
+{
+    GENERATED_BODY()
+
     UPROPERTY(BlueprintReadWrite)
-    ERegion PreferredRegion = ERegion::Auto;
-    
+    FString UserId;
+
     UPROPERTY(BlueprintReadWrite)
-    int32 SkillRating = 1000; // ELO-based
-    
+    FString Username;
+
     UPROPERTY(BlueprintReadWrite)
-    int32 SkillRange = 200; // ±200 rating
+    FString SessionId;
+
+    UPROPERTY(BlueprintReadWrite)
+    bool IsReady;
+
+    UPROPERTY(BlueprintReadWrite)
+    bool IsHost;
 };
 ```
 
@@ -184,10 +199,10 @@ struct FMatchmakingParams
 - Starting rating: 1000
 - Win: +25 rating (adjusted by opponent rating)
 - Loss: -25 rating (adjusted by opponent rating)
-- Matchmaking range: ±200 rating (expands after 30s)
+- Matchmaking range: ±150 rating (expands after 30s)
 
 **Matchmaking Priority**:
-1. Skill rating match (±200)
+1. Skill rating match (±150)
 2. Region match (low latency)
 3. Wait time (expand range after 30s)
 4. Fill with AI if needed (after 60s)
@@ -426,5 +441,7 @@ bool AServerVehicle::ValidateMovement(const FVector& NewLocation, float DeltaTim
 
 ---
 
-**Last Updated:** 2026-01-20
+**Last Updated:** 2026-01-26
+
+**Last synced with source code:** 2026-01-26
 

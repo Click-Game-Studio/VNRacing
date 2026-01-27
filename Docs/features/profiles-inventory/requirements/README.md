@@ -61,7 +61,7 @@ description: User stories và acceptance criteria cho hệ thống Profiles & In
 
 ### AC-001: Đặt tên người chơi
 - [ ] Hiển thị input field cho tên
-- [ ] Validate độ dài tên (3-20 ký tự)
+- [ ] Validate độ dài tên (4-16 ký tự)
 - [ ] **Profanity filter**: Lọc từ ngữ thô tục (Vietnamese + English)
 - [ ] Hiển thị error message nếu tên không hợp lệ
 - [ ] Lưu tên vào Local Storage
@@ -106,12 +106,12 @@ description: User stories và acceptance criteria cho hệ thống Profiles & In
 ### Vietnamese Bad Words (Sample)
 ```
 đụ, địt, lồn, cặc, buồi, đéo, đĩ, cave, chó, ngu, 
-khốn, đần, nát, thằng chó, con đĩ, đồ ngu, ...
+khốn, đần, nát, thằng chó, con đĩ, đồ ngu, etc.
 ```
 
 ### English Bad Words (Sample)
 ```
-fuck, shit, ass, bitch, damn, crap, dick, pussy, ...
+fuck, shit, ass, bitch, damn, crap, dick, pussy, etc.
 ```
 
 ### Filter Rules
@@ -126,6 +126,19 @@ fuck, shit, ass, bitch, damn, crap, dick, pussy, ...
 
 ### Player Profile
 ```cpp
+// Unlock Progress struct (actual implementation)
+USTRUCT(BlueprintType)
+struct FUnlockProgress
+{
+    GENERATED_BODY()
+
+    UPROPERTY()
+    int32 Unlocked = 0;
+
+    UPROPERTY()
+    int32 Total = 0;
+};
+
 USTRUCT(BlueprintType)
 struct FPlayerProfileData
 {
@@ -133,13 +146,13 @@ struct FPlayerProfileData
 
     // Unique ID (generated locally, sync to Nakama later)
     UPROPERTY()
-    FString PlayerID;
+    FName PlayerID;  // Note: FName, not FString
 
     UPROPERTY()
-    FString PlayerName;
+    FText PlayerName;  // Note: FText, not FString
 
     UPROPERTY()
-    FString AvatarID;
+    FName AvatarID;  // Note: FName, not FString
 
     // Stats
     UPROPERTY()
@@ -157,15 +170,15 @@ struct FPlayerProfileData
     UPROPERTY()
     int32 TotalWins = 0;
 
-    // Unlock Info
+    // Unlock Info (uses FUnlockProgress struct)
     UPROPERTY()
-    int32 CarsUnlocked = 0;
+    FUnlockProgress UnlockedCarProgress;
 
     UPROPERTY()
-    int32 TracksUnlocked = 0;
+    FUnlockProgress UnlockedTrackProgress;
 
     UPROPERTY()
-    int32 CitiesUnlocked = 0;
+    FUnlockProgress UnlockedCityProgress;
 
     // Timestamps (for future sync)
     UPROPERTY()
@@ -175,6 +188,8 @@ struct FPlayerProfileData
     FDateTime LastModified;
 };
 ```
+
+> **Last synced with source code: 2026-01-26**
 
 ### Inventory Item
 ```cpp

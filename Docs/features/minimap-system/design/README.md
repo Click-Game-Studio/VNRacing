@@ -4,7 +4,8 @@ title: Minimap System Design
 description: Architecture và technical design cho Minimap System
 status: development
 source_of_truth: PrototypeRacing/Plugins/Minimap/Source/
-last_updated: 2026-01-20
+last_updated: 2026-01-26
+last_synced_with_source: 2026-01-26
 ---
 
 # Minimap System Design
@@ -118,15 +119,21 @@ classDiagram
 
 #### Delegates
 
-| Delegate | Description |
-|----------|-------------|
-| `OnMinimapCenterActorRegister` | Fired khi set look actor |
-| `OnMinimapCenterActorUnregister` | Fired khi clear look actor |
-| `OnEntityAdded` | Fired khi entity được add |
-| `OnEntityRemoved` | Fired khi entity bị remove |
-| `OnZoomValueChange` | Fired khi zoom thay đổi |
-| `OnRotationChange` | Fired khi rotation thay đổi |
-| `OnPathPointsChange` | Fired khi path thay đổi |
+| Delegate | Signature | Description |
+|----------|-----------|-------------|
+| `OnMinimapCenterActorRegister` | `void()` | Fired khi set look actor |
+| `OnMinimapCenterActorUnregister` | `void()` | Fired khi clear look actor |
+| `OnMinimapManualWorldCenterUpdate` | `void(FVector NewCenter)` | Fired khi manual center được update |
+| `OnEntityAdded` | `void(UObject* Entity)` | Fired khi entity được add |
+| `OnEntityRemoved` | `void(UObject* Entity)` | Fired khi entity bị remove |
+| `OnEntityMove` | `void(UObject* Entity, FVector NewLocation)` | Fired khi entity di chuyển |
+| `OnMinimapGameWorldDataReceived` | `void()` | Fired khi world data được register |
+| `OnZoomValueChange` | `void()` | Fired khi zoom thay đổi |
+| `OnRotationChange` | `void()` | Fired khi rotation thay đổi |
+| `OnPathPointsChange` | `void()` | Fired khi path thay đổi |
+| `OnPathColorChange` | `void(FLinearColor NewColor)` | Fired khi path color thay đổi |
+| `OnPathThicknessChange` | `void(float NewThickness)` | Fired khi path thickness thay đổi |
+| `OnRequestToFindWorldPosition` | `void(FVector WorldPosition)` | Fired khi request world position từ minimap |
 
 #### Key Functions
 
@@ -143,8 +150,9 @@ void UnregisterMinimapEntity(UObject* TargetObject);
 UUserWidget* GetWidgetOfThisEntity(UObject* TargetObject);
 
 // === World Data ===
-void RegisterGameWorldData(FVector InCenterLocation, FVector2D GameWorldMapSize, 
+void RegisterGameWorldData(FVector InCenterLocation, FVector2D GameWorldMapSize,
                            float Orientation, UTexture2D* MinimapTexture);
+FMinimapGameWorldData GetMinimapGameWorldData() const;
 
 // === Zoom ===
 void SetMinimapZoom(float Value);
@@ -321,10 +329,10 @@ MinimapSubsystem->SetMinimapRotation(45.0f);
 
 | Component | Size |
 |-----------|------|
-| Minimap Texture (1024x1024) | ~4 MB |
-| Widget instances | ~0.5 MB |
-| Entity data | ~0.2 MB |
-| **Total** | **~5 MB** |
+| Minimap Texture (1024x1024) | ≈4 MB |
+| Widget instances | ≈0.5 MB |
+| Entity data | ≈0.2 MB |
+| **Total** | **≈5 MB** |
 
 ### Optimization
 - Texture Size: Recommend 1024x1024

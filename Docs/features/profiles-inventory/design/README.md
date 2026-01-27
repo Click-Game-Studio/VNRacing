@@ -4,7 +4,8 @@ title: Profiles & Inventory Design
 description: Architecture và data models cho hệ thống Profiles & Inventory
 status: development
 source_of_truth: PrototypeRacing/Source/PrototypeRacing/Public/
-last_updated: 2026-01-20
+last_updated: 2026-01-26
+last_synced: 2026-01-26
 ---
 
 # Profiles & Inventory Design
@@ -417,7 +418,7 @@ TArray<FInventoryItem> Items = InventoryManager->GetItemsByType(EItemType::CarPe
 
 | Rule | Constraint | Error |
 |------|------------|-------|
-| Length | 3-20 chars | `NameTooShort` / `NameTooLong` |
+| Length | 4-16 chars | `NameTooShort` / `NameTooLong` |
 | Format | Alphanumeric + spaces | `NameContainsSpecialChar` |
 | Profanity | No bad words | `ContainsForbiddenWord` |
 
@@ -446,7 +447,7 @@ TArray<FInventoryItem> Items = InventoryManager->GetItemsByType(EItemType::CarPe
 |-------|-------|
 | Max Items per stack | 999 |
 | Max Unique Items | 200 |
-| Name length | 3-20 chars |
+| Name length | 4-16 chars |
 
 ---
 

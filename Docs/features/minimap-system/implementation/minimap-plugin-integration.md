@@ -3,10 +3,11 @@ title: "Minimap Plugin Integration Guide"
 version: "1.0.0"
 status: "Development"
 created: "2025-11-09"
-updated: "2026-01-20"
+updated: "2026-01-26"
 author: "UI/UX Team"
 phase: "Implementation"
 source_of_truth: "PrototypeRacing/Plugins/Minimap/Source/"
+last_synced_with_source: "2026-01-26"
 related_docs:
   - "Docs/features/minimap-system/design/TDD_MinimapSystem.md"
   - "PrototypeRacing/Plugins/Minimap/README.md"
@@ -331,16 +332,28 @@ void UMyMinimapWidget::OnMinimapClicked(FVector2D ScreenPosition)
 // Subscribe to events
 MinimapSubsystem->OnEntityAdded.AddDynamic(this, &AMyClass::OnEntityAdded);
 MinimapSubsystem->OnEntityRemoved.AddDynamic(this, &AMyClass::OnEntityRemoved);
+MinimapSubsystem->OnEntityMove.AddDynamic(this, &AMyClass::OnEntityMove);
 MinimapSubsystem->OnZoomValueChange.AddDynamic(this, &AMyClass::OnZoomChanged);
 MinimapSubsystem->OnRotationChange.AddDynamic(this, &AMyClass::OnRotationChanged);
 MinimapSubsystem->OnPathPointsChange.AddDynamic(this, &AMyClass::OnPathChanged);
+MinimapSubsystem->OnPathColorChange.AddDynamic(this, &AMyClass::OnPathColorChanged);
+MinimapSubsystem->OnPathThicknessChange.AddDynamic(this, &AMyClass::OnPathThicknessChanged);
+MinimapSubsystem->OnMinimapManualWorldCenterUpdate.AddDynamic(this, &AMyClass::OnManualCenterUpdate);
+MinimapSubsystem->OnMinimapGameWorldDataReceived.AddDynamic(this, &AMyClass::OnWorldDataReceived);
+MinimapSubsystem->OnRequestToFindWorldPosition.AddDynamic(this, &AMyClass::OnRequestWorldPosition);
 
 // Callback signatures
 void OnEntityAdded(UObject* TargetAdded);
 void OnEntityRemoved(UObject* TargetRemoved);
+void OnEntityMove(UObject* Entity, FVector NewLocation);
 void OnZoomChanged();
 void OnRotationChanged();
 void OnPathChanged();
+void OnPathColorChanged(FLinearColor NewColor);
+void OnPathThicknessChanged(float NewThickness);
+void OnManualCenterUpdate(FVector NewCenter);
+void OnWorldDataReceived();
+void OnRequestWorldPosition(FVector WorldPosition);
 ```
 
 ---
@@ -420,5 +433,6 @@ MinimapSubsystem->SetLookActor(PlayerPawn);
 
 ---
 
-**Document Status**: Development - Synced with source code  
-**Last Updated**: 2026-01-20
+**Document Status**: Development - Synced with source code
+**Last Updated**: 2026-01-26
+**Last synced with source code**: 2026-01-26

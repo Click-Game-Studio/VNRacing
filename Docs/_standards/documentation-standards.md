@@ -19,6 +19,7 @@
 - [Cross-Reference Standards](#cross-reference-standards)
 - [Quality Assurance Standards](#quality-assurance-standards)
 - [Tools and Resources](#tools-and-resources)
+- [Language Professionalization Standards](#language-professionalization-standards)
 - [Conclusion](#conclusion)
 - [Related Standards](#related-standards)
 
@@ -369,6 +370,62 @@ All phase templates are located in `Docs/_templates/`:
 - `planning/README.md` - Planning template
 - `implementation/README.md` - Implementation template
 - `testing/README.md` - Testing template
+
+---
+
+## Language Professionalization Standards
+
+### Overview
+
+All documentation must maintain professional language quality. This section defines standards for eliminating informal expressions and ensuring consistent terminology.
+
+**Reference**: See [Terminology Glossary](./terminology-glossary.md) for complete term mappings.
+
+### Key Principles
+
+1. **No Informal Language**: Avoid casual Vietnamese expressions
+2. **Consistent Terminology**: Use standardized technical terms
+3. **Professional Placeholders**: Use [PENDING] format for incomplete content
+4. **Standard Approximations**: Use "approximately" or "≈" instead of "~"
+
+### Informal Language Patterns to Avoid
+
+| Pattern Type | Example (❌) | Replacement (✅) |
+|--------------|--------------|------------------|
+| Casual Vietnamese | "húc văng", "đập hộp" | "đẩy ra", "mở hộp quà" |
+| Informal approximation | "~50%", "khoảng 3 giây" | "approximately 50%", "≈3s" |
+| Incomplete placeholders | "TBD", "sẽ bổ sung sau..." | [PENDING] block format |
+| Inconsistent terms | "rubberband", "A.I" | "Rubber Banding", "AI" |
+
+### Placeholder Format
+
+When content is incomplete, use this standardized format:
+
+```markdown
+> **[PENDING]** Description of pending content.
+> **Owner**: [Team/Role]
+> **Target Date**: [Date or TBD]
+```
+
+### Validation
+
+Run the validation script to check for informal language:
+
+```powershell
+# Validate all docs
+.\scripts\validate-doc-language.ps1
+
+# Validate specific folder
+.\scripts\validate-doc-language.ps1 -Path "Docs/features/car-physics"
+
+# Generate report
+.\scripts\validate-doc-language.ps1 -OutputFile "validation-report.txt"
+```
+
+### Related Resources
+
+- [Terminology Glossary](./terminology-glossary.md) - Complete term mappings
+- [Validation Script](../../scripts/validate-doc-language.ps1) - Automated checking
 
 ## Conclusion
 

@@ -74,7 +74,7 @@ TEST(AIDecisionComponent, GlobalCooldown)
     Component->ActivateSkill(EAISkillType::Overtake);
     EXPECT_TRUE(Component->IsInCooldown());
     
-    // Wait for cooldown (3-5 seconds)
+    // Wait for Cooldown (3-5 seconds)
     Component->UpdateDecisionTree(5.0f);
     EXPECT_FALSE(Component->IsInCooldown());
 }
@@ -102,7 +102,7 @@ TEST(AIDecisionComponent, ProbabilityActivation)
     }
     EXPECT_EQ(SuccessCount, 0);
     
-    // Test 50% probability (should be ~50)
+    // Test 50% probability (should be approximately 50)
     SuccessCount = 0;
     for (int i = 0; i < 1000; i++)
     {
@@ -323,7 +323,7 @@ TEST(RacerAI, CPUUsage)
 
 ### 2. Rubber Banding Test
 
-**Manual Test**: Test rubber banding effectiveness
+**Manual Test**: Test Rubber Banding effectiveness
 
 **Test Steps**:
 1. Race normally and stay in middle of pack
@@ -333,7 +333,7 @@ TEST(RacerAI, CPUUsage)
 **Success Criteria**:
 - When far behind: AI slows down, player can catch up
 - When far ahead: AI speeds up, stays competitive
-- Rubber banding feels fair, not artificial
+- Rubber Banding feels fair, not artificial
 
 ### 3. Overtake Frequency Test
 
@@ -344,9 +344,9 @@ TEST(RacerAI, CPUUsage)
 2. Count overtake attempts per difficulty
 
 **Success Criteria**:
-- Easy AI: ~2-3 overtakes per race
-- Medium AI: ~5-7 overtakes per race
-- Hard AI: ~10-15 overtakes per race
+- Easy AI: approximately 2-3 overtakes per race
+- Medium AI: approximately 5-7 overtakes per race
+- Hard AI: approximately 10-15 overtakes per race
 
 ---
 
@@ -368,7 +368,7 @@ TEST(RacerAI, CPUUsage)
 - Verify AI use all 3 racing lines
 
 **Scenario 4: First 10 Seconds**
-- Verify rubber banding disabled
+- Verify Rubber Banding disabled
 - Verify AI don't get unfair advantage at start
 
 ---

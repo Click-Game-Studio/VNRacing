@@ -121,7 +121,7 @@ graph TB
     D --> D1["TypeID: LC"]
     D1 --> D2["Hộp may mắn<br/>Random Items"]
     D2 --> D3["Common Crate<br/>Uncommon Crate<br/>Rare Crate"]
-    D3 --> D4["Đập hộp để nhận<br/>Items + Rewards"]
+    D3 --> D4["Mở hộp quà để nhận<br/>Items + Rewards"]
     
     style A fill:#ffd43b,stroke:#333
     style B fill:#87ceeb,stroke:#333
