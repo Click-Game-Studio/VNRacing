@@ -124,7 +124,7 @@ description: Define testing approach, test cases, and quality assurance
 **Test Cases**:
 - [ ] Gameplay remains playable with latency
 - [ ] Client prediction works
-- [ ] No Rubber Banding
+- [ ] No rubber-banding
 - [ ] UI updates correctly
 - [ ] Hit detection accurate
 

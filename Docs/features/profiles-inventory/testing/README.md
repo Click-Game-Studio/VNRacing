@@ -14,9 +14,7 @@ description: Test cases và QA documentation
 
 ## Test Cases
 
-> **[PENDING]** Testing strategy details to be documented.
-> **Owner**: QA Team
-> **Target Date**: TBD
+*TBD - Sẽ bổ sung sau*
 
 ---
 

@@ -6,7 +6,7 @@
 **Engine**: Unreal Engine 5.4+  
 **Platform**: Mobile (Android, iOS)  
 **Documentation Version**: 1.0.0  
-**Last Updated**: 2026-01-26
+**Last Updated**: 2026-01-20
 
 ---
 
@@ -49,7 +49,7 @@ Docs/
 ├── _standards/          # Project-wide standards and conventions
 ├── _architecture/       # System architecture documentation
 ├── _cross-reference/    # Cross-feature reference documents
-├── features/            # Feature-based documentation (12 features)
+├── features/            # Feature-based documentation (11 features)
 │   ├── car-physics/           # Vehicle dynamics, camera, collision
 │   ├── car-customization/     # Visual & performance customization
 │   ├── progression-system/    # VN-Tour, XP, achievements
@@ -60,8 +60,7 @@ Docs/
 │   ├── multiplayer/           # Matchmaking, dedicated servers
 │   ├── minimap-system/        # Real-time navigation
 │   ├── racer-ai/              # AI opponent behavior
-│   ├── tutorials/             # In-game tutorials
-│   └── ui-ux/                 # UI/UX system, HUD, widgets
+│   └── tutorials/             # In-game tutorials
 ├── CHANGELOG.md         # Documentation changelog
 └── README.md            # This file
 ```
@@ -93,7 +92,7 @@ Docs/
 
 ## 🎯 Features
 
-### Core Features (12 total)
+### Core Features (11 total)
 
 | Feature | Status | Priority | Description |
 |---------|--------|----------|-------------|
@@ -108,7 +107,6 @@ Docs/
 | [Minimap System](features/minimap-system/README.md) | 🔄 Development | High | Real-time navigation, opponent tracking |
 | [Racer AI](features/racer-ai/README.md) | 🔄 Development | High | AI opponent behavior, difficulty scaling |
 | [Tutorials](features/tutorials/README.md) | 🔄 Development | Medium | In-game tutorials, onboarding |
-| [UI/UX](features/ui-ux/README.md) | 🔄 Development | High | HUD, widgets, tutorial UI, opponent info |
 
 ---
 
@@ -312,6 +310,6 @@ Learn more: [Performance Targets](_architecture/performance-targets.md)
 
 ---
 
-**Last Updated**: 2026-01-26
+**Last Updated**: 2026-01-20  
 **Documentation Version**: 1.0.0  
 **Project Status**: In Development

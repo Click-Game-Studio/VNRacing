@@ -54,7 +54,7 @@ GDD mô tả Screen của người chơi khi đang đua
 - Khi hoàn thành một Lap, có Animation & FX thay đổi số đếm. (Ví dụ từ Lap 1 \-\> Lap 2).  
 - Khi vị trí thay đổi, có Animation & FX thay đổi số đếm (Ví dụ từ Position 3 \-\> Position 2).  
 - Khi ở chế độ đua Sprint, có Animation và & FX thay đổi khi đi tới các mốc quãng đường 25%, 50%, 75%, 100%.  
-- Khi ở chế độ đua Time Attack, đổi màu Text thành đỏ, cho hiệu ứng nhấp nháy và phình to thu nhỏ khi Thời gian đếm ngược chỉ còn xấp xỉ 15s.
+- Khi ở chế độ đua Time Attack, đổi màu Text thành đỏ, cho hiệu ứng nhấp nháy và phình to thu nhỏ khi Thời gian đếm ngược chỉ còn khoảng 15s.  
 - Khi được tăng Thời gian đếm ngược, có Animation & FX thay đổi. (Ví dụ Thời gian đếm ngược tăng từ 15:20.20 \-\> 30:20.20)
 
 4. **Animation & Effect REF**
@@ -112,10 +112,10 @@ GDD mô tả Screen của người chơi khi đang đua
 6. ## **Thông tin đối thủ**
 
 1. **Hiển thị thông số**  
-- Thông tin đối thủ:
-  - Hiện vị thứ trong cuộc đua khi cách xa người chơi xấp xỉ 10m trở lên.
-  - Hiện tên khi ở gần người chơi xấp xỉ 5m.
-  - Biến mất khi cách xa người chơi xấp xỉ 20m.
+- Thông tin đối thủ:  
+  - Hiện vị thứ trong cuộc đua khi cách xa người chơi khoảng 10m trở lên.  
+  - Hiện tên khi ở gần người chơi khoảng 5m.  
+  - Biến mất khi cách xa người chơi khoảng 20m.
 
 2. **Animation & FX**  
 - Khi chuyển đổi trạng thái giữa tên và vị thứ, có Animation và FX chuyển đổi.  

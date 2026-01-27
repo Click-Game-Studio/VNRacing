@@ -21,7 +21,7 @@ last_updated: 2026-01-20
 
 Tài liệu này cung cấp tổng quan thống nhất về hệ thống vật lý xe và cơ chế gameplay. Các tính năng này phối hợp với nhau để mang lại trải nghiệm đua xe arcade-style được tối ưu cho nền tảng mobile (Android/iOS) với phản hồi hình ảnh chân thực và những khoảnh khắc gameplay hấp dẫn.
 
-**User Story**: Là người chơi, tôi muốn trải nghiệm đua xe arcade phản hồi nhanh, hấp dẫn về mặt hình ảnh với phản hồi hệ thống treo chân thực, hiệu ứng camera động, xử lý va chạm linh hoạt, và những khoảnh khắc bay trên không thú vị, để tôi cảm thấy đắm chìm và kiểm soát được trong suốt cuộc đua.
+**User Story**: Là người chơi, tôi muốn trải nghiệm đua xe arcade phản hồi nhanh, hấp dẫn về mặt hình ảnh với phản hồi hệ thống treo chân thực, hiệu ứng camera động, xử lý va chạm khoan dung, và những khoảnh khắc bay trên không thú vị, để tôi cảm thấy đắm chìm và kiểm soát được trong suốt cuộc đua.
 
 ## Feature Relationship Map
 
@@ -94,10 +94,10 @@ struct FInclineCameraSettings {
 
 ### Environment Collision ✅ COMPLETED
 **Status**: Fully implemented  
-**Purpose**: Cung cấp va chạm arcade-style linh hoạt với auto-correction
+**Purpose**: Cung cấp va chạm arcade-style khoan dung với auto-correction
 
 **Key Capabilities** (verified from source code):
-- Giảm góc va chạm approximately 50% (giảm mức độ ảnh hưởng tiêu cực)
+- Giảm góc va chạm ~50% (ít trừng phạt hơn)
 - Correction nội suy ngay lập tức về racing line
 - Ngăn dính tường ở góc nhỏ
 - Auto-correction cảm thấy hữu ích, không xâm phạm
@@ -131,7 +131,7 @@ struct FCollisionCorrectionSettings {
 2. **Kinematic Fake Body**: Mesh ẩn trên WorldDynamic channel theo dõi xe người chơi chính xác
 3. **Overlap Detection**: Box collider phát hiện 6 trường hợp va chạm (4 góc + 2 bên) cho hiệu ứng hình ảnh
 
-### Ramp & Airborne ⏸️ IN PROGRESS
+### Ramp & Airborne ⏸️ PENDING
 **Status**: Implemented but temporarily disabled  
 **Purpose**: Tạo những khoảnh khắc bay trên không thú vị với quỹ đạo được kiểm soát
 
@@ -176,7 +176,7 @@ graph LR
 1. **Suspension Physics** (Completed) - Foundation for all visual feedback
 2. **Incline Camera** (Completed) - Camera system with incline detection
 3. **Environment Collision** (Completed) - Environment collision with auto-correction
-4. **Ramp & Airborne** (In Progress) - Ramp boost and airborne mechanics
+4. **Ramp & Airborne** (Pending) - Ramp boost and airborne mechanics
 5. **Car-to-Car Collision** (In Progress) - Car collision with fake body system
 
 ### Cross-Feature Integration Points
@@ -196,7 +196,7 @@ graph LR
 - [x] Camera adjusts FOV/position on inclines within 0.2s
 - [x] Auto-correction reduces collision angle by 50% ± 10%
 - [ ] Player car pushes AI cars 100% of the time
-- [x] Ramp boost achieves 4-6m height consistently (⏸️ In Progress)
+- [x] Ramp boost achieves 4-6m height consistently (⏸️ pending)
 
 ### Performance Requirements (Mobile)
 

@@ -1025,9 +1025,9 @@ static float CalculateRaceRewardByPosition(
 
 | Component | Estimated Size |
 |-----------|---------------|
-| FVNTourProgressionData | ≈50 KB (5 cities × 3 areas × 4 tracks) |
-| FAchievementData | ≈20 KB (100 achievements) |
-| FPlayerProfile | ≈1 KB |
+| FVNTourProgressionData | ~50 KB (5 cities × 3 areas × 4 tracks) |
+| FAchievementData | ~20 KB (100 achievements) |
+| FPlayerProfile | ~1 KB |
 | Total Runtime | <100 KB |
 
 ---

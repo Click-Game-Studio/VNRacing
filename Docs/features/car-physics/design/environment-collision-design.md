@@ -17,7 +17,7 @@ last_updated: 2026-01-20
 
 ## Feature Overview
 
-Provide forgiving arcade-style collision handling when the player hits walls or environment obstacles. The system automatically corrects the car's trajectory toward the racing line, reducing the collision angle by approximately 50% and using smooth interpolation to maintain flow and reduce frustration.
+Provide forgiving arcade-style collision handling when the player hits walls or environment obstacles. The system automatically corrects the car's trajectory toward the racing line, reducing the collision angle by ~50% and using smooth interpolation to maintain flow and reduce frustration.
 
 ## System Architecture
 
@@ -415,12 +415,12 @@ const float TraceDistance = 200.0f; // 2 meters
 ```
 
 ### Memory Impact
-- Minimal: approximately 200 bytes per car (FCollisionCorrectionSettings + state)
+- Minimal: ~200 bytes per car (FCollisionCorrectionSettings + state)
 - No additional assets
 
 ### CPU Impact
-- Wall trace: approximately 0.05ms per update (20 updates/second)
-- Correction interpolation: approximately 0.03ms per frame
+- Wall trace: ~0.05ms per update (20 updates/second)
+- Correction interpolation: ~0.03ms per frame
 - Total: <0.1ms per frame
 
 ## Testing Strategy

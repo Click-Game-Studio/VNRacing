@@ -215,7 +215,7 @@ MinimapSubsystem->UnregisterMinimapEntity(this);
 
 | Metric | Target | Current |
 |--------|--------|---------|
-| **Memory Usage** | <5 MB | ✅ ≈4.5 MB |
+| **Memory Usage** | <5 MB | ✅ ~4.5 MB |
 | **Render Cost** | <0.5ms/frame | ✅ Optimized |
 | **Texture Size** | 1024x1024 | ✅ Mobile-friendly |
 

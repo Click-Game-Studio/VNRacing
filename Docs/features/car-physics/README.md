@@ -144,7 +144,7 @@ struct FInclineCameraSettings {
 };
 ```
 
-### 3. ARampZone (⏸️ In Progress)
+### 3. ARampZone (⏸️ Pending)
 **Location**: `Source/PrototypeRacing/Public/RampZone.h`
 
 **Implementation** (verified):
@@ -187,7 +187,7 @@ static ASimulatePhysicsCarWithCustom* CreateRacingCar(
 | Incline Camera | 🔄 Development | 100% | FInclineCameraSettings in FollowCarCamera |
 | Environment Collision | 🔄 Development | 100% | FCollisionCorrectionSettings implemented |
 | Car-to-Car Collision | 🔄 In Progress | 70% | AFakeCarBody exists, needs refinement |
-| Ramp & Airborne | ⏸️ In Progress | 100% | ARampZone + FAirborneState implemented, tạm ngưng sử dụng |
+| Ramp & Airborne | ⏸️ Pending | 100% | ARampZone + FAirborneState implemented, tạm ngưng sử dụng |
 | Drift System | 🔄 Development | 100% | Full drift mechanics with scoring |
 | Nitro System | 🔄 Development | 100% | BoostNitro() implemented |
 

@@ -43,8 +43,8 @@ The Racer AI system provides intelligent opponent behavior for racing gameplay. 
 | Rubber Banding | ✅ Done | Distance-based performance scaling |
 | Difficulty Profiles | ✅ Done | Easy/Medium/Hard with FAIDifficultyProfile |
 | AI Name Generation | ✅ Done | DataTable-based per difficulty |
-| AIDecisionComponent | ⏸️ In Progress | State machine for behaviors |
-| Overtake/Defence | ⏸️ In Progress | Tactical maneuvers |
+| AIDecisionComponent | ⏸️ Pending | State machine for behaviors |
+| Overtake/Defence | ⏸️ Pending | Tactical maneuvers |
 
 ## Core Components
 

@@ -602,7 +602,7 @@ struct FSkillPopupData {
 ### Decision 2: Widget Pooling for Skill Popups
 **Choice**: Object pool with max 5 instances  
 **Rationale**: Creating/destroying widgets at runtime causes GC pressure and frame hitches. Pooling eliminates allocations.  
-**Trade-off**: Slightly higher base memory usage (approximately 2MB), but eliminates frame drops.
+**Trade-off**: Slightly higher base memory usage (~2MB), but eliminates frame drops.
 
 ### Decision 3: Blueprint Implementable Events vs Direct C++ UI
 **Choice**: C++ logic + Blueprint presentation  

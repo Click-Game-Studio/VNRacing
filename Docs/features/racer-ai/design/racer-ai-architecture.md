@@ -33,9 +33,9 @@ status: Synced with Source Code
 | RubberBanding Logic | ✅ Implemented | Built into SimulatePhysicsCar |
 | PID Steering Controller | ✅ Implemented | Built into SimulatePhysicsCar |
 | Lane Management | ✅ Implemented | GuideLineSubsystem |
-| AIDecisionComponent | ⏸️ In Progress | Planned as separate component |
-| AIOvertakeController | ⏸️ In Progress | Planned as separate component |
-| RacingLineManager | ⏸️ In Progress | Partially covered by GuideLineSubsystem |
+| AIDecisionComponent | ⏸️ Pending | Planned as separate component |
+| AIOvertakeController | ⏸️ Pending | Planned as separate component |
+| RacingLineManager | ⏸️ Pending | Partially covered by GuideLineSubsystem |
 
 ---
 
@@ -377,7 +377,7 @@ protected:
         meta = (ClampMin = "0.0", ClampMax = "1.0"))
     float SlowDownRate = 0.8f;
 
-    // Strategy Cooldown
+    // Strategy cooldown
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SimulateCar|AI Racer", 
         meta = (ClampMin = "0.0", ClampMax = "1.0"))
     float ReconsiderStrategyCooldown = 3.0f;
@@ -588,7 +588,7 @@ flowchart TD
 
 ---
 
-## In Progress Components
+## Pending Components
 
 ### 1. AIDecisionComponent ⏸️
 
@@ -598,7 +598,7 @@ flowchart TD
 
 **Planned Features**:
 - State machine for AI behaviors (Normal, Overtaking, Defending, etc.)
-- Global Cooldown management
+- Global cooldown management
 - Probability-based skill activation
 
 ### 2. AIOvertakeController ⏸️
@@ -687,10 +687,10 @@ The Racer AI system is partially implemented with core functionality working:
 - Difficulty profiles and track distribution
 - AI name generation system
 
-**⏸️ In Progress**:
+**⏸️ Pending**:
 - Separate `AIDecisionComponent` for state machine
 - `AIOvertakeController` for tactical overtaking
 - Enhanced `RacingLineManager` for strategic line selection
 - Full implementation of Overtake/Defence behaviors per GDD
 
-**Next Steps**: Implement the in-progress components as separate `UActorComponent` classes to achieve the full design specified in `Racer_AI_V5.md`.
+**Next Steps**: Implement the pending components as separate `UActorComponent` classes to achieve the full design specified in `Racer_AI_V5.md`.

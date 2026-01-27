@@ -162,7 +162,7 @@ gantt
   - **Details**:
     - Define `EAIDecisionState` enum (NormalDriving, CheckingConditions, etc.)
     - Implement state machine logic
-    - Add global Cooldown timer (3-5s)
+    - Add global cooldown timer (3-5s)
     - Implement `UpdateDecisionTree(float DeltaTime)` function
     - Implement all state transitions
 
@@ -188,7 +188,7 @@ gantt
     - Call `UpdateDecisionTree()` from timer (not Tick)
     - Expose Blueprint events for state changes
     - Display current AI state above vehicle
-    - Show Cooldown timer
+    - Show cooldown timer
     - Visualize decision checks (raycasts, proximity spheres)
 
 #### 2.4 Unit Testing & Integration
@@ -198,7 +198,7 @@ gantt
   - **Owner**: Developer 4
   - **Details**:
     - Test state transitions
-    - Test Cooldown timing
+    - Test cooldown timing
     - Test condition checks with mock data
     - Test edge cases (multiple conditions true)
     - Integration test with SimulatePhysicsCar
@@ -526,7 +526,7 @@ gantt
 **Impact**: Medium
 **Mitigation**:
 - Clear state machine with priorities
-- Global Cooldown prevents spam
+- Global cooldown prevents spam
 - Thorough state transition testing
 - Debug visualization tools
 

@@ -24,12 +24,10 @@ This section will contain:
 **Primary Location:** `Source/PrototypeRacing/Private/BackendSubsystem/`
 
 Key classes to be documented:
-- UMatchServiceSubsystem
+- UMatchmakingSubsystem
 - Network replication handlers
 - Server validation systems
 - Client prediction systems
-
-**Last synced with source code:** 2026-01-26
 
 ---
 

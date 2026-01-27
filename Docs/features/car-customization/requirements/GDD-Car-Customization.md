@@ -93,12 +93,7 @@ Mỗi vật phẩm tùy chỉnh theo chủ đề Việt Nam bao gồm bối cả
 | **Caliper Color** | Thay màu cho phần phanh ABS của xe. | Thêm lựa chọn cho người chơi. |
 | **Decal(Chưa biết)** | Thay đổi Decal trên xe. | Thêm lựa chọn cho người chơi. |
 
-> **⚠️ Implementation Status Note (Last synced: 2026-01-26)**
-> - **Exhaust** (Part Slot): ⏳ Planned - Not Yet Implemented (not in ECarPartSlot enum)
-> - **Hood** (Part Slot): ⏳ Planned - Not Yet Implemented (not in ECarPartSlot enum)
-> - **Caliper Color** (Color Slot): ⏳ Planned - Not Yet Implemented (commented out in ECarColorSlot enum)
-
-2.  **Hệ thống Style Mẫu cho xe và Slot Custom cho người chơi**
+2.  **Hệ thống Style Mẫu cho xe và Slot Custom cho người chơi**  
 - Style Mẫu là một bộ Part đã được độ sẵn, thường là một bộ Parts nhìn đẹp nhất đối với các xe đó.  
 - Một xe sẽ có 1-3 bộ Style mẫu cho người chơi chọn lựa.  
 - Người chơi có thể chọn một hoặc vài Parts khác so với Style mẫu để 

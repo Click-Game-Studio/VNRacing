@@ -45,9 +45,9 @@ GDD Overview cơ chế va chạm với môi trường trong VN Racing
 
 | In-Game | Hiện tại | Mong muốn |
 | :---- | :---- | :---- |
-| ![][image2] | Khi va chạm, xe mất xấp xỉ 1s để tự quay đầu trở lại hướng đua. Góc quay lại hơi lớn, lệch hẳn xe qua một bên. | Khi va chạm, xe lập tức quay đầu lại hướng đua. **Giảm góc quay lại khoảng còn ½.** Có một khoảng Interpolate nhỏ giữa lúc va chạm và lúc điều chỉnh để không có cảm giác xe bị giật. |
+| ![][image2] | Khi va chạm, xe mất khoảng 1s để tự quay đầu trở lại hướng đua. Góc quay lại hơi lớn, lệch hẳn xe qua một bên. | Khi va chạm, xe lập tức quay đầu lại hướng đua. **Giảm góc quay lại khoảng còn ½.** Có một khoảng Interpolate nhỏ giữa lúc va chạm và lúc điều chỉnh để không có cảm giác xe bị giật. |
 | ![][image3] | Khi góc va chạm lớn hơn, xe không tự quay lại mà bị dính luôn vào tường. | Khi va chạm, xe lập tức trở lại hướng đua. Có một khoảng Interpolate nhỏ giữa lúc va chạm và lúc điều chỉnh để không có cảm giác xe bị giật.  |
-| ![][image4] | Đôi khi ở góc va chạm nhỏ, nếu người chơi không chủ động rẽ qua thì xe cũng bị mắc kẹt tại rào chắn. | Khi va chạm, xe lập tức trở lại hướng đua. Có một khoảng Interpolate nhỏ giữa lúc va chạm và lúc điều chỉnh để không có cảm giác xe bị giật.  |
+| ![][image4] | Đôi khi ở góc va chạm nhỏ, nếu người chơi không chủ động rẽ qua thì xe cũng bị dính vào tường. | Khi va chạm, xe lập tức trở lại hướng đua. Có một khoảng Interpolate nhỏ giữa lúc va chạm và lúc điều chỉnh để không có cảm giác xe bị giật.  |
 
 
 

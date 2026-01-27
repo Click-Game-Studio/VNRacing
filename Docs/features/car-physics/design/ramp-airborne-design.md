@@ -5,15 +5,15 @@ description: Exciting airborne moments with controlled trajectory and auto-recov
 feature_id: car-physics
 status: development
 priority: high
-last_updated: 2026-01-26
+last_updated: 2026-01-20
 ---
 
 # ME08: Ramp & Airborne Mechanics Design
 
-**Feature ID**: `car-physics`
-**Status**: 🔄 Development
-**Version**: 1.1.0
-**Last Updated**: 2026-01-26
+**Feature ID**: `car-physics`  
+**Status**: 🔄 Development  
+**Version**: 1.0.0  
+**Last Updated**: 2026-01-20
 
 ## Feature Overview
 
@@ -67,10 +67,10 @@ public:
     UBoxComponent* RampTrigger;
 
     UPROPERTY(EditAnywhere, Category = "Boost")
-    float BoostForce = 800.0f; // Base boost force (scaled by speed curve) (Updated 2026-01-26: was 50000.0f)
+    float BoostForce = 50000.0f; // Fixed force
 
     // Note: Boost angle follows vehicle's velocity direction (not a fixed property)
-    // Boost height is determined by boost force, speed curve multiplier, and angle
+    // Boost height is determined by boost force and angle, not directly defined
     // The force angle can be adjusted higher than the ramp surface angle to increase height
 
 protected:
@@ -79,47 +79,6 @@ protected:
 
     FVector CalculateBoostDirection(const FVector& VehicleVelocity);
 };
-```
-
-**Speed-Based Boost Curve System**:
-
-The boost force is dynamically scaled based on vehicle speed using a curve:
-
-```cpp
-// In ASimulatePhysicsCar
-UPROPERTY(EditAnywhere, Category = "Ramp")
-float MaxSpeedForBoostCurve = 200.0f; // KPH - speed at which curve reaches 1.0
-
-UPROPERTY(EditAnywhere, Category = "Ramp")
-UCurveFloat* BoostForceCurve; // Curve for dynamic boost multiplier
-
-UPROPERTY(EditAnywhere, Category = "Ramp")
-float RampBoostUpward = 0.3f; // Upward component of boost direction
-
-UPROPERTY(EditAnywhere, Category = "Ramp")
-float AntiAirBorneInRampMultiplier = 0.1f; // Reduces airborne detection sensitivity on ramp
-```
-
-**Boost Calculation with Speed Curve**:
-```cpp
-void ARampZone::ApplyBoost(ASimulatePhysicsCar* Car)
-{
-    // Get current speed
-    float CurrentSpeed = Car->GetCurrentSpeedKPH();
-
-    // Normalize speed (0.0 to 1.0 based on MaxSpeedForBoostCurve)
-    float NormalizedSpeed = FMath::Clamp(CurrentSpeed / Car->MaxSpeedForBoostCurve, 0.0f, 1.0f);
-
-    // Get multiplier from curve (allows non-linear boost scaling)
-    float BoostMultiplier = Car->BoostForceCurve->GetFloatValue(NormalizedSpeed);
-
-    // Calculate final boost force
-    float FinalBoostForce = BoostForce * BoostMultiplier;
-
-    // Apply boost with calculated force
-    FVector BoostDirection = CalculateBoostDirection(Car->GetVelocity());
-    UAsyncTickFunctions::ATP_AddImpulse(Car->GetPrimitiveRoot(), BoostDirection * FinalBoostForce, true);
-}
 ```
 
 **Boost Application**:
@@ -138,8 +97,12 @@ void ARampZone::OnRampOverlap(UPrimitiveComponent* OverlappedComp, AActor* Other
     // Calculate boost direction (follows velocity direction)
     FVector BoostDirection = CalculateBoostDirection(VehicleVelocity);
 
-    // Apply speed-based boost (see ApplyBoost above)
-    ApplyBoost(Car);
+    // Apply fixed force boost
+    UAsyncTickFunctions::ATP_AddImpulse(
+        Car->GetPrimitiveComponent(),
+        BoostDirection * BoostForce,
+        true
+    );
 
     // Trigger camera effects
     Car->GetFollowCamera()->AdjustFOV(Car->GetNitroFOV(), false);
@@ -153,9 +116,9 @@ FVector ARampZone::CalculateBoostDirection(const FVector& VehicleVelocity)
     // Boost follows vehicle's velocity direction
     FVector VelocityDirection = VehicleVelocity.GetSafeNormal();
 
-    // Add upward component
+    // Add upward component (can be adjusted higher than ramp surface angle)
     FVector Up = FVector::UpVector;
-    float UpwardBoost = 1.0f; // Upward boost multiplier (Updated 2026-01-26: was 0.5f)
+    float UpwardBoost = 0.5f; // Adjustable to increase height
 
     // Combine velocity direction with upward boost
     FVector Direction = VelocityDirection + (Up * UpwardBoost);
@@ -253,13 +216,7 @@ struct FAirControlSettings
     float AirSteeringMultiplier = 0.5f; // 50% of ground
 
     UPROPERTY(EditAnywhere, Category = "Control")
-    float YawStrength = 4.0f; // Yaw control strength in air (Updated 2026-01-26: was 1000.0f)
-
-    UPROPERTY(EditAnywhere, Category = "Control")
-    float RollStrength = 4.0f; // Roll control strength
-
-    UPROPERTY(EditAnywhere, Category = "Control")
-    float PitchStrength = 4.0f; // Pitch control strength
+    float YawStrength = 1000.0f; // Only yaw control in air
 };
 
 void ASimulatePhysicsCar::ApplyAirControl(float DeltaTime)
@@ -286,75 +243,73 @@ void ASimulatePhysicsCar::ApplyAirControl(float DeltaTime)
 **Tilt Detection**:
 ```cpp
 USTRUCT(BlueprintType)
-struct FAntiRollInAir
+struct FAutoRotateSettings
 {
     GENERATED_BODY()
-
-    UPROPERTY(EditAnywhere, Category = "Thresholds",
-              meta = (ClampMin = "0.0", ClampMax = "90.0"))
+    
+    UPROPERTY(EditAnywhere, Category = "Thresholds")
     float MaxRollAngle = 45.0f; // Degrees
-
-    UPROPERTY(EditAnywhere, Category = "Thresholds",
-              meta = (ClampMin = "0.0", ClampMax = "90.0"))
-    float MaxPitchAngle = 60.0f; // Auto-rotate threshold (Updated 2026-01-26: was 90.0f)
-
+    
+    UPROPERTY(EditAnywhere, Category = "Thresholds")
+    float MaxPitchAngle = 90.0f; // Upside down
+    
     UPROPERTY(EditAnywhere, Category = "Correction")
-    float AntiRollPowerInAir = 3000.0f;
-
+    float RotationSpeed = 5.0f;
+    
     UPROPERTY(EditAnywhere, Category = "Correction")
-    float AntiPitchPowerInAir = 2000.0f;
+    float CorrectionTorque = 10000.0f;
 };
 
 bool ASimulatePhysicsCar::ShouldAutoRotate()
 {
     if (!AirborneState.bIsAirborne) return false;
-
+    
     FRotator CurrentRotation = GetActorRotation();
-
+    
     // Check roll angle
     float AbsRoll = FMath::Abs(CurrentRotation.Roll);
-    if (AbsRoll > AntiRollInAir.MaxRollAngle)
+    if (AbsRoll > AutoRotateSettings.MaxRollAngle)
     {
         return true;
     }
-
-    // Check pitch angle
+    
+    // Check if upside down
     float AbsPitch = FMath::Abs(CurrentRotation.Pitch);
-    if (AbsPitch > AntiRollInAir.MaxPitchAngle)
+    if (AbsPitch > AutoRotateSettings.MaxPitchAngle)
     {
         return true;
     }
-
+    
     return false;
 }
 
 void ASimulatePhysicsCar::ApplyAutoRotate(float DeltaTime)
 {
     if (!ShouldAutoRotate()) return;
-
+    
     // Target rotation: upright with current yaw
     FRotator CurrentRotation = GetActorRotation();
     FRotator TargetRotation = FRotator(0.0f, CurrentRotation.Yaw, 0.0f);
-
+    
     // Smooth interpolation
     FRotator NewRotation = FMath::RInterpTo(
         CurrentRotation,
         TargetRotation,
         DeltaTime,
-        5.0f // RotationSpeed
+        AutoRotateSettings.RotationSpeed
     );
-
+    
     // Calculate torque to achieve rotation
     FQuat CurrentQuat = CurrentRotation.Quaternion();
     FQuat TargetQuat = NewRotation.Quaternion();
     FQuat DeltaQuat = TargetQuat * CurrentQuat.Inverse();
-
+    
     FVector Axis;
     float Angle;
     DeltaQuat.ToAxisAndAngle(Axis, Angle);
-
-    FVector Torque = Axis * Angle * AntiRollInAir.AntiRollPowerInAir;
-
+    
+    FVector Torque = Axis * Angle * AutoRotateSettings.CorrectionTorque;
+    
     UAsyncTickFunctions::ATP_AddTorque(PrimitiveComponent, Torque, true);
 }
 ```
@@ -449,135 +404,6 @@ void AFollowCarCamera::ApplyBounceEffect()
 }
 ```
 
-### Gravity and Height System
-
-**Height-Based Gravity Curve**:
-```cpp
-// In ASimulatePhysicsCar
-UPROPERTY(EditAnywhere, Category = "Airborne|Gravity")
-UCurveFloat* GravityByHeightCurve; // Curve to adjust gravity based on height
-
-UPROPERTY(EditAnywhere, Category = "Airborne|Landing")
-float LandingResetHeightOffset = 100.0f; // Height offset when resetting car position
-
-UPROPERTY(EditAnywhere, Category = "Airborne|Landing")
-float LandingHeightThreshold = 150.0f; // Height threshold for landing detection
-
-UPROPERTY(EditAnywhere, Category = "Airborne|Suspension")
-float RemoveSuspensionForceTime = 0.2f; // Time to disable suspension force after launch
-```
-
-### Crash Landing System
-
-**Crash Landing Parameters**:
-```cpp
-USTRUCT(BlueprintType)
-struct FCrashLandingSettings
-{
-    GENERATED_BODY()
-
-    UPROPERTY(EditAnywhere, Category = "Crash")
-    float CrashLandingMaxTime = 1.2f; // Max time for crash landing animation
-
-    UPROPERTY(EditAnywhere, Category = "Crash")
-    float CrashSlideForce = 3500.0f; // Force applied during crash slide
-
-    UPROPERTY(EditAnywhere, Category = "Crash")
-    float TargetCrashSlideDistance = 900.0f; // Target distance for crash slide
-};
-```
-
-**Crash Landing Detection and Handling**:
-```cpp
-void ASimulatePhysicsCar::OnLanding()
-{
-    // Check rotation on landing
-    FRotator LandingRotation = GetActorRotation();
-
-    bool bUprightLanding = CheckUprightLanding(LandingRotation);
-
-    if (bUprightLanding)
-    {
-        // Normal landing
-        ApplyLandingEffects();
-        FollowCamera->ApplyBounceEffect();
-    }
-    else
-    {
-        // Check if crash landing should occur
-        if (ShouldTriggerCrashLanding(LandingRotation))
-        {
-            StartCrashLanding();
-        }
-        else
-        {
-            // Tilted landing - reset car
-            ResetCarPosition();
-        }
-    }
-
-    // Reset airborne state
-    AirborneState.bIsAirborne = false;
-}
-
-bool ASimulatePhysicsCar::ShouldTriggerCrashLanding(const FRotator& Rotation)
-{
-    // Crash landing triggers when car lands at extreme angles
-    float AbsRoll = FMath::Abs(Rotation.Roll);
-    float AbsPitch = FMath::Abs(Rotation.Pitch);
-
-    // Crash if roll > 60° or pitch > 70°
-    return (AbsRoll > 60.0f) || (AbsPitch > 70.0f);
-}
-
-void ASimulatePhysicsCar::StartCrashLanding()
-{
-    bIsCrashLanding = true;
-    CrashLandingTimer = 0.0f;
-
-    // Calculate slide direction (opposite to velocity)
-    FVector SlideDirection = -GetVelocity().GetSafeNormal();
-
-    // Apply crash slide force
-    UAsyncTickFunctions::ATP_AddImpulse(
-        GetPrimitiveRoot(),
-        SlideDirection * CrashLandingSettings.CrashSlideForce,
-        true
-    );
-
-    // Trigger crash effects (particles, sound, camera shake)
-    OnCrashLanding.Broadcast();
-}
-
-void ASimulatePhysicsCar::UpdateCrashLanding(float DeltaTime)
-{
-    if (!bIsCrashLanding) return;
-
-    CrashLandingTimer += DeltaTime;
-
-    // Check if crash landing is complete
-    if (CrashLandingTimer >= CrashLandingSettings.CrashLandingMaxTime)
-    {
-        EndCrashLanding();
-    }
-
-    // Check if slide distance reached
-    float SlideDistance = (GetActorLocation() - CrashStartLocation).Size();
-    if (SlideDistance >= CrashLandingSettings.TargetCrashSlideDistance)
-    {
-        EndCrashLanding();
-    }
-}
-
-void ASimulatePhysicsCar::EndCrashLanding()
-{
-    bIsCrashLanding = false;
-
-    // Reset car to upright position
-    ResetCarPosition();
-}
-```
-
 ## Integration with Other Systems
 
 ### Nitro System Integration
@@ -637,33 +463,20 @@ void ASimulatePhysicsCar::OnLanding()
 
 ## Design Decisions
 
-### 1. Speed-Based Boost with Curve System
-**Decision**: Use speed-based boost with configurable curve multiplier
-
-**Implementation**:
-- Base `BoostForce = 800.0f` (scaled by speed curve) *(Updated 2026-01-26: was 50000.0f)*
-- `MaxSpeedForBoostCurve = 200.0f` KPH for normalization
-- `BoostForceCurve` (UCurveFloat*) for non-linear scaling
-- `UpwardBoost = 1.0f` for vertical component *(Updated 2026-01-26: was 0.5f)*
+### 1. Fixed Force vs Speed-Based Boost
+**Decision**: Use fixed force boost
 
 **Rationale**:
-- More realistic feel (faster cars get proportionally higher boosts)
-- Curve allows fine-tuning of boost behavior at different speeds
-- Designers can create custom boost profiles per ramp type
-- Still achieves target height (4-6m) with proper curve tuning
+- Predictable trajectory (easier to design levels)
+- Consistent player experience
+- Simpler to tune for target height (4-6m)
 
 **Trade-offs**:
-- Slightly more complex to tune than fixed force
-- Requires curve asset setup
+- Less realistic (faster cars don't jump higher)
+- More arcade-like feel (acceptable for this game)
 
 ### 2. Yaw-Only Air Control
 **Decision**: 50% yaw control only (no pitch/roll)
-
-**Implementation**:
-- `YawStrength = 4.0f` *(Updated 2026-01-26: was 1000.0f)*
-- `RollStrength = 4.0f`
-- `PitchStrength = 4.0f`
-- `AirSteeringMultiplier = 0.5f` (50% of ground)
 
 **Rationale**:
 - Yaw (left/right) is most intuitive for players
@@ -678,17 +491,11 @@ void ASimulatePhysicsCar::OnLanding()
 - Prevents advanced tricks (intentional design choice)
 
 ### 3. Auto-Rotate Threshold
-**Decision**: Trigger at >45° roll or >60° pitch
-
-**Implementation**:
-- `MaxRollAngle = 45.0f`
-- `MaxPitchAngle = 60.0f` *(Updated 2026-01-26: was 90.0f)*
-- `AntiRollPowerInAir = 3000.0f`
-- `AntiPitchPowerInAir = 2000.0f`
+**Decision**: Trigger at >45° roll or upside down
 
 **Rationale**:
-- 45° roll is point of no return for most players
-- 60° pitch provides earlier intervention than upside down
+- 45° is point of no return for most players
+- Upside down is clearly unrecoverable
 - Prevents frustration from uncontrollable spins
 
 **Trade-offs**:
@@ -696,17 +503,10 @@ void ASimulatePhysicsCar::OnLanding()
 - Could add option to disable for hardcore mode
 
 ### 4. Landing Reset vs Flip Recovery
-**Decision**: Reset car if landing is not upright, with crash landing for extreme angles
-
-**Implementation**:
-- Normal landing: upright position
-- Crash landing: `CrashLandingMaxTime = 1.2f`, `CrashSlideForce = 3500.0f`
-- `TargetCrashSlideDistance = 900.0f`
-- `LandingHeightThreshold = 150.0f`
+**Decision**: Reset car if landing is not upright
 
 **Rationale**:
 - Simpler than complex flip recovery
-- Crash landing adds dramatic effect for extreme landings
 - Faster to get back in race
 - Less frustrating than being stuck
 
@@ -742,63 +542,55 @@ void ASimulatePhysicsCar::NativeAsyncTick(float DeltaTime)
 ```
 
 ### Memory Impact
-- Ramp zone: approximately 300 bytes per ramp
-- Airborne state: approximately 100 bytes per car
+- Ramp zone: ~300 bytes per ramp
+- Airborne state: ~100 bytes per car
 - **Total**: Minimal impact
 
 ### CPU Impact
-- Ramp boost: approximately 0.05 ms per activation (rare)
-- Air control: approximately 0.1 ms per frame (only when airborne)
-- Auto-rotate: approximately 0.05 ms per frame (only when needed)
-- **Total**: <0.2 ms per frame when airborne
+- Ramp boost: ~0.05ms per activation (rare)
+- Air control: ~0.1ms per frame (only when airborne)
+- Auto-rotate: ~0.05ms per frame (only when needed)
+- **Total**: <0.2ms per frame when airborne
 
 ## Testing Strategy
 
 ### Unit Tests
-- [ ] Ramp boost achieves 4-6m height with speed curve
-- [ ] Speed-based boost curve scales correctly (0-200 KPH)
-- [ ] Boost direction follows vehicle velocity with UpwardBoost = 1.0
-- [ ] Air yaw control reduced to 50% (YawStrength = 4.0)
+- [ ] Ramp boost achieves 4-6m height
+- [ ] Boost direction follows vehicle velocity
+- [ ] Air yaw control reduced to 50% (no pitch/roll)
 - [ ] Auto-rotate triggers at >45° roll
-- [ ] Auto-rotate triggers at >60° pitch
-- [ ] Landing detection accuracy (LandingHeightThreshold = 150.0)
+- [ ] Auto-rotate triggers when upside down
+- [ ] Landing detection accuracy
 - [ ] Reset triggers on tilted landing
-- [ ] Crash landing triggers at extreme angles
-- [ ] Crash slide distance reaches target (900.0)
 
 ### Integration Tests
 - [ ] NOS works during airborne
 - [ ] Drift cancels on ramp entry
 - [ ] Camera effects apply correctly
 - [ ] Landing bounce effect works
-- [ ] Crash landing effects trigger correctly
-- [ ] GravityByHeightCurve applies correctly
-- [ ] RemoveSuspensionForceTime (0.2s) works on launch
 - [ ] Performance meets mobile targets
 
 ### Manual Testing
 - [ ] Ramp boost feels exciting
-- [ ] Speed-based boost feels natural at different speeds
 - [ ] Boost follows vehicle direction naturally
 - [ ] Yaw-only air control feels intuitive
 - [ ] Auto-rotate saves from frustration
 - [ ] Landing feels satisfying
-- [ ] Crash landing feels dramatic but fair
 - [ ] Reset doesn't feel punishing
 - [ ] Works on all ramp types
 
 ## Open Questions
 
-1. ~~Should ramp boost force scale with car speed?~~ **RESOLVED**: Yes, implemented with BoostForceCurve
+1. Should ramp boost force scale with car speed?
 2. Should there be different ramp types (small/medium/large)?
 3. Should air tricks be rewarded (e.g., bonus for flips)?
 4. Should there be a maximum airborne time before forced reset?
 5. Should camera effects vary based on jump height?
-6. Should crash landing have different severity levels?
 
 ## Related Documentation
 
 - **Requirements**: `ME08.md`, `racing-car-physics-overview.md`
-- **Architecture**: `car-physics-architecture.md`
-- **Implementation**: `car-physics-implementation-guide.md`
-- **Testing**: `car-physics-testing-strategy.md`
+- **Architecture**: `racing-car-physics-architecture.md`
+- **Implementation**: `racing-car-physics-implementation-guide.md` (to be created)
+- **Testing**: `racing-car-physics-testing-strategy.md` (to be created)
+

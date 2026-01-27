@@ -97,13 +97,12 @@ void CheckGraphicSettings();
 
 ### 1. Volume Settings
 
-| Type | Default | Range | Status |
-|------|---------|-------|--------|
-| GENERALS | 1.0 | 0.0 - 1.0 | ✅ Implemented |
-| Engine | 1.0 | 0.0 - 1.0 | ✅ Implemented |
-| Music | 1.0 | 0.0 - 1.0 | ✅ Implemented |
-| SFX | 1.0 | 0.0 - 1.0 | ✅ Implemented |
-| UI SFX | 1.0 | 0.0 - 1.0 | ⏳ Planned - Not Yet Implemented |
+| Type | Default | Range |
+|------|---------|-------|
+| GENERALS | 1.0 | 0.0 - 1.0 |
+| Engine | 1.0 | 0.0 - 1.0 |
+| Music | 1.0 | 0.0 - 1.0 |
+| SFX | 1.0 | 0.0 - 1.0 |
 
 ### 2. Control Settings
 
@@ -121,17 +120,16 @@ void CheckGraphicSettings();
 
 ### 4. Graphic Settings
 
-| Setting | Options/Range | Default | Status |
-|---------|---------------|---------|--------|
-| GraphicProfile | Performance, Balance, High, Ultra, Custom | Balance | ✅ Implemented |
-| FrameRateLimit | 30.0, 60.0 | 60.0 | ✅ Implemented |
-| TextureQuality | 0-4 (Low to Ultra) | 1 | ✅ Implemented |
-| Bloom | true/false | true | ✅ Implemented |
-| MotionBlur | true/false | true | ✅ Implemented |
-| DepthOfField | true/false | true | ⏳ Planned - Not Yet Implemented |
-| AntiAliasing | 0-4 | 1 | ✅ Implemented |
-| LightQuality | 0-4 | 1 | ✅ Implemented |
-| ShadowResolution | 0-4 | 1 | ✅ Implemented |
+| Setting | Options/Range | Default |
+|---------|---------------|---------|
+| GraphicProfile | Performance, Balance, High, Ultra, Custom | Balance |
+| FrameRateLimit | 30.0, 60.0 | 60.0 |
+| TextureQuality | 0-4 (Low to Ultra) | 1 |
+| Bloom | true/false | true |
+| MotionBlur | true/false | true |
+| AntiAliasing | 0-4 | 1 |
+| LightQuality | 0-4 | 1 |
+| ShadowResolution | 0-4 | 1 |
 
 ### 5. Language Settings
 
@@ -175,21 +173,5 @@ void CheckGraphicSettings();
 
 ---
 
-## Implementation Status Legend
-
-| Symbol | Meaning |
-|--------|---------|
-| ✅ | Implemented and available in code |
-| ⏳ | Planned - Not Yet Implemented |
-
-### Planned Features (Not Yet in Code)
-
-| Feature | Category | Notes |
-|---------|----------|-------|
-| UI SFX Volume | Audio | Separate volume control for UI sound effects |
-| Depth of Field | Graphics | Toggle for depth of field post-processing effect |
-
----
-
-*Last synced with source code: 2026-01-26*
+*Synced with source code on 2026-01-20*
 

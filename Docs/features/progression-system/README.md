@@ -6,45 +6,20 @@ feature_id: progression-system
 status: development
 priority: critical
 owner: Game Design Team
-last_updated: 2026-01-26
+last_updated: 2026-01-20
 ---
 
 # Progression System Feature
 
 **Breadcrumbs:** [Docs](../../../) > [Features](../) > Progression System
 
-**Feature ID**: `progression-system`
-**Status**: 🔄 Development
-**Priority**: Critical
-**Owner**: Game Design Team
-**Version**: 1.0.1
-**Date**: 2026-01-26
+**Feature ID**: `progression-system`  
+**Status**: 🔄 Development  
+**Priority**: Critical  
+**Owner**: Game Design Team  
+**Version**: 1.0.0  
+**Date**: 2026-01-20  
 **Source of Truth**: Source Code
-
----
-
-## Implementation Status
-
-### ✅ IMPLEMENTED
-- **VN-Tour Campaign** - 5 cities hierarchy (Hà Nội, TP.HCM, Đà Nẵng, Huế, Hội An)
-- **Track/City Unlock System** - RequiredTopRank = 3 (Top 3 finish unlocks next track)
-- **Fan Service Missions** - 6 types (DriftMaster, CleanRacer, FlyCar, SpeedDemon, CertainExpectation, NoDrift)
-- **Basic Achievement System** - 4 categories (VNTour, Racing, CarRating, FanService)
-- **Fuel System** - MaxFuel = 5, RefillTime = 1800s (30 minutes per fuel)
-- **Race Reward System** - Position-based rewards with Fan Service bonuses
-- **Performance Gate** - Car rating requirements for track difficulty
-
-### ⏳ PLANNED - NOT IMPLEMENTED
-- **Player Level/XP System** - Documented Level 1-100, XPToNextLevel = 1000
-- **Seasonal/Battle Pass System** - 100 tiers per season, free/premium tracks
-- **Club System** - Up to 50 members, club challenges
-- **Leaderboard System** - Global, regional, friend rankings
-- **Offline Progression** - Idle rewards, offline race simulation
-- **Multiple Currencies** - Gems, Fame Points, Seasonal Tokens (only Coins implemented)
-- **Cloud Sync** - Cloud save with conflict resolution
-- **Daily Login Bonuses** - Escalating rewards system
-
-> **Last synced with source code: 2026-01-26**
 
 ---
 
@@ -309,7 +284,7 @@ class UProgressionSaveGame : public USaveGame {
 
 ---
 
-**Last Review**: 2026-01-26
-**Next Review**: 2026-02-26
-**Version**: 1.0.1
+**Last Review**: 2026-01-20  
+**Next Review**: 2026-02-20  
+**Version**: 1.0.0
 

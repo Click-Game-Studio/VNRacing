@@ -574,7 +574,7 @@ void UProgressionSubsystem::AddExperience(int32 Amount, EXPSource Source)
 {
     int32 PreviousLevel = PlayerLevel;
     
-    // Add XP logic here
+    // Add XP logic here...
     
     // Analytics tracking
     if (auto* Analytics = GetAnalytics())

@@ -9,7 +9,7 @@ Các Scripts Tutorial là loại hướng dẫn bắt buộc, người chơi ph�
 - SlowMotion/làm chậm gameplay khi chạy tutorial
 - Lock control, highlight và hiển thị panel thông tin
 - Mask đen phần màn hình không cần thao tác, chỉ để lại vùng cần thực hiện
-- Mỗi panel text tự động tắt sau approximately 2 giây (hoặc theo điều kiện tương ứng)
+- Mỗi panel text tự động tắt sau khoảng 2 giây (hoặc theo điều kiện tương ứng)
 
 ### **Danh sách Scripts Tutorials & Steps**
 
@@ -68,29 +68,18 @@ Các Scripts Tutorial là loại hướng dẫn bắt buộc, người chơi ph�
 ---
 
 #### 4. Basic Car Upgrade
-- **Mục đích:**
-  > **[PENDING]** Chi tiết các step hướng dẫn nâng cấp xe cơ bản.
-  > **Owner**: UX Team
-  > **Target Date**: [PENDING]
+- **Mục đích:** (Pending cập nhật chi tiết step)
 - **Trigger:** Khi có hạng mục xe đủ điều kiện nâng cấp performance.
 - **Điều kiện hoàn thành:** Người chơi nâng cấp tất cả slot có thể nâng cấp.
 
 ---
 
 #### 5. Advanced Car Upgrade
-- **Mục đích:**
-  > **[PENDING]** Chi tiết các step hướng dẫn nâng cấp xe nâng cao.
-  > **Owner**: UX Team
-  > **Target Date**: [PENDING]
-
+- Mục đích: Đang bổ sung (Pending).
 ---
 
 #### 6. Basic Car Customize
-- **Mục đích:**
-  > **[PENDING]** Chi tiết các step hướng dẫn tùy chỉnh xe cơ bản.
-  > **Owner**: UX Team
-  > **Target Date**: [PENDING]
-
+- Mục đích: Đang bổ sung (Pending).
 ---
 
 ---
@@ -100,7 +89,7 @@ Các On-Screen Tutorial (ToolTips/Pop-up Info) dùng để truyền đạt thôn
 
 **Cơ chế hoạt động chính:**
 - Hiển thị pop-up tooltip tại vị trí thông tin, không cần thao tác của người chơi.
-- Tự động biến mất sau một khoảng thời gian xác định hoặc khi người chơi/chuyển màn hình.
+- Tự động biến mất sau khoảng thời gian hoặc khi người chơi/chuyển màn hình.
 - Có thể được kích hoạt lại nhiều lần (kịch bản sự kiện lặp lại).
 - Được thiết kế gọn nhẹ, không làm gián đoạn trải nghiệm chính.
 
@@ -124,7 +113,7 @@ Các On-Screen Tutorial (ToolTips/Pop-up Info) dùng để truyền đạt thôn
 
 ## LƯU Ý ĐỊNH DẠNG
 - Định dạng các bảng step & scripts giữ nguyên như file VN-Racing-Tutorials-Fixed.md, bổ sung chi tiết để đồng bộ với tài liệu gốc và file Figma UI.
-- Các phần đánh dấu **[PENDING]** sẽ được bổ sung hoàn thiện trong các bản cập nhật tiếp theo.
+- Các phần "pending" sẽ bổ sung hoàn thiện sau.
 
 ---
 

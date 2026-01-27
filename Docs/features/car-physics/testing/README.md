@@ -131,7 +131,7 @@ last_updated: 2026-01-20
 **Test Cases**:
 - [ ] Gameplay remains playable with latency
 - [ ] Client prediction works
-- [ ] No Rubber Banding
+- [ ] No rubber-banding
 - [ ] UI updates correctly
 - [ ] Hit detection accurate
 

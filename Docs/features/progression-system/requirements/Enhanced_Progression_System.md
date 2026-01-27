@@ -6,9 +6,6 @@
 **Date**: 2025-09-07
 **Status**: Development Design - Includes VN-Tour Integration
 
-> ⚠️ **Implementation Status**: This document describes the COMPLETE design vision.
-> See [README.md](../README.md) for current implementation status. Many features are PLANNED but not yet implemented.
-
 ## Document Consolidation Notice
 This document consolidates and standardizes content from multiple progression system documents, including the VN-Tour GameMode specifications, to provide a comprehensive progression system design.
 

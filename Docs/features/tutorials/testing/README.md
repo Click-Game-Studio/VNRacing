@@ -245,12 +245,9 @@ bool FTooltipSpamPreventionTest::RunTest(const FString& Parameters)
 3. Complete Basic Controls 1 (8 steps)
 4. Complete Basic Controls 2 (2 steps)
 5. Complete VnTourMap (5 steps)
-6. Complete Basic Car Upgrade
-   > [PENDING] Details to be documented
-7. Complete Advanced Car Upgrade
-   > [PENDING] Details to be documented
-8. Complete Basic Car Customize
-   > [PENDING] Details to be documented
+6. Complete Basic Car Upgrade (pending details)
+7. Complete Advanced Car Upgrade (pending details)
+8. Complete Basic Car Customize (pending details)
 
 **Checklist**:
 - [ ] All tutorial steps display correct text and images

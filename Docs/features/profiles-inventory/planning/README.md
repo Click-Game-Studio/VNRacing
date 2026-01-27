@@ -47,7 +47,7 @@ description: Implementation plan 2-3 ngày - 4 dev logic + 1 dev UI + 1 dev test
 | PI-14 | UI Polish + Popups | 8h | Nam Sơn | 3 |
 | PI-15 | Integration Testing + Final Docs | 8h | Như | 3 |
 
-**Total**: 15 tasks, approximately 88h across 6 devs, 3 days
+**Total**: 15 tasks, ~88h across 6 devs, 3 days
 
 ---
 
@@ -68,8 +68,8 @@ description: Implementation plan 2-3 ngày - 4 dev logic + 1 dev UI + 1 dev test
 - Tạo FAvatarInfo struct và FRaceResultData struct
 - Implement helper methods (GetWinRate, GetAveragePosition)
 - Implement UProfanityFilter class:
-  - Load Vietnamese bad words list (approximately 30 words)
-  - Load English bad words list (approximately 20 words)
+  - Load Vietnamese bad words list (~30 words)
+  - Load English bad words list (~20 words)
   - Leetspeak normalization (a→4, e→3, i→1, o→0, s→5, t→7)
   - ContainsProfanity() method
   - FilterText() method với replacement
@@ -561,19 +561,19 @@ description: Implementation plan 2-3 ngày - 4 dev logic + 1 dev UI + 1 dev test
 **Objective**: Final integration và fix all bugs
 
 **Scope:**
-- **Đời (Profile)** (approximately 1h):
+- **Đời (Profile)** (~1h):
   - Profile-UI binding final
   - Fix all Profile-related bugs
   - Verify race stats integration
-- **Đạt (Inventory + Item)** (approximately 1h):
+- **Đạt (Inventory + Item)** (~1h):
   - Inventory-UI binding final
   - Fix all Inventory/Item-related bugs
   - Verify default items
-- **Hiếu (Reward)** (approximately 1h):
+- **Hiếu (Reward)** (~1h):
   - Reward-UI binding final
   - Fix all Reward-related bugs
   - Verify loot crate flow
-- **Liêm (SaveManager)** (approximately 1h):
+- **Liêm (SaveManager)** (~1h):
   - SaveManager final verification
   - Fix all Save/Load bugs
   - Verify auto-save và game lifecycle
@@ -702,10 +702,10 @@ description: Implementation plan 2-3 ngày - 4 dev logic + 1 dev UI + 1 dev test
 
 | Developer | Day 1 | Day 2 | Day 3 | Total |
 |-----------|-------|-------|-------|-------|
-| Đời | 8h | 4h | ≈1h | ≈13h |
-| Đạt | 8h | 4h | ≈1h | ≈13h |
-| Liêm | 6h | 4h | ≈1h | ≈11h |
-| Hiếu | 6h | 4h | ≈1h | ≈11h |
+| Đời | 8h | 4h | ~1h | ~13h |
+| Đạt | 8h | 4h | ~1h | ~13h |
+| Liêm | 6h | 4h | ~1h | ~11h |
+| Hiếu | 6h | 4h | ~1h | ~11h |
 | Nam Sơn | 8h | 8h | 8h | 24h |
 | Như | 6h | 6h | 8h | 20h |
 
