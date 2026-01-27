@@ -5,7 +5,7 @@ description: Unified user story for car physics features
 feature_id: car-physics
 status: development
 priority: critical
-last_updated: 2026-01-20
+last_updated: 2026-01-26
 ---
 
 # Car Physics & Gameplay Mechanics - Overview
@@ -14,8 +14,8 @@ last_updated: 2026-01-20
 
 **Feature ID**: `car-physics`  
 **Status**: 🔄 Development  
-**Version**: 1.0.0  
-**Date**: 2026-01-20
+**Version**: 1.1.0
+**Date**: 2026-01-26
 
 ## Executive Summary
 

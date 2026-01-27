@@ -2,7 +2,7 @@
 
 **Breadcrumbs:** Docs > Architecture
 
-**Version:** 1.0.0 | **Date:** 2026-01-20
+**Version:** 1.1.0 | **Date:** 2026-01-26
 
 ![Status: Development](https://img.shields.io/badge/Status-Development-blue)
 
@@ -236,3 +236,4 @@ PrototypeRacing/Source/PrototypeRacing/
 | Version | Date | Changes |
 |---------|------|---------|
 | 1.0.0 | 2026-01-20 | Initial architecture documentation synced with source code |
+| 1.1.0 | 2026-01-26 | Version update |

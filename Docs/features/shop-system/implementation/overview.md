@@ -1,6 +1,6 @@
 # Shop System - Implementation Overview
 
-**Version:** 1.0.0 | **Date:** 2026-01-26 | **Status:** NOT STARTED
+**Version:** 1.1.0 | **Date:** 2026-01-26 | **Status:** NOT STARTED
 
 **Breadcrumbs:** [Docs](../../../) > [Features](../../) > [Shop System](../) > Implementation
 

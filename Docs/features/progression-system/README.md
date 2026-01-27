@@ -17,7 +17,7 @@ last_updated: 2026-01-26
 **Status**: 🔄 Development
 **Priority**: Critical
 **Owner**: Game Design Team
-**Version**: 1.0.1
+**Version**: 1.1.0
 **Date**: 2026-01-26
 **Source of Truth**: Source Code
 
@@ -311,5 +311,5 @@ class UProgressionSaveGame : public USaveGame {
 
 **Last Review**: 2026-01-26
 **Next Review**: 2026-02-26
-**Version**: 1.0.1
+**Version**: 1.1.0
 

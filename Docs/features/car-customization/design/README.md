@@ -11,10 +11,10 @@ last_updated: 2026-01-20
 
 **Breadcrumbs:** [Docs](../../../../) > [Features](../../../) > [Car Customization](../) > Design
 
-**Feature ID**: `car-customization`  
-**Status**: 🔄 Development  
-**Version**: 1.0.0  
-**Date**: 2026-01-20
+**Feature ID**: `car-customization`
+**Status**: 🔄 Development
+**Version**: 1.1.0
+**Date**: 2026-01-26
 
 ---
 
@@ -1059,6 +1059,6 @@ TMap<ECarPartSlot, UDataTable*> NewDefaultParts;
 
 ---
 
-**Last Updated**: 2026-01-20  
-**Synced With**: Source code in `PrototypeRacing/Source/PrototypeRacing/Public/CarCustomizationSystem/`  
-**Version**: 1.0.0
+**Last Updated**: 2026-01-26
+**Synced With**: Source code in `PrototypeRacing/Source/PrototypeRacing/Public/CarCustomizationSystem/`
+**Version**: 1.1.0

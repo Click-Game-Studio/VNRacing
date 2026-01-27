@@ -6,7 +6,7 @@ feature_id: profiles-inventory
 status: development
 priority: high
 owner: Backend Team
-last_updated: 2026-01-20
+last_updated: 2026-01-26
 ---
 
 # Profiles & Inventory Feature
@@ -17,8 +17,8 @@ last_updated: 2026-01-20
 **Status**: 🔄 Development  
 **Priority**: High  
 **Owner**: Backend Team  
-**Version**: 1.0.0  
-**Date**: 2026-01-20  
+**Version**: 1.1.0
+**Date**: 2026-01-26
 **Source of Truth**: `PrototypeRacing/Source/PrototypeRacing/Private/InventorySystem/`
 
 ---
@@ -161,5 +161,5 @@ enum class EItemType : uint8
 
 ---
 
-**Version**: 1.0.0  
-**Last Review**: 2026-01-20
+**Version**: 1.1.0
+**Last Review**: 2026-01-26

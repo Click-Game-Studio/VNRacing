@@ -1,6 +1,6 @@
 ---
 title: Terminology Glossary
-version: 1.0.0
+version: 1.1.0
 status: approved
 created: 2026-01-26
 last_updated: 2026-01-26

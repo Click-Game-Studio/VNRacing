@@ -1,6 +1,6 @@
 # Tutorial System
 
-**Version:** 1.0.1 | **Date:** 2026-01-26 | **Status:** Development
+**Version:** 1.1.0 | **Date:** 2026-01-26 | **Status:** Development
 
 ![Status: Development](https://img.shields.io/badge/Status-Development-blue)
 

@@ -5,15 +5,15 @@ description: GDD Overview of suspension physics and visual feedback
 feature_id: car-physics
 status: development
 priority: high
-last_updated: 2026-01-20
+last_updated: 2026-01-26
 ---
 
 # Car Suspension Physics
 
 **Feature ID**: `car-physics`  
 **Status**: 🔄 Development  
-**Version**: 1.0.0  
-**Last Updated**: 2026-01-20
+**Version**: 1.1.0
+**Last Updated**: 2026-01-26
 
 Cơ chế nhún của Suspension khi xe di chuyển trong Map đua.  
 **Change Log:**

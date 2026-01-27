@@ -6,7 +6,7 @@ feature_id: setting-system
 status: development
 priority: high
 owner: Engineering Team
-last_updated: 2026-01-20
+last_updated: 2026-01-26
 ---
 
 # Setting System Feature
@@ -15,8 +15,8 @@ last_updated: 2026-01-20
 
 **Feature ID**: `setting-system`  
 **Status**: 🔄 Development  
-**Version**: 1.0.0  
-**Date**: 2026-01-20  
+**Version**: 1.1.0
+**Date**: 2026-01-26
 **Source of Truth**: `PrototypeRacing/Source/PrototypeRacing/Private/SettingSystem/`
 
 ---

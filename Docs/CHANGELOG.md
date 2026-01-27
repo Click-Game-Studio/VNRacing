@@ -172,7 +172,7 @@ When making significant documentation changes:
 
 ---
 
-**Documentation Version**: 1.0.0  
-**Project**: VNRacing - Mobile Racing Game  
-**Maintained By**: Development Team  
-**Last Review**: 2026-01-20
+**Documentation Version**: 1.1.0
+**Project**: VNRacing - Mobile Racing Game
+**Maintained By**: Development Team
+**Last Review**: 2026-01-26

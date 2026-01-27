@@ -1,6 +1,6 @@
 # Shop System Feature
 
-**Version:** 1.0.0 | **Date:** 2026-01-20 | **Status:** Development
+**Version:** 1.1.0 | **Date:** 2026-01-26 | **Status:** Development
 
 ![Status: Development](https://img.shields.io/badge/Status-Development-blue)
 
@@ -421,5 +421,5 @@ void UShopSubsystem::TrackPurchase(const FShopItem& Item, ECurrency Currency)
 
 ---
 
-**Last Updated:** 2026-01-20
+**Last Updated:** 2026-01-26
 

@@ -1,6 +1,6 @@
 ---
 title: "Minimap System - Requirements Overview"
-version: "1.0.0"
+version: "1.1.0"
 status: "Production"
 created: "2025-11-09"
 updated: "2025-11-09"

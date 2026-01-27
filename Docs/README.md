@@ -5,7 +5,7 @@
 **Project**: VNRacing - Mobile Racing Game  
 **Engine**: Unreal Engine 5.4+  
 **Platform**: Mobile (Android, iOS)  
-**Documentation Version**: 1.0.0  
+**Documentation Version**: 1.1.0
 **Last Updated**: 2026-01-26
 
 ---
@@ -313,5 +313,5 @@ Learn more: [Performance Targets](_architecture/performance-targets.md)
 ---
 
 **Last Updated**: 2026-01-26
-**Documentation Version**: 1.0.0  
+**Documentation Version**: 1.1.0
 **Project Status**: In Development

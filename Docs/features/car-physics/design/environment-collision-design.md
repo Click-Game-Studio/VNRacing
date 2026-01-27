@@ -5,15 +5,15 @@ description: Arcade-style collision with auto-correction to racing line
 feature_id: car-physics
 status: development
 priority: medium
-last_updated: 2026-01-20
+last_updated: 2026-01-26
 ---
 
 # ME06: Environment Collision Mechanic Design
 
 **Feature ID**: `car-physics`  
 **Status**: 🔄 Development  
-**Version**: 1.0.0  
-**Last Updated**: 2026-01-20
+**Version**: 1.1.0
+**Last Updated**: 2026-01-26
 
 ## Feature Overview
 

@@ -2,8 +2,8 @@
 
 **Project**: VNRacing - Mobile Racing Game  
 **Document**: Documentation Standards and Guidelines  
-**Version**: 1.0.0  
-**Date**: 2026-01-20  
+**Version**: 1.1.0
+**Date**: 2026-01-26
 **Status**: Official Standard
 
 ---

@@ -1,6 +1,6 @@
 # Multiplayer Feature
 
-**Version:** 1.0.0 | **Date:** 2026-01-20 | **Status:** Planned
+**Version:** 1.1.0 | **Date:** 2026-01-26 | **Status:** Planned
 
 ![Status: Planned](https://img.shields.io/badge/Status-Planned-yellow)
 

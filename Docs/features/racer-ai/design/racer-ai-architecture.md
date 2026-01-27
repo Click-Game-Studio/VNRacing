@@ -2,8 +2,8 @@
 phase: design
 title: Racer AI System Architecture
 description: Technical architecture, component design, and data models for intelligent racing AI
-version: 1.0.0
-last_synced: 2026-01-20
+version: 1.1.0
+last_synced: 2026-01-26
 status: Synced with Source Code
 ---
 
@@ -13,9 +13,9 @@ status: Synced with Source Code
 
 **Document**: Racer AI System Architecture
 
-**Version**: 1.0.0
+**Version**: 1.1.0
 
-**Date**: 2026-01-20
+**Date**: 2026-01-26
 
 **Status**: ✅ Synced with Source Code
 

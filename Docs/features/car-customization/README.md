@@ -13,12 +13,12 @@ last_updated: 2026-01-20
 
 **Breadcrumbs:** [Docs](../../../) > [Features](../) > Car Customization
 
-**Feature ID**: `car-customization`  
-**Status**: 🔄 Development  
-**Priority**: High  
-**Owner**: Customization Team  
-**Version**: 1.0.0  
-**Date**: 2026-01-20
+**Feature ID**: `car-customization`
+**Status**: 🔄 Development
+**Priority**: High
+**Owner**: Customization Team
+**Version**: 1.1.0
+**Date**: 2026-01-26
 
 
 ## Overview

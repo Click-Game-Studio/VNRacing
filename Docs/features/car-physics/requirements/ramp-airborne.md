@@ -5,15 +5,15 @@ description: GDD Overview of ramp and airborne mechanics
 feature_id: car-physics
 status: development
 priority: high
-last_updated: 2026-01-20
+last_updated: 2026-01-26
 ---
 
 # ME08: Ramp & High Platform Racing
 
 **Feature ID**: `car-physics`  
 **Status**: 🔄 Development  
-**Version**: 1.0.0  
-**Last Updated**: 2026-01-20
+**Version**: 1.1.0
+**Last Updated**: 2026-01-26
 
 GDD Overview cơ chế sử dụng Ramp và nhảy xuống Vực trong VN Racing  
 **Change Log:**

@@ -4,7 +4,7 @@
 
 **Project**: VNRacing - Mobile Racing Game
 **Document**: Comprehensive Data Structure Reference
-**Version**: 1.0.1 | **Date**: 2026-01-26
+**Version**: 1.1.0 | **Date**: 2026-01-26
 **Status**: 🔄 Development
 
 > **Last synced with source code: 2026-01-26**

@@ -1,6 +1,6 @@
 ---
 title: "Player Info HUD System - Architecture Design"
-version: "1.0.0"
+version: "1.1.0"
 status: "Draft"
 created: "2025-01-06"
 updated: "2025-01-06"

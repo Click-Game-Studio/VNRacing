@@ -11,10 +11,10 @@ last_updated: 2026-01-20
 
 **Breadcrumbs:** [Docs](../../../../) > [Features](../../../) > [Car Customization](../) > Requirements
 
-**Feature ID**: `car-customization`  
-**Status**: 🔄 Development  
-**Version**: 1.0.0  
-**Date**: 2026-01-20
+**Feature ID**: `car-customization`
+**Status**: 🔄 Development
+**Version**: 1.1.0
+**Date**: 2026-01-26
 
 ---
 

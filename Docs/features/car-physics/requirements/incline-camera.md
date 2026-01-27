@@ -5,15 +5,15 @@ description: GDD Overview of incline/decline gameplay concepts
 feature_id: car-physics
 status: development
 priority: medium
-last_updated: 2026-01-20
+last_updated: 2026-01-26
 ---
 
 # ME05: Incline & Decline Driving
 
 **Feature ID**: `car-physics`  
 **Status**: 🔄 Development  
-**Version**: 1.0.0  
-**Last Updated**: 2026-01-20
+**Version**: 1.1.0
+**Last Updated**: 2026-01-26
 
 GDD Overview Gameplay khi xe lên xuống dốc trong VN Racing
 

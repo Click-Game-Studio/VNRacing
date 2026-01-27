@@ -2,8 +2,8 @@
 phase: design
 title: Tutorial System Architecture
 description: Technical architecture synced with actual source code implementation
-version: 1.0.0
-last_synced: 2026-01-20
+version: 1.1.0
+last_synced: 2026-01-26
 status: Synced with Source Code
 ---
 
@@ -11,8 +11,8 @@ status: Synced with Source Code
 
 **Project**: PrototypeRacing - Mobile Racing Game
 **Document**: Tutorial System Architecture
-**Version**: 1.0.0
-**Date**: 2026-01-20
+**Version**: 1.1.0
+**Date**: 2026-01-26
 **Status**: ✅ Synced with Source Code
 
 ---

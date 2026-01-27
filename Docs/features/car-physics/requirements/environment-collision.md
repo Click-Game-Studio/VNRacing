@@ -5,15 +5,15 @@ description: GDD Overview of environment collision mechanics
 feature_id: car-physics
 status: development
 priority: medium
-last_updated: 2026-01-20
+last_updated: 2026-01-26
 ---
 
 # ME06: Environment Collision Mechanic
 
 **Feature ID**: `car-physics`  
 **Status**: 🔄 Development  
-**Version**: 1.0.0  
-**Last Updated**: 2026-01-20
+**Version**: 1.1.0
+**Last Updated**: 2026-01-26
 
 GDD Overview cơ chế va chạm với môi trường trong VN Racing  
 **Change Log:**

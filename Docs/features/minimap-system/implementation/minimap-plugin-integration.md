@@ -1,6 +1,6 @@
 ---
 title: "Minimap Plugin Integration Guide"
-version: "1.0.0"
+version: "1.1.0"
 status: "Development"
 created: "2025-11-09"
 updated: "2026-01-26"

@@ -4,15 +4,15 @@ title: Technical Guide - Car Collision
 description: Technical guidance for player vs AI car collision mechanics
 feature_id: car-physics
 status: development
-last_updated: 2026-01-20
+last_updated: 2026-01-26
 ---
 
 # Technical Guide: Car Collision Mechanics
 
 **Feature ID**: `car-physics`  
 **Status**: 🔄 Development  
-**Version**: 1.0.0  
-**Last Updated**: 2026-01-20
+**Version**: 1.1.0
+**Last Updated**: 2026-01-26
 
 **Original Title**: Hướng dẫn kỹ thuật phương án làm giả va chạm của xe người chơi và xe do máy lái
 

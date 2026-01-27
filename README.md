@@ -3,7 +3,7 @@
 [![Unreal Engine](https://img.shields.io/badge/Unreal%20Engine-5.4+-blue.svg)](https://www.unrealengine.com/)
 [![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20iOS-green.svg)]()
 [![Status](https://img.shields.io/badge/Status-In%20Development-yellow.svg)]()
-[![Documentation](https://img.shields.io/badge/Docs-v1.0.0-brightgreen.svg)](./Docs/)
+[![Documentation](https://img.shields.io/badge/Docs-v1.1.0-brightgreen.svg)](./Docs/)
 
 > 📚 Comprehensive documentation for VNRacing - A mobile racing game featuring Vietnamese cultural integration
 
