@@ -1,0 +1,12 @@
+id,Summary,Type,Estimation,Assignee
+HUD-1,Phase 1 Task 1: Extend UPrototypeRacingUI Base Class - Add Blueprint Implementable Events and event binding methods,Task,16h,Đức Thịnh
+HUD-2,Phase 1 Task 2: Create Data Structures - FRaceProgressInfo FSkillPopupData ESkillType FSkillReward,Task,8h,Đức Thịnh
+HUD-3,Phase 1 Task 3: Implement Race Progress Calculation - Add CalculateRaceProgress to ARaceTrackManager,Task,16h,Đức Thịnh
+HUD-4,Phase 1 Task 4: Implement Time Attack Countdown Timer - Checkpoint bonus and timer expiration logic,Task,12h,Đức Thịnh
+HUD-5,Phase 2 Task 5: UI Components Implementation - All HUD widgets (Race Progress Skill Popup Fan Service),Task,40h,Nam Sơn
+HUD-6,Phase 3 Task 6: Implement Opponent Info Widget (Code) - World-space widget component and distance-based visibility logic,Task,16h,Đức Thịnh
+HUD-7,Phase 3 Task 6: Implement Opponent Info Widget (UI) - WBP_OpponentInfo Blueprint widget and animations,Task,8h,Nam Sơn
+HUD-8,Phase 3 Task 7: Add Player Position Conditional Display - Hide position in Time Attack mode,Task,4h,Đức Thịnh
+HUD-9,Phase 4 Task 8: Performance Optimization & Profiling - Profile and optimize HUD on mobile devices,Task,16h,Đức Thịnh
+HUD-10,Phase 4 Task 9: Integration Testing & Bug Fixes - Test all race modes and fix critical bugs,Task,16h,Đức Thịnh + Nam Sơn
+

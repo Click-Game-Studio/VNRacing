@@ -1,0 +1,9 @@
+id,Summary,Type,Estimation,Assignee
+CC-1,Vehicle Type System & Blueprint Children,Task,4h, Đạt
+CC-2,Customization Subsystem Upgrade,Task,4h, Đạt
+CC-3,Vehicle Factory,Task, 4h, anh Long
+CC-4,Update GameMode and integration, Task, 4h, anh Long
+CC-5,Mobile UI Framework & Touch Controls,Task,4h, Nam Sơn
+CC-6,Vehicle Selector & Customization Panel,Task,4h, Nam Sơn
+CC-7,Save/Load System Upgrade & Migration,Task,4h, Liêm
+CC-8,Race Integration & Testing,Task,4h, Liêm

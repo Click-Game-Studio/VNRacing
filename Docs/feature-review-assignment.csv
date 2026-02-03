@@ -1,0 +1,13 @@
+STT,Feature,So_File_MD,Mo_Ta,Do_Uu_Tien,Nguoi_Review,Trang_Thai,Ngay_Bat_Dau,Ngay_Hoan_Thanh,Ghi_Chu
+1,car-customization,53,He thong tuy chinh xe - son xe decals nang cap phu tung,Cao,,,,,
+2,car-physics,65,He thong vat ly xe - xu ly va cham gia toc treo xe,Cao,,,,,
+3,minimap-system,52,He thong ban do mini - hien thi duong dua vi tri nguoi choi,Trung Binh,,,,,
+4,multiplayer,57,He thong multiplayer - matchmaking lobby dong bo mang,Cao,,,,,
+5,profiles-inventory,52,He thong ho so va kho do - tai khoan nguoi choi vat pham,Trung Binh,,,,,
+6,progression-system,62,He thong tien trinh - XP cap do mo khoa thanh tuu,Cao,,,,,
+7,race-modes,50,Cac che do dua - time trial championship quick race,Cao,,,,,
+8,racer-ai,50,AI doi thu - do kho duong dua AI thich ung,Trung Binh,,,,,
+9,setting-system,26,He thong cai dat - am thanh do hoa dieu khien,Thap,,,,,
+10,shop-system,56,He thong cua hang - mua ban tien te giao dich,Trung Binh,,,,,
+11,tutorials,51,He thong huong dan - onboarding tips man hinh tro giup,Thap,,,,,
+12,ui-ux,34,Giao dien nguoi dung - menu HUD dieu huong thiet ke,Trung Binh,,,,,

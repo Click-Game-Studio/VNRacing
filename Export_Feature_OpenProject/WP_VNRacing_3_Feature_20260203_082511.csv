@@ -1,0 +1,1669 @@
+﻿ID WP,Subject,Type,Status,Assignee,Priority,Team,Work,Project,Finish date,Spent time,Start date,Created on,Updated on,Description
+156,Drive Mode,Feature,In testing,,High,,,VNRacing,2026-02-04,P27DT3h35M23S,2025-10-28,2025-10-26T08:00:36.133Z,2026-02-03T08:09:47.529Z,"Feature tập hợp các tính năng liên quan tới cảm giác lái của xe, bao gồm:
+
+*   Lái xe bình thường, Drift, sử dụng NOS.
+    
+*   Va chạm với môi trường, với xe khác.
+    
+*   Sử dụng các công cụ đặc biệt trong cuộc đua như Ramp, Pad Boost tốc độ."
+197,"    Tôi muốn cảm giác Arcade nhưng vẫn có yếu tố va chạm,nhưng tôi không muốn xe lật ",User story,,,,Game Design,,VNRacing,2026-02-03,P10DT5h6M,2025-11-04,2025-10-28T02:45:30.538Z,2026-02-03T08:22:33.099Z,
+218,"    Tôi muốn trong khi đua,có phần infor của các player,có rank player - player title",User story,,,,,,VNRacing,2026-02-02,P6DT23h,2025-11-06,2025-10-28T08:36:11.210Z,2026-01-31T04:34:36.194Z,
+392,In-Game Mini Map,User story,,Phuoc Ho Duc,,,,VNRacing,2026-01-12,P2DT1h34M48S,2025-11-04,2025-11-04T10:17:27.476Z,2026-01-23T07:54:06.293Z,"Là người chơi, tôi muốn có phần mini map trong lúc đua để có thể theo dõi chặng đua, Mini Map đẹp, dễ quan sát trên màn hình điện thoại"
+1777,"Tôi muốn có cảm giác thoả mãn về chiếc xe của mình khi bắt đầu đua, Góc máy đẹp - Cinematic scene",User story,,Phuoc Ho Duc,,,,VNRacing,2026-01-29,17h,2025-10-28,2026-01-20T07:44:33.702Z,2026-01-24T07:58:11.651Z,
+1995,"Là Player, tôi muốn xe có khả năng sử dụng các bục Ramp để bay lên cao, tạo cảm giác lái đa dạng hơn trong quá trình đua.",User story,,Phuoc Ho Duc,,,,VNRacing,2026-02-04,P5DT23h24M36S,2025-11-04,2026-01-29T02:27:50.312Z,2026-02-03T04:25:35.383Z,"Điều kiện hoàn thành:
+
+<br>
+
+1\. Hoàn thành chức năng sử dụng Ramp và cân bằng xe khi tiếp đất:
+
+*   Xe có khả năng sử dụng Ramp để bay lên cao.
+    
+*   Xe có khả năng tự động ổn định khi tiếp đất.
+    
+*   Xe có khả năng tự động điều khiển hạn chế khi ở trên không.
+    
+*   Các khả năng điều khiển trên không và tự động cân bằng có thể được áp dụng trong các trường hợp xe đổi độ cao từ cao xuống thấp.
+    
+
+<br>
+
+2\. GD cung cấp đủ các tài liệu:
+
+*   Mô tả chức năng sử dụng Ramp của xe.
+    
+*   Control của xe khi ở trên không và cảm giác tiếp đất.
+    
+    <br>
+    
+
+3\. Dev hoàn thành các chức năng được mô tả trong GDD:
+
+*   Phát triển các tính năng được mô tả trong GDD.
+    
+*   Các tính năng mới không xung đột với các chức năng cũ.
+    
+*   Các tính năng mới không gây ra Bug, hoạt động ổn định.
+    
+    <br>
+    
+
+4\. Performance
+
+*   Các tính năng liên quan tới US không làm tụt FPS của Game.
+    
+
+<br>
+
+5\. Sound &amp; Music
+
+*   SFX liên quan tới các hoạt động của xe trên Screen.
+    
+
+<br>
+
+<br>
+
+<br>"
+2039,"(Skill) Là Player, tôi muốn khi thực hiện các Skill trong khi đua sẽ được thưởng bằng cách Refill thanh NOS để có động lực thực hiện các kỹ năng này nhiều hơn.",User story,,,,,,VNRacing,2026-02-02,15h30M,2025-12-22,2026-01-30T02:20:28.566Z,2026-02-03T08:09:47.499Z,"Điều kiện hoàn thành:  
+1\. Thực hiện chức năng Skill:
+
+*   Định nghĩa, phân loại các Skill và số lượng NOS tăng khi thực hiện các Skill đó.
+    
+*   Update Skill lên UI.
+    
+    <br>
+    
+
+2\. GD cung cấp tài liệu mô tả các chức năng:
+
+*   Các thông tin về phân loại và định nghĩa Skill, phương pháp kích hoạt.
+    
+*   Quy định số lượng NOS tăng khi thực hiện các Skill.
+    
+*   Thông tin hiển thị trên màn hình khi kích hoạt Skill
+    
+
+3\. UI/UX:
+
+*   Thiết kế giao diện hợp lý để người chơi có thể thấy được các thông tin cần thiết trên màn hình.
+    
+*   Animation và FX đầy đủ cho các Elements trong UI.
+    
+
+4\. Concepts &amp; 2D:
+
+*   Cung cấp các Asset cần thiết cho UI.
+    
+*   Cung cấp các Concepts khác cần thiết cho tính năng nếu cần thiết.
+    
+
+5\. Dev:
+
+*   Phát triển các tính năng được mô tả trong GDD.
+    
+*   Đảm bảo các tính năng không xung đột với các tính năng đã có.
+    
+*   Đảm bảo các tính năng không bị Bug.
+    
+
+6\. Performance:
+
+*   Các tính năng liên quan tới US không làm tụt FPS của game.
+    
+
+7\. Sound &amp; Music:
+
+*   SFX liên quan tới các tương tác trên Screen."
+2047,End Game Screen Result & Rewards,User story,,,,,,VNRacing,2026-01-31,0S,2025-10-28,2026-01-30T06:07:43.114Z,2026-01-30T06:09:36.430Z,"Là Player, tôi muốn có một bảng thống kê kết quả và phần thưởng khi kết thúc một cuộc đua.
+
+Điều kiện hoàn thành:  
+1\. Thực hiện chức năng Screen Result:
+
+*   Chức năng hiển thị kết quả cuộc đua và các thông tin cần thiết khi người chơi kết thúc cuộc đua.
+    
+*   Chức năng trao thưởng dựa trên hệ thống Progression.
+    
+*   Update thông tin cuộc đua liên tục ngay cả khi người chơi về đích.
+    
+
+2\. GD cung cấp tài liệu mô tả các chức năng:
+
+*   Các thông tin về phân loại và định nghĩa Screen Results, điều kiện kích hoạt.
+    
+*   Các cơ chế liên quan khi kích hoạt Screen Results.
+    
+*   Mối quan hệ với cơ chế trao thưởng trong Progression.
+    
+
+3\. UI/UX:
+
+*   Thiết kế giao diện hợp lý để người chơi có thể thấy được các thông tin cần thiết trên màn hình.
+    
+*   Animation và FX đầy đủ cho các Elements trong UI.
+    
+
+4\. Concepts &amp; 2D:
+
+*   Cung cấp các Asset cần thiết cho UI.
+    
+*   Cung cấp các Concepts khác cần thiết cho tính năng nếu cần thiết.
+    
+
+5\. Dev:
+
+*   Phát triển các tính năng được mô tả trong GDD.
+    
+*   Đảm bảo các tính năng không xung đột với các tính năng đã có.
+    
+*   Đảm bảo các tính năng không bị Bug.
+    
+
+6\. Performance:
+
+*   Các tính năng liên quan tới US không làm tụt FPS của game.
+    
+
+7\. Sound &amp; Music:
+
+*   SFX liên quan tới các tương tác trên Screen."
+2048,Pause Game,User story,,,,,,VNRacing,2026-01-31,0S,2025-10-28,2026-01-30T06:17:53.837Z,2026-01-30T06:17:53.988Z,"Là Player, tôi muốn có khả năng Pause Game giữa cuộc đua để làm công việc khác sau đó quay trở lại.
+
+Điều kiện hoàn thành:  
+1\. Thực hiện chức năng Pause Game:
+
+*   Hoàn thành chức năng Pause Game.
+    
+*   Chỉnh sửa ảnh hưởng của Pause Game lên các chức năng khác.
+    
+*   Kết nối với chức năng Game Setting.
+    
+
+2\. GD cung cấp tài liệu mô tả các chức năng:
+
+*   Định nghĩa Pause Game và cách kích hoạt.
+    
+*   Ảnh hưởng của Pause Game lên các chức năng khác.
+    
+*   Kết nối Pause Game với chức năng Game Settings.
+    
+
+3\. UI/UX:
+
+*   Thiết kế giao diện hợp lý để người chơi có thể thấy được các thông tin cần thiết trên màn hình.
+    
+*   Animation và FX đầy đủ cho các Elements trong UI.
+    
+
+4\. Concepts &amp; 2D:
+
+*   Cung cấp các Asset cần thiết cho UI.
+    
+*   Cung cấp các Concepts khác cần thiết cho tính năng nếu cần thiết.
+    
+
+5\. Dev:
+
+*   Phát triển các tính năng được mô tả trong GDD.
+    
+*   Đảm bảo các tính năng không xung đột với các tính năng đã có.
+    
+*   Đảm bảo các tính năng không bị Bug.
+    
+
+6\. Performance:
+
+*   Các tính năng liên quan tới US không làm tụt FPS của game.
+    
+
+7\. Sound &amp; Music:
+
+*   SFX liên quan tới các tương tác trên Screen."
+157,"    Tôi muốn có cảm giác đua xe arcade,drift thu thập nos",User story,,,,,,VNRacing,2026-01-30,P3DT2h19M48S,2025-11-12,2025-10-26T08:00:38.243Z,2026-01-30T07:17:43.196Z,
+205,User Profiles,Feature,New,,Normal,,,VNRacing,2026-01-30,P7DT6h1M12S,2025-11-01,2025-10-28T03:17:39.109Z,2026-01-30T09:32:12.811Z,
+206,"(UserProfile) Là Player, tôi muốn được xem các thông tin tổng quan về quá trình chơi của tôi (Giờ chơi, số lượng Track đã Unlock, v.v) để tự bao quát được quá trình chơi Game này.",User story,,,,,,VNRacing,2026-01-30,P7DT6h1M12S,2025-11-01,2025-10-28T03:18:11.141Z,2026-01-30T09:32:12.784Z,"Điều kiện hoàn thành:  
+1\. Thực hiện chức năng UserProfile:
+
+*   Cho phép người chơi xem được các thông tin tổng quan của mình trong quá trình chơi Game.
+    
+*   Cho phép người chơi thực hiện các tác vụ cơ bản như đổi tên, xem player ID, đổi Avatar, v.v.
+    
+
+2\. GD cung cấp tài liệu mô tả các chức năng:
+
+*   Các thông tin sẽ hiển thị trên User Profile.
+    
+*   Các chức năng người dùng có thể thực hiện được trong User Profile.
+    
+
+3\. UI/UX:
+
+*   Thiết kế giao diện hợp lý để người chơi có thể thấy được các thông tin cần thiết trên màn hình.
+    
+*   Thiết kế các luồng giao diện phụ để người chơi có thể truy cập các tính năng trong này.
+    
+*   Animation và FX đầy đủ cho các Elements trong UI.
+    
+
+4\. Concepts &amp; 2D:
+
+*   Cung cấp các Asset cần thiết cho UI.
+    
+*   Cung cấp các Concepts khác cần thiết cho tính năng nếu cần thiết.
+    
+
+5\. Dev:
+
+*   Phát triển các tính năng được mô tả trong GDD.
+    
+*   Đảm bảo các tính năng không xung đột với các tính năng đã có.
+    
+*   Đảm bảo các tính năng không bị Bug.
+    
+
+6\. Performance:
+
+*   Các tính năng liên quan tới US không làm tụt FPS của game.
+    
+
+7\. Sound &amp; Music:
+
+*   Nhạc nền riêng khi vào Screen của US này.
+    
+*   SFX liên quan tới các tương tác trên Screen."
+210,Technical Art,Epic,In progress,,Normal,,,VNRacing,,P13DT10h,2025-10-28,2025-10-28T04:13:43.718Z,2026-02-03T02:38:07.728Z,"Yêu cầu kỹ thuật cho Hạng mục Technical Art&nbsp;
+
+1.  Style &amp; Art Breakdown
+    
+    Tài liệu thể hiện việc lựa chọn Style, các đặc điểm mỹ thuật từ các game tham khảo,
+    
+    <br>
+    
+2.  Technology  
+    Engine sử dụng
+    
+    Platform
+    
+    Rendering method
+    
+    Lighting Techniques 
+    
+    Shadown Techniques
+    
+    Assets Making techniques 
+    
+    FX Making Techniques
+    
+    <br>
+    
+3.  Stresss Test
+    
+    Bài test một level mẫu để đảm bảo các yếu tố 2 và 1 được lựa chọn đúng đắn, nếu không đúng phải lặp lại quy trình 
+    
+    <br>
+    
+4.  level &amp; Scene config
+    
+    Hướng dẫn lighting config và scene config cho level Desinger, ghi rõ các thống số và mức tải.
+    
+    <br>
+    
+5.  Assets Guide line
+    
+    Viết tài liệu hướng dẫn về 
+    
+    <br>
+    
+6.  Optimization techniques"
+1962,In-Game Performance,User story,,Phu Pham,,,,VNRacing,2026-02-05,P4D,2026-01-06,2026-01-27T04:08:19.075Z,2026-02-02T01:48:40.854Z,"Là Technical Art, Tôi muốn toàn bộ assets được đưa vào game đảm bảo hiệu năng và thẩm mỹ,&nbsp;  
+  
+AC:   
+Có documentation cho toàn bộ Assets cần đưa vào các Level.   
+Có stress test để giải thích hiệu năng cho toàn bộ Assets.  
+Có hướng optimize cho Asset và Level"
+1963,Main Character Assets Guideline,User story,,,,,,VNRacing,2026-01-23,9h,2026-01-06,2026-01-27T04:33:04.738Z,2026-01-29T02:06:58.958Z,
+217,Game Scene,Epic,New,,Normal,,,VNRacing,2025-12-31,0S,2025-12-31,2025-10-28T08:21:32.260Z,2025-12-31T08:09:00.932Z,
+1416,Hoi An Level,User story,,Phuoc Ho Duc,,,,VNRacing,,0S,2025-12-31,2025-12-31T08:04:42.726Z,2025-12-31T08:06:30.861Z,"As Player, I want to race in Hoi An Town, Culture - Architect - Vietnamese Style"
+221,Play Online,Feature,On hold,,Normal,,,VNRacing,2025-11-03,P2DT4h36S,2025-10-30,2025-10-28T10:57:17.882Z,2026-01-29T03:41:57.548Z,
+222,    Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,User story,,Phuoc Ho Duc,,,,VNRacing,2025-11-03,P2DT4h36S,2025-10-30,2025-10-28T10:57:19.774Z,2026-01-29T03:41:57.670Z,
+488,    Tôi muốn được chơi game với bạn bè của tôi thông qua kết bạn,User story,,,,,,VNRacing,,0S,,2025-11-10T07:46:52.099Z,2026-01-06T01:37:06.113Z,
+331,Shop&IAP,Feature,In progress,,Normal,,,VNRacing,2025-11-10,0S,2025-11-03,2025-11-03T06:13:15.357Z,2026-01-09T07:31:02.757Z,
+332,"     Tôi muốn có thêm nhiều thời gian chơi, không có gặp quảng cáo, và có khởi đầu tốt hơn các player khác",User story,,,,,,VNRacing,2025-11-03,0S,2025-11-03,2025-11-03T06:15:53.530Z,2026-01-29T04:18:22.727Z,
+489,"    Tôi muốn các item nâng cấp phải thật sự đáng giá, hợp lý và đẹp",User story,,,,,,VNRacing,,0S,2025-11-10,2025-11-10T08:33:26.297Z,2026-01-09T07:31:13.769Z,
+337,Race Mode,Feature,New,,Normal,,,VNRacing,2026-01-26,P1DT3h10M12S,2025-11-03,2025-11-03T07:21:32.565Z,2026-01-27T15:38:53.112Z,
+338,    Tôi muốn có nhiều Race Mode chơi,User story,,,,,,VNRacing,2026-01-26,P1DT3h10M12S,2025-11-04,2025-11-03T07:22:20.750Z,2026-01-26T02:51:01.568Z,
+1879,"Là player, Tôi muốn có Race Mode Time Atack",User story,,,,,,VNRacing,2026-01-12,4h10M12S,2026-01-12,2026-01-23T08:28:50.988Z,2026-01-23T08:41:24.607Z,
+339,"    Tôi muốn có các thử thách phụ ngẫu nhiên trong mỗi màn chơi, hoàn thành thì sẽ nhận được phần thưởng",User story,,,,,,VNRacing,,0S,2025-11-03,2025-11-03T07:22:44.152Z,2025-11-10T07:32:54.617Z,
+340,Car Customize,Feature,In specification,,Normal,,,VNRacing,2026-02-07,P14DT5h16M48S,2025-11-01,2025-11-03T07:26:44.576Z,2026-02-03T03:49:31.306Z,
+341,    Tôi muốn độ phần visual xe,User story,,,,,,VNRacing,2026-01-27,P7DT21h24M36S,2025-11-01,2025-11-03T07:29:16.837Z,2026-02-03T03:49:31.279Z,"Là player, tôi muốn thay đổi ngoại hình của xe, có thể đổi từng bộ phận - đổi màu xe - thêm decal cho xe"
+342,"Là Player, tôi muốn độ phần Performance xe mà tôi yêu thích, sử dụng các tài nguyên thu thập được trong quá trình chơi để tăng tính sở hữu và cảm giác thành tựu khi chơi Game.",User story,,Phuoc Ho Duc,,,4h,VNRacing,2026-02-05,P3DT2h40M12S,2025-11-01,2025-11-03T07:29:59.550Z,2026-02-02T09:20:21.770Z,"Tiêu chí hoàn thành:&nbsp;  
+1- Có Design rõ ràng về chức năng nâng cấp Performance:
+
+*   GD bổ sung chức năng nâng cấp Customize Performance.
+    
+*   GD bổ sung các điều kiện cần thiết để nâng cấp.
+    
+*   GD đảm bảo cảm giác nâng cấp có sự kích thích và tạo hứng thú cho người chơi.
+    
+*   GD bổ sung các tài liệu bổ sung cần thiết cho các bên để hoàn thành US.
+    
+    <br>
+    
+
+2 - UI/UX
+
+*   Luồng vào chức năng thuận tiện dễ hiểu.
+    
+*   Các phím chức năng rõ ràng dễ thao tác, hiển thị đúng các yêu cầu cần thiết để nâng cấp xe.
+    
+*   Đặt cùng chỗ với chức năng Customize Visual để thuận tiện cho người chơi khi thao tác.
+    
+*   Không có lỗi UI/UX.
+    
+    <br>
+    
+
+3 - Chức năng của Customize Performance
+
+*   Đảm bảo đúng các chức năng liệt kê của GD.
+    
+*   Chức năng không gây xung đột với các chức năng hiện có.
+    
+*   Chức năng hoạt động ổn định, không có lỗi.
+    
+
+4 - Performance
+
+*   Chức năng không gây tụt Performance của Game."
+1734,"Tôi muốn có bộ sưu tập xe, Có nhiều lựa chọn - unlock - mua",User story,,,,,,VNRacing,2026-01-20,0S,2026-01-20,2026-01-17T03:38:07.779Z,2026-01-23T07:24:52.831Z,
+1831,"Là Player, Tôi muốn có tính năng Customize ",User story,,Phuoc Ho Duc,,,,VNRacing,2026-02-07,P1DT19h30M,2025-12-11,2026-01-22T02:20:15.607Z,2026-02-03T02:38:22.695Z,"<img class=""op-uc-image op-uc-image_inline"" src=""/api/v3/attachments/1900/content"">
+
+Điều kiện hoàn thành:&nbsp;
+
+<br>
+
+1\.  Level Garage:
+
+*   3D, người chơi có thể xoay Camera xung quanh xe.
+    
+*   Thấy được xe của người chơi đang sử dụng, update khi người chơi đổi xe.
+    
+*   Level Garage đáp ứng về mặt mỹ thuật, tôn lên vẻ đẹp của xe.
+    
+*   Không có lỗi Graphic (Dăm hình, xuyên Mesh, v.v)
+    
+*   Level Garage dùng chung cho 2 chức năng Car Customize và Car Selection.
+    
+
+2\. UI MainMenu:
+
+*   Đẹp và gọn gàng, thể hiện đẩy đủ các thông tin, có đầy đủ Animation và FX khi tương tác:
+    
+    *   Oveview tình trạng tiền Cash và Click đang sở hữu.
+        
+    *   Thông tin Tooltips nếu Game State đạt đủ điều kiện kích hoạt.
+        
+*   Đầy đủ lối tắt tới các chức năng chính của Game:
+    
+    *   Về Main Menu.
+        
+    *   Đổi Xe.
+        
+    *   Customize Xe.
+        
+    *   Vào thùng đồ.
+        
+    *   Xem thông tin User Profile.
+        
+    *   Xem thông tin Achievement.
+        
+    *   Đổi Setting Game.
+        
+    *   Vào Shop mua sắm.
+        
+    *   Xem tin nhắn gửi tới từ hệ thống.
+        
+*   Không có lỗi UI (Tai thỏ, tràn viền, v.v)
+    
+
+3\. Performance:
+
+*   Ổn định ở mức 60FPS trên Target máy. (iOS &amp; Android)
+    
+*   Không làm nóng máy khi để Idle trong khoảng 30 phút.
+    
+
+4\. Sound &amp; Music:
+
+*   Nhạc nền cho Garage.
+    
+*   Các SFX khi tương tác với các chức năng UI và các sự kiện khác trên Screen này."
+343,Progression,Feature,New,Phuoc Ho Duc,Normal,,,VNRacing,2026-02-07,P13DT11h1M48S,2025-11-01,2025-11-03T07:35:26.076Z,2026-02-02T15:11:12.750Z,
+334,Tutorials,Feature,New,,Normal,,,VNRacing,2025-12-04,P10DT7h,2025-11-25,2025-11-03T06:22:03.510Z,2026-02-02T08:24:47.958Z,
+335,    Tôi muốn tutorial cho tôi biết các thông tin cần thiết trong lần đua đầu tiên,User story,,Phuoc Ho Duc,,,,VNRacing,2025-12-04,P10DT7h,2025-11-25,2025-11-03T06:22:50.570Z,2026-02-02T08:32:26.201Z,
+336,    Tôi muốn có một số hướng dẫn phụ cho các tính năng phụ trong game bằng hình thức pop up thông tin ,User story,,,,,,VNRacing,2025-11-03,0S,2025-11-03,2025-11-03T06:23:18.097Z,2025-11-18T06:47:38.113Z,
+345,"    Trong quá trình phá đảo, tôi muốn sưu tập thêm nhiều xe mới",User story,,,,,,VNRacing,2026-01-15,10h30M,2025-11-06,2025-11-03T07:36:23.051Z,2026-01-29T07:49:09.583Z,
+346,"    Trong quá trình phá đảo, tôi muốn xe tôi được nâng cấp thêm ",User story,,,,,,VNRacing,2025-11-03,0S,2025-11-03,2025-11-03T07:36:38.845Z,2025-11-18T06:36:35.830Z,
+348,    Tôi muốn trải nghiệm 10 phút đầu chơi game hấp dẫn,User story,,,,,,VNRacing,2026-01-12,2h,2026-01-12,2025-11-03T07:37:31.104Z,2026-01-14T15:47:38.911Z,
+2040,"(Achievements) Là Player, tôi muốn có hệ thống Achievements với mục tiêu dài và phần thưởng để có động lực gắn bó với Game.",User story,,,,,,VNRacing,2025-12-29,19h30M,2025-11-24,2026-01-30T03:19:43.303Z,2026-01-31T01:33:36.024Z,"Điều kiện hoàn thành:  
+1\. Thực hiện chức năng Achievements:
+
+*   Định nghĩa, phân loại các Achievements và phần thưởng khi hoàn thành các Achievements đó.
+    
+*   Update tiến trình Achievement khi tiến hành hoặc hoàn thành lên UI.
+    
+      
+      
+    
+
+2\. GD cung cấp tài liệu mô tả các chức năng:
+
+*   Các thông tin về phân loại và định nghĩa Achievements, điều kiện hoàn thành.
+    
+*   Quy định phần thưởng khi hoàn thành Achievements.
+    
+*   Thông tin hiển thị trên màn hình khi kích hoạt và hoàn thành Achievements.
+    
+
+3\. UI/UX:
+
+*   Thiết kế giao diện hợp lý để người chơi có thể thấy được các thông tin cần thiết trên màn hình.
+    
+*   Animation và FX đầy đủ cho các Elements trong UI.
+    
+
+4\. Concepts &amp; 2D:
+
+*   Cung cấp các Asset cần thiết cho UI.
+    
+*   Cung cấp các Concepts khác cần thiết cho tính năng nếu cần thiết.
+    
+
+5\. Dev:
+
+*   Phát triển các tính năng được mô tả trong GDD.
+    
+*   Đảm bảo các tính năng không xung đột với các tính năng đã có.
+    
+*   Đảm bảo các tính năng không bị Bug.
+    
+
+6\. Performance:
+
+*   Các tính năng liên quan tới US không làm tụt FPS của game.
+    
+
+7\. Sound &amp; Music:
+
+*   SFX liên quan tới các tương tác trên Screen."
+344,Tôi muốn khám phá các map chơi,User story,,,,,,VNRacing,2025-11-05,0S,2025-11-05,2025-11-03T07:35:59.257Z,2026-01-23T08:39:31.685Z,
+374,Game Mode,Feature,New,Phuoc Ho Duc,Normal,,,VNRacing,2026-01-29,P6DT16h51M36S,2025-11-03,2025-11-04T06:20:21.078Z,2026-02-02T08:53:38.650Z,
+347,"(FanService) Là Player, tôi muốn có các nhiệm vụ ngẫu nhiên khi bắt đầu cuộc đua với các phần thưởng khi hoàn thành.",User story,,,,,,VNRacing,2026-01-14,6h30M,2025-11-03,2025-11-03T07:37:04.369Z,2026-02-02T08:54:58.207Z,"Điều kiện hoàn thành:  
+1\. Thực hiện chức năng Fan Service:
+
+*   Định nghĩa, phân loại các FS và phần thưởng.
+    
+*   Update Skill lên UI.
+    
+
+2\. GD cung cấp tài liệu mô tả các chức năng:
+
+*   Các thông tin về phân loại và định nghĩa FS, phương pháp kích hoạt.
+    
+*   Quy định số lượng NOS tăng khi thực hiện các FS.
+    
+*   Thông tin hiển thị trên màn hình khi kích hoạt và hoàn thành FS.
+    
+
+3\. UI/UX:
+
+*   Thiết kế giao diện hợp lý để người chơi có thể thấy được các thông tin cần thiết trên màn hình.
+    
+*   Animation và FX đầy đủ cho các Elements trong UI.
+    
+
+4\. Concepts &amp; 2D:
+
+*   Cung cấp các Asset cần thiết cho UI.
+    
+*   Cung cấp các Concepts khác cần thiết cho tính năng nếu cần thiết.
+    
+
+5\. Dev:
+
+*   Phát triển các tính năng được mô tả trong GDD.
+    
+*   Đảm bảo các tính năng không xung đột với các tính năng đã có.
+    
+*   Đảm bảo các tính năng không bị Bug.
+    
+
+6\. Performance:
+
+*   Các tính năng liên quan tới US không làm tụt FPS của game.
+    
+
+7\. Sound &amp; Music:
+
+*   SFX liên quan tới các tương tác trên Screen."
+375,   Tôi muốn có nhiều Game Mode,User story,,Phuoc Ho Duc,,,,VNRacing,2026-01-07,4h,2025-12-30,2025-11-04T06:20:47.990Z,2026-01-29T09:04:57.956Z,
+1864,"Là Player, tôi muốn có GameMode chơi đơn cho phép đua khắp các địa danh nổi tiếng ở Việt Nam để thỏa mãn trí tò mò vì chưa có tựa Game đua xe nào lấy bối cảnh ở Việt Nam. (VNTour)",User story,,,,,,VNRacing,2026-01-29,P6DT6h21M36S,2025-11-04,2026-01-23T06:59:04.622Z,2026-01-30T09:03:28.154Z,"<img class=""op-uc-image op-uc-image_inline"" src=""/api/v3/attachments/1920/content"">
+
+Điều kiện hoàn thành:  
+  
+1\. Phát triển Game Mode tên là Vn Tour với các tính năng:
+
+*   Cho phép người chơi chọn các địa điểm nổi bật ở Việt Nam để đua.
+    
+*   Người chơi càng đua, càng mở ra nhiều địa điểm mới.
+    
+*   Các địa điểm được mở thể hiện một cách trực quan trên giao diện người dùng tương tự như bản đồ Việt Nam.
+    
+
+2\. GD phát triển các tính năng liên quan tới VN Tour:
+
+*   Luật chơi và quy tắc tiến triển của người chơi trong GameMode này.
+    
+*   Chọn ra các địa điểm nổi bật để đưa vào kế hoạch sản xuất.
+    
+
+3\. UI/UX:
+
+*   Hiển thị các thông tin cần thiết trên Screen để người chơi có thể dễ dàng tương tác với các địa điểm đua.
+    
+*   Hiển thị các thông tin cần thiết liên quan tới tiến trình đua trong Vn Tour.
+    
+*   Thao tác vào đua nhanh chóng, dễ dàng.
+    
+*   Đầy đủ Animation và FX trên các yếu tố UI.
+    
+
+4\. Dev phát triển các tính năng của VN tour theo GDD của GD:
+
+*   Các tính năng thỏa mãn yêu cầu của US.
+    
+*   Các tính năng không bị xung đột với các tính năng khác trong Game.
+    
+*   Các tính năng không tạo ra Bug.
+    
+
+5\. Performance:
+
+*   GameMode này không làm tụt FPS của Game.
+    
+
+6\. Concepts &amp; 2D Assets:
+
+*   Cung cấp đầy đủ 2D Assets cho UI và Thumbnails.
+    
+*   Cung cấp đầy đủ Concepts khác cho các tính năng.
+    
+
+7\. Music &amp; SFX:
+
+*   Soundtrack riêng khi vào GameMode.
+    
+*   SFX hiện lên khi tương tác với các yếu tố UI."
+376,Racer A.I,Feature,New,,Normal,,,VNRacing,2026-01-17,P3DT13h22M48S,2025-11-04,2025-11-04T06:21:43.990Z,2026-01-23T06:52:41.713Z,
+377,"    Tôi muốn các AI phải có hành vi tự nhiên, có chiến đấu với người chơi",User story,,Phuoc Ho Duc,,,,VNRacing,2026-01-17,P2DT16h30M,2025-11-04,2025-11-04T06:21:59.123Z,2026-01-17T10:32:07.824Z,
+378,    Tôi muốn độ khó của AI vừa phải và phù hợp,User story,,Phuoc Ho Duc,,,,VNRacing,2026-01-12,20h52M48S,2025-11-04,2025-11-04T06:22:26.232Z,2026-01-23T06:52:41.682Z,
+382,Levels/Track,Epic,New,,Normal,,,VNRacing,2026-01-30,P58DT6h9M,2025-09-12,2025-11-04T08:59:52.038Z,2026-01-30T09:29:49.451Z,
+383,Tôi muốn khám phá nhiều địa danh trong khi chơi,User story,,,,,,VNRacing,2026-01-24,P2DT16h,2025-12-22,2025-11-04T09:00:32.813Z,2026-01-28T02:17:58.498Z,
+483,    Tôi muốn các màn chơi có độ khó phù hợp,User story,,,,,,VNRacing,2025-11-10,0S,2025-11-04,2025-11-10T07:41:01.773Z,2025-12-25T07:07:50.920Z,
+484,"    Trong khi chơi, tôi muốn có một số yếu tố ngẫu nhiên để làm cuộc đua thêm thú vị",User story,,,,,,VNRacing,2025-11-10,0S,2025-11-04,2025-11-10T07:41:21.126Z,2025-11-10T07:41:21.306Z,
+485,"    Trong khi chơi, tôi muốn đâm một số chướng ngại vật ngẫu nhiên",User story,,,,,,VNRacing,2026-01-08,11h,2025-11-11,2025-11-10T07:41:39.155Z,2026-01-29T09:03:02.579Z,
+486,    Tôi muốn màn chơi phù hợp với các Race mode,User story,,,,,,VNRacing,2026-01-13,P1D,2025-11-13,2025-11-10T07:41:59.797Z,2026-01-23T08:41:24.514Z,
+487,Tôi muốn có các đoạn Cutscene ngắn khi bắt đầu và kết thúc cuộc đua để Showcase cảnh đẹp mỗi khu vực và đội hình đua. ,User story,,,,,,VNRacing,2026-01-07,P1DT14h39M,2025-10-28,2025-11-10T07:42:20.042Z,2026-01-23T08:15:15.479Z,Asset Cinematic: https://docs.google.com/spreadsheets/d/1qEnf8xX4KAxx6VDb3zD04qaXBPDHHbPUbexqjnIG7nQ/edit?gid=1916069163#gid=1916069163
+2006,"Là Player, tôi muốn có City Đà Nẵng trong Vn Tour GameMode.",User story,,,,,,VNRacing,2026-01-30,P50DT19h,2025-09-12,2026-01-29T06:53:45.205Z,2026-01-30T09:29:49.423Z,"US Parent của các US Track nằm trong City Đà Nẵng.  
+Các Area bao gồm:  
+  
+
+*   Sơn Trà
+    
+*   Ngũ Hành Sơn
+    
+*   Đông Giang
+    
+*   Hội An
+    
+*   Down Town
+    
+
+<br>"
+2002,"Là Player, tôi muốn có một Track Sprint trong Area Sơn Trà",User story,,,,,,VNRacing,2026-01-29,0S,2026-01-29,2026-01-29T06:30:53.381Z,2026-01-30T06:29:59.794Z,"Điều kiện hoàn thành:  
+1\. Game Design:
+
+*   Hoàn thành Design Layout và Block Out 3D đua được.
+    
+
+2\. Concepts &amp; 2D:
+
+*   Hoàn thành Concepts cho Track Sơn Trà Sprint.
+    
+
+3\. 3D:
+
+*   Hoàn thành Asset cho Sơn Trà Sprint.
+    
+
+4\. Dev:
+
+*   Gắn GameMode và các chức năng cần thiết cho Sơn Trà Sprint.
+    
+
+5\. Level:
+
+*   Hoàn thành lắp đặt Asset cho Sơn Trà Sprint.
+    
+
+6\. Performance:
+
+*   Các bên liên quan đảm bảo Track luôn giữ ổn định 60 FPS.
+    
+
+7\. Sound &amp; Music:
+
+*   Sử dụng Theme của Area.
+    
+*   Thêm các SFX cần thiết theo các yếu tố trong Level."
+2003,"Là Player, tôi muốn có một Track Circuit trong Area Sơn Trà.",User story,,,,,,VNRacing,2026-01-21,P43DT7h,2025-09-12,2026-01-29T06:32:49.751Z,2026-01-30T09:29:49.096Z,"Điều kiện hoàn thành:  
+1\. Game Design:
+
+*   Hoàn thành Design Layout và Block Out 3D đua được.
+    
+
+2\. Concepts &amp; 2D:
+
+*   Hoàn thành Concepts cho Track Sơn Trà Circuit.
+    
+
+3\. 3D:
+
+*   Hoàn thành Asset cho Sơn Trà Circuit.
+    
+
+4\. Dev:
+
+*   Gắn GameMode và các chức năng cần thiết cho Sơn Trà Circuit
+    
+
+5\. Level:
+
+*   Hoàn thành lắp đặt Asset cho Sơn Trà Circuit.
+    
+
+6\. Performance:
+
+*   Các bên liên quan đảm bảo Track luôn giữ ổn định 60 FPS.
+    
+
+7\. Sound &amp; Music:
+
+*   Sử dụng Theme của Area.
+    
+*   Thêm các SFX cần thiết theo các yếu tố trong Level."
+2004,"Là Player, tôi muốn có một Track TimeAttack trong Area Sơn Trà",User story,,,,,,VNRacing,2026-01-30,P7DT10h,2025-11-27,2026-01-29T06:34:29.106Z,2026-01-30T07:01:52.715Z,"Điều kiện hoàn thành:  
+1\. Game Design:
+
+*   Hoàn thành Design Layout và Block Out 3D đua được.
+    
+
+2\. Concepts &amp; 2D:
+
+*   Hoàn thành Concepts cho Track Sơn Trà TA.
+    
+
+3\. 3D:
+
+*   Hoàn thành Asset cho Sơn Trà TA.
+    
+
+4\. Dev:
+
+*   Gắn GameMode và các chức năng cần thiết cho Sơn Trà TA
+    
+
+5\. Level:
+
+*   Hoàn thành lắp đặt Asset cho Sơn Trà TA.
+    
+
+6\. Performance:
+
+*   Các bên liên quan đảm bảo Track luôn giữ ổn định 60 FPS.
+    
+
+7\. Sound &amp; Music:
+
+*   Sử dụng Theme của Area.
+    
+*   Thêm các SFX cần thiết theo các yếu tố trong Level."
+2007,"Là Player, tôi muốn có một Track Circuit trong Area Hội An.",User story,,,,,,VNRacing,,0S,2026-01-29,2026-01-29T07:36:27.594Z,2026-01-29T07:36:39.334Z,"Điều kiện hoàn thành:  
+1\. Game Design:
+
+*   Hoàn thành Design Layout và Block Out 3D đua được.
+    
+
+2\. Concepts &amp; 2D:
+
+*   Hoàn thành Concepts cho Track HA Circuit.
+    
+
+3\. 3D:
+
+*   Hoàn thành Asset cho HA Circuit.
+    
+
+4\. Dev:
+
+*   Gắn GameMode và các chức năng cần thiết cho HA Circuit
+    
+
+5\. Level:
+
+*   Hoàn thành lắp đặt Asset cho HA Circuit.
+    
+
+6\. Performance:
+
+*   Các bên liên quan đảm bảo Track luôn giữ ổn định 60 FPS.
+    
+
+7\. Sound &amp; Music:
+
+*   Sử dụng Theme của Area.
+    
+*   Thêm các SFX cần thiết theo các yếu tố trong Level."
+2009,"Là Player, tôi muốn có một Track Sprint trong Area Hội An.",User story,,,,,,VNRacing,2026-01-08,1h30M,2026-01-08,2026-01-29T07:39:19.543Z,2026-01-29T09:03:02.642Z,"Điều kiện hoàn thành:  
+1\. Game Design:
+
+*   Hoàn thành Design Layout và Block Out 3D đua được.
+    
+
+2\. Concepts &amp; 2D:
+
+*   Hoàn thành Concepts cho Track HA Sprint.
+    
+
+3\. 3D:
+
+*   Hoàn thành Asset cho HA Sprint.
+    
+
+4\. Dev:
+
+*   Gắn GameMode và các chức năng cần thiết cho HA Sprint.
+    
+
+5\. Level:
+
+*   Hoàn thành lắp đặt Asset cho HA Sprint.
+    
+
+6\. Performance:
+
+*   Các bên liên quan đảm bảo Track luôn giữ ổn định 60 FPS.
+    
+
+7\. Sound &amp; Music:
+
+*   Sử dụng Theme của Area.
+    
+*   Thêm các SFX cần thiết theo các yếu tố trong Level."
+2010,"Là Player, tôi muốn có một Track TimeAttack trong Area Hội An.",User story,,,,,,VNRacing,,0S,2026-01-29,2026-01-29T07:40:05.850Z,2026-01-29T07:40:14.706Z,"Điều kiện hoàn thành:  
+1\. Game Design:
+
+*   Hoàn thành Design Layout và Block Out 3D đua được.
+    
+
+2\. Concepts &amp; 2D:
+
+*   Hoàn thành Concepts cho Track HA TA
+    
+
+3\. 3D:
+
+*   Hoàn thành Asset cho HA TA.
+    
+
+4\. Dev:
+
+*   Gắn GameMode và các chức năng cần thiết cho HA TA.
+    
+
+5\. Level:
+
+*   Hoàn thành lắp đặt Asset cho HA TA.
+    
+
+6\. Performance:
+
+*   Các bên liên quan đảm bảo Track luôn giữ ổn định 60 FPS.
+    
+
+7\. Sound &amp; Music:
+
+*   Sử dụng Theme của Area.
+    
+*   Thêm các SFX cần thiết theo các yếu tố trong Level."
+2011,"Là Player, tôi muốn có một Track Circuit trong Area Ngũ Hành Sơn.",User story,,,,,,VNRacing,,0S,2026-01-29,2026-01-29T07:41:42.223Z,2026-01-29T07:41:42.350Z,"Điều kiện hoàn thành:  
+1\. Game Design:
+
+*   Hoàn thành Design Layout và Block Out 3D đua được.
+    
+
+2\. Concepts &amp; 2D:
+
+*   Hoàn thành Concepts cho Track NHS Circuit
+    
+
+3\. 3D:
+
+*   Hoàn thành Asset cho NHS Circuit.
+    
+
+4\. Dev:
+
+*   Gắn GameMode và các chức năng cần thiết cho NHS Circuit.
+    
+
+5\. Level:
+
+*   Hoàn thành lắp đặt Asset cho NHS Circuit.
+    
+
+6\. Performance:
+
+*   Các bên liên quan đảm bảo Track luôn giữ ổn định 60 FPS.
+    
+
+7\. Sound &amp; Music:
+
+*   Sử dụng Theme của Area.
+    
+*   Thêm các SFX cần thiết theo các yếu tố trong Level."
+2013,"Là Player, tôi muốn có một Track Sprint trong Area Ngũ Hành Sơn",User story,,,,,,VNRacing,,0S,2026-01-29,2026-01-29T07:42:54.512Z,2026-01-29T07:42:54.624Z,"Điều kiện hoàn thành:  
+1\. Game Design:
+
+*   Hoàn thành Design Layout và Block Out 3D đua được.
+    
+
+2\. Concepts &amp; 2D:
+
+*   Hoàn thành Concepts cho Track NHS Sprint.
+    
+
+3\. 3D:
+
+*   Hoàn thành Asset cho NHS Sprint.
+    
+
+4\. Dev:
+
+*   Gắn GameMode và các chức năng cần thiết cho NHS Sprint.
+    
+
+5\. Level:
+
+*   Hoàn thành lắp đặt Asset cho NHS Sprint.
+    
+
+6\. Performance:
+
+*   Các bên liên quan đảm bảo Track luôn giữ ổn định 60 FPS.
+    
+
+7\. Sound &amp; Music:
+
+*   Sử dụng Theme của Area.
+    
+*   Thêm các SFX cần thiết theo các yếu tố trong Level."
+2014,"Là Player, tôi muốn có một Track TimeAttack trong Area Ngũ Hành Sơn",User story,,,,,,VNRacing,,0S,2026-01-29,2026-01-29T07:43:43.957Z,2026-01-29T07:43:44.067Z,"Điều kiện hoàn thành:  
+1\. Game Design:
+
+*   Hoàn thành Design Layout và Block Out 3D đua được.
+    
+
+2\. Concepts &amp; 2D:
+
+*   Hoàn thành Concepts cho Track NHS TA.
+    
+
+3\. 3D:
+
+*   Hoàn thành Asset cho NHS TA.
+    
+
+4\. Dev:
+
+*   Gắn GameMode và các chức năng cần thiết cho NHS TA.
+    
+
+5\. Level:
+
+*   Hoàn thành lắp đặt Asset cho NHS TA.
+    
+
+6\. Performance:
+
+*   Các bên liên quan đảm bảo Track luôn giữ ổn định 60 FPS.
+    
+
+7\. Sound &amp; Music:
+
+*   Sử dụng Theme của Area.
+    
+*   Thêm các SFX cần thiết theo các yếu tố trong Level."
+2015,"Là Player, tôi muốn có một Track Sprint trong Area DownTown.",User story,,,,,,VNRacing,,0S,2026-01-29,2026-01-29T07:44:56.333Z,2026-01-29T07:44:56.445Z,"Điều kiện hoàn thành:  
+1\. Game Design:
+
+*   Hoàn thành Design Layout và Block Out 3D đua được.
+    
+
+2\. Concepts &amp; 2D:
+
+*   Hoàn thành Concepts cho Track DownTown Sprint.
+    
+
+3\. 3D:
+
+*   Hoàn thành Asset cho DownTown Sprint.
+    
+
+4\. Dev:
+
+*   Gắn GameMode và các chức năng cần thiết cho DownTown Sprint.
+    
+
+5\. Level:
+
+*   Hoàn thành lắp đặt Asset cho DownTown Sprint.
+    
+
+6\. Performance:
+
+*   Các bên liên quan đảm bảo Track luôn giữ ổn định 60 FPS.
+    
+
+7\. Sound &amp; Music:
+
+*   Sử dụng Theme của Area.
+    
+*   Thêm các SFX cần thiết theo các yếu tố trong Level."
+2016,"Là Player, tôi muốn có một Track Circuit trong Area DownTown.",User story,,,,,,VNRacing,,0S,2026-01-29,2026-01-29T07:45:55.909Z,2026-01-29T07:45:56.007Z,"Điều kiện hoàn thành:  
+1\. Game Design:
+
+*   Hoàn thành Design Layout và Block Out 3D đua được.
+    
+
+2\. Concepts &amp; 2D:
+
+*   Hoàn thành Concepts cho Track DownTown Circuit.
+    
+
+3\. 3D:
+
+*   Hoàn thành Asset cho DownTown Circuit.
+    
+
+4\. Dev:
+
+*   Gắn GameMode và các chức năng cần thiết cho DownTown Circuit.
+    
+
+5\. Level:
+
+*   Hoàn thành lắp đặt Asset cho DownTown Circuit.
+    
+
+6\. Performance:
+
+*   Các bên liên quan đảm bảo Track luôn giữ ổn định 60 FPS.
+    
+
+7\. Sound &amp; Music:
+
+*   Sử dụng Theme của Area.
+    
+*   Thêm các SFX cần thiết theo các yếu tố trong Level."
+2017,"Là Player, tôi muốn có một Track TimeAttack trong Area DownTown.",User story,,,,,,VNRacing,,0S,2026-01-29,2026-01-29T07:46:41.546Z,2026-01-29T07:46:41.648Z,"Điều kiện hoàn thành:  
+1\. Game Design:
+
+*   Hoàn thành Design Layout và Block Out 3D đua được.
+    
+
+2\. Concepts &amp; 2D:
+
+*   Hoàn thành Concepts cho Track Downtown TA.
+    
+
+3\. 3D:
+
+*   Hoàn thành Asset cho Downtown TA.
+    
+
+4\. Dev:
+
+*   Gắn GameMode và các chức năng cần thiết cho Downtown TA.
+    
+
+5\. Level:
+
+*   Hoàn thành lắp đặt Asset cho Downtown TA.
+    
+
+6\. Performance:
+
+*   Các bên liên quan đảm bảo Track luôn giữ ổn định 60 FPS.
+    
+
+7\. Sound &amp; Music:
+
+*   Sử dụng Theme của Area.
+    
+*   Thêm các SFX cần thiết theo các yếu tố trong Level."
+2018,"Là Player, tôi muốn có một Track Sprint trong Area Đông Giang.",User story,,,,,,VNRacing,,0S,2026-01-29,2026-01-29T07:47:45.079Z,2026-01-29T07:47:45.190Z,"Điều kiện hoàn thành:  
+1\. Game Design:
+
+*   Hoàn thành Design Layout và Block Out 3D đua được.
+    
+
+2\. Concepts &amp; 2D:
+
+*   Hoàn thành Concepts cho Track Đông Giang Sprint.
+    
+
+3\. 3D:
+
+*   Hoàn thành Asset cho Đông Giang Sprint.
+    
+
+4\. Dev:
+
+*   Gắn GameMode và các chức năng cần thiết cho Đông Giang Sprint.
+    
+
+5\. Level:
+
+*   Hoàn thành lắp đặt Asset cho Đông Giang Sprint.
+    
+
+6\. Performance:
+
+*   Các bên liên quan đảm bảo Track luôn giữ ổn định 60 FPS.
+    
+
+7\. Sound &amp; Music:
+
+*   Sử dụng Theme của Area.
+    
+*   Thêm các SFX cần thiết theo các yếu tố trong Level."
+2019,"Là Player, tôi muốn có một Track Circuit trong Area Đông Giang.",User story,,,,,,VNRacing,,0S,2026-01-29,2026-01-29T07:48:45.501Z,2026-01-29T07:48:45.605Z,"Điều kiện hoàn thành:  
+1\. Game Design:
+
+*   Hoàn thành Design Layout và Block Out 3D đua được.
+    
+
+2\. Concepts &amp; 2D:
+
+*   Hoàn thành Concepts cho Track Đông Giang Circuit.
+    
+
+3\. 3D:
+
+*   Hoàn thành Asset cho Đông Giang Circuit.
+    
+
+4\. Dev:
+
+*   Gắn GameMode và các chức năng cần thiết cho Đông Giang Circuit.
+    
+
+5\. Level:
+
+*   Hoàn thành lắp đặt Asset cho Đông Giang Circuit.
+    
+
+6\. Performance:
+
+*   Các bên liên quan đảm bảo Track luôn giữ ổn định 60 FPS.
+    
+
+7\. Sound &amp; Music:
+
+*   Sử dụng Theme của Area.
+    
+*   Thêm các SFX cần thiết theo các yếu tố trong Level."
+2020,"Là Player, tôi muốn có một Track TimeAttack trong Area Đông Giang.",User story,,,,,,VNRacing,,0S,2026-01-29,2026-01-29T07:49:32.356Z,2026-01-29T07:49:32.483Z,"Điều kiện hoàn thành:  
+1\. Game Design:
+
+*   Hoàn thành Design Layout và Block Out 3D đua được.
+    
+
+2\. Concepts &amp; 2D:
+
+*   Hoàn thành Concepts cho Track Đông Giang TA.
+    
+
+3\. 3D:
+
+*   Hoàn thành Asset cho Đông Giang TA.
+    
+
+4\. Dev:
+
+*   Gắn GameMode và các chức năng cần thiết cho Đông Giang TA.
+    
+
+5\. Level:
+
+*   Hoàn thành lắp đặt Asset cho Đông Giang TA.
+    
+
+6\. Performance:
+
+*   Các bên liên quan đảm bảo Track luôn giữ ổn định 60 FPS.
+    
+
+7\. Sound &amp; Music:
+
+*   Sử dụng Theme của Area.
+    
+*   Thêm các SFX cần thiết theo các yếu tố trong Level."
+1671,Toi muon co cai tam tang toc - cam giac phan khich khi chay qua-co tinh canh tranh ,User story,,,,,,VNRacing,2026-01-14,0S,2026-01-14,2026-01-14T02:54:04.020Z,2026-01-30T03:41:14.024Z,
+1863,Test Feature OP Integration,Epic,New,,Normal,,,VNRacing,2026-01-23,0S,2025-12-31,2026-01-23T06:58:51.668Z,2026-01-23T07:09:53.785Z,
+1867,Test Feature OP Review Build,User story,,,,,,VNRacing,2026-01-23,0S,2025-12-31,2026-01-23T07:02:14.024Z,2026-01-23T07:09:53.754Z,
+1921,Level Design,Epic,In progress,,Normal,,,VNRacing,2026-02-05,P4DT18h34M48S,2025-10-28,2026-01-24T03:16:29.561Z,2026-02-02T09:06:41.637Z,
+1040,MAP NGŨ HÀNH SƠN ,User story,,,,,,VNRacing,2026-01-21,22h45M,2025-11-04,2025-12-12T01:35:51.958Z,2026-01-28T04:47:22.582Z,
+1048,MAP ĐÔNG GIANG,User story,,,,,,VNRacing,2026-01-21,17h,2025-11-04,2025-12-12T06:20:53.646Z,2026-02-02T09:06:41.599Z,
+1280,MAP HỘI AN ,User story,,,,,,VNRacing,2026-02-05,P2DT4h19M48S,2025-10-28,2025-12-25T06:50:57.829Z,2026-02-02T02:46:45.249Z,
+1281,MAP SƠN TRÀ,User story,,,,,,VNRacing,2026-01-19,6h30M,2025-10-28,2025-12-25T06:56:02.038Z,2026-01-29T08:52:23.584Z,
+1282,DA NANG DOWNTOWN,User story,,,,,,VNRacing,2026-01-21,16h,2025-11-04,2025-12-25T06:56:20.231Z,2026-01-28T04:09:57.761Z,
+1973,Feature Inventory,Feature,New,,Normal,,,VNRacing,2025-11-15,2h,2025-11-01,2026-01-28T03:02:29.920Z,2026-02-02T09:11:02.980Z,"Feature Inventory cho phép người chơi lưu trữ các Items mà mình thu thập được trong quá trình chơi Game.
+
+Trong một tựa Game đua xe, đây không phải Feature chính nhưng vẫn cần thiết để người dùng có thể quản lý được số lượng Item mà mình tạo ra.
+
+Feature này cần cho người chơi cảm giác thuận tiện trong thao tác, thông tin hiển thị rõ ràng và đầy đủ.
+
+Feature này cần được thiết kế linh hoạt để có thể bổ sung thêm các chức năng khác phát sinh trong quá trình phát triển Game."
+1993,"(Inventory) Là Player, tôi muốn có khả năng theo dõi số lượng Item mà mình đang sở hữu cũng như sử dụng nhanh các Item đó ngay trong thùng đồ để tiện lợi hơn trong quá trình kiểm kê và ra quyết định In-Game. ",User story,,,,,,VNRacing,2025-11-15,2h,2025-11-01,2026-01-28T08:51:39.289Z,2026-02-02T09:11:02.953Z,"Điều kiện hoàn thành:  
+1\. Thực hiện chức năng Inventory:
+
+*   Cho phép người chơi xem được các thông tin tổng quan và chi tiết về các Item đang sở hữu.
+    
+*   Phân loại các Item rõ ràng trong Inventory.
+    
+*   Sử dụng các Item đã được nêu ra trong US Item Related.
+    
+
+2\. GD cung cấp tài liệu mô tả các chức năng:
+
+*   Các thông tin sẽ hiển thị trong Inventory.
+    
+*   Các chức năng người dùng có thể thực hiện được trong Inventory.
+    
+*   Cách thức hiển thị các Item khác nhau trong US Item Related.
+    
+
+3\. UI/UX:
+
+*   Thiết kế giao diện hợp lý để người chơi có thể thấy được các thông tin cần thiết trên màn hình.
+    
+*   Thiết kế các luồng giao diện phụ để người chơi có thể truy cập các tính năng trong này.
+    
+*   Animation và FX đầy đủ cho các Elements trong UI.
+    
+
+4\. Concepts &amp; 2D:
+
+*   Cung cấp các Asset cần thiết cho UI.
+    
+*   Cung cấp các Concepts khác cần thiết cho tính năng nếu cần thiết.
+    
+
+5\. Dev:
+
+*   Phát triển các tính năng được mô tả trong GDD.
+    
+*   Đảm bảo các tính năng không xung đột với các tính năng đã có.
+    
+*   Đảm bảo các tính năng không bị Bug.
+    
+
+6\. Performance:
+
+*   Các tính năng liên quan tới US không làm tụt FPS của game.
+    
+
+7\. Sound &amp; Music:
+
+*   SFX liên quan tới các tương tác trên Screen."
+1974, Items,Epic,New,,Normal,,,VNRacing,2026-02-06,P9DT4h30M36S,2026-01-07,2026-01-28T03:03:03.322Z,2026-02-02T09:20:47.680Z,"Epic Items là tập hợp các định nghĩa về các loại Items mà người chơi sưu tầm trong suốt quá trình chơi Game.
+
+Items hỗ trợ cho Gameplay như tăng tốc trong cuộc đua, hỗ trợ va chạm.
+
+Xe và Currency là một loại Items,
+
+Items đóng vai trò điều tiết Progression của người chơi thông qua cơ chế Rewards.
+
+Feature Item cần được thiết kế linh hoạt từ đầu để đảm bảo khả năng mở rộng thêm các tính năng trong quá trình phát triển.
+
+<br>"
+1975,"(Import Parts) Là Player, tôi muốn có các phần thưởng là các Items giúp tôi nâng cấp sức mạnh của xe trong quá trình chơi để tạo thêm động lực hoàn thành các cuộc đua.",User story,,,,,,VNRacing,2026-01-29,8h,2026-01-28,2026-01-28T03:20:07.176Z,2026-01-30T03:10:49.620Z,"Tiêu chí hoàn thành:&nbsp;  
+1- Có Design rõ ràng về chức năng của Item này.
+
+*   GD bổ sung chức năng của Item.
+    
+*   GD bổ sung các trường hợp xuất hiện của Item.
+    
+
+<br>
+
+2 - Hình ảnh của Item In-Game
+
+*   Item có hình ảnh bắt mắt, gợi ý đúng chức năng của Item đó.
+    
+*   Item xuất hiện đẹp và đồng bộ ở các Screen khác nhau.
+    
+*   Item có FX đầy đủ trong các trường hợp xuất hiện và kích hoạt.
+    
+*   Item có Animation đầy đủ trong các trường hợp xuất hiện và kích hoạt.
+    
+
+<br>
+
+3 - Chức năng của Item
+
+*   Item có đúng các chức năng mà GD liệt kê ở phần 1.
+    
+*   Chức năng của Item không xung đột với các chức năng khác.
+    
+*   Chức năng của Item không gây ra lỗi khi áp dụng với các hệ thống hiện tại.
+    
+
+<br>
+
+4 - Performance
+
+*   Item không gây tụt Performance khi kích hoạt và xuất hiện trên màn hình."
+1976,"Là Player, tôi muốn Game có hệ thống mở hòm đồ ngẫu nhiên, các hòm đồ có thể thu thập trong quá trình chơi để tạo cảm giác kích thích khi thu thập và mở hòm đồ.",User story,,,,,,VNRacing,2026-01-29,12h,2026-01-26,2026-01-28T03:34:10.933Z,2026-01-29T03:49:39.796Z,"Tiêu chí hoàn thành:&nbsp;  
+1- Có Design rõ ràng về chức năng của Item này.
+
+*   GD bổ sung chức năng của Item hòm đồ ngẫu nhiên.
+    
+*   GD bổ sung các trường hợp xuất hiện của Item hòm đồ.
+    
+*   GD bổ sung cơ chế Drop Item ngẫu nhiện và tỉ lệ rớt đồ
+    
+
+2 - Hình ảnh của Item In-Game
+
+*   Item có hình ảnh bắt mắt, gợi ý đúng chức năng của Item đó.
+    
+*   Item xuất hiện đẹp và đồng bộ ở các Screen khác nhau.
+    
+*   Item có FX đầy đủ trong các trường hợp xuất hiện và kích hoạt.
+    
+*   Item có Animation đầy đủ trong các trường hợp xuất hiện và kích hoạt.
+    
+
+<br>
+
+3 - Chức năng của Item
+
+*   Item có đúng các chức năng mà GD liệt kê ở phần 1.
+    
+*   Chức năng của Item không xung đột với các chức năng khác.
+    
+*   Chức năng của Item không gây ra lỗi khi áp dụng với các hệ thống hiện tại.
+    
+
+4 - Performance
+
+*   Item không gây tụt Performance khi kích hoạt và xuất hiện trên màn hình."
+1977,"Là Player, tôi muốn các đơn vị tiền tệ để trao đổi buôn bán In-Game rõ ràng, minh bạch và dễ hiểu để có thể thuận tiện thực hiện các hành vi mua bán In-Game.",User story,,,,,,VNRacing,2026-02-06,0S,2026-02-06,2026-01-28T03:40:00.207Z,2026-02-02T09:20:47.652Z,"Tiêu chí hoàn thành:&nbsp;  
+1- Có Design rõ ràng về chức năng của các Currency In-Game:
+
+*   GD bổ sung danh sách các đơn vị  Currency In-Game và UseCases của các Item đó.
+    
+
+<br>
+
+2 - Hình ảnh của Currency In-Game
+
+*   Currency có hình ảnh bắt mắt, gợi ý đúng chức năng của Currency đó.
+    
+*   Currency xuất hiện đẹp và đồng bộ ở các Screen khác nhau.
+    
+*   Currency có FX đầy đủ trong các trường hợp xuất hiện và kích hoạt.
+    
+*   Currency có Animation đầy đủ trong các trường hợp xuất hiện và kích hoạt.
+    
+
+<br>
+
+3 - Chức năng của Currency
+
+*   Currency có đúng các chức năng được GD phân loại ở mục 1.
+    
+*   Chức năng của Currency không xung đột với các chức năng khác.
+    
+*   Chức năng của Currency không gây ra lỗi khi áp dụng với các hệ thống hiện tại.
+    
+
+<br>
+
+4 - Performance
+
+*   Việc sử dụng các chức năng tăng giảm Currency không làm tụt Performance."
+1979,"Là Player, tôi muốn Game có hệ thống Item phong phú đủ phục vụ cho các chức năng liên quan In-Game để có cảm giác Game có số lượng Content lớn.",User story,,,,,,VNRacing,2026-01-28,0S,2026-01-28,2026-01-28T04:28:55.308Z,2026-02-02T04:59:45.476Z,"Điều kiện hoàn thành:  
+1\. &nbsp;Thiết kế và phân loại hệ thống Item
+
+*   GD thiết kế và phân loại hệ thống Item dùng trong bản Release.
+    
+*   GD liệt kê danh sách các Item.
+    
+
+2\. Cấu trúc hệ thống:
+
+*   Dev dựa trên hệ thống Item, thiết kế cấu trúc lưu trữ cho Item In-Game.
+    
+*   Dev Update danh sách Item vào Game theo danh sách của GD.
+    
+*   Hệ thống Item không gây ra xung đột với các hệ thống có sẵn In-Game.
+    
+*   Hệ thống Item không có lỗi khi truy vấn và tìm kiếm các Item cần thiết cho các chức năng."
+2008,ITEM_CARS ,Epic,New,,Normal,,,VNRacing,2026-02-03,P8DT8h30M36S,2026-01-07,2026-01-29T07:38:19.552Z,2026-02-02T07:58:12.294Z,"Mỗi thành phố sẽ Unlock từ 1-3 xe mới, dự định sẽ làm khoảng 50 xe.
+
+Mỗi xe được chia làm 7 phần (Body tổng, Front Bumper, Rear Bumper, SideSkirt, Roof, Spoiler, Wheels).
+
+Tài liệu check List chi tiết --&gt; Link
+
+Danh sách xe hiện tại:
+
+*   VinFast VF Lux A 2.0.
+    
+*   VinFast VF 8,
+    
+*   Mercedes GTR AMG 2026
+    
+
+Danh sách xe tương tai:
+
+*   Toyota Lexus Electrified Sport
+    
+*   Porsche 718 Cayman S
+    
+*   Shelby GT 500
+    
+*   Bugatti Tourbillon
+    
+*   BMW M3 GTR"
+1994,VF8_Car,User story,,Phuoc Ho Duc,,,,VNRacing,2026-02-03,P4DT8h30M36S,2026-01-13,2026-01-29T02:19:06.104Z,2026-02-02T07:58:12.266Z,
+2001,SEDAN_CAR ,User story,,,,,,VNRacing,2026-02-03,0S,2026-01-27,2026-01-29T06:25:57.368Z,2026-01-30T03:46:13.015Z,
+2005,Mercedes_Car,User story,,,,,,VNRacing,2026-01-20,P4D,2026-01-07,2026-01-29T06:40:54.909Z,2026-01-29T08:02:08.688Z,
+1983,Menu Game Features,Epic,New,Phuoc Ho Duc,Normal,,,VNRacing,2026-01-30,P11DT2h,2025-12-11,2026-01-28T06:22:05.654Z,2026-01-30T04:42:25.361Z,"VN Racing có nhiều Screen khác nhau để phục các mục đích khác nhau trong Gameplay.
+
+Các GameScreen thường bao gồm các &nbsp;yếu tố như: Levels, UI, FX, Music, Text Content.
+
+Các Game Screen trong Feature này thường sẽ liên quan nhiều tới các Feature khác nhau.."
+1930,Main Menu Game,User story,,,,,,VNRacing,2026-01-21,P11DT2h,2025-12-11,2026-01-24T09:18:03.254Z,2026-01-30T02:22:27.478Z,"<br>
+
+Là Player, tôi muốn Game có một Screen MainMenu đẹp gọn gàng, hiển thị đầy đủ các thông tin cần thiết và có lối tắt tới các chức năng chính của Game để tôi có thể nhanh chóng nắm bắt thông tin và truy cập các tác vụ mà tôi muốn.
+
+<br>
+
+<img class=""op-uc-image op-uc-image_inline"" src=""/api/v3/attachments/1899/content""> Điều kiện hoàn thành:&nbsp;
+
+1\.  Level Main Menu:
+
+*   Thấy được xe của người chơi đang sử dụng.
+    
+*   Level MainMenu đẹp, tôn lên vẻ đẹp của xe, nhẹ không ảnh hưởng tới Performance chung.
+    
+*   Không có lỗi Graphic (Dăm hình, xuyên Mesh, v.v)
+    
+
+2\. UI MainMenu:
+
+*   Đẹp và gọn gàng, thể hiện đẩy đủ các thông tin, có đầy đủ Animation và FX khi tương tác:
+    
+    *   Oveview tình trạng tiền Cash và Click đang sở hữu.
+        
+    *   Nhiệm vụ hằng ngày.
+        
+    *   Tiến trình đua hiện tại trong VN Tour Mode.
+        
+    *   Thông báo các sự kiện đặc biệt đang diễn ra.
+        
+    *   Thông tin Tooltips nếu Game State đạt đủ điều kiện kích hoạt.
+        
+*   Đầy đủ lối tắt tới các chức năng chính của Game:
+    
+    *   Chơi SinglePlayer.
+        
+    *   Chơi Multiplayer.
+        
+    *   Đổi Xe.
+        
+    *   Customize Xe.
+        
+    *   Vào thùng đồ.
+        
+    *   Xem thông tin User Profile.
+        
+    *   Xem thông tin Achievement.
+        
+    *   Xem thông tin Daily Challenges.
+        
+    *   Đổi Setting Game.
+        
+    *   Vào Shop mua sắm.
+        
+    *   Xem tin nhắn gửi tới từ hệ thống.
+        
+*   Không có lỗi UI (Tai thỏ, tràn viền, v.v)
+    
+
+3\. Performance:
+
+*   Ổn định ở mức 60FPS trên Target máy. (iOS &amp; Android)
+    
+*   Không làm nóng máy khi để Idle trong khoảng 30 phút.
+    
+
+4\. Sound &amp; Music:
+
+*   Nhạc nền cho MainMenu.
+    
+*   Các SFX khi tương tác với các chức năng UI và các sự kiện khác trên Screen này.
+    
+
+<br>"
+1984,"Là Player, tôi muốn Game Mode VnTour có thể chơi được với ít chạm nhất trên màn hình để nhanh chóng vào cuộc đua.",User story,,,,,,VNRacing,,0S,2026-01-28,2026-01-28T06:33:52.048Z,2026-01-28T07:04:19.549Z,"Điều kiện hoàn thành:&nbsp;  
+1\. UI/UX:
+
+*   Mất không quá 5 chạm để người chơi có thể vào đua trong VN Tour.
+    
+*   Tối ưu hóa Flow người chơi để vào được GameMode VN Tour.
+    
+*   Tối ưu hóa Flow người chơi để đua được các Track trong GameMode VN Tour.
+    
+*   Tôi ưu hóa thao tác của người chơi, hiển thị các yếu tố UI rõ ràng để người chơi có thể dễ dàng thao tác.
+    
+*   Có đầy đủ Animation và FX khi tương tác.
+    
+*   Không có lỗi UI (Tai thỏ, tràn viền, v.v)
+    
+
+2\. Screen Transition &amp; Level Transition &amp;  UI Animation:
+
+*   Chuyển đổi giữa Các Screen nhanh, mất không quá 0.5 giây để người chơi có thể thao tác được trên Screen tiếp theo.
+    
+*   Chuyển đổi giữa các Level gắn với các Screen nhanh, không bị khựng lại để đợi load Assets.
+    
+
+3\. Performance:
+
+*   Ổn định ở mức 60FPS trên Target máy. (iOS &amp; Android)
+    
+*   Không làm nóng máy khi để Idle trong khoảng 30 phút.
+    
+
+4\. Sound &amp; Music:
+
+*   Chuyển đổi nhạc nền mượt khi chạy qua các Screen.
+    
+*   Hiệu ứng SFX khi chuyển đổi"
+2044,Car Selection,User story,,,,,,VNRacing,,0S,2026-01-30,2026-01-30T04:27:32.063Z,2026-01-30T04:33:08.609Z,"Là Player, tôi muốn có một Screen Car Selection cho phép tôi xem và đổi các xe tôi đang sở hữu.
+
+<br>
+
+Điều kiện hoàn thành:  
+1\. Thực hiện chức năng Car Selection:
+
+*   Thực hiện các chức năng có trong Screen Car Selection.
+    
+
+2\. GD cung cấp tài liệu mô tả các chức năng:
+
+*   Các thông tin về chức năng Car Selection.
+    
+*   WireFrame của Screen.
+    
+    <br>
+    
+
+3\. UI/UX:
+
+*   Thiết kế giao diện hợp lý để người chơi có thể thấy được các thông tin cần thiết trên màn hình.
+    
+*   Animation và FX đầy đủ cho các Elements trong UI.
+    
+
+4\. Concepts &amp; 2D:
+
+*   Cung cấp các Asset cần thiết cho UI.
+    
+*   Cung cấp các Concepts khác cần thiết cho tính năng nếu cần thiết.
+    
+
+5\. Dev:
+
+*   Phát triển các tính năng được mô tả trong GDD.
+    
+*   Đảm bảo các tính năng không xung đột với các tính năng đã có.
+    
+*   Đảm bảo các tính năng không bị Bug.
+    
+
+6\. Performance:
+
+*   Các tính năng liên quan tới US không làm tụt FPS của game.
+    
+
+7\. Sound &amp; Music:
+
+*   Theme riêng cho Car Selection.
+    
+*   SFX liên quan tới các tương tác trên Screen."
+2045,Game Settings,User story,,,,,,VNRacing,2026-01-30,0S,2025-12-11,2026-01-30T04:32:32.653Z,2026-01-30T04:33:48.117Z,"Là Player, tôi muốn có chức năng tinh chỉnh các yếu tố như Audio, Graphics, Gameplay để tự do tùy biến trải nghiệm của mình.  
+Điều kiện hoàn thành:  
+1\. Thực hiện chức năng Setting Menu:
+
+*   Định nghĩa, phân loại các Setting Ingame và ảnh hưởng của nó lên toàn hệ thống..
+    
+    <br>
+    
+
+2\. GD cung cấp tài liệu mô tả các chức năng:
+
+*   Các thông tin về phân loại và định nghĩa các Settings trong Game.
+    
+*   Thông tin hiển thị trên màn hình khi kích hoạt các thay đổi về Settings.
+    
+
+3\. UI/UX:
+
+*   Thiết kế giao diện hợp lý để người chơi có thể thấy được các thông tin cần thiết trên màn hình.
+    
+*   Animation và FX đầy đủ cho các Elements trong UI.
+    
+
+4\. Concepts &amp; 2D:
+
+*   Cung cấp các Asset cần thiết cho UI.
+    
+*   Cung cấp các Concepts khác cần thiết cho tính năng nếu cần thiết.
+    
+
+5\. Dev:
+
+*   Phát triển các tính năng được mô tả trong GDD.
+    
+*   Đảm bảo các tính năng không xung đột với các tính năng đã có.
+    
+*   Đảm bảo các tính năng không bị Bug.
+    
+
+6\. Performance:
+
+*   Các tính năng liên quan tới US không làm tụt FPS của game.
+    
+
+7\. Sound &amp; Music:
+
+*   SFX liên quan tới các tương tác trên Screen."
+2046,Title Screen,User story,,,,,,VNRacing,2026-01-30,0S,2025-12-11,2026-01-30T04:42:25.284Z,2026-01-30T04:42:25.414Z,"Là Player, tôi muốn có một Screen Title khi vừa mới vào Game đẹp mắt, hấp dẫn.  
+  
+Điều kiện hoàn thành:  
+1\. Thực hiện hoàn chỉnh Screen Title
+
+*   Screen Title ấn tượng.
+    
+*   Hoàn thành đủ các chức năng trong Screen Title.
+    
+    <br>
+    
+
+2\. GD cung cấp tài liệu mô tả các chức năng:
+
+*   Các thông tin về phân loại và định nghĩa Screen Title.
+    
+*   Tương tác của người chơi trên Screen Title.
+    
+*   Vẽ Wireframe các thông tin hiển thị trên Screen Title.
+    
+    <br>
+    
+
+3\. UI/UX:
+
+*   Thiết kế giao diện hợp lý để người chơi có thể thấy được các thông tin cần thiết trên màn hình.
+    
+*   Animation và FX đầy đủ cho các Elements trong UI.
+    
+
+4\. Concepts &amp; 2D:
+
+*   Cung cấp các Asset cần thiết cho UI.
+    
+*   Cung cấp các Concepts khác cần thiết cho tính năng nếu cần thiết.
+    
+
+5\. Dev:
+
+*   Phát triển các tính năng được mô tả trong GDD.
+    
+*   Đảm bảo các tính năng không xung đột với các tính năng đã có.
+    
+*   Đảm bảo các tính năng không bị Bug.
+    
+
+6\. Performance:
+
+*   Các tính năng liên quan tới US không làm tụt FPS của game.
+    
+
+7\. Sound &amp; Music:
+
+*   SFX liên quan tới các tương tác trên Screen."
