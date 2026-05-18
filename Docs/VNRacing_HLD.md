@@ -54,7 +54,7 @@ graph TB
         GM["ARacingCarGameMode\nSpawn race manager/cars"]
         GS["ARaceGameState\nReplicated race readiness"]
         RTM["ARaceTrackManager\nRace lifecycle · checkpoint · ranking"]
-        VEH["Vehicle System\nASimulatePhysicsCar · custom car"]
+        VEH["Vehicle System\nASimulatePhysicsCarWithCustom · custom car"]
         CUST["UCarCustomizationManager\nVisual + performance config"]
         PROG["UProgressionCenterSubsystem\nVN Tour facade"]
         PROFILE["UProfileManagerSubsystem\nProfile · wallet · stats"]
