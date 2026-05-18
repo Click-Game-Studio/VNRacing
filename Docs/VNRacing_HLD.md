@@ -47,21 +47,23 @@ VNRacing là mobile-first racing game xây dựng bằng Unreal Engine. Core loo
 
 ```mermaid
 graph TB
-    USER["Player\niOS / Android"]
+    USER["Player<br/>iOS / Android"]
 
     subgraph CLIENT["UE5 Mobile Client"]
-        GI["URacingCarGameInstance\nDataTable registry · global config"]
-        GM["ARacingCarGameMode\nSpawn race manager/cars"]
-        GS["ARaceGameState\nReplicated race readiness"]
-        RTM["ARaceTrackManager\nRace lifecycle · checkpoint · ranking"]
-        VEH["Vehicle System\nASimulatePhysicsCarWithCustom · custom car"]
-        CUST["UCarCustomizationManager\nVisual + performance config"]
-        PROG["UProgressionCenterSubsystem\nVN Tour facade"]
-        PROFILE["UProfileManagerSubsystem\nProfile · wallet · stats"]
-        INV["UInventoryManager\nItems · equipment"]
-        ONLINE["UNakamaServiceSubsystem\nAuth · session · realtime"]
-        MATCH["UMatchServiceSubsystem\nMatchmaking · match data"]
-        UI["UMG / Blueprint UI"]
+        UI["UMG / Blueprint UI<br/>Player input · menus · HUD"]
+
+        GI["URacingCarGameInstance<br/>DataTable registry · global config"]
+        GM["ARacingCarGameMode<br/>Spawn race manager/cars"]
+        GS["ARaceGameState<br/>Replicated race readiness"]
+        RTM["ARaceTrackManager<br/>Race lifecycle · checkpoint · ranking"]
+        VEH["Vehicle System<br/>ASimulatePhysicsCarWithCustom · custom car"]
+
+        CUST["UCarCustomizationManager<br/>Visual + performance config"]
+        PROG["UProgressionCenterSubsystem<br/>VN Tour facade"]
+        PROFILE["UProfileManagerSubsystem<br/>Profile · wallet · stats"]
+        INV["UInventoryManager<br/>Items · equipment"]
+        ONLINE["UNakamaServiceSubsystem<br/>Auth · session · realtime"]
+        MATCH["UMatchServiceSubsystem<br/>Matchmaking · match data"]
     end
 
     subgraph DATA["Local Data Layer"]
@@ -71,18 +73,25 @@ graph TB
     end
 
     subgraph BACKEND["Backend Services"]
-        NAK["Nakama\nAuth · realtime · matchmaker"]
-        EDGE["Edgegap / Dedicated Server\nFuture PvP hosting boundary"]
+        NAK["Nakama<br/>Auth · realtime · matchmaker"]
+        EDGE["Edgegap / Dedicated Server<br/>Future PvP hosting boundary"]
         GA["GameAnalytics telemetry"]
     end
 
-    USER --> UI
-    UI --> CUST
-    UI --> PROG
-    UI --> PROFILE
-    UI --> INV
-    UI --> MATCH
+    %% User-facing interaction
+    USER -->|"touch input / navigation"| UI
+    UI -->|"show HUD / feedback"| USER
 
+    %% UI to gameplay and systems
+    UI -->|"start race / select mode"| GM
+    UI -->|"customize car"| CUST
+    UI -->|"view progression / VN Tour"| PROG
+    UI -->|"profile / wallet / stats"| PROFILE
+    UI -->|"inventory / equipment"| INV
+    UI -->|"login / online status"| ONLINE
+    UI -->|"matchmaking"| MATCH
+
+    %% Core race flow
     GI --> DT
     GM --> RTM
     GM --> GS
@@ -92,6 +101,12 @@ graph TB
     RTM --> PROFILE
     RTM --> GS
 
+    %% Vehicle and asset usage
+    VEH --> ASSET
+    CUST --> ASSET
+    UI --> ASSET
+
+    %% Local data
     CUST --> SG
     PROG --> SG
     PROFILE --> SG
@@ -100,6 +115,7 @@ graph TB
     CUST --> DT
     PROG --> DT
 
+    %% Backend
     ONLINE --> NAK
     MATCH --> ONLINE
     MATCH --> NAK
