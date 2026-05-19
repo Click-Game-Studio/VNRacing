@@ -420,7 +420,9 @@ graph TB
 
 # 8. Multiplayer / Dedicated Server Architecture
 
-The new architecture introduces a clearer split between client multiplayer module and dedicated server runtime. This should be documented as a target boundary even if full race server-authoritative flow is not yet implemented.
+Để thực hiện network gameplay, tựa game này hoạt động với 2 giả định sau:
+- Không cần thiết phải xử lí các xe va chạm nhau, chỉ cần xử lí các xe va chạm với môi trường và pick-up
+- Để tránh việc giật lag, hoặc input sai lệch, server chấp nhận kết quả giả lập vật lí mà các client gửi lên, và chỉ làm các kiểm tra đơn giản khi đưa xuống cho các client khác, đây được gọi là mô hình semi-authoritative
 
 ```mermaid
 sequenceDiagram
@@ -448,15 +450,15 @@ sequenceDiagram
 | Dedicated server module | Responsibility |
 | --- | --- |
 | Backend Communication | Validate players/session with backend, send authorized result/stats/economy events |
-| Network Physics Interpolate | Smooth or reconcile networked vehicle movement state; exact prediction model belongs in LLD |
-| Game Modes / Authorize | Own server-side race mode, start/end race validation, anti-cheat-sensitive race authority |
+| Network Physics Interpolate | Receive the client sim result, make a light calculation if that sim result is too fake, and send the corrected result (if need) to other clients|
+| Game Modes / Authorize | Own server-side race mode, start/end race validation, race semi-authority |
 
 ## 8.2 Authority Model Recommendation
 
 | System | Offline/local | Online PvP recommended authority |
 | --- | --- | --- |
 | Input | Client | Client sends input/state according to chosen netcode model |
-| Vehicle feedback | Client local responsive simulation | Client prediction/interpolation allowed, server validates authoritative state/result |
+| Vehicle feedback | Client local responsive simulation | Clientinterpolation allowed, server validates authoritative state/result |
 | Race mode start/end | Local `GameMode`/`RaceTrackManager` | Dedicated server `GameMode` |
 | Ranking/checkpoint/lap | Local `RaceTrackManager` | Server-authoritative checkpoint/lap/ranking |
 | Economy reward | Local SaveGame acceptable for prototype | Backend-authoritative grant after server-approved result |
