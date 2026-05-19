@@ -1192,8 +1192,15 @@ Các checkbox dưới đây là danh sách kiểm chứng cho các pass implemen
 - [ ] Ensure analytics events do not block race completion or reward grant.
 
 ---
+# 16. Network gameplay:
+## 16.1 Network design:
+- Với việc không cần xử lí cho các xe va chạm nhau (vấn đề rất khó và nằm ngoài khả năng giải quyết), hệ thống network chỉ cần xử lí phần như sau: phần đầu là gửi các thông số bao gồm vị trí, góc xoay, vận tốc tuyến tính và vận tốc góc từ client lên server, phần sau là lưu trữ các thông số này trong 1 bộ nhớ ngắn hạn trên server (5 frame), tính toán đơn giản hoặc kiểm tra giới hạn mức thông số có thể (ví dụ không có chuyện frame trước xe chạy 100km/h, frame sau chạy 200km/h), sau đó gửi lại thông số đã qua sàn lọc cho các player khác để xử lí. Những player không phải owner sẽ interpolate kết quả và hiển thị trên màn hình. Đồng thời, client phải xử lí không cho các xe va chạm như ở chế độ offline
+## 16.2 Network collision:
+- Các xe vẫn có khả năng va chạm với các vật thể trên đường, ví dụ như đường cái, nhà cửa, pick-up và interactable actors. Các xe không va chạm với nhau.
+- Khi một xe ở quá gần xe của owner client, xe đó sẽ bị làm mờ đi để không vướng tầm nhìn.
+---
 
-# 16. Open Issues
+# 17. Open Issues
 
 | Issue | Detail | Suggested next step |
 | --- | --- | --- |
@@ -1205,7 +1212,7 @@ Các checkbox dưới đây là danh sách kiểm chứng cho các pass implemen
 
 ---
 
-# 17. Related Documents
+# 18. Related Documents
 
 | Document | Purpose |
 | --- | --- |
