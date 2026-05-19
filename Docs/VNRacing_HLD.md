@@ -43,161 +43,131 @@ Tài liệu này tổng hợp kiến trúc cấp hệ thống của VNRacing t�
 
 # 1. Tổng Quan Hệ Thống
 
-VNRacing là mobile-first racing game xây dựng bằng Unreal Engine. Core loop gồm chọn track trong VN Tour, đua với AI/opponent, nhận thưởng, nâng cấp hoặc customize xe, rồi mở khóa city/track/reward mới.
+VNRacing là một mobile-first racing game xây dựng bằng Unreal Engine 5. Player chọn mode/track, đua với AI hoặc online opponent, nhận reward, nâng cấp/customize xe, tiến triển qua VN Tour, và có thể đi vào online multiplayer thông qua Nakama matchmaking.
+
+Core loop ở mức hệ thống:
+
+1. Player dùng UI mobile để chọn race mode, track hoặc VN Tour node.
+2. Client chuẩn bị race setup: car config, progression requirement, track rule, AI/opponent setup.
+3. Race runtime xử lý vehicle movement, checkpoint, lap, ranking, timer và race result.
+4. Progression/Profile/Economy/Stats nhận kết quả race và cập nhật reward, currency, unlock, stats.
+5. Telemetry được gửi sang GameAnalytics.
+6. Với online flow, client đi qua Nakama auth/realtime/matchmaker. Dữ liệu đua được gửi lên Dedicated server (Edgegap) để xác minh một phần (non-competitive gameplay).
 
 ```mermaid
 graph TB
     USER["Player<br/>iOS / Android"]
 
     subgraph CLIENT["UE5 Mobile Client"]
-        UI["UMG / Blueprint UI<br/>Player input · menus · HUD"]
-
-        GI["URacingCarGameInstance<br/>DataTable registry · global config"]
-        GM["ARacingCarGameMode<br/>Spawn race manager/cars"]
-        GS["ARaceGameState<br/>Replicated race readiness"]
-        RTM["ARaceTrackManager<br/>Race lifecycle · checkpoint · ranking"]
-        VEH["Vehicle System<br/>ASimulatePhysicsCarWithCustom · custom car"]
-
-        CUST["UCarCustomizationManager<br/>Visual + performance config"]
-        PROG["UProgressionCenterSubsystem<br/>VN Tour facade"]
-        PROFILE["UProfileManagerSubsystem<br/>Profile · wallet · stats"]
-        INV["UInventoryManager<br/>Items · equipment"]
-        ONLINE["UNakamaServiceSubsystem<br/>Auth · session · realtime"]
-        MATCH["UMatchServiceSubsystem<br/>Matchmaking · match data"]
+        UI["UI\nControl · Display"]
+        C_GP["Gameplay\nOnline/offline mode · Track selection · Track rule · AI"]
+        C_CUST["Customize\nInventory · Car Customization"]
+        C_PH["Physics\nVehicle Movement"]
+        C_PG["Progression · Profile · Economy · Stats"]
+        C_DT["Data\nSaveGame · DataTable · Asset"]
+        C_BE_C["Backend Communication"]
+        C_GA["GameAnalytics telemetry"]
+        C_TUT["Tutorial · On Boarding"]
+        C_DBU["Debug · Toolchain"]
+        
+        C_MUL["Multiplayer Module"]
     end
-
-    subgraph DATA["Local Data Layer"]
-        SG["SaveGame classes"]
-        DT["DataTables"]
-        ASSET["Meshes · Materials · Decals · UI Assets"]
-    end
-
+    
     subgraph BACKEND["Backend Services"]
+        BE_PG["Progression · Profile · Economy · Stats"]
         NAK["Nakama<br/>Auth · realtime · matchmaker"]
         EDGE["Edgegap / Dedicated Server<br/>Future PvP hosting boundary"]
-        GA["GameAnalytics telemetry"]
     end
 
-    %% User-facing interaction
-    USER -->|"touch input / navigation"| UI
-    UI -->|"show HUD / feedback"| USER
+    subgraph ANALYTIC["Analytics Service"]
+    end
 
-    %% UI to gameplay and systems
-    UI -->|"start race / select mode"| GM
-    UI -->|"customize car"| CUST
-    UI -->|"view progression / VN Tour"| PROG
-    UI -->|"profile / wallet / stats"| PROFILE
-    UI -->|"inventory / equipment"| INV
-    UI -->|"login / online status"| ONLINE
-    UI -->|"matchmaking"| MATCH
+    subgraph D_SV["Dedicated Server"]
+        S_BE_C["Backend Communication"]
+        S_PH["Network Physics Interpolate"]
+        S_GM["Game Modes\nAuthorize"]
+    end
 
-    %% Core race flow
-    GI --> DT
-    GM --> RTM
-    GM --> GS
-    RTM --> VEH
-    RTM --> PROG
-    RTM --> CUST
-    RTM --> PROFILE
-    RTM --> GS
+    USER -->|"touch input / game flow navigation"| CLIENT
+    CLIENT -->|"show HUD / feedback"| USER
 
-    %% Vehicle and asset usage
-    VEH --> ASSET
-    CUST --> ASSET
-    UI --> ASSET
+    UI -->|"start race / select mode"| C_GP
+    UI -->|"customize car"| C_CUST
+    UI -->|"view progression / VN Tour"| C_PG
+    UI -->|"match making"| C_BE_C
+    UI <-->|"Show tutorial / Force hand"| C_TUT
 
-    %% Local data
-    CUST --> SG
-    PROG --> SG
-    PROFILE --> SG
-    INV --> SG
-    INV --> DT
-    CUST --> DT
-    PROG --> DT
+    C_PG <--> C_BE_C
+    C_CUST <--> C_BE_C
+    C_GP --> C_PH
+    C_BE_C <--> BACKEND
+    C_GA --> ANALYTIC
+    C_PH --> C_MUL
+    C_GP --> C_DT
+    C_CUST --> C_DT
 
-    %% Backend
-    ONLINE --> NAK
-    MATCH --> ONLINE
-    MATCH --> NAK
-    PROG --> GA
-    NAK -.deploy / route.-> EDGE
+    NAK <-.request / route.-> EDGE
+    EDGE <-.deploy / route.-> D_SV
+    C_MUL <--> D_SV
+    S_BE_C <--> BACKEND
 ```
 
 ### 1.1 Core pillars
 
 | Pillar | High-level responsibility |
 | --- | --- |
-| Race runtime | Spawn cars, start/end race, track checkpoints, ranking, timers, fan service UI |
+| UI / Control / Display | Menu, HUD, control input, feedback, screen navigation |
+| Race runtime | Offline/online race mode, track selection, track rule, AI, race flow |
 | Vehicle physics | Use vehicle actor/controller classes and physics plugin parameters for racing feel |
-| Car customization | Manage garage car configurations, visual parts/materials/decals, performance upgrade, preview/apply/save |
-| Car rating | Convert local upgrade levels and car type into CR/performance stats; map AI difficulty per city |
-| Progression | VN Tour city/area/track hierarchy, race setup, race completion, goals, reward calculation |
-| Player state | Profile, wallet currencies, inventory, garage ownership, stats |
-| Online | Nakama auth/session/realtime/matchmaking; multiplayer lobby and future server deployment |
+| Car customization | Manage garage car configurations, inventory, visual/performance customization, visual parts/materials/decals, performance upgrade, preview/apply/save |
+| Progression | VN Tour city/area/track hierarchy, race setup, race completion, goals, reward calculation, convert local upgrade levels and car type into CR/performance stats, map AI difficulty per city, profile, wallet currencies, inventory save, garage ownership, stats |
+| Backend Communication | Auth/session/realtime/matchmaking/backend API gateway |
+| Multiplayer Module | Client-side online race module and server connection | 
+| Tutorial / Onboarding | Scripted tutorial, tooltip, forced hand/control lock |
+| Analytics | GameAnalytics telemetry |
 | Tooling | Debug modules, analytics, `UPerformanceMonitorSubsystem`, PSO helpers, world-scoped object pool |
-
+| Backend | Nakama auth/session/realtime/matchmaking; multiplayer lobby and future server deployment, Edgegap setup |
+| Dedicated Server | Authorize flow, network physics, communicate with backend |
 ---
 
 # 2. Runtime Architecture
 
-VNRacing uses UE5 framework classes plus long-lived `UGameInstanceSubsystem` services.
+UE5 Mobile Client là runtime chính của game. Client hiện đang giữ cả gameplay runtime, local state/cache, UI, vehicle physics, debug toolchain và online client services.
 
 ```mermaid
 graph TB
-    GI["URacingCarGameInstance"]
-
-    subgraph GI_SUB["GameInstanceSubsystems"]
-        CUST["UCarCustomizationManager"]
-        CRS["UCarRatingSubsystem"]
-        PROG["UProgressionCenterSubsystem"]
-        PS["UProgressionSubsystem"]
-        FSS["UFanServiceSubsystem"]
-        ACH["UAchievementSubsystem"]
-        PROFILE["UProfileManagerSubsystem"]
-        SESSION["URaceSessionSubsystem"]
-        INV["UInventoryManager"]
-        SAVE["UCarSaveGameManager"]
-        NAK["UNakamaServiceSubsystem"]
-        MATCH["UMatchServiceSubsystem"]
-        AI["UAIManagerSubsystem"]
-        ANALYTICS["UGameAnalyticsSubsystem"]
+    subgraph CLIENT["UE5 Mobile Client"]
+        UI["UI Layer\nUMG · Blueprint screens · HUD"]
+        CONTROL["Control Layer\nTouch input · PlayerController"]
+        GAMEPLAY["Gameplay Layer\nRace mode · Track rule · AI setup"]
+        PHYSICS["Physics Layer\nVehicle movement · collision · car stats"]
+        META["Meta Layer\nProgression · Profile · Economy · Stats"]
+        CUSTOM["Customization Layer\nGarage · Inventory · Car customization"]
+        ONLINE["Backend Communication\nNakama service · Match service"]
+        MULTI["Multiplayer Module\nOnline race client · server sync"]
+        TUT["Tutorial / Onboarding"]
+        ANALYTICS["GameAnalytics telemetry"]
+        DEBUG["Debug / Toolchain"]
+        DATA["Local Data\nDataTables · SaveGame · Assets"]
     end
 
-    subgraph WORLD_SUB["WorldSubsystems"]
-        POOL["UActorObjectPoolSubsystem"]
-    end
-
-    subgraph RACE_LEVEL["Race Level Runtime"]
-        GM["ARacingCarGameMode"]
-        GS["ARaceGameState"]
-        RTM["ARaceTrackManager"]
-        PC["ARacingCarController"]
-        CAR["ASimulatePhysicsCar / ASimulatePhysicsCarWithCustom"]
-        CP["ARaceCheckpoint"]
-    end
-
-    GI --> GI_SUB
-    GM --> GS
-    GM --> RTM
-    GM --> PC
-    GM --> CAR
-    RTM --> CP
-    RTM --> CAR
-    RTM --> CUST
-    RTM --> CRS
-    RTM --> PROFILE
-    PROG --> PS
-    PROG --> FSS
-    PROG --> ACH
-    PROG --> CUST
-    PROG --> CRS
-    PROG --> SESSION
-    PROG --> SAVE
-    CUST --> CRS
-    CUST --> PROFILE
-    PROFILE --> SAVE
-    INV --> SAVE
-    MATCH --> NAK
+    UI --> CONTROL
+    CONTROL --> GAMEPLAY
+    UI --> META
+    UI --> CUSTOM
+    UI --> ONLINE
+    UI <--> TUT
+    GAMEPLAY --> PHYSICS
+    PHYSICS --> MULTI
+    META <--> ONLINE
+    CUSTOM <--> ONLINE
+    GAMEPLAY --> ANALYTICS
+    META --> ANALYTICS
+    GAMEPLAY --> DATA
+    META --> DATA
+    CUSTOM --> DATA
+    DEBUG --> GAMEPLAY
+    DEBUG --> PHYSICS
 ```
 
 ### 2.1 Lifecycle ownership
@@ -213,43 +183,7 @@ graph TB
 
 ---
 
-# 3. UE5 Client Architecture
-
-```mermaid
-graph LR
-    subgraph PRESENTATION["Presentation Layer"]
-        UI["UMG Widgets"]
-        BP["Blueprint screens"]
-        INPUT["Input / PlayerController"]
-    end
-
-    subgraph LOGIC["Business Logic Layer"]
-        RTM["RaceTrackManager"]
-        CUST["Customization"]
-        PROG["Progression"]
-        PROFILE["Profile"]
-        INV["Inventory"]
-        MATCH["Match Service"]
-    end
-
-    subgraph DATA["Data Layer"]
-        DT["DataTables"]
-        SG["SaveGame"]
-        ASSET["Assets"]
-    end
-
-    subgraph INFRA["Infrastructure"]
-        NAK["Nakama"]
-        GA["Analytics"]
-        PLUG["Plugins"]
-    end
-
-    PRESENTATION --> LOGIC
-    LOGIC --> DATA
-    LOGIC --> INFRA
-```
-
-### 3.1 UI access pattern
+### 2.2 UI access pattern
 
 UI reads and mutates game state through subsystem APIs and multicast delegates, not by directly editing SaveGame objects.
 
@@ -264,9 +198,9 @@ UI reads and mutates game state through subsystem APIs and multicast delegates, 
 
 ---
 
-# 4. Race Gameplay Architecture
+# 3. Race Gameplay Flow
 
-`ARaceTrackManager` is the central runtime race orchestrator. It tracks player and AI race state, checkpoint progress, lap count, ranking, race timing, intro/outro sequence flow, and fan service hooks.
+Gameplay module trong sơ đồ mới gồm online/offline mode, track selection, track rule và AI. Trong codebase hiện tại, gameplay runtime chủ yếu nằm ở `RaceMode`, `RacingCarGameMode`, `RaceGameState`, `RacingCarController`, `RaceTrackManager`, checkpoint actors và AI subsystem. Trong đó `ARaceTrackManager` đóng vai trò trung tâm tổ chức cuộc đua. Nó theo dõi trạng thái của player/AI, checkpoint progress, lap count, ranking, race timing, intro/outro sequence flow, và fan service hooks.
 
 ```mermaid
 stateDiagram-v2
@@ -278,7 +212,7 @@ stateDiagram-v2
     NotCompleted --> [*]: EndRace / fail result
 ```
 
-### 4.1 Race modes
+### 3.1 Race modes
 
 | Concept | Source enum/class | Meaning |
 | --- | --- | --- |
@@ -287,7 +221,7 @@ stateDiagram-v2
 | Race info | `FRaceInfo` | Total laps, race mode, time attack duration/bonus, current players, track difficulty |
 | Player race state | `FPlayerRaceState` | Vehicle id, player name, lap/checkpoint progress, time, ranking, AI flag, reward |
 
-### 4.2 Race flow
+### 3.2 Race flow
 
 ```mermaid
 sequenceDiagram
@@ -317,301 +251,375 @@ sequenceDiagram
 
 ---
 
-# 5. Vehicle, Physics, and Car Rating Architecture
+# 4. Vehicle Physics Architecture
 
-Vehicle runtime is actor-driven. Player and AI cars use physics-oriented vehicle classes and are configured from DataTables through customization and car rating systems.
-
-| System | Responsibility |
-| --- | --- |
-| `ARacingCarGameMode` | Spawns player cars and PSO helpers |
-| `ARaceTrackManager` | Adds cars to race state, sets up AI cars, applies AI performance/style |
-| `UCarCustomizationManager` | Resolves car configuration and in-game performance stats |
-| `UCarRatingSubsystem` | Maps CR levels/city/difficulty to `FCarRatingStats` |
-| Physics plugins | Provide vehicle simulation implementation and async/performance behavior |
-
-### 5.1 Car rating path
-
-```mermaid
-graph TD
-    Upgrade["Performance upgrade levels"] --> Config["FCarConfiguration"]
-    Config --> CUST["UCarCustomizationManager"]
-    CUST --> CR["Calculate car rating / local CR"]
-    CR --> CRS["UCarRatingSubsystem"]
-    CRS --> Stats["FCarRatingStats"]
-    Stats --> Vehicle["Apply to ASimulatePhysicsCar"]
-
-    City["City index"] --> CRS
-    Difficulty["Track difficulty"] --> CRS
-    CRS --> AIStats["AI car rating stats"]
-    AIStats --> AICar["AI vehicle"]
-```
-
----
-
-# 6. Car Customization Architecture
-
-Customization is split into design-facing mechanics and implementation-facing manager APIs.
-
-### 6.1 Design concepts
-
-| Domain | Rule |
-| --- | --- |
-| Visual parts | FrontBumper, RearBumper, Sideboard, Spoiler, Roof, Wheel |
-| Materials | Body Material, Wheel Material |
-| Decals | Body Decals |
-| Preview | Locked visual items can be previewed, but cannot be purchased/applied until unlocked |
-| Apply | Purchased/unlocked item can be applied to current car configuration |
-| Performance | Speed, Acceleration, Grip, Nitro; levels 0-6 |
-| CR effect | Speed/Acceleration/Grip affect CR; Nitro does not directly affect CR in design docs |
-
-### 6.2 Implementation owner
-
-`UCarCustomizationManager` owns:
-
-- Current and preview `FCarConfiguration`
-- Garage map `ProfileCarConfigurations`
-- DataTable references for base cars, parts, styles, colors, decals, materials, performance levels
-- Visual apply APIs: part, color, material, style, decal
-- Performance upgrade APIs and cost calculation
-- Car rating recalculation and in-game performance stats
-- Save/load through `UCarSaveGameManager`
-- UI delegates for configuration changes, upgrade success/failure, save success/failure
-
----
-
-# 7. Progression / VN Tour Architecture
-
-VN Tour is the main single-player progression mode. Design docs define 5 cities, 15 tracks per city, 75 tracks total, 15 cars, and approximately 300 minutes target playtime.
-
-```mermaid
-graph TD
-    Tour["FVNTourProgressionData"] --> City["FCityProgress x5"]
-    City --> Area["FAreaProgress x5 per city"]
-    Area --> Track["FTrackProgress x3 per area"]
-    Track --> RaceHistory["FTrackProgressionState history"]
-    Track --> FanService["FFanService"]
-    Track --> Gate["Performance gate / difficulty"]
-```
-
-### 7.1 Progression ownership
-
-| Class | Responsibility |
-| --- | --- |
-| `UProgressionCenterSubsystem` | Facade for race setup, travel, result handling, reward calculation, analytics |
-| `UProgressionSubsystem` | VN Tour city/area/track data and unlock state |
-| `UFanServiceSubsystem` | In-race side mission/fan service progress |
-| `UAchievementSubsystem` | Achievement progress and definitions |
-| `UCarRatingSubsystem` | Performance gate and difficulty recommendation |
-| `URaceSessionSubsystem` | Current race session data and player session state |
-
-### 7.2 City difficulty model
-
-| City | Target role |
-| --- | --- |
-| City 1 | Onboarding, high win rate, easy track bias |
-| City 2-3 | Introduce medium/hard pressure and upgrade loop |
-| City 4-5 | Long-tail challenge, high replay rate, deeper CR/economy demand |
-
----
-
-# 8. PlayerState, Wallet, Inventory, and Garage Architecture
-
-The design-level PlayerState consists of Wallet, Inventory, and Garage. Implementation currently splits these across profile, inventory, and customization systems.
+Physics module handles vehicle movement, collision, vehicle stat application and, for online race, becomes a synchronization/interpolation boundary.
 
 ```mermaid
 graph TB
-    PlayerState["Design PlayerState"]
-    PlayerState --> Wallet["Wallet\nCash / Coin"]
-    PlayerState --> Fuel["Session energy\nFuel / recharge ticks"]
-    PlayerState --> Inventory["Inventory\nVisual / Performance / CurrencyItem / LootCrate"]
-    PlayerState --> Garage["Garage\nOwned cars / selected car / themes"]
-
-    Wallet --> PROFILE["UProfileManagerSubsystem\nFPlayerProfileData / FPlayerCurrency"]
-    Fuel --> SESSION["URaceSessionSubsystem\nFFuelTicks / fuel delegates"]
-    Inventory --> INV["UInventoryManager"]
-    Garage --> CUST["UCarCustomizationManager\nProfileCarConfigurations"]
+    CUST["Car Customization / Performance Levels"] --> CR["Car Rating / Performance Stats"]
+    CR --> CAR["ASimulatePhysicsCarWithCustom"]
+    GAMEPLAY["Race Gameplay"] --> CAR
+    CAR --> MOV["Vehicle Movement / Physics Component"]
+    MOV --> OUT["Position · velocity · collision · checkpoint pass"]
+    OUT --> RTM["RaceTrackManager"]
+    OUT --> MUL["Multiplayer Module"]
+    MUL -.online.-> SVPH["Dedicated Server\nNetwork Physics Interpolate"]
 ```
 
-### 8.1 Implementation mapping
-
-| Design concept | Implementation owner |
+| System | Responsibility |
 | --- | --- |
-| Wallet balance | `UProfileManagerSubsystem`, `FPlayerCurrency` for Cash/Coin |
-| Fuel/session energy | `URaceSessionSubsystem`, `FFuelTicks`, fuel recharge delegates |
-| Profile identity/stats | `UProfileManagerSubsystem`, `FPlayerProfileData` |
-| Item collection | `UInventoryManager`, `FInventoryItem` |
-| Item definition database | `UItemDatabase`, inventory DataTable |
-| Garage car configs | `UCarCustomizationManager::ProfileCarConfigurations` |
-| Current/preview car | `CarConfiguration`, `PreviewCarConfiguration` |
+| `ASimulatePhysicsCarWithCustom` | Player/AI vehicle actor with customization/stat integration |
+| `UCustomChaosWheeledVehicle` | Custom vehicle movement component based on Chaos wheeled vehicle movement |
+| `UVehicleFactory` | Helper/factory for standardized vehicle creation/configuration |
+| `UCarCustomizationManager` | Calculates performance stats from selected car/config/upgrades |
+| `UCarRatingSubsystem` | Maps CR level/city/difficulty to runtime stats and AI difficulty |
+| Physics plugins | Provide actual vehicle simulation behavior and async/performance behavior |
+
+## 4.1 Network Physics Boundary
+
+- Client-side vehicle movement remains responsible for local feedback and input feel.
+- Dedicated server, if used for PvP, should own authoritative race/game mode decisions.
+- `Network Physics Interpolate` on server/client boundary should smooth replicated movement while avoiding trusting client-only race results.
+- The exact prediction/resimulation model is not defined in the current HLD and should be handled in a separate multiplayer LLD.
 
 ---
 
-# 9. Rewards / Economy Architecture
+# 5. Customization / Inventory Architecture
 
-Rewards come from race results, goals, achievements, loot crates, and random token pulls.
-
-### 9.1 Reward channels
-
-| Channel | Description | Typical output |
-| --- | --- | --- |
-| Post-race rewards | Reward after race completion | Cash, tokens, fan service reward |
-| Goal rewards | Fixed city goal completion reward | Cash, item, car unlock, city unlock |
-| City completion | Completing city milestones | Cash, item, car unlock |
-| Achievement | Long-term progression reward | Cash, item, unlock |
-| Loot crate | Random reward opening | Cash, visual/performance item |
-
-### 9.2 Random reward flow
-
-Design-defined flow; implementation owner/source mapping remains open until a dedicated reward service or equivalent source owner is confirmed.
+Customization module covers both inventory and car customization. It is user-facing through garage/customization UI and also affects gameplay through vehicle performance stats.
 
 ```mermaid
-graph LR
-    Token["Reward token"] --> TypeRoll["Roll reward type"]
-    TypeRoll --> RarityRoll["Roll rarity"]
-    RarityRoll --> Pool["City reward pool"]
-    Pool --> Pick["Weighted item pick"]
-    Pick --> Duplicate{"Duplicate visual?"}
-    Duplicate -->|No| Grant["Grant item"]
-    Duplicate -->|Yes| Reroll["Reroll once"]
-    Reroll --> Cash["Convert to cash if still duplicate"]
+graph TB
+    UI["UI: Garage / Customize"] --> CUST["UCarCustomizationManager"]
+    UI --> INV["UInventoryManager"]
+    CUST --> CONFIG["FCarConfiguration\ncurrent / preview / garage configs"]
+    INV --> ITEMS["Inventory items\nvisual · performance · reward items"]
+    CUST --> SAVE["UCarSaveGameManager"]
+    INV --> SAVE
+    CUST --> DT["Customization DataTables"]
+    INV --> DB["UItemDatabase / Item DataTable"]
+    CONFIG --> CR["Car rating / performance stats"]
+    CR --> PHYSICS["Vehicle runtime"]
+    CUST <--> BE["Backend Communication\nfuture sync/purchase validation"]
 ```
+
+## 5.1 Customization Responsibilities
+
+| Area | Responsibility | Code owner |
+| --- | --- | --- |
+| Visual config | Part, color, material, style, decal | `UCarCustomizationManager` |
+| Performance upgrade | Upgrade TopSpeed/Acceleration/Grip/Nitro or equivalent performance stat | `UCarCustomizationManager` |
+| Garage config | Current/preview/profile car configurations | `UCarCustomizationManager` |
+| Inventory item ownership | Add/remove/equip/favorite/query items | `UInventoryManager` |
+| Item definitions | Definition database from DataTable | `UItemDatabase` |
+| Persistence | Save/load car config and inventory | `UCarSaveGameManager` |
+| Runtime stat application | Convert config/upgrades to vehicle stats | `UCarCustomizationManager`, `UCarRatingSubsystem` |
+
+## 5.2 Backend Sync Boundary
+
+The new diagram connects `Customize` with `Backend Communication`. This should be interpreted as:
+
+- Offline/prototype customization can be persisted locally by SaveGame.
+- Online/shipping economy-sensitive actions should be validated through backend services.
+- Purchase/unlock/spend operations should not rely solely on local SaveGame if they affect competitive or monetized inventory.
+- Backend should eventually be the authority for inventory ownership, currency spend, and unlock state.
 
 ---
 
-# 10. Online / Backend Architecture
+# 6. Progression / Profile / Economy / Stats Architecture
 
-VNRacing currently has Nakama-facing services for authentication, session, realtime connection, matchmaking, match notifications, and match presence.
+The new diagram shows this domain both inside client and backend service. Therefore, the HLD should treat client systems as presentation/cache/orchestration and backend systems as future or online source of truth for trusted state.
+
+```mermaid
+graph TB
+    UI["UI: VN Tour / Profile / Wallet / Result"] --> CPG["Client Progression/Profile/Economy/Stats"]
+    CPG --> PROG["UProgressionSubsystem\nVN Tour · track unlock · race result"]
+    CPG --> CENTER["UProgressionCenterSubsystem\nfacade / orchestration"]
+    CPG --> PROFILE["UProfileManagerSubsystem\nprofile · wallet · stats"]
+    CPG --> SESSION["URaceSessionSubsystem\nfuel · current race session"]
+    PROG --> SAVE["Local SaveGame"]
+    PROFILE --> SAVE
+    SESSION --> SAVE
+    CPG <--> BE_COMM["Backend Communication"]
+    BE_COMM <--> BEPG["Backend Services\nProgression · Profile · Economy · Stats"]
+    CPG --> GA["GameAnalytics telemetry"]
+```
+
+## 6.1 Domain Ownership
+
+| Domain | Client owner | Backend/source-of-truth recommendation |
+| --- | --- | --- |
+| VN Tour unlock state | `UProgressionSubsystem`, `UProgressionCenterSubsystem` | Backend-authoritative for online account sync; local cache for offline/prototype |
+| Profile identity/avatar/name | `UProfileManagerSubsystem` | Backend profile service or Nakama user metadata if integrated |
+| Wallet/currency | `UProfileManagerSubsystem`, `URaceSessionSubsystem` for some session coin/fuel behavior | Backend-authoritative for spend/earn in online/shipping economy |
+| Fuel/session energy | `URaceSessionSubsystem` | Backend-authoritative if monetized or cross-device synced |
+| Race stats | `UProfileManagerSubsystem`, progression result flow | Backend stats service for leaderboard/account history |
+| Rewards | Progression/reward flow | Backend validation for random reward, duplicate conversion, paid currency |
+
+## 6.2 VN Tour / Progression Flow
 
 ```mermaid
 sequenceDiagram
-    participant UI as UI / Lobby
-    participant NAK as UNakamaServiceSubsystem
-    participant MATCH as UMatchServiceSubsystem
-    participant N as Nakama
+    participant UI as VN Tour UI
+    participant PG as UProgressionSubsystem / Center
+    participant PROF as UProfileManagerSubsystem
+    participant RACE as Race Runtime
+    participant BE as Backend Communication
+    participant GA as GameAnalytics
 
-    UI->>NAK: LoginWithDeviceID / LoginByEmail / RegisterByEmail
-    NAK->>N: Authenticate
-    N-->>NAK: Session
-    NAK->>NAK: UpdateSession
-    UI->>NAK: ConnectRealtimeClient
-    NAK->>N: Connect realtime
-    N-->>NAK: Realtime ready
-    UI->>MATCH: StartMatchmaking(FMatchMakingRequest)
-    MATCH->>NAK: Get realtime client/session
-    MATCH->>N: AddMatchmaker(query)
-    N-->>MATCH: Ticket / matched / match data
-    MATCH-->>UI: Broadcast match events
+    UI->>PG: Select city / area / track
+    PG-->>UI: Return unlock state / race context / requirements
+    UI->>RACE: Start race with selected track context
+    RACE->>PG: RecordRaceResult / completion data
+    PG->>PROF: EarnCurrency / update stats / unlock reward
+    PG->>BE: Optional sync progression/profile/economy/stats
+    PG->>GA: Send progression/race telemetry
 ```
 
-### 10.1 Online services
+---
+
+# 7. Backend Communication Architecture
+
+Backend Communication is the client-side gateway between UE5 Mobile Client and external services. Current code confirms Nakama-facing services for auth/session/realtime/matchmaking. The diagram also includes progression/profile/economy/stats backend boundary, which should be treated as an architecture target or service integration boundary if not already implemented.
+
+```mermaid
+graph TB
+    UI["UI / Lobby / VN Tour / Garage"] --> BE_COMM["Backend Communication"]
+    CPG["Client Progression/Profile/Economy/Stats"] <--> BE_COMM
+    CUST["Client Customize/Inventory"] <--> BE_COMM
+    BE_COMM --> NAK_SVC["UNakamaServiceSubsystem"]
+    BE_COMM --> MATCH["UMatchServiceSubsystem"]
+    NAK_SVC <--> NAK["Nakama\nAuth · Session · Realtime"]
+    MATCH --> NAK_SVC
+    MATCH <--> NAK
+    BE_COMM <--> BEPG["Backend Services\nProgression · Profile · Economy · Stats"]
+    NAK <-.request / route.-> EDGE["Edgegap / Dedicated Server Boundary"]
+```
+
+## 7.1 Current Nakama Services
 
 | Class | Responsibility |
 | --- | --- |
-| `UNakamaServiceSubsystem` | Create Nakama client, auth, session update, realtime client connection |
-| `UMatchServiceSubsystem` | Build matchmaking query, start/cancel matchmaking, process match data/presence/ready payload |
-| `FMatchMakingRequest` | MapId, MapName, RaceMode, MatchMakingRanking |
-| `FMatchmakerNotificationPayload` | Ready/match notification payload parsed from match data |
+| `UNakamaServiceSubsystem` | Creates Nakama client, authenticates, stores/updates session, connects realtime client |
+| `UMatchServiceSubsystem` | Builds matchmaking query, starts/cancels matchmaking, handles matchmaker/match/presence events |
+| `FMatchMakingRequest` | Request payload with map/mode/ranking information |
+| `FMatchmakerNotificationPayload` | Parsed ready/match notification data |
 
-### 10.2 Current coupling and authority boundary
-
-Source code hiện tại xác nhận các luồng Nakama authentication, session/realtime connection, matchmaking, match data và presence handling. Luồng xác thực race server-authoritative vẫn là mục tiêu kiến trúc; tài liệu này không mặc định rằng Edgegap/dedicated-server race authority đã được triển khai.
-
-`UMatchServiceSubsystem` currently uses `ERaceMode` from race runtime types for matchmaking requests, and `UNakamaServiceSubsystem` and `UMatchServiceSubsystem` hold references across the online flow. A future hardening pass should move shared matchmaking enums/contracts into a neutral shared module and keep dependency direction clear: matchmaking can depend on Nakama client/session access, while Nakama service should avoid depending on match orchestration details where possible.
-
----
-
-# 11. SaveGame / DataTable / Asset Architecture
-
-### 11.1 DataTables
-
-`URacingCarGameInstance` acts as the top-level registry for major DataTables:
-
-| Category | DataTables |
-| --- | --- |
-| Progression | Map default, VN Tour progression tables |
-| Car rating | CR definition, base values, CR stats, city AI CR |
-| Car customization | Base cars, parts, styles, colors, decals, materials, performance stat levels |
-| Profile | Avatar, forbidden words, random names |
-| Inventory | Inventory items and default settings |
-| Tutorial | Tooltip and script step tables |
-
-### 11.2 Save boundaries
-
-Save architecture has three separate concepts:
-
-| Concept | Meaning |
-| --- | --- |
-| Domain owner | Subsystem allowed to mutate business state, e.g. customization/profile/inventory/progression |
-| Save facade/helper | Manager API used by domain owners to load/save data, mainly `UCarSaveGameManager` |
-| Physical SaveGame class/slot | UE storage object such as `RacingSaveGame`, `ProfileInventorySaveGame`, `ProgressionSaveGame`, `CarSaveSetting`, or named fuel/profile slots |
-
-| Data | Domain owner | Save facade / storage |
-| --- | --- | --- |
-| Car configurations | `UCarCustomizationManager` | `UCarSaveGameManager` → `RacingSaveGame` |
-| Profile/wallet/stats | `UProfileManagerSubsystem` / `URaceSessionSubsystem` profile fields | `UCarSaveGameManager` / profile save slot |
-| Fuel/session energy | `URaceSessionSubsystem` | `FFuelTicks`, `FuelTicksSaveName` |
-| Inventory | `UInventoryManager` | `UCarSaveGameManager` → `ProfileInventorySaveGame` |
-| Progression/achievements | `UProgressionSubsystem` / `UAchievementSubsystem` | progression save classes / save manager |
-| Settings | `UCarSettingSubsystem` | `CarSaveSetting` |
-
----
-
-# 12. Analytics, Debug, and Performance Architecture
-
-| Area | Source systems |
-| --- | --- |
-| Race analytics | `UProgressionCenterSubsystem` race start/result/metrics methods, `UGameAnalyticsSubsystem` |
-| Debug tooling | `DebugSystem` modules for camera, cheat, gameplay, overlay, progression, rendering, test maps, track logic, tutorial, vehicle |
-| Performance monitor | `UPerformanceMonitorSubsystem`, lite significance manager/settings/station |
-| PSO helpers | PSO camera drone, effect manager, precache save game, rest level manager |
-| Object pooling | `UActorObjectPoolSubsystem : UWorldSubsystem`, `IPoolObjectInterface` |
-
----
-
-# 13. Trust Boundaries and Validation
+## 7.2 Backend Boundary Rules
 
 | Boundary | Rule |
 | --- | --- |
-| Local SaveGame | Convenient local persistence; should not be treated as secure economy authority for online modes |
-| Nakama auth/session | Required for online identity and realtime/matchmaking |
-| Matchmaking query | Built from controlled request fields: map, mode, ranking |
-| Currency spend | Must go through `UProfileManagerSubsystem::SpendCurrency` and broadcast insufficient currency on failure |
-| Inventory mutation | Must go through `UInventoryManager` add/remove/equip APIs |
-| Car upgrade | Must go through `UCarCustomizationManager::UpgradePerformanceStat` and fail delegates |
-| Race result | Race runtime should be computed by `ARaceTrackManager` and handed to progression/profile systems |
+| Client ↔ Nakama | Auth, session, realtime, matchmaking. Client should not invent trusted identity state. |
+| Client ↔ Progression/Profile/Economy backend | Use for account sync, currency/inventory validation, rewards and stats. |
+| Nakama ↔ Edgegap | Route/deploy dedicated server or create match allocation when PvP flow requires server hosting. |
+| Dedicated Server ↔ Backend Services | Server reports authorized match result, validates player/session, may update stats/economy. |
+| Client local SaveGame | Cache/offline convenience, not secure authority for competitive online economy. |
 
 ---
 
-# 14. Technology Stack
+# 8. Multiplayer / Dedicated Server Architecture
 
-| Layer | Technology |
+The new architecture introduces a clearer split between client multiplayer module and dedicated server runtime. This should be documented as a target boundary even if full race server-authoritative flow is not yet implemented.
+
+```mermaid
+sequenceDiagram
+    participant UI as UI / Matchmaking Screen
+    participant BE as Client Backend Communication
+    participant NAK as Nakama
+    participant EDGE as Edgegap
+    participant DS as Dedicated Server
+    participant MUL as Client Multiplayer Module
+    participant BEX as Backend Services
+
+    UI->>BE: Start matchmaking
+    BE->>NAK: Auth/session/realtime/matchmaker request
+    NAK-->>BE: Matchmaker ticket / matched data
+    NAK-->>EDGE: Request/route dedicated server allocation
+    EDGE-->>DS: Deploy or route to server instance
+    BE-->>MUL: Server connection info / match data
+    MUL<->>DS: Connect / synchronize online race
+    DS<->>BEX: Validate session / report result / update stats
+```
+
+## 8.1 Dedicated Server Modules
+
+| Dedicated server module | Responsibility |
 | --- | --- |
-| Engine | Unreal Engine 5.x project; `.uproject` uses an `EngineAssociation` GUID rather than a source-verifiable semantic version |
-| Language | C++ / Blueprint; exact C++ standard follows the configured Unreal toolchain unless explicitly set in Build.cs |
-| UI | UMG and Blueprint UI flow |
-| Vehicle physics | SimpleCarPhysics, AsyncTickPhysics, ChaosVehicles dependency |
-| Backend | Nakama Unreal SDK |
-| Matchmaking | Nakama realtime/matchmaker |
-| Hosting target | Edgegap plugin enabled and dedicated-server architecture path referenced; luồng race server-authoritative chưa được xác nhận trong source code ở lượt rà soát này |
-| Analytics | GameAnalytics telemetry through `UGameAnalyticsSubsystem` |
-| Data | UE DataTables, SaveGame classes, assets |
-| Platforms | Android, iOS |
+| Backend Communication | Validate players/session with backend, send authorized result/stats/economy events |
+| Network Physics Interpolate | Smooth or reconcile networked vehicle movement state; exact prediction model belongs in LLD |
+| Game Modes / Authorize | Own server-side race mode, start/end race validation, anti-cheat-sensitive race authority |
+
+## 8.2 Authority Model Recommendation
+
+| System | Offline/local | Online PvP recommended authority |
+| --- | --- | --- |
+| Input | Client | Client sends input/state according to chosen netcode model |
+| Vehicle feedback | Client local responsive simulation | Client prediction/interpolation allowed, server validates authoritative state/result |
+| Race mode start/end | Local `GameMode`/`RaceTrackManager` | Dedicated server `GameMode` |
+| Ranking/checkpoint/lap | Local `RaceTrackManager` | Server-authoritative checkpoint/lap/ranking |
+| Economy reward | Local SaveGame acceptable for prototype | Backend-authoritative grant after server-approved result |
+| Inventory/currency spend | Local for prototype/offline | Backend-authoritative validation |
 
 ---
 
-# 15. Risks, Assumptions, Open Questions
+# 9. Analytics Architecture
 
-| Topic | Status |
+Analytics is represented as its own external service in the new diagram. Client sends telemetry to Analytics Service through GameAnalytics integration.
+
+```mermaid
+graph LR
+    GAMEPLAY["Gameplay / Race Runtime"] --> GA["UGameAnalyticsSubsystem"]
+    PG["Progression / Profile / Economy / Stats"] --> GA
+    TUT["Tutorial / Onboarding"] --> GA
+    CUST["Customization / Inventory"] --> GA
+    GA --> SERVICE["Analytics Service\nGameAnalytics"]
+```
+
+## 9.1 Recommended Event Categories
+
+| Category | Example event |
 | --- | --- |
-| Old architecture docs | Some files are corrupted/incomplete; source should override them |
-| Fuel/session energy | `ECurrencyType` covers Cash/Coin, while Fuel is implemented separately in `URaceSessionSubsystem` through `FFuelTicks` and fuel recharge APIs |
-| Dedicated server | Edgegap plugin is enabled and architecture docs mention a dedicated-server path; current source shows Nakama realtime/matchmaking services, but server-authoritative race validation still needs deeper implementation design |
-| Reward duplicate compensation | Design docs define behavior; implementation owner should be confirmed when reward system code is expanded/refined |
-| UI state details | This HLD maps owners, not per-widget UX states |
-| Security/economy authority | Current local SaveGame implementation is appropriate for offline/prototype; online economy needs server-authoritative Nakama rules if shipping competitive economy |
+| Race | race_start, race_end, track_id, race_mode, finish_position, total_time, fail_reason |
+| Progression | city_unlock, track_unlock, goal_complete, VN Tour milestone |
+| Economy | currency_earned, currency_spent, insufficient_currency, reward_claimed |
+| Customization | car_selected, part_equipped, style_applied, performance_upgrade |
+| Tutorial | tutorial_step_start, tutorial_step_complete, forced_hand_shown, control_locked |
+| Performance/debug | FPS bucket, device tier, PSO warmup result, race load timing |
+
+Analytics should be treated as observational, not authoritative. No game state should depend on successful telemetry delivery.
 
 ---
 
-# 16. Related Low-Level Document
+# 10. Tutorial / Onboarding Architecture
 
-Implementation details are specified in `Docs/VNRacing_LLD.md`.
+Tutorial is explicitly shown as `Tutorial · On Boarding` connected to UI with a two-way relationship: UI displays tutorial, while tutorial can force hand/control lock.
+
+```mermaid
+graph TB
+    UI["UI Screens / Controls"] <--> TUT["UTutorialManagerSubsystem"]
+    TUT --> SCRIPT["UScriptTutorialWidget"]
+    TUT --> TIP["UTooltipTutorialWidget Pool"]
+    TUT --> TRIG["Trigger Conditions"]
+    TUT --> SAVE["Tutorial Save"]
+    GAMEPLAY["Gameplay Events"] --> TRIG
+```
+
+| System | Responsibility |
+| --- | --- |
+| `UTutorialManagerSubsystem` | Tutorial state, trigger, tooltip pool, script steps, control lock/unlock |
+| `UScriptTutorialWidget` | Scripted tutorial UI |
+| `UTooltipTutorialWidget` | Reusable tooltip tutorial UI |
+| `UTriggerCondition` subclasses | Conditions such as checkpoint passed or other gameplay/UI events |
+| UI controls | Must register with tutorial manager if they can be locked/forced by tutorial |
+
+Rule: UI should cooperate with tutorial manager rather than implementing one-off forced hand logic inside each screen.
+
+---
+
+# 11. Debug / Toolchain Architecture
+
+Debug/toolchain is present in the client architecture and should remain separated from player-facing runtime logic.
+
+```mermaid
+graph TB
+    DEBUG["Debug / Toolchain"] --> TOOLS["UDebugToolsSubsystem"]
+    DEBUG --> TRACK["TrackTestSystem"]
+    DEBUG --> PERF["PerformanceMonitorSubsystem"]
+    DEBUG --> PSO["PSO helpers"]
+    TRACK --> SIM["Batch simulation / race reset / export"]
+    TOOLS --> MODS["Debug modules\nVehicle · Tutorial · TrackLogic · TestMaps · Progression · Overlay · Cheat · Camera"]
+```
+
+| Tool area | Code mapping | Use |
+| --- | --- | --- |
+| Debug panel/modules | `UDebugToolsSubsystem`, `UDebugModuleBase` subclasses | Internal debug commands and overlays |
+| Track testing | `ATrackTestGameMode`, `UBatchSimulationManager`, `ATrackTestPlayerController`, `UMistakeDetector` | Track/vehicle/AI tuning and batch simulation |
+| Race data collection | `URaceDataCollector`, `UDataExportManager` | Collect/export lap/section/race test data |
+| Performance monitor | `UPerformanceMonitorSubsystem`, `ULiteSignificanceManager` | Runtime performance instrumentation/significance |
+| PSO | `APSOEffectManager`, `ARestLevelManager`, `UPSOPrecacheSaveGame` | Shader/asset warmup and PSO support |
+
+Rule: debug/toolchain code can depend on gameplay runtime for inspection, but gameplay runtime should not require debug modules to function.
+
+---
+
+# 12. Data, SaveGame, and Asset Architecture
+
+Client currently uses DataTables, SaveGame and assets as its local data layer. This is still valid, but the new backend boundary means some data should eventually be synced or validated online.
+
+```mermaid
+graph TB
+    GI["URacingCarGameInstance"] --> DT["DataTables"]
+    CUST["UCarCustomizationManager"] --> DT
+    INV["UInventoryManager"] --> DT
+    PROG["UProgressionSubsystem"] --> DT
+    TUT["UTutorialManagerSubsystem"] --> DT
+    CUST --> SAVE["UCarSaveGameManager / SaveGame"]
+    INV --> SAVE
+    PROG --> SAVE
+    PROFILE["UProfileManagerSubsystem"] --> SAVE
+    SESSION["URaceSessionSubsystem"] --> SAVE
+    UI["UI / Vehicle / Customization"] --> ASSET["Meshes · Materials · Decals · UI Assets"]
+```
+
+## 12.1 DataTable Registry
+
+`URacingCarGameInstance` should remain the top-level registry for global DataTables and config references. DataTables typically cover:
+
+| Category | Example data |
+| --- | --- |
+| Progression | Map defaults, VN Tour/city/area/track data |
+| Car rating | CR definition, base values, CR stats, city AI CR |
+| Customization | Base cars, parts, styles, colors, decals, materials, performance stat levels |
+| Profile | Avatar, random names, forbidden words |
+| Inventory | Item definitions and default resources |
+| Tutorial | Tooltip definitions and script tutorial step tables |
+
+## 12.2 Save Boundaries
+
+| Data | Client owner | Persistence |
+| --- | --- | --- |
+| Car configurations | `UCarCustomizationManager` | `UCarSaveGameManager`, car config SaveGame |
+| Inventory | `UInventoryManager` | `UCarSaveGameManager`, inventory SaveGame |
+| Profile/wallet/stats | `UProfileManagerSubsystem` | `UCarSaveGameManager`, profile SaveGame |
+| Fuel/session | `URaceSessionSubsystem` | fuel/session save slot |
+| Progression/achievement | `UProgressionSubsystem`, `UAchievementSubsystem` | progression SaveGame |
+| Settings | `UCarSettingSubsystem` | setting SaveGame |
+| Tutorial | `UTutorialManagerSubsystem` | tutorial save |
+
+For offline play, SaveGame can be the practical source of truth. For online account/economy, SaveGame should become a local cache only.
+
+---
+
+# 13. Technology Stack
+
+| Layer | Technology / system |
+| --- | --- |
+| Client engine | Unreal Engine 5.x |
+| Client language | C++ / Blueprint |
+| UI | UMG / Blueprint screens / HUD widgets |
+| Platforms | iOS / Android |
+| Vehicle physics | ChaosVehicles/custom vehicle movement, physics plugins used by project |
+| Runtime module | `PrototypeRacing` |
+| Online identity/realtime/matchmaking | Nakama Unreal SDK/service subsystem |
+| Hosting boundary | Edgegap / Dedicated Server path for future PvP hosting |
+| Analytics | GameAnalytics telemetry via `UGameAnalyticsSubsystem` |
+| Local data | DataTables, SaveGame classes, assets |
+| Debug/testing | DebugSystem, TrackTestSystem, PerformanceMonitorSubsystem, PSO helpers |
+
+---
+
+# 14. Risks, Assumptions, and Open Questions
+
+| Topic | Status / risk | Recommendation |
+| --- | --- | --- |
+| Dedicated server authority | Architecture boundary exists, but full implementation may not be confirmed by current code summary | Create a separate Multiplayer/Dedicated Server LLD before implementing PvP authority |
+| Backend economy authority | Client currently has strong local SaveGame/subsystem ownership | Move currency, inventory ownership and reward grants to backend for shipping online economy |
+| Progression sync | Client-side progression works for offline/prototype | Define source-of-truth policy for cross-device/account sync |
+| Physics networking | Diagram mentions network physics interpolation, but exact model is not specified | Decide between server-authoritative movement, client prediction, or hybrid checkpoint validation |
+| Nakama vs backend services responsibilities | Nakama currently handles auth/realtime/matchmaking; progression/economy service boundary is broader | Avoid mixing match orchestration with economy authority without clear contracts |
+| Tutorial control lock | Tutorial can force UI hand/control lock | Standardize UI registration and avoid per-widget ad hoc locks |
+| Debug dependency | Debug/toolchain is large and useful | Keep debug modules out of shipping-critical dependency paths |
+| Analytics dependency | Telemetry is useful but external | Never block gameplay/reward flow on analytics delivery |
+
+---
