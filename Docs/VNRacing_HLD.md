@@ -438,8 +438,9 @@ sequenceDiagram
     NAK-->>EDGE: Request/route dedicated server allocation
     EDGE-->>DS: Deploy or route to server instance
     BE-->>MUL: Server connection info / match data
-    MUL<->>DS: Connect / synchronize online race
-    DS<->>BEX: Validate session / report result / update stats
+    MUL->DS: Connect / synchronize online race
+    DS->>BEX: Validate session / update stats
+    BEX->>DS: Report result
 ```
 
 ## 8.1 Dedicated Server Modules
