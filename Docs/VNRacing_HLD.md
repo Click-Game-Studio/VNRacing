@@ -10,7 +10,7 @@
 >
 > Source module: `PrototypeRacing`
 >
-> Cập nhật: 2026-05-14
+> Cập nhật: 2026-05-19
 
 ---
 
