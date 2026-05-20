@@ -399,22 +399,23 @@ TMap<FString, ASimulatePhysicsCar*> ManagerAICar;
 
 ```mermaid
 sequenceDiagram
-    participant RTM as ARaceTrackManager
-    participant PROG as UProgressionCenterSubsystem
-    participant FAN as UFanServiceSubsystem
-    participant PROFILE as UProfileManagerSubsystem
-    participant SAVE as UCarSaveGameManager
-    participant UI as Result UI
+    participant UI as UI / Matchmaking Screen
+    participant BE as Client Backend Communication
+    participant NAK as Nakama
+    participant EDGE as Edgegap
+    participant DS as Dedicated Server
+    participant MUL as Client Multiplayer Module
+    participant BEX as Backend Services
 
-    RTM->>RTM: MarkFinished(VehicleId, Completed/NotCompleted)
-    RTM->>RTM: EndRace()
-    RTM-->>UI: OnRaceEnded(PlayerRaceStates)
-    RTM->>PROG: HandleRaceCompleted(FEndRacePlayerData)
-    PROG->>FAN: Check fan service completion
-    PROG->>PROG: HandleCalculateReward
-    PROG->>PROFILE: EarnCurrency / update race stats
-    PROG->>SAVE: Persist progression/profile data
-    PROG-->>UI: OnRewardCalculated
+    UI->>BE: Start matchmaking
+    BE->>NAK: Auth/session/realtime/matchmaker request
+    NAK-->>BE: Matchmaker ticket / matched data
+    NAK-->>EDGE: Request/route dedicated server allocation
+    EDGE-->>DS: Deploy or route to server instance
+    BE-->>MUL: Server connection info / match data
+    MUL->DS: Connect / synchronize online race
+    DS->>BEX: Validate session / update stats
+    BEX->>DS: Report result
 ```
 
 ---
