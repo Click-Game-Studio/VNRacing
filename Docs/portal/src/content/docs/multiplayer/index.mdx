@@ -1,0 +1,43 @@
+---
+title: Tổng quan Multiplayer
+description: Kiến trúc, trạng thái triển khai và lộ trình multiplayer cho PrototypeRacing (UE5 + Nakama + Edgegap).
+---
+
+import DiagramView from '../../../components/DiagramView.tsx';
+
+export const base = import.meta.env.BASE_URL;
+
+:::note[Bản preview kiến trúc]
+Tài liệu Multiplayer này là bản **preview kiến trúc** dựa trên dummy implementation đã triển khai để test công nghệ. Các phần trong này chưa triển khai code trong thực tế — mục tiêu là share cho team preview kiến trúc trước, sau đó breakdown và triển khai chi tiết.
+:::
+
+## Stack tổng thể
+
+| Layer | Công nghệ | Trạng thái |
+|---|---|---|
+| Client | UE5 (PrototypeRacing) | ✅ |
+| Nakama SDK | Plugins/Nakama 2.10.1 | ✅ |
+| Nakama Server | 3.39.0 + Postgres 16.8 (Docker) | ✅ |
+| Go Runtime | prototype_get_multiplayer_profile, prototype_update_mmr_result | ✅ |
+| Matchmaking V6 | MMR widening ±500/±1000/±1500, CR widening, 60s timeout | ✅ |
+| Edgegap Broker | RegisterMatchmakerMatched → handoff → allocate → opcode 1 | ✅ |
+| Dedicated Server | AMultiplayerWaitingRoomGameMode, join-token, ServerTravel | ✅ |
+| Client UI | UMultiplayerMatchmakingWidget state machine | ✅ |
+| CI/CD publish | publish_edgegap_server.sh (local validated) | ✅ |
+| **Server-authoritative race** | Race result do server phê duyệt | ❌ |
+| **UX Scenes** | Intro/Quick/Post-game scenes | ❌ |
+| **Lobby / Private Match** | 4 US Lobby Match | ❌ |
+| **AI Takeover** | Chạy giúp khi disconnect | ❌ |
+
+## Kiến trúc triển khai
+
+<DiagramView client:only="react" viewId="index" base={base} project="multiplayer" />
+
+## Các tính năng
+
+- [Quick Match — 12 User Story](multiplayer/quick-match)
+- [Lobby Match — 4 User Story](multiplayer/lobby-match)
+- [Lộ trình 7 Phase](multiplayer/roadmap)
+- [CI/CD LinuxServer Build](multiplayer/cicd)
+
+Tài liệu tham khảo: `Docs/Multiplayer_New.md`, `Docs/Multiplayer_Status_And_Roadmap.md`

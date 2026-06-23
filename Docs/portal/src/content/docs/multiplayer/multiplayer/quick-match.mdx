@@ -1,0 +1,49 @@
+---
+title: Quick Match — 12 User Story
+description: Bảng mapping 12 User Story Quick Match, trạng thái triển khai và phân tích gap.
+---
+
+import DiagramView from '../../../../components/DiagramView.tsx';
+
+export const base = import.meta.env.BASE_URL;
+
+## 12 User Story Quick Match
+
+| STT | User Story | Ghi chú kỹ thuật | Trạng thái |
+|:---:|---|:---:|:---:|
+| 1 | Quick match random, có MMR rank; test 4 player online match ngay | Matchmaker chạy; 2-player MVP đã validated. Còn thiếu: match ≥4 player (PR_EXPECTED_PLAYERS=2 đang hardcode trong broker). | 🔶 |
+| 2 | Luồng UX ngắn và thuận tiện | Widget state machine đầy đủ + Retry/Cancel/Timer. Cần thiết kế UX thêm. | 🔶 |
+| 3 | Intro scene show xe + cảm giác nâng cấp | Multiplayer_ClientLobby map tồn tại nhưng chỉ spawn widget. Chưa có Intro scene với car preview. | ⛔ |
+| 4 | Quick scene post-game show thứ hạng + bảng xếp hạng | Chưa có Post-game UI riêng (chỉ MMR update broadcast). | ⛔ |
+| 5 | Art cutscene/âm thanh/effect từ match → race | Chưa có. Phụ thuộc GameDesign + Art. | ⛔ |
+| 6 | Matchmaking theo CR chênh lệch không quá lớn | BuildMatchMakingQuery đã add CurrentCarCR range với CR threshold widening. Chưa có test scenario 10 player. | 🔶 |
+| 7 | Kết nối ổn định, không giật lag | Real ping chưa có. Đang dùng placeholder 50ms. | ⛔ |
+| 8 | Tiếp tục đua cùng đối thủ ở trận mới | Chưa có post-race lobby/vote tiếp tục. | ⛔ |
+| 9 | Challenge người chơi cùng mình | Chưa có. | ⛔ |
+| 10 | Win streak / revenge mark | Chưa có schema lưu streak, chưa có logic tăng % match lại. | ⛔ |
+| 11 | Tự động thắng khi toàn bộ đối thủ disconnect | Chưa có logic detect all-opponents-disconnect trong dedicated server. | ⛔ |
+| 12 | AI chạy giúp khi mất kết nối trong khoảng thời gian | AIManagerSubsystem có sẵn; chưa wire logic khi multiplayer player drop. | ⛔ |
+
+## Đã triển khai
+
+### Matchmaker V6
+UMatchServiceSubsystem với MMR widening windows (±500/±1000/±1500), CR threshold widening (3 + (Elapsed/3)\*3), timeout 60s. Ping đang là placeholder 50ms.
+
+### MMR Profile
+Go runtime RPC `prototype_get_multiplayer_profile` (get/init MMR=300) và `prototype_update_mmr_result` (win/loss/quit/disconnect ±30). Leaderboard mirror.
+
+### Edgegap Broker
+Nakama Go runtime: RegisterMatchmakerMatched → create handoff match → allocate Edgegap → broadcast opcode 1 (host:port+token). Cleanup grace 600s.
+
+### Waiting Room
+AMultiplayerWaitingRoomGameMode: Join-token validation, expected-players wait, ServerTravel to race map.
+
+### UI Widget
+UMultiplayerMatchmakingWidget state machine: Idle→Loading→Ready→Searching→Matched→Joining→ServerReady→Traveling, Error/TimedOut branches.
+
+## Chưa triển khai
+
+- Intro Scene (US 3), Post-game scene (US 4), Art cutscene (US 5)
+- Matchmaking nâng cao: real ping (US 7), test scenario 10 player (US 6)
+- AI takeover khi disconnect (US 12)
+- Auto-win khi all opponents disconnect (US 11)

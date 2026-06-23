@@ -1,0 +1,59 @@
+---
+title: Lộ trình triển khai 7 Phase
+description: Lộ trình 7 phase triển khai multiplayer cho PrototypeRacing.
+---
+
+## Lộ trình 7 Phase
+
+### Phase 0 — CI/CD LinuxServer Build (1 sprint)
+- **Mục tiêu**: Production-ready pipeline build + publish Edgegap version
+- **Độ khó**: Medium
+- **Phụ thuộc**: LinuxServer cross-compile toolchain, Docker, Edgegap credentials
+- Stage mới trong RacingMobile.groovy: LinuxServer / Edgegap Publish
+- Auto-generate version: `<app>-<yyyymmdd>-r<P4_CL>`
+- Validate dry-run → publish thật → cập nhật Nakama runtime env
+
+### Phase 1 — Server-authoritative Race Validation (2-3 sprints)
+- **Mục tiêu**: Thay thế client-submit MMR bằng dedicated-server-submit MMR
+- **Độ khó**: High
+- **Phụ thuộc**: Phase 0 (CI/CD), dedicated server GameMode
+- Dedicated server RaceTrackManager nhận Login/Logout + race result
+- Gọi Nakama RPC prototype_update_mmr_result từ server (admin token/service account)
+- Validate race result: vị trí cuối, thời gian, lap count
+
+### Phase 2 — UX Scenes (1-2 sprints, phụ thuộc Art)
+- **Mục tiêu**: Hoàn thiện US 3/4/5
+- **Độ khó**: Medium-High
+- **Phụ thuộc**: GameDesign wireframe + Art asset
+- Intro Scene (car preview), Quick Scene (post-game ranking), Art cutscene
+
+### Phase 3 — Lobby/Private Match (3-4 sprints)
+- **Mục tiêu**: Hoàn thiện 4 US Lobby Match + Challenge
+- **Độ khó**: High
+- **Phụ thuộc**: Quyết định nền tảng friends list
+- Lobby map + UI replication, Invite flow, Challenge mode
+
+### Phase 4 — Disconnect/AI/Auto-win (1-2 sprints)
+- **Mục tiêu**: US 11, US 12
+- **Độ khó**: Medium-High
+- **Phụ thuộc**: Phase 1 (server-authoritative)
+- AI takeover (Easy + CR match), Auto-win khi all opponents disconnect
+
+### Phase 5 — Progression nâng cao (1-2 sprints)
+- **Mục tiêu**: Win streak/revenge/item reward
+- **Độ khó**: Medium
+- Profile schema: WinStreak, RevengeCandidates, LastBeatenBy
+- Matchmaker filter ưu tiên revenge candidate
+- Item reward theo placement
+
+### Phase 6 — Real Ping + Matchmaking nâng cao (1 sprint)
+- **Mục tiêu**: US 7, US 6 hoàn chỉnh
+- **Độ khó**: Medium
+- Plugin ping measurement (Edgegap region + Nakama RTT)
+- Test scenario 10 player
+
+### Phase 7 — Post-race Continue + Lobby Vote (1 sprint)
+- **Mục tiêu**: US 8
+- **Độ khó**: Medium
+- Vote UI (Vote on Pool Map / Random / Replay / Exit)
+- ServerTravel về WaitingRoom + giảm PR_EXPECTED_PLAYERS

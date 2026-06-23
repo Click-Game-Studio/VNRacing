@@ -27,9 +27,13 @@ export default defineConfig({
       title: 'Portal Kiến trúc VNRacing',
       description:
         'Sơ đồ C4 tương tác + thiết kế chi tiết (Low-Level Design) cho client game đua xe mobile VNRacing trên UE5.6.',
-      // Versioned docs temporarily disabled during review stage.
-      // Re-enable with: plugins: [starlightVersions({ versions: [{ slug: 'v1' }] })]
-      plugins: [],
+      plugins: [starlightVersions({
+        current: { label: 'Latest' },
+        versions: [
+          { slug: 'v1' },
+          { slug: 'multiplayer', label: 'Multiplayer Preview 🆕' },
+        ],
+      })],
       // Pagefind full-text search is enabled by default on `astro build`.
       sidebar: [
         {

@@ -29,6 +29,7 @@ type LikeC4ViewComponent = ComponentType<{ viewId: string }>;
 const ENGINE_BY_PROJECT: Record<string, () => Promise<{ LikeC4View: unknown }>> = {
   current: () => import('likec4:react/current'),
   v1: () => import('likec4:react/v1'),
+  multiplayer: () => import('likec4:react/multiplayer'),
 };
 
 /**
