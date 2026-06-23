@@ -2,7 +2,7 @@ name: Deploy Docs to GitHub Pages
 
 on:
   push:
-    branches: [main, master, docs/github-pages]
+    branches: [main, master, docs/github-pages, docs/versioned-c4-spike]
     paths:
       - 'Docs/portal/**'
       - 'Docs/c4/**'
