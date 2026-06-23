@@ -12,9 +12,9 @@ description: Bảng mapping 4 User Story Lobby Match, trạng thái triển khai
 | 3 | Lobby có Challenge tương tự Quick Match | Khi có Lobby map + friends invite, cần replay matchmaking với locked player set. | ⛔ |
 | 4 | Lobby cho phép chọn xe trong đó | Cần custom Garage UI cho Lobby. | ⛔ |
 
-## Implementation Gap Analysis
+## Phân tích khoảng trống triển khai
 
-Tất cả 4 US Lobby Match đều chưa triển khai (⛔). Lobby Match yêu cầu:
+Tất cả 4 US Lobby Match đều chưa triển khai (⛔). Lobby Match cần:
 
 1. **Lobby map riêng** — map với replicated car slots, hiển thị car preview của mỗi player
 2. **Friend list** — cần quyết định nền tảng: custom Nakama storage (cross-platform), Apple Game Center, Google Play Games, hay Steam
@@ -24,7 +24,7 @@ Tất cả 4 US Lobby Match đều chưa triển khai (⛔). Lobby Match yêu c�
 
 ## Cơ sở hạ tầng có thể tái sử dụng
 
-| Thành phần | Reuse potential |
+| Thành phần | Khả năng tái sử dụng |
 |---|---|
 | Nakama Realtime | Đã có kết nối realtime WebSocket, có thể dùng làm transport cho Lobby state sync |
 | Nakama Storage | Có thể lưu Lobby config, invited players |

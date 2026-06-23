@@ -3,7 +3,7 @@ title: CI/CD LinuxServer Build
 description: Trạng thái CI/CD hiện tại và kế hoạch bổ sung stage LinuxServer / Edgegap Publish.
 ---
 
-## Current CI/CD Status
+## Trạng thái CI/CD hiện tại
 
 Pipeline hiện tại (RacingMobile.groovy) chỉ build iOS + Android:
 
@@ -15,36 +15,36 @@ Pipeline hiện tại (RacingMobile.groovy) chỉ build iOS + Android:
 
 **Chưa có stage nào** cho LinuxServer + Edgegap publish + Docker image push.
 
-## New Stage: LinuxServer / Edgegap Publish
+## Stage mới: LinuxServer / Edgegap Publish
 
 Stage mới chạy **song song** với iOS và Android. Dùng `Build/Edgegap/publish_edgegap_server.sh`.
 
-### Parameters
+### Tham số
 
-| Parameter | Type | Default | Description |
+| Tham số | Kiểu | Mặc định | Mô tả |
 |---|---|---|---|
 | LINUXSERVER_MODE | choice | skip | LinuxServer build mode: skip, package, publish |
 | EDGEGAP_VERSION | text | (auto) | Edgegap version tag. Auto: `<app>-<yyyymmdd>-r<P4_CL>` |
 | EDGEGAP_DRY_RUN | boolean | true | Nếu bật, chỉ dry-run, không push thật |
 
-### Environment variables needed
+### Biến môi trường cần thêm
 
-| Variable | Source | Description |
+| Biến | Nguồn | Mô tả |
 |---|---|---|
-| LINUX_MULTIARCH_ROOT | env | UE5 Linux cross-compile toolchain path |
+| LINUX_MULTIARCH_ROOT | env | Đường dẫn UE5 Linux cross-compile toolchain |
 | EDGEGAP_API_TOKEN | credentials | Edgegap API token |
 | EDGEGAP_CONTAINER_REGISTRY_PROJECT | credentials | Container registry project |
 | EDGEGAP_PRIVATE_REGISTRY_USERNAME | credentials | Registry username |
 | EDGEGAP_PRIVATE_REGISTRY_TOKEN | credentials | Registry token |
-| UE5_LINUX_EXE | env | Optional: Linux UnrealEditor-Cmd override |
+| UE5_LINUX_EXE | env | Tùy chọn: Linux UnrealEditor-Cmd override |
 
-### Setup checklist
+### Checklist thiết lập
 
 - [ ] Thêm Jenkins credential: `edgegap-api-token-prototype-racing`, `edgegap-registry-project`, `edgegap-registry-username`, `edgegap-registry-token`
-- [ ] Tạo agent label `linux_builder` (Linux host co UE5 toolchain, Docker, Edgegap network)
+- [ ] Tạo agent label `linux_builder` (Linux host có UE5 toolchain, Docker, mạng ra Edgegap)
 - [ ] Mount broker-flow.env từ secret store
-- [ ] Test --dry-run truoc
-- [ ] Test --skip-package khi da co LinuxServer archived san
-- [ ] Test full publish len staging app
-- [ ] Verify LinuxServer boot vao Multiplayer_WaitingRoom
-- [ ] Verify Nakama runtime doc duoc EDGEGAP_APP_VERSION moi
+- [ ] Test `--dry-run` trước
+- [ ] Test `--skip-package` khi đã có LinuxServer archive sẵn
+- [ ] Test full publish lên staging app
+- [ ] Verify LinuxServer boot vào Multiplayer_WaitingRoom
+- [ ] Verify Nakama runtime đọc được EDGEGAP_APP_VERSION mới

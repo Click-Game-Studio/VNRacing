@@ -11,7 +11,7 @@ export const base = import.meta.env.BASE_URL;
 
 | STT | User Story | Ghi chú kỹ thuật | Trạng thái |
 |:---:|---|:---:|:---:|
-| 1 | Quick match random, có MMR rank; test 4 player online match ngay | Matchmaker chạy; 2-player MVP đã validated. Còn thiếu: match ≥4 player (PR_EXPECTED_PLAYERS=2 đang hardcode trong broker). | 🔶 |
+| 1 | Quick match random, có MMR rank; test 4 player online match ngay | Matchmaker chạy; MVP 2 người chơi đã xác minh. Còn thiếu: match ≥4 player (PR_EXPECTED_PLAYERS=2 đang để cứng trong broker). | 🔶 |
 | 2 | Luồng UX ngắn và thuận tiện | Widget state machine đầy đủ + Retry/Cancel/Timer. Cần thiết kế UX thêm. | 🔶 |
 | 3 | Intro scene show xe + cảm giác nâng cấp | Multiplayer_ClientLobby map tồn tại nhưng chỉ spawn widget. Chưa có Intro scene với car preview. | ⛔ |
 | 4 | Quick scene post-game show thứ hạng + bảng xếp hạng | Chưa có Post-game UI riêng (chỉ MMR update broadcast). | ⛔ |
