@@ -1,47 +1,83 @@
-# VNRacing Documentation Repository
-# Only Docs folder is tracked
+# ---------------------------------------------------------------------------
+# .gitignore for admin_iconic_Visual_9594 workspace root
+#
+# Covers BOTH:
+#   - Docs/                 (architecture docs, audit, c4 — tracked)
+#   - PrototypeRacing/      (UE 5.6 project — Source/Config tracked, build + 24GB
+#                            Content/ excluded)
+#
+# RULE: patterns have NO leading slash, so each matches a directory of that
+# name at ANY depth. This covers build dirs at the project root AND inside
+# every Plugins/<Name>/ subdirectory in one shot.
+#
+# Decision 2C (this round): Blueprints / Content are NOT edited. The 24GB
+# binary Content/ tree is intentionally NOT tracked. C++ (Source/), Config/,
+# *.uproject, *.uplugin, plugin Source/ ARE tracked.
+# ---------------------------------------------------------------------------
 
-# Unreal Engine Project (excluded)
-PrototypeRacing/
+# --- 24GB binary asset tree (project + plugin Content) -----------------------
+# Blueprints (.uasset) live here. Not edited this round; do NOT track.
+Content/
 
-# Backup folders
-*_Backup_*/
-Docs_Backup_*/
+# --- Build-generated / cache directories (root + every Plugins/*/) -----------
+Binaries/
+Build/
+Intermediate/
+DerivedDataCache/
+Saved/
 
-# IDE and Editor
+# --- CodeGraph index store (the C++ knowledge graph DB) ----------------------
+.codegraph/
+
+# --- LikeC4 build output (generated static site; DSL source IS tracked) ------
+# `likec4 build -o dist Docs/c4` emits the site to the WORKSPACE ROOT dist/,
+# not Docs/c4/dist/. No leading slash → matches any dir named `dist` at any depth.
+dist/
+Docs/c4/node_modules/
+
+# --- Astro Starlight portal (Docs/portal) ------------------------------------
+# Source (src/, astro.config.mjs, package.json, copied likec4/ model) IS tracked.
+# node_modules, build output and Astro cache are NOT tracked.
+Docs/portal/node_modules/
+Docs/portal/dist/
+Docs/portal/.astro/
+# Un-ignore portal content — the root-level Content/ rule (UE assets) would
+# otherwise swallow Docs/portal/src/content/ via case-insensitive matching.
+!Docs/portal/src/content/
+
+# --- Structurizr (DSL + docs/ + adrs/ ARE tracked) ---------------------------
+# CLI binaries (downloaded jar/zip) and generated static export are NOT tracked.
+# workspace.dsl, docs/, adrs/ are source-of-truth and stay tracked.
+Docs/structurizr/.tools/
+Docs/structurizr/dist/
+
+# --- IDE / tooling cruft -----------------------------------------------------
 .vs/
 .vscode/
 .idea/
+*.sln
 *.suo
-*.user
-*.sln.docstates
+*.opensdf
+*.sdf
+*.VC.db
+*.VC.opendb
+*.xcodeproj
+*.xcworkspace
 
-# OS Files
+# --- Compiled binaries / debug symbols ---------------------------------------
+*.pdb
+*.dll
+*.exe
+*.lib
+*.exp
+*.so
+*.dylib
+
+# --- OS junk -----------------------------------------------------------------
 .DS_Store
 Thumbs.db
-Desktop.ini
-
-# Temporary files
-*.tmp
-*.temp
-*.log
-*.bak
+desktop.ini
 *~
 
-# Kiro specs (optional - keep if you want to track them)
-# .kiro/
-
-# Other project files (excluded)
-*.uproject
-*.sln
-*.csv
-*.txt
-struct.txt
-update-docs-version.ps1
-validation-results.json
-OpenProject_Tasks.csv
-AUGMENT.md
-BRIEF_AI_Agent_Integration.md
-.ai-devkit.json
-.augment/
-.kilocode/
+# --- Misc local scratch ------------------------------------------------------
+test.txt
