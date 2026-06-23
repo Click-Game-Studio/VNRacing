@@ -1,0 +1,462 @@
+{
+  "configuration" : { },
+  "description" : "C4 model + arc42 docs + ADRs for the VNRacing UE5 mobile client. SAMPLE round: feature F02 Race Mode expanded to component level.",
+  "documentation" : {
+    "decisions" : [ {
+      "content" : "# 1. Move ranking update off the per-frame Tick and remove the client-side world scan\n\nDate: 2026-06-09\n\n## Status\n\nProposed\n\n## Context\n\n`RaceTrackManager` is the central race orchestrator and ticks every frame. Its\n`Tick` (`RaceTrackManager.cpp:207-221`) calls `HandleUpdateRanking()`\nunconditionally at line 210. Inside `HandleUpdateRanking()`\n(`RaceTrackManager.cpp:834-877`) the following work runs on every frame:\n\n- A loop over all of `ManagerPlayerInfo` computing `FVector::DistSquared` per car\n  (lines 836-864).\n- A call to `GetPlayerRaceStates()` (line 865), which itself\n  (`RaceTrackManager.cpp:583-630`) does `GenerateValueArray` (a full copy),\n  an `Algo::Sort` with a five-branch comparator (**O(n log n)**), then a loop to\n  assign `Ranking`.\n- A second loop over the sorted array calling `Vehicle->SetRaceRank`\n  (lines 866-874) and `OnRankingUpdate.Broadcast` (line 875).\n- Line 876 computes `const float CurrentMoment = GetWorld()->GetTimeSeconds();`\n  whose result is never used — **dead code**.\n\nThe `OnRankingUpdate` broadcast reaches\n`RacingCarController::HandleRankingUpdateCallToClient`\n(`RacingCarController.cpp:286-308`), which calls\n`UGameplayStatics::GetAllActorsOfClass(... ASimulatePhysicsCar ...)` (line 291)\nand then runs a **nested loop** `for State : PlayerRaceState { for Actor :\nAllCars { ... } }` (lines 293-307) to match each state back to its car —\n**O(n^2)** plus a full-world actor scan on every ranking update.\n\nRanking changes slowly relative to a 60Hz frame. Running a distance recompute,\na copy + O(n log n) sort, a broadcast, and a downstream world scan + O(n^2) match\non every frame is the worst \"runs at 60Hz but does not need to\" pattern in the\nproject, and it sits directly on the main gameplay loop where it costs FPS.\n\nThe header already exposes the levers for a timer-driven approach:\n`UpdateInterval = 0.3f` (`RaceTrackManager.h:641`) and `UpdateCheckpointTimerHandle`.\nThe state struct `FPlayerRaceState` already holds `Vehicle` (a pointer), so the\ncontroller does not need to rediscover cars via a world scan.\n\n## Decision\n\n1. Drive `HandleUpdateRanking()` from a repeating timer (~5-10Hz, using the\n   existing `UpdateInterval` / `UpdateCheckpointTimerHandle`) instead of calling\n   it from `Tick`. If `Tick` has no remaining per-frame work, disable\n   `PrimaryActorTick` on `RaceTrackManager`.\n2. Remove the dead `CurrentMoment` line at `RaceTrackManager.cpp:876`.\n3. In `HandleRankingUpdateCallToClient`, drop the `GetAllActorsOfClass` call and\n   the nested match loop. Assign directly through the already-present pointer:\n   `State.Vehicle->CurrentRanking = State.Ranking`, giving **O(n)**.\n\n## Consequences\n\n**Positive**\n\n- Removes a per-frame copy + O(n log n) sort + broadcast from the main race loop.\n- Removes a per-update full-world actor scan and O(n^2) match on the client.\n- Deletes dead code and reduces the work attributable to the `RaceTrackManager`\n  god class.\n\n**Negative / trade-offs**\n\n- Ranking now updates at the timer cadence (~5-10Hz) rather than per frame; HUD\n  rank changes may lag by up to one timer interval. Acceptable because ranking\n  is a slow-changing value and the prior 60Hz cadence was not perceptible.\n- Requires confirming no other per-frame consumer depends on `Tick` calling\n  `HandleUpdateRanking` as a side effect before disabling `PrimaryActorTick`.\n\n## References\n\n- Audit: `Docs/audit/F02_race_mode.md` (hotspots #1, #2)\n- LD: `Docs/ld/F02_race_mode.md` §1.4, §2.4, §2.5\n",
+      "date" : "2026-06-08T17:00:00Z",
+      "format" : "Markdown",
+      "id" : "1",
+      "status" : "Proposed",
+      "title" : "Move ranking update off the per-frame Tick and remove the client-side world scan"
+    } ],
+    "sections" : [ {
+      "content" : "## F02 — Race Mode & Game Flow\n\n> arc42 §1 Introduction & Goals · Feature ID **F02** · OpenProject #338, #374 · Optimization priority **P0**\n> Source of truth: `Source/PrototypeRacing/` (read directly), cross-checked against `Docs/audit/F02_race_mode.md` and `Docs/ld/F02_race_mode.md`.\n\n### What F02 does\n\nF02 is the lifecycle of a single race: spawn cars + AI, run the intro countdown, start the race, then track checkpoint / lap / ranking / time every frame until the race ends and the result is handed off to Progression (F05).\n\nThe centre of the feature is **RaceTrackManager** — a level-bound orchestrator Actor that owns per-car race state and drives the whole lifecycle.\n\n### Quality goals (this round)\n\n| Goal | Why it matters |\n|---|---|\n| Frame-time stability during a race | The race loop is the core gameplay loop. Per-frame work here directly costs FPS on mobile. |\n| Clear ownership of race state | One source of truth (`ManagerPlayerInfo`) keyed by vehicle pointer, consumed by UI/controller via delegates. |\n| Decoupled result hand-off | Race end fans out to Progression/economy without the manager knowing economy internals. |\n\n### Scope\n\nIn scope: race lifecycle state machine, checkpoint/lap detection, ranking computation, timer, AI setup, result hand-off.\nOut of scope (other features): vehicle physics (F01), AI driving decisions (F03), progression/reward calculation (F05/F09).\n",
+      "filename" : "\\01-introduction.md",
+      "format" : "Markdown",
+      "order" : 1,
+      "title" : ""
+    }, {
+      "content" : "## Building Block View\n\n> arc42 §5 Building Block View · F02 components inside the **Gameplay Runtime** container.\n\nThe diagram below is rendered from the C4 model in `workspace.dsl` (view key `F02_Components`). Component names are kept clean (no UE `A`/`U`/`F` prefix); the underlying UE type is recorded in the **Type** column and in each component's `technology` field.\n\n![](embed:F02_Components)\n\n### Components\n\n| Component | UE type (technology) | Real class | Responsibility |\n|---|---|---|---|\n| RaceGameMode | GameMode | `ARacingCarGameMode` | Spawns the race manager + cars, handles player login/ready, drives the race start hand-off. |\n| RaceTrackManager | Actor (orchestrator) | `ARaceTrackManager` | Central orchestrator. Owns per-car race state, checkpoint/lap/ranking/timer lifecycle, AI setup, result hand-off. **1869 lines — God class.** |\n| RaceGameState | GameState (replicated) | `ARaceGameState` | Replicates car readiness + active car list across the network. |\n| RacingCarController | PlayerController | `ARacingCarController` | Relays race state to the owning client via RPC; applies ranking to client-side cars. |\n| RaceCheckpoint | Actor (trigger) | `ARaceCheckpoint` | Trigger volume. On vehicle overlap, notifies the manager of a checkpoint pass. |\n| RaceComponent | ActorComponent | `URaceComponent` | Attachable race helper. Tick enabled but body empty — hotspot, see ADR-0002. |\n\n### Key internal state (RaceTrackManager)\n\n- `TMap<ASimulatePhysicsCar*, FPlayerRaceState> ManagerPlayerInfo` — per-car race state, keyed by vehicle pointer.\n- `TMap<int32, ARaceCheckpoint*> ManagerRaceCheckpoints` and `TArray<ARaceCheckpoint*> AllCheckpoints` — checkpoint registry (built once in `BeginPlay`).\n\n### Public contract (excerpt)\n\nLifecycle: `StartRace()`, `EndRace()`, `SignalRaceBegin()` (NetMulticast, Reliable), `HandleVehicleDetectedAtCheckpoint(...)`.\nRanking/query: `HandleUpdateRanking()` (currently called every frame — see ADR-0001), `GetPlayerRaceStates()` (copy + `Algo::Sort`, assigns Ranking 1..n).\n\nBlueprintAssignable delegates broadcast race events to UI and the controller: `OnCheckpointPassed`, `OnRankingUpdate`, `OnPlayerFinishedRace`, `OnRaceEnded`, `OnLapCompleted`, `OnTimeAttackUpdate`, `OnTimeUp`.\n\nFull API and struct definitions: `Docs/ld/F02_race_mode.md` §2.\n",
+      "filename" : "\\02-building-block-view.md",
+      "format" : "Markdown",
+      "order" : 2,
+      "title" : ""
+    }, {
+      "content" : "## Runtime View\n\n> arc42 §6 Runtime View · F02 race lifecycle. Source: `Docs/ld/F02_race_mode.md` §1.3 and §2.5.\n\n### Scenario: checkpoint pass to ranking update to result hand-off\n\n1. **Checkpoint overlap** — `ARaceCheckpoint::NotifyActorBeginOverlap(OtherActor)` resolves the controlled vehicle, then fires `OnVehicleDetectedAtCheckpoint.Broadcast(Vehicle, Type, Index)`.\n\n2. **Manager updates state** — `RaceTrackManager::HandleVehicleDetectedAtCheckpoint` (`RaceTrackManager.cpp:223`) updates the car's `FPlayerRaceState` (`NextExpectedCheckpoint`, `TotalCheckpointPassed`, `LapCount`). If `Type == Finish` and laps are complete, it calls `MarkFinished(Vehicle, Completed)`, then broadcasts `OnCheckpointPassed`.\n\n3. **Ranking recompute** — `RaceTrackManager::HandleUpdateRanking` (`RaceTrackManager.cpp:834-877`) computes `DistanceToNextCheckpoint` per car, calls `GetPlayerRaceStates()` (`RaceTrackManager.cpp:583-630`, copy + `Algo::Sort`: Completed first, then time, lap, checkpoint, distance), assigns Ranking 1..n, then broadcasts `OnRankingUpdate`.\n   - **Hotspot:** today this runs every frame from `Tick` (`RaceTrackManager.cpp:207-221`, call at line 210). See ADR-0001.\n\n4. **Client relay** — `RacingCarController::HandleRankingUpdateCallToClient` (`RacingCarController.cpp:286-308`, Client/Unreliable RPC) forwards to UI (`OnEmitRankingUpdate`) and writes ranking onto each client-side car.\n   - **Hotspot:** today this does `GetAllActorsOfClass(ASimulatePhysicsCar)` plus a nested loop — O(n^2) per update. See ADR-0001.\n\n5. **Race end** — `CheckAllFinished()` to `EndRace()` broadcasts `OnRaceEnded`, which the Meta/Economy layer (Progression, F05) consumes via `HandleRaceCompleted` to compute rewards.\n\n### Replication notes\n\n- `ARaceGameState` replicates readiness + car list.\n- `RaceTrackManager`: `SignalRaceBegin` is `NetMulticast, Reliable`; `bAllPlayersReadyForLoadingRelease` uses `ReplicatedUsing`.\n- `RacingCarController`: `Handle*CallToClient` are `Client, Unreliable` (HUD state); `SignalReady` is `Server, Unreliable`.\n",
+      "filename" : "\\03-runtime-view.md",
+      "format" : "Markdown",
+      "order" : 3,
+      "title" : ""
+    }, {
+      "content" : "## Decisions, Hotspots & Audit Links\n\n> arc42 §9 Architecture Decisions + cross-references. F02 sample round.\n\n### Architecture Decision Records\n\n- **ADR-0001** — Move ranking update off per-frame Tick onto a timer, and drop the world scan in the client relay. See the ADR section of this workspace.\n\n### Performance hotspots (from audit)\n\n| # | Priority | Hotspot | Location |\n|---|----------|---------|----------|\n| 1 | P0 | `Tick -> HandleUpdateRanking()` runs unconditionally every frame (distance loop + copy + O(n log n) sort + broadcast); dead code at line 876. | `RaceTrackManager.cpp:207-221`, `834-877` |\n| 2 | P0 | `HandleRankingUpdateCallToClient` does `GetAllActorsOfClass` + nested loop = O(n^2) per update; `State.Vehicle` pointer already available. | `RacingCarController.cpp:286-308` |\n| 3 | P1 | `RaceComponent` enables tick (`bCanEverTick=true`) with an empty `TickComponent` body. | `RaceComponent.cpp:12`, `29-34` |\n| 4 | P1 | BP checkpoints (`BP_CheckPoint`, `BP_BoostCheckPoint`, `BP_DriftZone_Child`) have Event Tick; editor-only fix. | Blueprint (audit-only) |\n\n### Technical debt (from audit)\n\n- **God class / SRP violation** — `RaceTrackManager` is 1869 lines: race orchestration + AI setup + car styling + intro/outro sequence + checkpoint visibility + reward hand-off.\n- **Magic-string map names** — `EnabledMapNames` hardcoded at `RaceTrackManager.cpp:113-116`.\n- **Missing null-check** — `MarkFinished` (`RaceTrackManager.cpp:~1533`) calls `GetFirstPlayerController()->GetPawn()` without guarding the intermediate before Cast.\n- **Debug code in shipping file** — `EndRaceDebug` (`RaceTrackManager.cpp:751-831`) mixed into a shipping translation unit.\n\n### Source documents\n\n- Low-Level Design (full F02 contract + API): `Docs/ld/F02_race_mode.md`\n- Hotspot audit (file:line evidence): `Docs/audit/F02_race_mode.md`\n- System overview: `Docs/VNRacing_HLD.md` §3, `Docs/VNRacing_LLD.md`\n",
+      "filename" : "\\04-decisions-and-links.md",
+      "format" : "Markdown",
+      "order" : 4,
+      "title" : ""
+    } ]
+  },
+  "id" : 0,
+  "model" : {
+    "people" : [ {
+      "description" : "iOS / Android racer. Touch input, race + meta-game navigation.",
+      "id" : "1",
+      "name" : "Mobile Player",
+      "properties" : {
+        "structurizr.dsl.identifier" : "player"
+      },
+      "relationships" : [ {
+        "description" : "plays / touch input",
+        "destinationId" : "2",
+        "id" : "15",
+        "sourceId" : "1",
+        "tags" : "Relationship"
+      } ],
+      "tags" : "Element,Person"
+    } ],
+    "softwareSystems" : [ {
+      "containers" : [ {
+        "description" : "UMG widgets + HUD. Reads subsystem state via delegates.",
+        "documentation" : { },
+        "id" : "3",
+        "name" : "UI / UMG Layer",
+        "properties" : {
+          "structurizr.dsl.identifier" : "client.ui"
+        },
+        "relationships" : [ {
+          "description" : "start race, read race state",
+          "destinationId" : "4",
+          "id" : "16",
+          "sourceId" : "3",
+          "tags" : "Relationship"
+        }, {
+          "description" : "customize, view progression, buy, inventory",
+          "destinationId" : "11",
+          "id" : "17",
+          "sourceId" : "3",
+          "tags" : "Relationship"
+        }, {
+          "description" : "login, matchmaking",
+          "destinationId" : "12",
+          "id" : "18",
+          "sourceId" : "3",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "UMG / WidgetBlueprint"
+      }, {
+        "components" : [ {
+          "description" : "Spawns race manager + cars, handles player login/ready, drives the race start hand-off.",
+          "documentation" : { },
+          "id" : "5",
+          "name" : "RaceGameMode",
+          "properties" : {
+            "structurizr.dsl.identifier" : "client.gameplay.raceGameMode"
+          },
+          "relationships" : [ {
+            "description" : "spawns + starts",
+            "destinationId" : "6",
+            "id" : "24",
+            "sourceId" : "5",
+            "tags" : "Relationship"
+          }, {
+            "description" : "register ready cars",
+            "destinationId" : "7",
+            "id" : "25",
+            "sourceId" : "5",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "GameMode"
+        }, {
+          "description" : "Central race orchestrator. Owns per-car race state, checkpoint/lap/ranking/timer lifecycle, AI setup, result hand-off. God-class (1869 lines).",
+          "documentation" : { },
+          "id" : "6",
+          "name" : "RaceTrackManager",
+          "properties" : {
+            "structurizr.dsl.identifier" : "client.gameplay.raceTrackManager"
+          },
+          "relationships" : [ {
+            "description" : "OnRankingUpdate.Broadcast",
+            "destinationId" : "8",
+            "id" : "27",
+            "sourceId" : "6",
+            "tags" : "Relationship"
+          }, {
+            "description" : "HandleRaceCompleted (result hand-off)",
+            "destinationId" : "11",
+            "id" : "30",
+            "sourceId" : "6",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "Actor (orchestrator)"
+        }, {
+          "description" : "Replicates car readiness + active car list across the network.",
+          "documentation" : { },
+          "id" : "7",
+          "name" : "RaceGameState",
+          "properties" : {
+            "structurizr.dsl.identifier" : "client.gameplay.raceGameState"
+          },
+          "tags" : "Element,Component",
+          "technology" : "GameState (replicated)"
+        }, {
+          "description" : "Player controller. Relays race state to the owning client via RPC; applies ranking to client-side cars.",
+          "documentation" : { },
+          "id" : "8",
+          "name" : "RacingCarController",
+          "properties" : {
+            "structurizr.dsl.identifier" : "client.gameplay.racingCarController"
+          },
+          "relationships" : [ {
+            "description" : "PlayerIsReady",
+            "destinationId" : "6",
+            "id" : "28",
+            "sourceId" : "8",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "PlayerController"
+        }, {
+          "description" : "Trigger volume. On vehicle overlap, notifies the race manager of a checkpoint pass.",
+          "documentation" : { },
+          "id" : "9",
+          "name" : "RaceCheckpoint",
+          "properties" : {
+            "structurizr.dsl.identifier" : "client.gameplay.raceCheckpoint"
+          },
+          "relationships" : [ {
+            "description" : "HandleVehicleDetectedAtCheckpoint",
+            "destinationId" : "6",
+            "id" : "26",
+            "sourceId" : "9",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "Actor (trigger)"
+        }, {
+          "description" : "Attachable race helper component. Tick enabled but body empty (hotspot).",
+          "documentation" : { },
+          "id" : "10",
+          "name" : "RaceComponent",
+          "properties" : {
+            "structurizr.dsl.identifier" : "client.gameplay.raceComponent"
+          },
+          "relationships" : [ {
+            "description" : "attaches to / queries race state",
+            "destinationId" : "6",
+            "id" : "29",
+            "sourceId" : "10",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "ActorComponent"
+        } ],
+        "description" : "Race lifecycle, vehicle physics, AI, pooling. Level-bound GameMode / GameState / RaceTrackManager.",
+        "documentation" : { },
+        "id" : "4",
+        "name" : "Gameplay Runtime",
+        "properties" : {
+          "structurizr.dsl.identifier" : "client.gameplay"
+        },
+        "relationships" : [ {
+          "description" : "race result -> progression/profile",
+          "destinationId" : "11",
+          "id" : "19",
+          "sourceId" : "4",
+          "tags" : "Relationship"
+        }, {
+          "description" : "read race/track/AI config",
+          "destinationId" : "13",
+          "id" : "20",
+          "sourceId" : "4",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "UE5 Gameplay Framework"
+      }, {
+        "description" : "GameInstance subsystems: progression, customization, inventory, profile/wallet, rewards, IAP.",
+        "documentation" : { },
+        "id" : "11",
+        "name" : "Meta / Economy Subsystems",
+        "properties" : {
+          "structurizr.dsl.identifier" : "client.meta"
+        },
+        "relationships" : [ {
+          "description" : "save/load configs, wallet, progression",
+          "destinationId" : "13",
+          "id" : "21",
+          "sourceId" : "11",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "UE5 GameInstance Subsystems"
+      }, {
+        "description" : "Client-side gateway to Nakama + match orchestration + server snapshot sync.",
+        "documentation" : { },
+        "id" : "12",
+        "name" : "Backend Communication",
+        "properties" : {
+          "structurizr.dsl.identifier" : "client.backendComm"
+        },
+        "relationships" : [ {
+          "description" : "economy sync (target)",
+          "destinationId" : "11",
+          "id" : "22",
+          "sourceId" : "12",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "Nakama UE SDK"
+      }, {
+        "description" : "DataTable registry (GameInstance) + SaveGame slots. Local source of truth for offline/prototype.",
+        "documentation" : { },
+        "id" : "13",
+        "name" : "Local Data / SaveGame",
+        "properties" : {
+          "structurizr.dsl.identifier" : "client.localData"
+        },
+        "tags" : "Element,Container",
+        "technology" : "DataTable / SaveGame"
+      }, {
+        "description" : "Debug modules, track-test batch sim, performance + PSO instrumentation. Not a shipping dependency.",
+        "documentation" : { },
+        "id" : "14",
+        "name" : "Debug / Tooling",
+        "properties" : {
+          "structurizr.dsl.identifier" : "client.tooling"
+        },
+        "relationships" : [ {
+          "description" : "inspect / drive batch sim",
+          "destinationId" : "4",
+          "id" : "23",
+          "sourceId" : "14",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "Debug Subsystems"
+      } ],
+      "description" : "Single-module (PrototypeRacing) UE5.6 client. Gameplay runtime, meta/economy, online client services, UI, debug tooling.",
+      "documentation" : { },
+      "id" : "2",
+      "name" : "VNRacing UE5 Mobile Client",
+      "properties" : {
+        "structurizr.dsl.identifier" : "client"
+      },
+      "tags" : "Element,Software System"
+    } ]
+  },
+  "name" : "VNRacing Architecture",
+  "properties" : {
+    "structurizr.inspection.error" : "19",
+    "structurizr.inspection.info" : "0",
+    "structurizr.inspection.ignore" : "0",
+    "structurizr.inspection.warning" : "0"
+  },
+  "views" : {
+    "componentViews" : [ {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "containerId" : "4",
+      "description" : "F02 Race Mode lifecycle components inside the Gameplay Runtime container.",
+      "elements" : [ {
+        "id" : "5",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "6",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "7",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "8",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "9",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "10",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "11",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalContainerBoundariesVisible" : false,
+      "key" : "F02_Components",
+      "name" : "Component View: VNRacing UE5 Mobile Client - Gameplay Runtime",
+      "order" : 3,
+      "relationships" : [ {
+        "id" : "24"
+      }, {
+        "id" : "25"
+      }, {
+        "id" : "26"
+      }, {
+        "id" : "27"
+      }, {
+        "id" : "28"
+      }, {
+        "id" : "29"
+      }, {
+        "id" : "30"
+      } ]
+    } ],
+    "configuration" : {
+      "branding" : { },
+      "styles" : {
+        "elements" : [ {
+          "background" : "#1168bd",
+          "color" : "#ffffff",
+          "tag" : "Component"
+        }, {
+          "shape" : "Person",
+          "tag" : "Person"
+        } ]
+      },
+      "terminology" : { }
+    },
+    "containerViews" : [ {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "description" : "Six runtime groupings inside the VNRacing client.",
+      "elements" : [ {
+        "id" : "3",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "4",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "11",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "12",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "13",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "14",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalSoftwareSystemBoundariesVisible" : false,
+      "key" : "Containers",
+      "name" : "Container View: VNRacing UE5 Mobile Client",
+      "order" : 2,
+      "relationships" : [ {
+        "id" : "16"
+      }, {
+        "id" : "17"
+      }, {
+        "id" : "18"
+      }, {
+        "id" : "19"
+      }, {
+        "id" : "20"
+      }, {
+        "id" : "21"
+      }, {
+        "id" : "22"
+      }, {
+        "id" : "23"
+      } ],
+      "softwareSystemId" : "2"
+    } ],
+    "systemContextViews" : [ {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "description" : "Player and the VNRacing client at a glance.",
+      "elements" : [ {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "2",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "enterpriseBoundaryVisible" : true,
+      "key" : "SystemContext",
+      "name" : "System Context View: VNRacing UE5 Mobile Client",
+      "order" : 1,
+      "relationships" : [ {
+        "id" : "15"
+      } ],
+      "softwareSystemId" : "2"
+    } ]
+  }
+}

@@ -1,0 +1,85 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VT-CARPROG — Car-Progression — Low-Level Design</title><style>
+:root{color-scheme:light dark}
+body{max-width:920px;margin:0 auto;padding:2rem 1.25rem;
+  font:16px/1.6 -apple-system,Segoe UI,Roboto,sans-serif;
+  background:#0d1117;color:#c9d1d9}
+a{color:#58a6ff}
+h1,h2,h3{line-height:1.25;margin-top:1.6em;border-bottom:1px solid #30363d;padding-bottom:.3em}
+code{background:#161b22;padding:.15em .4em;border-radius:4px;font-size:.9em}
+pre{background:#161b22;padding:1rem;border-radius:8px;overflow:auto}
+pre code{background:none;padding:0}
+table{border-collapse:collapse;width:100%;margin:1em 0}
+th,td{border:1px solid #30363d;padding:.5em .75em;text-align:left}
+th{background:#161b22}
+blockquote{border-left:3px solid #30363d;margin:0;padding-left:1em;color:#8b949e}
+</style></head>
+<body><h1>VT-CARPROG — Car-Progression — Low-Level Design</h1>
+<blockquote>
+<p>Source: <code>Docs/audit/VT-CARPROG_car_progression.md</code>, <code>Docs/c4/model.c4</code>. Structurizr view: <code>VT_CARPROG_Components</code>.
+OpenProject: #344.</p>
+</blockquote>
+<h2>Feature summary and boundaries</h2>
+<p>VT-CARPROG owns the car-rating (CR) progression system: how a player&#39;s starting CR is determined by their current city index, how CR scales with upgrades, and how AI opponent CR is configured per city and difficulty tier. It also covers the Dummy Car mechanic — the placeholder car entry used before a real car is unlocked.</p>
+<p>VT-CARPROG is consumed by VT-TRACK (track difficulty calculation) and by CU-ROOM (upgrade cost gating). It does <strong>not</strong> own the upgrade UI or inventory — those belong to CU-ROOM and SUP-INV respectively.</p>
+<p><img src="../structurizr/embed/VT_CARPROG_Components" alt="VT-CARPROG components"></p>
+<h2>Layer 1 — Implementation map and hotspots</h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Source mapping</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>UCarRatingSubsystem</code></td>
+<td><code>CarRatingSubsystem.cpp</code></td>
+<td>CR tables, starting CR resolution, AI CR by city/difficulty, track difficulty gate.</td>
+</tr>
+<tr>
+<td><code>ResolveStartingCarRatingLevelByCityIndex(int32)</code></td>
+<td><code>CarRatingSubsystem.cpp:212</code></td>
+<td>Returns <code>CityIndex * 3</code> — linear CR baseline for a newly-unlocked city. Called by <code>GetStartingCarRatingStatsByCityPosition</code> and <code>ResolveCarRatingLevelByUpgradeIndex</code>.</td>
+</tr>
+<tr>
+<td><code>ResolveCarRatingLevelByUpgradeIndex</code></td>
+<td><code>CarRatingSubsystem.cpp:224</code></td>
+<td>Combines starting CR and upgrade level; consumed by <code>UCarCustomizationManager::GetCarRating</code> (<code>CarCustomizationManager.cpp:1054</code>).</td>
+</tr>
+<tr>
+<td><code>FCityAICarRating</code></td>
+<td><code>CarRatingSubsystem.h:158</code></td>
+<td>DataTable row: <code>CityIndex</code>, <code>EasyCarRatingLevel</code>, <code>MediumCarRatingLevel</code>, <code>HardCarRatingLevel</code>; drives AI CR per city/difficulty.</td>
+</tr>
+<tr>
+<td><code>GetTrackDifficultyByPerformance</code></td>
+<td><code>CarRatingSubsystem.cpp:189</code></td>
+<td>Compares player CR to <code>PerformanceGates</code>; returns <code>ETrackDifficulty</code>; tolerance band configurable.</td>
+</tr>
+<tr>
+<td><code>GetGlobalCR</code> / <code>GetCityByCarId</code></td>
+<td><code>ProgressionDebugManager.cpp:1055</code> / <code>1396</code></td>
+<td>Debug utilities; read CR without side-effects.</td>
+</tr>
+</tbody></table>
+<p>Runtime flow: on city unlock, <code>ResolveStartingCarRatingLevelByCityIndex(newCityIndex)</code> sets the CR floor for the Dummy Car. On car upgrade, <code>UCarCustomizationManager::GetCarRating</code> calls <code>ResolveCarRatingLevelByUpgradeIndex</code> → result flows into <code>RecalculateTrackDifficulty</code> (VT-TRACK).</p>
+<p>AI flow: <code>ARacingCarGameMode</code> reads <code>FCityAICarRating</code> row for the active city + selected difficulty → sets AI car CR before race start.</p>
+<p>Hotspot: <code>ResolveStartingCarRatingLevelByCityIndex</code> is a pure arithmetic formula (<code>CityIndex * 3</code>). Simple now, but any non-linear CR scaling will require a table-driven replacement.</p>
+<h2>Layer 2 — Contract surface</h2>
+<ul>
+<li><code>ResolveStartingCarRatingLevelByCityIndex(int32 CityIndex) → int32</code> — starting CR for Dummy Car; called on city unlock.</li>
+<li><code>ResolveCarRatingLevelByUpgradeIndex(int32 CityPosition, int32 UpgradeLevel) → float</code> — live player CR; called by car customisation.</li>
+<li><code>GetTrackDifficultyByPerformance(int32 PlayerPerformance, int32 TrackPerformanceRequire, float PercentTolerance) → ETrackDifficulty</code> — difficulty gate; called by VT-TRACK.</li>
+<li><code>FCityAICarRating</code> DataTable — content-driven AI CR; no code change to tune per city/difficulty.</li>
+</ul>
+<p>Evidence gap: Dummy Car definition (which <code>UCarConfiguration</code> entry acts as placeholder) is not confirmed in code. Verify in <code>ProgressionData</code> DataTable and <code>EnsureGarageCarsFromProgression</code> logic.</p>
+<h2>Links</h2>
+<ul>
+<li>Audit: <code>Docs/audit/VT-CARPROG_car_progression.md</code></li>
+<li>Structurizr: <code>VT_CARPROG_Components</code></li>
+<li>Portal: <code>Docs/portal/src/content/docs/features/vt-carprog.md</code></li>
+<li>Related: VT-TRACK (consumes CR for difficulty), CU-ROOM (upgrade source), VT-CITY (triggers city index change)</li>
+</ul>
+</body></html>

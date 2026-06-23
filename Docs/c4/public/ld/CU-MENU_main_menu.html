@@ -1,0 +1,67 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CU-MENU — Main menu_Theme Change — Low-Level Design</title><style>
+:root{color-scheme:light dark}
+body{max-width:920px;margin:0 auto;padding:2rem 1.25rem;
+  font:16px/1.6 -apple-system,Segoe UI,Roboto,sans-serif;
+  background:#0d1117;color:#c9d1d9}
+a{color:#58a6ff}
+h1,h2,h3{line-height:1.25;margin-top:1.6em;border-bottom:1px solid #30363d;padding-bottom:.3em}
+code{background:#161b22;padding:.15em .4em;border-radius:4px;font-size:.9em}
+pre{background:#161b22;padding:1rem;border-radius:8px;overflow:auto}
+pre code{background:none;padding:0}
+table{border-collapse:collapse;width:100%;margin:1em 0}
+th,td{border:1px solid #30363d;padding:.5em .75em;text-align:left}
+th{background:#161b22}
+blockquote{border-left:3px solid #30363d;margin:0;padding-left:1em;color:#8b949e}
+</style></head>
+<body><h1>CU-MENU — Main menu_Theme Change — Low-Level Design</h1>
+<blockquote>
+<p>Source: <code>Docs/c4/model.c4</code>. Structurizr view: <code>cuMenu</code> (LikeC4).
+OpenProject: #320.</p>
+</blockquote>
+<h2>Feature summary and boundaries</h2>
+<p>🎨 <strong>Status: content.</strong> CU-MENU is the main menu level and UI shell — a level/content asset, not a C++ subsystem. It owns the UMG/Blueprint UI shell that hosts the main menu experience and the Unreal level that serves as the game&#39;s entry/hub scene.</p>
+<p>CU-MENU does not own any backend subsystem, progression logic or car data. It surfaces navigation into CU-ROOM (Customize Room), Game Mode selection (GM-MP, GM-DC), VN Tour (VT-*), and settings (DM-SET).</p>
+<p>No hotspot table is applicable — this is a content/level feature with no C++ subsystem to map.</p>
+<h2>Layer 1 — Implementation map</h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Type</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Main Menu Level</td>
+<td>Unreal level asset</td>
+<td>Hub scene; loaded on game start; hosts the menu UI.</td>
+</tr>
+<tr>
+<td>Main Menu UMG widget(s)</td>
+<td>Blueprint/UMG</td>
+<td>Navigation shell: routes player to CU-ROOM, GM-<em>, VT-</em>, DM-SET.</td>
+</tr>
+<tr>
+<td>Level streaming / transitions</td>
+<td>Blueprint</td>
+<td>Loads and unloads sub-levels or transitions to race/tour levels.</td>
+</tr>
+</tbody></table>
+<p>No C++ hotspots to report. If performance issues arise they will surface as Blueprint Tick or level-streaming hitches, which require editor profiling.</p>
+<h2>Layer 2 — Contract surface</h2>
+<p>No C++ entry points verified. Navigation targets are the entry points of other features:</p>
+<ul>
+<li>CU-ROOM (#299) — Customize Room.</li>
+<li>GM-MP (#273) — Multiplayer matchmaking.</li>
+<li>VT-CITY (#329) — VN Tour city progression.</li>
+<li>DM-SET (#338) — Settings.</li>
+</ul>
+<h2>Links</h2>
+<ul>
+<li>Portal: <code>Docs/portal/src/content/docs/features/cu-menu.md</code></li>
+<li>No audit file — content/level feature, no C++ code to audit.</li>
+<li>Cross-ref: CU-ROOM, GM-MP, GM-DC, VT-CITY, DM-SET</li>
+</ul>
+</body></html>

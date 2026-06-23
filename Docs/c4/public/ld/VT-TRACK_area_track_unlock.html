@@ -1,0 +1,103 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VT-TRACK — Area-Track Unlock — Low-Level Design</title><style>
+:root{color-scheme:light dark}
+body{max-width:920px;margin:0 auto;padding:2rem 1.25rem;
+  font:16px/1.6 -apple-system,Segoe UI,Roboto,sans-serif;
+  background:#0d1117;color:#c9d1d9}
+a{color:#58a6ff}
+h1,h2,h3{line-height:1.25;margin-top:1.6em;border-bottom:1px solid #30363d;padding-bottom:.3em}
+code{background:#161b22;padding:.15em .4em;border-radius:4px;font-size:.9em}
+pre{background:#161b22;padding:1rem;border-radius:8px;overflow:auto}
+pre code{background:none;padding:0}
+table{border-collapse:collapse;width:100%;margin:1em 0}
+th,td{border:1px solid #30363d;padding:.5em .75em;text-align:left}
+th{background:#161b22}
+blockquote{border-left:3px solid #30363d;margin:0;padding-left:1em;color:#8b949e}
+</style></head>
+<body><h1>VT-TRACK — Area-Track Unlock — Low-Level Design</h1>
+<blockquote>
+<p>Source: <code>Docs/audit/VT-TRACK_area_track_unlock.md</code>, <code>Docs/c4/model.c4</code>. Structurizr view: <code>VT_TRACK_Components</code>.
+OpenProject: #341.</p>
+</blockquote>
+<h2>Feature summary and boundaries</h2>
+<p>VT-TRACK owns the area/track unlock progression within an unlocked city, the track-selection flow (UI → race setup), and the track difficulty recalculation triggered by car-rating changes. It shares <code>UProgressionSubsystem</code> with VT-CITY; the boundary is that VT-CITY owns city-level unlock and goal assignment, while VT-TRACK owns everything at the area/track level below that.</p>
+<p>Track unlock is gated by <strong>vị thứ</strong> (race finishing rank): <code>FTrackUnlockData.RequiredTopRank</code> (default <code>3</code>, defined at <code>ProgressionData.h:801</code>). A player must finish at or above that rank to unlock the next track.</p>
+<p><img src="../structurizr/embed/VT_TRACK_Components" alt="VT-TRACK components"></p>
+<h2>Layer 1 — Implementation map and hotspots</h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Source mapping</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>UProgressionSubsystem</code></td>
+<td><code>ProgressionSubsystem.cpp</code></td>
+<td>Owns <code>VNTourProgressionData</code>; area/track unlock state.</td>
+</tr>
+<tr>
+<td><code>UnlockNext(int32 CurrentTrackID)</code></td>
+<td><code>ProgressionSubsystem.cpp:20</code></td>
+<td>Stub that wraps <code>VNTourProgressionData.UnlockNextTrack</code> (body commented out; implementation pending or moved).</td>
+</tr>
+<tr>
+<td><code>FTrackUnlockData</code></td>
+<td><code>ProgressionData.h:801</code></td>
+<td>Struct holding <code>RequiredTopRank</code>; used to check vị thứ unlock condition.</td>
+</tr>
+<tr>
+<td><code>RecalculateTrackDifficulty</code></td>
+<td><code>ProgressionSubsystem.cpp:2127</code></td>
+<td>Iterates all city/area/track nodes; recomputes <code>FTrackProgress.Difficulty</code> via <code>UCarRatingSubsystem::GetTrackDifficultyByPerformance</code>; broadcasts <code>OnTrackDifficultyRecalculated</code>; saves progression.</td>
+</tr>
+<tr>
+<td><code>OnTrackDifficultyRecalculated</code></td>
+<td>delegate (broadcast at <code>ProgressionSubsystem.cpp:2133</code>)</td>
+<td>UI subscribes to refresh difficulty badges on the track-select screen.</td>
+</tr>
+<tr>
+<td><code>UCarRatingSubsystem::GetTrackDifficultyByPerformance</code></td>
+<td><code>CarRatingSubsystem.cpp:189</code></td>
+<td>Returns <code>ETrackDifficulty</code> (Easy/Medium/Hard) by comparing player CR against track <code>PerformanceGates</code> with tolerance band.</td>
+</tr>
+</tbody></table>
+<p>Runtime flow (Track Selection, #342): UI selects a track node → <code>UProgressionCenterSubsystem::SetupRaceData</code> reads <code>FTrackProgress.LocationInfo</code> → DM-RACE loads the level. On race finish: result compared against <code>FTrackUnlockData.RequiredTopRank</code>; if passed, <code>UnlockNext</code> is called to open the next track.</p>
+<p>Runtime flow (Track Config, #343): any car upgrade triggers <code>RecalculateTrackDifficulty</code> → all track difficulty badges refresh via <code>OnTrackDifficultyRecalculated</code> delegate.</p>
+<p>Hotspot: <code>RecalculateTrackDifficulty</code> performs a triple nested loop over all cities/areas/tracks and one <code>GetTrackDifficultyByPerformance</code> call per track. Not per-frame (triggered on car upgrade), but will grow with content volume.</p>
+<p>Note: <code>UnlockNext</code> body is currently a commented-out stub (<code>ProgressionSubsystem.cpp:20–22</code>). The actual unlock chain may be handled elsewhere (e.g. directly in <code>VNTourProgressionData.UnlockNextTrack</code>). <strong>Verify before next sprint.</strong></p>
+<h2>Layer 2 — Contract surface</h2>
+<h3>Track Selection (#342)</h3>
+<ul>
+<li><code>UProgressionCenterSubsystem::SetupRaceData</code> — entry point for UI → race launch; reads selected track&#39;s <code>LocationInfo</code>.</li>
+<li><code>FTrackUnlockData.RequiredTopRank</code> — vị thứ threshold; DataTable-driven, no code change needed to tune.</li>
+</ul>
+<h3>Track Config (#343)</h3>
+<ul>
+<li><code>RecalculateTrackDifficulty(EPerformanceStatType, int32 NewLevel, bool bUpgrade)</code> — called on car-rating change.</li>
+<li><code>OnTrackDifficultyRecalculated</code> (multicast delegate) — UI refresh hook.</li>
+<li><code>ETrackDifficulty</code> enum: <code>Easy</code>, <code>Medium</code>, <code>Hard</code>.</li>
+</ul>
+<h3>VT-TRACK-RW Track Rewards (#424)</h3>
+<p>🆕 since 2026-06-23. Sub-feature of Area-Track Unlock.</p>
+<p>❌ <strong>Gap: not fully implemented.</strong> Work-package #424 defines track-level rewards — first-win bonus, rank-based payout, completion rewards. The existing <code>URewardCenterSubsystem</code> handles generic reward calculation and <code>UProgressionCenterSubsystem::HandleRaceCompleted</code> triggers post-race reward processing. However, there is no dedicated track-specific reward table or first-win bonus system separate from general cash reward scaling.</p>
+<p><strong>Partial implementation:</strong></p>
+<ul>
+<li><code>UProgressionCenterSubsystem::HandleRaceCompleted</code> delegates to <code>URewardCenterSubsystem</code> for cash rewards based on race rank.</li>
+<li>Standard cash payout scales by track difficulty and player rank.</li>
+<li>What&#39;s missing: track-specific reward table, UI reward preview, per-track first-win bonus tracking.</li>
+</ul>
+<h3>VT-TRACK-UN Track Unlock (#425)</h3>
+<p>🆕 since 2026-06-23. Sub-feature of Area-Track Unlock.</p>
+<p>⚠️ <strong>Partial: implementation at risk.</strong> Work-package #425 defines track-level unlock rules. The existing <code>FTrackUnlockData.RequiredTopRank</code> (default=3) defines the rank threshold, and <code>UProgressionSubsystem::UnlockNext</code> is called after race completion. However, <code>UnlockNext</code> body is a commented-out stub (<code>ProgressionSubsystem.cpp:20</code>). The actual unlock may happen through <code>VNTourProgressionData.UnlockNextTrack</code> directly or may be non-functional.</p>
+<p><strong>Known issue:</strong> The stub body at <code>ProgressionSubsystem.cpp:20-22</code> must be verified before next sprint.</p>
+<h2>Links</h2>
+<ul>
+<li>Audit: <code>Docs/audit/VT-TRACK_area_track_unlock.md</code></li>
+<li>Structurizr: <code>VT_TRACK_Components</code></li>
+<li>Portal: <code>Docs/portal/src/content/docs/features/vt-track.md</code></li>
+<li>Related: VT-CITY (city unlock layer above), VT-CARPROG (CR source for difficulty calc)</li>
+</ul>
+</body></html>

@@ -1,0 +1,61 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SUP-SHOP — Shop / IAP / Ads (Hệ thống nền — ngoài CSV) — Low-Level Design</title><style>
+:root{color-scheme:light dark}
+body{max-width:920px;margin:0 auto;padding:2rem 1.25rem;
+  font:16px/1.6 -apple-system,Segoe UI,Roboto,sans-serif;
+  background:#0d1117;color:#c9d1d9}
+a{color:#58a6ff}
+h1,h2,h3{line-height:1.25;margin-top:1.6em;border-bottom:1px solid #30363d;padding-bottom:.3em}
+code{background:#161b22;padding:.15em .4em;border-radius:4px;font-size:.9em}
+pre{background:#161b22;padding:1rem;border-radius:8px;overflow:auto}
+pre code{background:none;padding:0}
+table{border-collapse:collapse;width:100%;margin:1em 0}
+th,td{border:1px solid #30363d;padding:.5em .75em;text-align:left}
+th{background:#161b22}
+blockquote{border-left:3px solid #30363d;margin:0;padding-left:1em;color:#8b949e}
+</style></head>
+<body><h1>SUP-SHOP — Shop / IAP / Ads (Hệ thống nền — ngoài CSV) — Low-Level Design</h1>
+<blockquote>
+<p>Source: <code>Docs/audit/SUP-SHOP_shop_iap.md</code>, <code>Docs/c4/model.c4</code>. Structurizr view: <code>SUP_SHOP_Components</code>.
+Ngoài danh sách feature OpenProject 2026-06-15 — hệ thống nền, ứng viên refactor.</p>
+</blockquote>
+<h2>Feature summary and boundaries</h2>
+<p>SUP-SHOP owns store products, purchase orchestration and shop/ad UI integration. SUP-PROF owns wallet state; app stores/backends own production entitlement authority.</p>
+<p><img src="../structurizr/embed/SUP_SHOP_Components" alt="SUP-SHOP components"></p>
+<h1>Layer 1 — Implementation map and hotspots</h1>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Source mapping</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>UCommerceSubsystem</code></td>
+<td><code>CommerceSubsystem.cpp:14-23,80-85</code></td>
+<td>Product and purchase orchestration through provider abstraction.</td>
+</tr>
+<tr>
+<td><code>FMockCommerceProvider</code></td>
+<td>commerce provider source</td>
+<td>Editor/dev stand-in provider currently wired.</td>
+</tr>
+<tr>
+<td>Shop UI BPs</td>
+<td>Blueprint metadata</td>
+<td>Shop, popup, DLC, booster and rewards/ad widgets.</td>
+</tr>
+</tbody></table>
+<p>Runtime flow: UI invokes commerce subsystem, subsystem delegates to provider, result should update entitlement/economy. Current evidence shows mock provider wiring only.</p>
+<p>Hotspot/gap: Android/iOS providers are commented/not production-wired and there is no server receipt verification path in source evidence.</p>
+<h1>Layer 2 — Contract surface (verified entry points)</h1>
+<p>Verified entry points: commerce subsystem product/purchase orchestration and mock provider. Production contract must include native provider callbacks plus backend receipt/entitlement verification before trusting rewards or currency.</p>
+<p>Evidence gap: real App Store / Play Billing and backend authority are target architecture, not verified implementation.</p>
+<h2>Links</h2>
+<ul>
+<li>Audit: <code>Docs/audit/SUP-SHOP_shop_iap.md</code></li>
+<li>Structurizr: <code>SUP_SHOP_Components</code></li>
+</ul>
+</body></html>

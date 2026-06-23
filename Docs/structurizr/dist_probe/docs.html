@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Structurizr - Structurizr Lite</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="keywords" content="software architecture, software architecture diagrams, c4 model" />
+
+    <link rel="icon" href="/static/img/favicon.png" />
+    <link rel="apple-touch-icon" href="/static/img/apple-touch-icon.png" />
+
+    <link href="/static/css/bootstrap-3.3.7.min.css" rel="stylesheet" media="screen" />
+    <link href="/static/css/bootstrap-theme-3.3.7.min.css" rel="stylesheet" media="screen" />
+    <link href="/static/css/structurizr.css" rel="stylesheet" media="screen" />
+    <link href="/static/css/structurizr-print.css" rel="stylesheet" media="print" />
+    <link href="/static/css/open-sans.css" rel="stylesheet" />
+
+    <script src="/static/js/jquery-3.6.3.min.js"></script>
+    <script src="/static/js/bootstrap-3.3.7.min.js"></script>
+    <script type="text/javascript" src="/static/js/structurizr-2025.11.08.js"></script>
+    <script type="text/javascript" src="/static/js/structurizr-ui-2025.11.08.js"></script>
+    <script type="text/javascript" src="/static/js/structurizr-util-2025.11.08.js"></script>
+</head>
+
+<script nonce="NGViMmFlNWUtNDcyYi00ODY4LWFhYWUtNzVjOWNlZTM0MGQy">
+    structurizr.ui.initDarkMode('/static/css/structurizr-dark.css');
+</script>
+
+<body>
+
+    <div id="topNavigation">
+        <div class="row">
+            <div class="col-sm-2 hidden-xs hidden-sm" style="padding: 18px 20px 10px 20px">
+                <a id="brandingLogoAnchor" href="/"><img src="/static/img/structurizr-banner.png" alt="Structurizr" class="img-light img-responsive brandingLogo" /><img src="/static/img/structurizr-banner-dark.png" alt="Structurizr" class="img-dark img-responsive brandingLogo" /></a>
+            </div>
+            <div class="col-sm-10 centered" style="padding: 20px 20px 10px 20px; text-align: right;">
+                <span class="topNavigationItem">
+                    <form id="searchForm" method="get" action="/search" style="display: inline-block">
+                        <div class="form-inline" style="margin-top: 8px">
+                            <div class="form-group">
+                                <input type="text" name="query" class="form-control" placeholder="Search" value="" style="width: 300px" />
+                            </div>
+                        </div>
+                    </form>
+                </span>
+                <span class="topNavigationItem"><a href="/workspace/diagrams">Diagrams</a></span>
+                <span class="topNavigationItem"><a href="/workspace/documentation">Documentation</a></span>
+                <span class="topNavigationItem"><a href="/workspace/decisions">Decisions</a></span>
+                <span class="topNavigationItem"><a href="/workspace/explore">Explore</a></span>
+                </div>
+        </div>
+    </div>
+
+    <div id="content"><script src="/static/js/crypto-js-4.1.1.min.js"></script>
+
+<script type="text/javascript" src="/static/js/structurizr-client-2025.11.08.js"></script>
+<script type="text/javascript" src="/static/js/structurizr-workspace-2025.11.08.js"></script>
+<script type="text/javascript" src="/static/js/structurizr-encryption-2025.11.08.js"></script>
+
+<script nonce="NGViMmFlNWUtNDcyYi00ODY4LWFhYWUtNzVjOWNlZTM0MGQy">
+    function loadWorkspace(json) {
+        try {
+            if (typeof beforeWorkspaceLoaded === 'function') {
+                beforeWorkspaceLoaded(json);
+            }
+
+            structurizr.workspace = new structurizr.Workspace(json);
+            workspaceLoaded();
+
+            if (typeof afterWorkspaceLoaded === 'function') {
+                afterWorkspaceLoaded(structurizr.workspace.getJson());
+                $(window).trigger('resize');
+            }
+        } catch (err) {
+            if (window.logError) {
+                logError('Error loading workspace', window.href, 1, err);
+            }
+            console.log(err);
+
+            if (progressMessage !== undefined) {
+                progressMessage.show('There is a problem loading your workspace - ' + err);
+            }
+        }
+    }
+
+    function loadWorkspaceFromParent() {
+        structurizr.workspace = parent.structurizr.workspace;
+
+        try {
+            if (typeof beforeWorkspaceLoaded === 'function') {
+                beforeWorkspaceLoaded(structurizr.workspace.getJson());
+            }
+
+            workspaceLoaded();
+
+            if (typeof afterWorkspaceLoaded === 'function') {
+                afterWorkspaceLoaded(structurizr.workspace.getJson());
+                $(window).trigger('resize');
+            }
+        } catch (err) {
+            logError('Error loading workspace', window.href, 1, err);
+            console.log(err);
+
+            if (progressMessage !== undefined) {
+                progressMessage.show('There is a problem loading your workspace - ' + err);
+            }
+        }
+    }
+</script>
+
+<div class="modal fade" id="clientSideEncryptedWorkspacePassphraseModal" tabindex="-1" role="dialog" aria-labelledby="keyModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+               <h2 class="modal-title">Client-side encrypted workspace</h2>
+            </div>
+            <div class="modal-body">
+                <p>
+                    The workspace "<span id="clientSideEncryptedWorkspacePassphraseModalName"></span>" has been client-side encrypted, please enter the passphrase to decrypt it.
+                </p>
+
+                <div class="form-group">
+                    <input id="passphrase" type="password" class="form-control" placeholder="Passphrase" required="true" />
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input id="storePassphraseInLocalStorage" type="checkbox" /> Save passphrase in browser local storage
+                    </label>
+                </div>
+
+                <div id="decryptionAlert" class="alert alert-danger" role="alert" style="display:none">
+                    The workspace could not be decrypted.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="decryptButton" type="button" class="btn btn-primary">Decrypt</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script nonce="NGViMmFlNWUtNDcyYi00ODY4LWFhYWUtNzVjOWNlZTM0MGQy">
+    function showPassphraseModalAndDecryptWorkspace(workspace, callback) {
+        var modal = $('#clientSideEncryptedWorkspacePassphraseModal');
+        var workspaceName = $('#clientSideEncryptedWorkspacePassphraseModalName');
+        workspaceName.append(workspace.name);
+
+        modal.on('shown.bs.modal', function (e) {
+            $('#passphrase').focus();
+        });
+
+        modal.find('#decryptButton').click(function () {
+            promptForPassphraseAndDecryptWorkspace(workspace, callback);
+        });
+
+        modal.find('#passphrase').keydown(function(evt) {
+            if (evt.keyCode === 13) { // the enter key
+                promptForPassphraseAndDecryptWorkspace(workspace, callback);
+            }
+        });
+
+        var passphrase = getWorkspaceEncryptionPassphraseFromLocalStorage(workspace.id);
+        if (passphrase) {
+            decryptWorkspace(workspace, passphrase, callback);
+        } else {
+            modal.modal({ keyboard: false });
+        }
+    }
+
+    function promptForPassphraseAndDecryptWorkspace(workspace, callback) {
+        var modal = $('#clientSideEncryptedWorkspacePassphraseModal');
+        var passphrase = modal.find('#passphrase').val();
+        var storePassphrase = modal.find('#storePassphraseInLocalStorage')[0].checked;
+        if (storePassphrase === true) {
+            putWorkspaceEncryptionPassphraseInLocalStorage(workspace.id, passphrase);
+        }
+
+        decryptWorkspace(workspace, passphrase, callback);
+    }
+
+    function decryptWorkspace(workspace, passphrase, callback) {
+        var modal = $('#clientSideEncryptedWorkspacePassphraseModal');
+
+        try {
+            structurizrEncryptionStrategy = new structurizr.io.EncryptionStrategy(
+                {
+                    iterationCount: workspace.encryptionStrategy.iterationCount,
+                    iv: workspace.encryptionStrategy.iv,
+                    keySize: workspace.encryptionStrategy.keySize,
+                    location: 'Client',
+                    salt: workspace.encryptionStrategy.salt,
+                    type: workspace.encryptionStrategy.type,
+                    passphrase: passphrase
+                }
+            );
+
+            var decryptedWorkspace = structurizrEncryptionStrategy.decrypt(workspace);
+
+            modal.modal('hide');
+            callback(decryptedWorkspace);
+        } catch (e) {
+            console.error("Could not decrypt the workspace with the given passphrase");
+            removeWorkspaceEncryptionPassphraseFromLocalStorage(workspace.id);
+
+            modal.find('#decryptionAlert').show();
+        }
+    }
+
+    function getWorkspaceEncryptionPassphraseFromLocalStorage(id) {
+        return localStorage.getItem("workspace/" + id + "/passphrase");
+    }
+
+    function removeWorkspaceEncryptionPassphraseFromLocalStorage(id) {
+        return localStorage.removeItem("workspace/" + id + "/passphrase");
+    }
+
+    function putWorkspaceEncryptionPassphraseInLocalStorage(id, passphrase) {
+        return localStorage.setItem("workspace/" + id + "/passphrase", passphrase);
+    }
+</script><script type="text/javascript" src="/static/js/structurizr-embed.js"></script>
+<script type="text/javascript" src="/static/js/structurizr-content-2025.11.08.js"></script>
+<script type="text/javascript" src="/static/js/structurizr-documentation-2025.11.08.js"></script>
+<script type="text/javascript" src="/static/js/markdown-it-13.0.1.min.js"></script>
+<script type="text/javascript" src="/static/js/katex-0.16.4.min.js"></script>
+<script type="text/javascript" src="/static/js/asciidoctor-2.2.6.min.js"></script>
+
+<link href="/static/css/katex-0.16.4.min.css" rel="stylesheet" media="screen" />
+<link href="/static/css/structurizr-asciidoctor.css" rel="stylesheet" media="screen" />
+<link href="/static/css/structurizr-documentation.css" rel="stylesheet" media="screen" />
+
+<script nonce="NGViMmFlNWUtNDcyYi00ODY4LWFhYWUtNzVjOWNlZTM0MGQy">
+    function runGraphvizForView(view, callback) {
+        if (view.automaticLayout.applied !== true) {
+            const url = '/graphviz?view=' + view.key;
+            runGraphviz(url, function() {
+                view.automaticLayout.applied = true;
+                callback();
+            });
+        } else {
+            if (callback) {
+                callback();
+            }
+        }
+    }
+
+    function runGraphvizWithParameters(rankDirection, rankSeparation, nodeSeparation, edgeSeparation, linkVertices, margin, resize, callback) {
+        const view = structurizr.diagram.getCurrentView();
+        const url = '/graphviz?view=' + view.key + '&resizePaper=' + resize + '&rankDirection=' + rankDirection + '&rankSeparation=' + rankSeparation + '&nodeSeparation=' + nodeSeparation + '&margin=' + margin
+
+        runGraphviz(url, callback);
+    }
+
+    function runGraphviz(url, callback) {
+        if (false === true) {
+            console.log('Graphviz cannot be used on client-side encrypted workspaces - skipping');
+            if (callback) {
+                callback();
+            }
+        } else {
+            $.ajax({
+                url: url,
+                type: 'POST',
+                contentType: 'application/json; charset=UTF-8',
+                cache: false,
+                headers: {
+                    'Content-Type': 'application/json; charset=UTF-8'
+                },
+                dataType: 'json',
+                data: getMinimalJson()
+            })
+            .done(function (data, textStatus, jqXHR) {
+                if (data.views) {
+                    structurizr.workspace.copyLayoutFrom(data.views);
+                }
+                if (callback) {
+                    callback();
+                }
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                progressMessage.hide();
+
+                console.log('Automatic layout failed');
+                logError(jqXHR, textStatus, errorThrown);
+            });
+        }
+    }
+
+    function getMinimalJson() {
+        const workspace = structurizr.workspace.getJson();
+
+        if (workspace.properties) {
+            delete workspace.properties['structurizr.dsl'];
+        }
+        delete workspace.documentation;
+
+        if (workspace.model.softwareSystems) {
+            workspace.model.softwareSystems.forEach(function (softwareSystem) {
+                delete softwareSystem.documentation;
+
+                if (softwareSystem.containers) {
+                    softwareSystem.containers.forEach(function (container) {
+                        delete container.documentation;
+                    });
+                }
+            });
+        }
+
+        // and copy across the current layout information
+        workspace.views = structurizr.workspace.views;
+
+        return JSON.stringify(workspace, null, '    ');
+    }
+</script><div id="progressMessage" class="structurizrBackgroundBase hidden"></div>
+
+<script nonce="NGViMmFlNWUtNDcyYi00ODY4LWFhYWUtNzVjOWNlZTM0MGQy">
+    structurizr.ui.ProgressMessage = class ProgressMessage {
+
+        #progressMessage = $('#progressMessage');
+
+        show(html) {
+            this.#progressMessage.html(html);
+            this.#progressMessage.removeClass('hidden');
+        }
+
+        hide() {
+            this.#progressMessage.addClass('hidden');
+        }
+    }
+
+    const progressMessage = new structurizr.ui.ProgressMessage();
+</script><div class="modal fade" id="quickFindModal" tabindex="-1" role="dialog" aria-labelledby="quickFindModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <input id="quickFindModalFilter" type="text" placeholder="Start typing..." class="form-control" />
+                </div>
+            </div>
+            <div class="modal-body">
+                <div id="quickFindModalItems"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/static/js/structurizr-quick-navigation-2025.11.08.js"></script><style id="brandingStyles"></style>
+
+<div class="row" style="padding-top: 20px; padding-bottom: 0; margin-left: 0; margin-right: 0">
+    <div class="col-sm-2" style="padding-left: 30px">
+        <div id="documentationNavigationPanel" class="hidden-xs">
+
+            <div id="documentationNavigation"></div>
+
+            <div class="navigationItemSeparator"></div>
+
+            <div class="navigationItemSeparator"></div>
+
+            <div class="navigationItemSeparator"></div>
+
+            <div class="navigationItem">
+                <a id="exportLink" href="" class="hidden" title="Export to offline HTML page"><img src="/static/bootstrap-icons/filetype-html.svg" class="icon-sm" /></a>
+                |
+                <a href="/workspace" title="Workspace"><img src="/static/bootstrap-icons/folder.svg" class="icon-sm" /></a>
+                |
+                <a href="/workspace/diagrams" title="Diagrams"><img src="/static/bootstrap-icons/bounding-box.svg" class="icon-sm" /></a>
+                |
+                <a href="/workspace/decisions" title="Decisions"><img src="/static/bootstrap-icons/journal-text.svg" class="icon-sm" /></a>
+            </div>
+
+            <div class="navigationItem">
+                <a id="renderingModeLightLink" href="" title="Light"><img src="/static/bootstrap-icons/sun.svg" class="icon-sm" /></a> |
+                <a id="renderingModeDarkLink" href="" title="Dark"><img src="/static/bootstrap-icons/moon-fill.svg" class="icon-sm" /></a> |
+                <a id="renderingModeSystemLink" href="" title="System"><img src="/static/bootstrap-icons/sliders.svg" class="icon-sm" /></a>
+            </div>
+
+            <div id="documentationMetadata">
+                <span id="lastModifiedDate"></span>
+                </div>
+        </div>
+    </div>
+
+    <div class="col-sm-10" style="margin-top: 0; margin-bottom: 0">
+        <div id="documentationNavigationDropDownPanel" class="form-group visible-xs centered" style="margin-top: 0; margin-bottom: 20px">
+            <div class="btn-group">
+                <select id="documentationNavigationDropDown" class="form-control"></select>
+            </div>
+        </div>
+
+        <div id="documentationPanel">
+            <div id="documentationHeader">
+                <div class="centered">
+                    <img src="" class="brandingLogo hidden" alt="Branding logo" />
+                </div>
+                <h1><span id="documentationScopeName"></span></h1>
+            </div>
+
+            <div id="documentationContent"></div>
+        </div>
+    </div>
+</div>
+
+<script nonce="NGViMmFlNWUtNDcyYi00ODY4LWFhYWUtNzVjOWNlZTM0MGQy">
+    const requestedScope = structurizr.util.atob('Kg==');
+    structurizr.ui.DEFAULT_FONT_NAME = "Open Sans";
+    structurizr.ui.DEFAULT_FONT_URL = 'https://fonts.googleapis.com/css?family=Open+Sans:400,700';
+
+    const documentationNavigation = $('#documentationNavigation');
+    const documentationNavigationDropDown = $('#documentationNavigationDropDown');
+    const documentationNavigationDropDownPanel = $('#documentationNavigationDropDownPanel');
+    var contentRenderer;
+
+    const elementsWithDocumentation = [];
+    var sections = [];
+    var rendered = false;
+
+    const anchors = [];
+    const navigationIdsByAnchor = [];
+
+    var filenameToSection = {};
+
+    const WORKSPACE_SCOPE = '*';
+
+    progressMessage.show('<p>Loading workspace...</p>');
+
+    function workspaceLoaded() {
+        init();
+    }
+
+    function init() {
+        if (structurizr.workspace.hasDocumentation()) {
+            contentRenderer = new structurizr.ui.ContentRenderer(
+                structurizr.workspace,
+                '/static',
+                '/workspace',
+                false);
+
+            structurizr.scripting = new function() {
+                this.exportDocumentationToOfflineHtmlPage = function (callback) {
+                    exportDocumentationToOfflineHtmlPage(callback);
+                };
+
+                this.isDocumentationRendered = function () {
+                    return rendered;
+                };
+            };
+
+            initDocumentationScopeAndSections();
+            show();
+
+            window.onhashchange = function() {
+                scrollToHash();
+            };
+
+            document.addEventListener("keydown", changeDocumentation);
+
+            $('#documentationPanel').scroll(function() {
+                var topPadding = 30;
+                var documentationPanelHeight = $('#documentationPanel').innerHeight();
+                var documentationPanelOffsetTop = $('#documentationPanel').offset().top - topPadding;
+                var done = false;
+
+                $('.headingAnchor').each(function () {
+                    if (done === false && $(this).offset().top > documentationPanelOffsetTop && $(this).position().top < documentationPanelHeight) {
+                        var hash = '#' + $(this).attr('name');
+                        highlightNavigation(undefined, hash);
+                        if (window.location.hash !== hash) {
+                            window.history.replaceState({}, '', hash);
+                        }
+                        done = true;
+                    }
+                });
+            });
+
+            $(window).resize(function() {
+                resize();
+            });
+
+            const timezone = structurizr.workspace.views.configuration.properties['structurizr.timezone'];
+            const locale = structurizr.workspace.views.configuration.properties['structurizr.locale'];
+
+            $('#lastModifiedDate').html(new Date(structurizr.workspace.lastModifiedDate).toLocaleString(locale,
+                {
+                    weekday: 'long',
+                    year:'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: 'numeric',
+                    minute: 'numeric',
+                    timeZone: timezone,
+                    timeZoneName : 'long'
+                }
+            ));
+        } else {
+            showNoDocumentationPage();
+        }
+
+        structurizr.ui.applyBranding();
+        $('#brandingLogoAnchor').attr('href', '/workspace');
+        resize();
+        progressMessage.hide();
+    }
+
+    function initDocumentationScopeAndSections() {
+        if (structurizr.workspace.documentation.sections.length > 0) {
+            elementsWithDocumentation.push(WORKSPACE_SCOPE);
+
+            if (requestedScope === WORKSPACE_SCOPE) {
+                sections = structurizr.workspace.documentation.sections;
+                $('#documentationScopeName').html(structurizr.util.escapeHtml(structurizr.workspace.name));
+            }
+        }
+
+        structurizr.workspace.model.softwareSystems.forEach(function(softwareSystem) {
+            if (softwareSystem.documentation.sections.length > 0) {
+                elementsWithDocumentation.push(softwareSystem.id);
+
+                const scope = toScope(softwareSystem);
+                if (requestedScope === scope) {
+                    sections = softwareSystem.documentation.sections;
+                    contentRenderer.setScope(softwareSystem);
+                    $('#documentationScopeName').html(structurizr.util.escapeHtml(softwareSystem.name));
+                }
+            }
+
+            if (softwareSystem.containers) {
+                softwareSystem.containers.forEach(function(container) {
+                    if (container.documentation.sections.length > 0) {
+                        elementsWithDocumentation.push(container.id);
+
+                        const scope = toScope(container);
+                        if (requestedScope === scope) {
+                            sections = container.documentation.sections;
+                            contentRenderer.setScope(container);
+                            $('#documentationScopeName').html(structurizr.util.escapeHtml(container.name));
+                        }
+                    }
+
+                    if (container.components) {
+                        container.components.forEach(function(component) {
+                            if (component.documentation.sections.length > 0) {
+                                elementsWithDocumentation.push(component.id);
+
+                                const scope = toScope(component);
+                                if (requestedScope === scope) {
+                                    sections = component.documentation.sections;
+                                    contentRenderer.setScope(component);
+                                    $('#documentationScopeName').html(structurizr.util.escapeHtml(component.name));
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        });
+
+        if (sections.length > 0) {
+            sections.sort(function (a, b) {
+                return a.order - b.order;
+            });
+
+            // assign section numbers
+            var sectionNumber = 1;
+            sections.forEach(function(section) {
+                section.number = sectionNumber++;
+            })
+        }
+    }
+
+    function toScope(element) {
+        if (element.type === structurizr.constants.SOFTWARE_SYSTEM_ELEMENT_TYPE) {
+            return element.name;
+        } else if (element.type === structurizr.constants.CONTAINER_ELEMENT_TYPE) {
+            const softwareSystem = structurizr.workspace.findElementById(element.parentId);
+            return toScope(softwareSystem) + '/' + element.name;
+        } else if (element.type === structurizr.constants.COMPONENT_ELEMENT_TYPE) {
+            const container = structurizr.workspace.findElementById(element.parentId);
+            return toScope(container) + '/' + element.name;
+        }
+
+        return undefined;
+    }
+
+    function scrollToHash() {
+        var hash = window.location.hash;
+        if (hash && hash.length > 0) {
+            hash = hash.substring(1);
+            const anchor = $('a[name="' + hash + '"]');
+            if (anchor && anchor.length > 0) {
+                anchor[0].scrollIntoView(true);
+            }
+        } else {
+            $('#documentationScopeName')[0].scrollIntoView(false);
+            documentationNavigationDropDown.val(decodeURIComponent(window.location.pathname));
+        }
+    }
+
+    function showNoDocumentationPage() {
+        const documentationContent = $('#documentationContent');
+        $('#documentationScopeName').html(structurizr.util.escapeHtml(structurizr.workspace.name));
+        documentationContent.addClass('centered');
+        documentationContent.css('margin-top', '100px');
+        documentationContent.css('margin-bottom', '100px');
+
+        var random = Math.floor((Math.random() * 4) + 1);
+        if (random === 1) {
+            documentationContent.append('<p>The owner of this workspace values working software over comprehensive documentation. :-)</p>');
+        } else if (random === 2) {
+            documentationContent.append('<p>This page intentionally left blank. :-)</p>');
+        } else if (random === 3) {
+            documentationContent.append('<p>The code is the documentation. :-)</p>');
+        } else {
+            documentationContent.append("<p>This isn't the documentation you're looking for... :-)</p>");
+        }
+
+        documentationContent.append('<p class="smaller">(there is no documentation in this workspace)</p>');
+    }
+
+    function show() {
+        $('#documentationContent').empty();
+
+        if (requestedScope === WORKSPACE_SCOPE) {
+            if (sections.length > 0) {
+                sections.forEach(function(section) {
+                    showDocumentationSection(section);
+                });
+            } else {
+                // workspace level documentation has been requested, but none exists,
+                // so show documentation for the first element instead
+                const elementId = elementsWithDocumentation[0];
+                const element = structurizr.workspace.findElementById(elementId);
+                const scope = toScope(element);
+                window.location.href = '/workspace/documentation/' + encodeURI(scope) + '';
+                return;
+            }
+        } else {
+            sections.forEach(function(section) {
+                showDocumentationSection(section);
+            });
+        }
+
+        rewriteInternalWorkspaceLinks();
+        assignSectionNumbers();
+        renderNavigation();
+
+        $('#renderingModeLightLink').click(function(event) {
+            event.preventDefault();
+            structurizr.ui.setRenderingMode(structurizr.ui.RENDERING_MODE_LIGHT);
+            setDarkModeOnEmbeddedDiagrams();
+        });
+
+        $('#renderingModeDarkLink').click(function(event) {
+            event.preventDefault();
+            structurizr.ui.setRenderingMode(structurizr.ui.RENDERING_MODE_DARK);
+            setDarkModeOnEmbeddedDiagrams();
+        });
+
+        $('#renderingModeSystemLink').click(function(event) {
+            event.preventDefault();
+            structurizr.ui.setRenderingMode(structurizr.ui.RENDERING_MODE_SYSTEM);
+            setDarkModeOnEmbeddedDiagrams();
+        });
+
+        if (window.location.hash !== undefined) {
+            scrollToHash();
+        }
+
+        $("#documentationContent a").each(function() {
+            const a = $(this);
+            const href = a.attr('href');
+
+            if (href !== undefined) {
+                if (href.indexOf('#') === -1) {
+                    const targetSection = filenameToSection[href];
+                    if (targetSection !== undefined) {
+                        a.attr('href', '#' + targetSection.number)
+                    }
+                } else {
+                    const parts = href.split('#');
+                    const filename = parts[0];
+                    const hash = parts[1];
+
+                    const targetSection = filenameToSection[filename];
+                    if (targetSection !== undefined) {
+                        a.attr('href', '#' + hash);
+                    }
+                }
+            }
+        });
+
+        $("#documentationContent img").click(function(){
+            const image = $(this);
+            const src = image.attr("src");
+
+            const imageWindow = window.open("", "");
+            imageWindow.document.write('<img src="' + src + '" />');
+        });
+
+        rendered = false;
+
+        setTimeout(checkDiagramsRendered, 500);
+    }
+
+    function setDarkModeOnEmbeddedDiagrams() {
+        const embeddedDiagrams = $('#documentationContent iframe.structurizrEmbed');
+        embeddedDiagrams.each(function (index) {
+            var iframe = embeddedDiagrams[index];
+            if (iframe.contentWindow.structurizr && iframe.contentWindow.structurizr.diagram) {
+                iframe.contentWindow.structurizr.diagram.setDarkMode(structurizr.ui.isDarkMode());
+            }
+        });
+    }
+
+    function renderNavigation() {
+        elementsWithDocumentation.forEach(function(elementId) {
+            var scope;
+
+            if (elementId === WORKSPACE_SCOPE) {
+                scope = WORKSPACE_SCOPE;
+                const uri = '/workspace/documentation';
+
+                documentationNavigation.append('<div class="documentationNavigationLink documentationNavigationHeading"><a href="' + uri + '">' + structurizr.util.escapeHtml(structurizr.workspace.name) + '</a></div>');
+                documentationNavigationDropDown.append(
+                    $('<option></option>').val(uri).html('[Workspace]' + structurizr.util.escapeHtml(structurizr.workspace.name))
+                );
+                quickNavigation.addItem('[Workspace] ' + structurizr.util.escapeHtml(structurizr.workspace.name), uri);
+            } else {
+                var element = structurizr.workspace.findElementById(elementId);
+                if (element !== undefined) {
+                    scope = toScope(element);
+                    var uri = '/workspace/documentation/' + encodeURI(scope) + '';
+
+                    documentationNavigation.append('<div class="documentationNavigationLink documentationNavigationHeading"><a href="' + uri + '">' + structurizr.util.escapeHtml(element.name) + '</a></div>');
+                    documentationNavigationDropDown.append(
+                        $('<option></option>').val(uri).html(structurizr.util.escapeHtml('[' + structurizr.workspace.getTerminologyFor(element)) + '] ' + structurizr.util.escapeHtml(element.name))
+                    );
+                    quickNavigation.addItem(structurizr.util.escapeHtml('[' + structurizr.workspace.getTerminologyFor(element)) + '] ' + structurizr.util.escapeHtml(element.name), uri);
+                }
+            }
+
+            if (scope === requestedScope) {
+                renderNavigationForScope();
+            }
+        });
+
+        documentationNavigationDropDown.change(function() {
+            window.location.href = documentationNavigationDropDown.val();
+        });
+
+        $('#exportLink').click(function(event) {
+            event.preventDefault();
+            exportDocumentationToOfflineHtmlPage();
+        });
+    }
+
+    function renderNavigationForScope() {
+        $('.documentationSectionContent h2, .documentationSectionContent h3').each(function () {
+            const tag = $(this).prop("tagName");
+            var sectionTitle = $(this).text();
+            const sectionNumber = sectionTitle.trim().split(' ')[0];
+            sectionTitle = sectionTitle.substr(sectionNumber.length + 1);
+
+            var linkClass = 'documentationNavigationSection';
+            var padding = '&nbsp;&nbsp;&nbsp;&nbsp;';
+
+            if (tag === 'H3') {
+                linkClass = 'documentationNavigationSubSection';
+                padding = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+            }
+
+            const sectionAnchorByName = '#' + findHeadingAnchor(sectionNumber, sectionTitle);
+            anchors.push(sectionAnchorByName);
+            navigationIdsByAnchor[sectionAnchorByName] = anchors.length;
+
+            documentationNavigation.append('<div id="documentationNavigationLink' + (anchors.length) + '" class="documentationNavigationLink ' + linkClass + '"><a href="' + sectionAnchorByName + '">' + sectionNumber + ' ' + structurizr.util.escapeHtml(sectionTitle) + '</a></div>');
+            documentationNavigationDropDown.append(
+                $('<option class="sectionNavigationOption"></option>').val(sectionAnchorByName).html(padding + sectionNumber + ' ' + structurizr.util.escapeHtml(sectionTitle))
+            );
+            quickNavigation.addItem(padding + sectionNumber + ' ' + structurizr.util.escapeHtml(sectionTitle), sectionAnchorByName);
+        });
+    }
+
+    function highlightNavigation(event, hash) {
+        if (hash === undefined) {
+            hash = location.hash;
+        }
+
+        $('.documentationNavigationLink').removeClass('documentationNavigationLinkActive');
+
+        const index = navigationIdsByAnchor[hash];
+        if (index === undefined && hash === '') {
+            $('#documentationScopeName')[0].scrollIntoView(false);
+        }
+
+        if (index > -1) {
+            $('#documentationNavigationLink' + index).addClass('documentationNavigationLinkActive');
+            $('#documentationNavigationDropDown').val(hash);
+
+            try {
+                // scroll the navigation link into view if needed
+                const documentationNavigationPanel = $('#documentationNavigationPanel');
+                const navigationLink = $('#documentationNavigationLink' + index);
+                if (navigationLink.offset().top < documentationNavigationPanel.offset().top) {
+                    navigationLink[0].scrollIntoView(true);
+                } else if ((navigationLink.offset().top + navigationLink.height()) > (documentationNavigationPanel.offset().top + documentationNavigationPanel.height())) {
+                    navigationLink[0].scrollIntoView(false);
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        }
+    }
+
+    function checkDiagramsRendered() {
+        var numberOfDiagramsRendered = 0;
+        for (var i = 0; i < window.frames.length; i++) {
+            const iframe = window.frames[i];
+
+            if (iframe.isRendered !== undefined && iframe.isRendered())  {
+                numberOfDiagramsRendered++;
+            }
+        }
+
+        if (numberOfDiagramsRendered < window.frames.length) {
+            setTimeout(checkDiagramsRendered, 500);
+        } else {
+            rendered = true;
+            $('#exportLink').removeClass('hidden');
+        }
+    }
+
+    function showDocumentationSection(section) {
+        if (section) {
+            if (section.filename) {
+                filenameToSection[section.filename] = section;
+            }
+
+            const result = contentRenderer.render(section);
+            const documentationContent = $('#documentationContent');
+
+            var html = '';
+            html += '<div class="documentationSection">';
+            html += '<div class="documentationSectionContent">' + result + '</div>';
+            html += '</div>';
+            documentationContent.append(html);
+        }
+
+        return section;
+    }
+
+    function rewriteInternalWorkspaceLinks() {
+        $('.documentationSectionContent a').each(function () {
+            var href = $(this).attr('href');
+            href = decodeURIComponent(href);
+            if (href.indexOf(structurizr.constants.INTRA_WORKSPACE_URL_PREFIX) === 0) {
+                // convert {workspace}/doc... to /workspace/1234/doc...
+                href = '/workspace' + href.substring(structurizr.constants.INTRA_WORKSPACE_URL_PREFIX.length) + '';
+                $(this).attr('href', href)
+            }
+        });
+    }
+
+    function assignSectionNumbers() {
+        $('.documentationSectionContent h1').each(function () {
+            $(this).remove();
+        });
+
+        var sectionNumber = 0;
+        var subSectionNumber = 0;
+        var subSubSectionNumber = 0;
+        $('.documentationSectionContent h2, .documentationSectionContent h3, .documentationSectionContent h4').each(function () {
+            var tag = $(this).prop("tagName");
+            var text = $(this).text();
+            var html = $(this).html();
+
+            if (tag === "H2") {
+                sectionNumber++;
+                subSectionNumber = 0;
+                subSubSectionNumber = 0;
+
+                const sectionNumberToRender = sectionNumber;
+                const sectionTitle = text;
+                const headingAnchor = registerHeadingAnchor(sectionNumberToRender, sectionTitle);
+
+                $('<a name="' + sectionNumberToRender + '"/><a name="' + headingAnchor + '" class="headingAnchor" />').insertBefore(this);
+                $(this).html(sectionNumberToRender + ' ' + html);
+            } else if (tag === "H3") {
+                subSectionNumber++;
+                subSubSectionNumber = 0;
+
+                const sectionNumberToRender = sectionNumber + '.' + subSectionNumber;
+                const sectionTitle = text;
+                const headingAnchor = registerHeadingAnchor(sectionNumberToRender, sectionTitle);
+
+                $('<a name="' + sectionNumberToRender + '"/><a name="' + headingAnchor + '" class="headingAnchor" />').insertBefore(this);
+                $(this).html(sectionNumberToRender + ' ' + html);
+            } else if (tag === "H4") {
+                subSubSectionNumber++;
+
+                const sectionNumberToRender = sectionNumber + '.' + subSectionNumber + '.' + subSubSectionNumber;
+                const sectionTitle = text;
+                const headingAnchor = registerHeadingAnchor(sectionNumberToRender, sectionTitle);
+
+                $('<a name="' + sectionNumberToRender + '"/><a name="' + headingAnchor + '" class="headingAnchor" />').insertBefore(this);
+                $(this).html(sectionNumberToRender + ' ' + html);
+            }
+        });
+
+        $('.sectionSelector').addClass('hidden');
+    }
+
+    function changeDocumentation(evt) {
+        const hash = window.location.hash;
+        const index = anchors.indexOf(hash);
+
+        if (evt.key === 'ArrowRight') {
+            if (index < anchors.length - 1) {
+                window.location.hash = anchors[index+1];
+            }
+        } else if (evt.key === 'ArrowLeft') {
+            if (index > 0) {
+                window.location.hash = anchors[index-1];
+            }
+        }
+    }
+
+    function resize() {
+        const topNavigationHeight = $('#topNavigation').outerHeight(true);
+        const padding = 20;
+        var navigationDropDownHeight = 0;
+        if (documentationNavigationDropDownPanel.is(':visible')) {
+            navigationDropDownHeight = documentationNavigationDropDownPanel.innerHeight();
+        }
+        const documentationPanelHeight = (window.innerHeight - topNavigationHeight - padding - navigationDropDownHeight);
+        $('#documentationPanel').css('height', documentationPanelHeight + 'px');
+
+        structurizr.embed.setMaxHeight(0.8 * documentationPanelHeight);
+        $('.img-thumbnail').css('max-height', 0.8 * documentationPanelHeight);
+
+        $('#documentationContent').css('margin-bottom', (0.75 * documentationPanelHeight) + 'px');
+        $('#documentationNavigationPanel').css('height', (window.innerHeight - topNavigationHeight - padding) + 'px');
+    }
+
+    function exportDocumentationToOfflineHtmlPage(callback) {
+        const exportWindow = window.open('/static/html/offline-documentation.html');
+
+        const exportDocumentation = function() {
+            const documentationContentDiv = exportWindow.document.getElementById('documentationContent');
+
+            if (!documentationContentDiv) {
+                setTimeout(exportDocumentation, 100);
+            } else {
+                var originalContent = document.getElementById("documentationContent").innerHTML;
+                exportWindow.document.title = "Structurizr - " + structurizr.workspace.name;
+                exportWindow.document.getElementById('brandingStyles').innerHTML = document.getElementById('brandingStyles').innerHTML;
+                exportWindow.document.getElementById('documentationHeader').innerHTML = document.getElementById('documentationHeader').innerHTML;
+
+                const embeddedDiagrams = $('#documentationContent iframe.structurizrEmbed');
+                embeddedDiagrams.each(function(index) {
+                    var iframe = embeddedDiagrams[index];
+                    if (iframe.contentWindow.isExportable && iframe.contentWindow.isExportable()) {
+                        if (iframe.contentWindow.structurizr.diagram.getCurrentViewOrFilter().type === structurizr.constants.IMAGE_VIEW_TYPE) {
+                            var imageElement = exportWindow.document.createElement("img");
+                            imageElement.className = 'img-thumbnail';
+                            imageElement.style = 'max-width: 100%; height: auto;';
+
+                            var content = iframe.contentWindow.structurizr.diagram.getCurrentViewOrFilter().content;
+                            var parentDiv = iframe.parentNode;
+                            imageElement.src = content;
+                            parentDiv.insertBefore(imageElement, iframe);
+                            parentDiv.removeChild(iframe);
+                        } else {
+                            var embeddedDiagramDiv = exportWindow.document.createElement("div");
+                            embeddedDiagramDiv.className = 'img-thumbnail';
+
+                            var svgMarkupForDiagram = iframe.contentWindow.structurizr.diagram.exportCurrentDiagramToSVG(true);
+                            var svgMarkupForDiagramKey = iframe.contentWindow.structurizr.diagram.exportCurrentDiagramKeyToSVG();
+
+                            var parentDiv = iframe.parentNode;
+                            embeddedDiagramDiv.innerHTML = svgMarkupForDiagram + '<div class="diagramKey">' + svgMarkupForDiagramKey + '</div>';
+                            parentDiv.insertBefore(embeddedDiagramDiv, iframe);
+                            parentDiv.removeChild(iframe);
+                        }
+                    } else {
+                        iframe.parentNode.removeChild(iframe);
+                    }
+                });
+
+                documentationContentDiv.innerHTML = document.getElementById("documentationContent").innerHTML;
+
+                const branding = structurizr.ui.getBranding();
+                if (branding.font.url) {
+                    const head = exportWindow.document.head;
+                    const link = exportWindow.document.createElement('link');
+
+                    link.type = 'text/css';
+                    link.rel = 'stylesheet';
+                    link.href = branding.font.url;
+
+                    head.appendChild(link);
+                }
+
+                if (callback) {
+                    callback(exportWindow.document.documentElement.outerHTML);
+                    exportWindow.close();
+                } else {
+                    const content = exportWindow.document.documentElement.outerHTML;
+                    structurizr.util.downloadFile(content, "text/html;charset=utf-8", 'structurizr-' + structurizr.workspace.id + '-documentation.html');
+                    exportWindow.close();
+                }
+
+                document.getElementById("documentationContent").innerHTML = originalContent;
+            }
+        };
+
+        if (window.navigator.userAgent.indexOf("Edge") > -1) {
+            exportDocumentation();
+        } else {
+            exportWindow.addEventListener("load", exportDocumentation);
+        }
+    }
+</script>
+
+<script nonce="NGViMmFlNWUtNDcyYi00ODY4LWFhYWUtNzVjOWNlZTM0MGQy">
+    var username = "";
+    
+    const agent = '';
+
+    structurizr.autoSave = false;
+    var structurizrEncryptionStrategy;
+    const structurizrApiClient = new structurizr.io.StructurizrApiClient(
+        "/api",
+        "1",
+        "dac96967-eb4d-47af-9a00-79b79fa475ad",
+        "6aa1a236-1c23-4259-82a2-f0736592c724",
+        "",
+        username,
+        agent
+    );
+
+    structurizrApiClient.getWorkspace(
+        "",
+        function(response) {
+            if (response.success) {
+                const json = response.json;
+                json.id = 1; // force the workspace ID to be set correctly
+
+                if (json.ciphertext && json.encryptionStrategy) {
+                    showPassphraseModalAndDecryptWorkspace(json, loadWorkspace);
+                } else {
+                    loadWorkspace(json);
+                }
+            } else {
+                if (response.message) {
+                    console.log(response.message);
+                    if (progressMessage) {
+                        progressMessage.show('<p>Error</p><p style="font-size: 75%">' + structurizr.util.escapeHtml(response.message) + '</p>');
+                    }
+                }
+            }
+        }
+    );
+
+    structurizr.saveWorkspace = function(callback) {
+        const workspace = structurizr.workspace.getJson();
+        workspace.views = structurizr.workspace.views;
+
+        if (structurizrEncryptionStrategy) {
+            try {
+                const encryptedWorkspace = structurizrEncryptionStrategy.encrypt(workspace);
+                if (encryptedWorkspace) {
+                    structurizrApiClient.putWorkspace(encryptedWorkspace, callback);
+                }
+            } catch (e) {
+                console.error(e);
+                alert("Workspace " + id + " could not be saved - " + e);
+            }
+        } else {
+            structurizrApiClient.putWorkspace(workspace, callback);
+        }
+    };
+</script></div>
+
+    </body>
+
+    <script nonce="NGViMmFlNWUtNDcyYi00ODY4LWFhYWUtNzVjOWNlZTM0MGQy">
+        window.onerror = function (msg, url, lineNo, columnNo, error) {
+            logError(msg, url, lineNo, error);
+        };
+
+        function logError(msg, url, lineNo, error) {
+            console.log(msg);
+        }
+
+        $('#renderingModeLightLink').click(function(event) {
+            event.preventDefault();
+            structurizr.ui.setRenderingMode(structurizr.ui.RENDERING_MODE_LIGHT);
+        });
+
+        $('#renderingModeDarkLink').click(function(event) {
+            event.preventDefault();
+            structurizr.ui.setRenderingMode(structurizr.ui.RENDERING_MODE_DARK);
+        });
+
+        $('#renderingModeSystemLink').click(function(event) {
+            event.preventDefault();
+            structurizr.ui.setRenderingMode(structurizr.ui.RENDERING_MODE_SYSTEM);
+        });
+    </script>
+</html>

@@ -1,0 +1,60 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CU-SEL — Car Selection — Low-Level Design</title><style>
+:root{color-scheme:light dark}
+body{max-width:920px;margin:0 auto;padding:2rem 1.25rem;
+  font:16px/1.6 -apple-system,Segoe UI,Roboto,sans-serif;
+  background:#0d1117;color:#c9d1d9}
+a{color:#58a6ff}
+h1,h2,h3{line-height:1.25;margin-top:1.6em;border-bottom:1px solid #30363d;padding-bottom:.3em}
+code{background:#161b22;padding:.15em .4em;border-radius:4px;font-size:.9em}
+pre{background:#161b22;padding:1rem;border-radius:8px;overflow:auto}
+pre code{background:none;padding:0}
+table{border-collapse:collapse;width:100%;margin:1em 0}
+th,td{border:1px solid #30363d;padding:.5em .75em;text-align:left}
+th{background:#161b22}
+blockquote{border-left:3px solid #30363d;margin:0;padding-left:1em;color:#8b949e}
+</style></head>
+<body><h1>CU-SEL — Car Selection — Low-Level Design</h1>
+<blockquote>
+<p>Source: Context-engine verification (no implementation found). OpenProject: #403.</p>
+</blockquote>
+<h2>Feature summary and boundaries</h2>
+<p>🆕 since 2026-06-23. CU-SEL defines a Car Selection feature — the screen and logic for choosing which car to use before entering a race or mode. This is distinct from CU-ROOM (customization) and CU-VIS (visual customization).</p>
+<p>❌ <strong>Gap: feature requested but unimplemented.</strong> OpenProject #403 defines a car selection flow. A full search of <code>PrototypeRacing/</code> via CodeGraph and context-engine finds <strong>no dedicated car selection subsystem or screen</strong>. The game currently has no multi-car selection UI — the player owns one car at a time in progression, and car unlock (VT-CITY-CU) adds cars to the garage without a selection screen.</p>
+<p>This document records the gap and proposes what needs to be built.</p>
+<h2>Layer 1 — Implementation map</h2>
+<p>No implementation exists. The table below describes the components that <strong>need to be built</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Component (proposed)</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Car Selection Screen (UMG)</td>
+<td>Grid or list of owned cars with stats thumbnail, CR rating, visual preview.</td>
+</tr>
+<tr>
+<td><code>UCarSelectionSubsystem</code></td>
+<td>Manages which car is currently selected for the next race; syncs with garage/inventory.</td>
+</tr>
+<tr>
+<td>Car stat comparison widget</td>
+<td>Side-by-side stat comparison between owned cars.</td>
+</tr>
+</tbody></table>
+<h2>Layer 2 — Contract surface</h2>
+<p>No verified entry points exist. Proposed integration points:</p>
+<ul>
+<li>Car selection should read from <code>UInventoryManager</code> / garage system to list owned cars.</li>
+<li>Selected car should be passed to <code>ARaceTrackManager</code> or <code>ARacingCarGameMode</code> at race start.</li>
+<li>Stats displayed should come from <code>UCarCustomizationManager::CalculatePerformanceStats</code>.</li>
+</ul>
+<h2>Links</h2>
+<ul>
+<li>Portal: <code>Docs/portal/src/content/docs/features/cu-sel.md</code></li>
+<li>Cross-ref: CU-ROOM (car stats), VT-CITY-CU (car unlock)</li>
+</ul>
+</body></html>

@@ -1,0 +1,34 @@
+@startuml containers
+' SPIKE: C4-PlantUML containers view with CLICKABLE boxes.
+' Each Container has $link=... -> renders as a real <a href> in the SVG, so
+' clicking the box navigates to that feature's Low-Level Design page.
+' Links are RELATIVE to the architecture page that embeds this SVG
+' (/VNRacing/architecture -> /VNRacing/features/<slug>), so they stay correct under
+' the GitHub Pages /VNRacing base AND across version paths (/VNRacing/next/...).
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/v2.10.0/C4_Container.puml
+
+title VNRacing Client — Containers (bấm vào một container để mở trang chi tiết)
+
+Person(player, "Người chơi", "Mobile player")
+
+System_Boundary(client, "VNRacing Client (UE5.6)") {
+  Container(ui,       "UI / UMG Layer",        "UMG, 235 WidgetBlueprints", "HUD + menu shell", $link="/VNRacing/features/cu-menu")
+  Container(gameplay, "Gameplay",              "C++ / Blueprint",           "Drive Mode, Race, Physics", $link="/VNRacing/features/dm-race")
+  Container(meta,     "Meta",                  "C++ Subsystems",            "VN Tour, progression, economy", $link="/VNRacing/features/vt-city")
+  Container(localdata,"Local Data",            "SaveGame / CSV",            "Player save + tuning tables", $link="/VNRacing/features/sup-prof")
+  Container(backend,  "Backend Comm",          "Nakama client",             "Multiplayer + sync", $link="/VNRacing/features/gm-mp")
+  Container(tooling,  "Tooling",               "Editor / Debug",            "Track test + debug", $link="/VNRacing/features/sup-dbg")
+}
+
+System_Ext(cdn, "Content CDN", "AWS S3 — pak/chunk download")
+System_Ext(nakama, "Nakama", "Realtime multiplayer backend")
+
+Rel(player, ui, "Chơi qua")
+Rel(ui, gameplay, "Điều khiển")
+Rel(gameplay, meta, "Báo kết quả race")
+Rel(meta, localdata, "Lưu tiến trình")
+Rel(backend, nakama, "WebSocket")
+Rel(gameplay, cdn, "Tải nội dung")
+
+SHOW_LEGEND()
+@enduml

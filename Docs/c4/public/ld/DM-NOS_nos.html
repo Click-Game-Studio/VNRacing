@@ -1,0 +1,119 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DM-NOS — NOS — Low-Level Design</title><style>
+:root{color-scheme:light dark}
+body{max-width:920px;margin:0 auto;padding:2rem 1.25rem;
+  font:16px/1.6 -apple-system,Segoe UI,Roboto,sans-serif;
+  background:#0d1117;color:#c9d1d9}
+a{color:#58a6ff}
+h1,h2,h3{line-height:1.25;margin-top:1.6em;border-bottom:1px solid #30363d;padding-bottom:.3em}
+code{background:#161b22;padding:.15em .4em;border-radius:4px;font-size:.9em}
+pre{background:#161b22;padding:1rem;border-radius:8px;overflow:auto}
+pre code{background:none;padding:0}
+table{border-collapse:collapse;width:100%;margin:1em 0}
+th,td{border:1px solid #30363d;padding:.5em .75em;text-align:left}
+th{background:#161b22}
+blockquote{border-left:3px solid #30363d;margin:0;padding-left:1em;color:#8b949e}
+</style></head>
+<body><h1>DM-NOS — NOS — Low-Level Design</h1>
+<blockquote>
+<p>Source: <code>Docs/audit/DM-NOS_nos.md</code>, <code>Docs/c4/model.c4</code>, read-only source under <code>PrototypeRacing/Source</code>.
+Structurizr view: <code>DM_NOS_Components</code>.
+OpenProject: #334.</p>
+</blockquote>
+<h2>Feature summary and boundaries</h2>
+<p>DM-NOS owns the nitro/boost mechanic: player and AI activation of the NOS boost force, gauge management, the on-track refill checkpoint, and AI decision logic for when to trigger NOS. Physics impulse application is delegated to DM-PHYS (<code>ASimulatePhysicsCar</code>). Race rules belong to DM-RACE. AI decision infrastructure belongs to SUP-AI.</p>
+<p><img src="../structurizr/embed/DM_NOS_Components" alt="DM-NOS components"></p>
+<h1>Layer 1 — Implementation map and hotspots</h1>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Source mapping</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ASimulatePhysicsCar::BoostNitro</code></td>
+<td><code>SimpleCarPhysics/Private/PhysicsSimulateCar/SimulatePhysicsCar.cpp:3350</code></td>
+<td>Core NOS activation on the car: validates gauge state, increments <code>NitroBoostCounter</code>, adds <code>StandardNitroBoost</code> force, starts burn timer, sets <code>bIsNitroActive</code>.</td>
+</tr>
+<tr>
+<td><code>APhysicCarController::BoostNitrous</code></td>
+<td><code>PrototypeRacing/PhysicCarController.cpp:67</code></td>
+<td>Controller entry point: calls <code>On_BoostNitrous()</code> then <code>ResetNitrous()</code> (line 62 resets <code>Nitrous = 0.f</code>).</td>
+</tr>
+<tr>
+<td><code>APrototypeRacingPlayerController::BoostNitrous</code></td>
+<td><code>PrototypeRacing/PrototypeRacingPlayerController.cpp:97</code></td>
+<td>Player controller entry: calls <code>VehiclePawn-&gt;Boost(false)</code> then <code>ResetNitrous()</code> (line 92).</td>
+</tr>
+<tr>
+<td><code>ABoostCheckPoint</code></td>
+<td><code>PrototypeRacing/BoostCheckPoint.h:10</code> / <code>BoostCheckPoint.cpp</code></td>
+<td>On-track NOS refill trigger actor; <code>UBoxComponent</code> overlap <code>OnOverlapBegin</code>; <code>BeginPlay</code> (line 32) and <code>Tick</code> (line 39) are currently empty bodies.</td>
+</tr>
+<tr>
+<td><code>UAIDecisionComponent</code> (NOS path)</td>
+<td><code>SimpleCarPhysics/.../AIDecisionComponent.cpp:50–87</code></td>
+<td><code>TickComponent</code> accumulates <code>NOSCheckInterval</code>; when gauge is full and interval elapsed, sets <code>bShouldUseNOS = true</code> based on <code>AIDifficultyProfile.NOSUsageFrequency</code>.</td>
+</tr>
+<tr>
+<td><code>ASimulatePhysicsCar::AutoDrive</code></td>
+<td><code>SimulatePhysicsCar.cpp:2615</code></td>
+<td>Reads <code>AIDecisionComponent-&gt;bShouldUseNOS</code>; if straight line + gauge full → calls <code>BoostNitro()</code>, resets flag.</td>
+</tr>
+</tbody></table>
+<p>Runtime flow:</p>
+<pre><code>[Player input] → APrototypeRacingPlayerController::BoostNitrous (line 97)
+   └─ VehiclePawn-&gt;Boost(false) → ASimulatePhysicsCar::BoostNitro (line 3350)
+        └─ validate NitroGauge, increment NitroBoostCounter
+           add CurrentNitroForce += StandardNitroBoost
+           NitroBurnSpeed += 1/NitroBoostDuration
+           OnNitroStart(true), bIsNitroActive = true
+
+[AI path] UAIDecisionComponent::TickComponent (line 50)
+   └─ if NitroGauge ≈ 1.0 → NOSCheckInterval += DeltaTime
+      if NOSCheckInterval &gt;= AIDifficultyProfile.NOSCheckInterval
+         → probability check NOSUsageFrequency → bShouldUseNOS = true
+   └─ ASimulatePhysicsCar::AutoDrive (line 2615)
+        if bShouldUseNOS &amp;&amp; straight line → BoostNitro(), bShouldUseNOS = false
+
+[Refill] ABoostCheckPoint::OnOverlapBegin
+   └─ refill NitroGauge on overlapping ASimulatePhysicsCar
+</code></pre>
+<p>Hotspots:</p>
+<ul>
+<li><code>ABoostCheckPoint::Tick</code> (line 39–41) is an empty body with tick enabled — should set <code>bCanEverTick = false</code> (same pattern as DM-RACE hotspot #3).</li>
+<li><code>UAIDecisionComponent::TickComponent</code> runs every frame for all AI cars; NOS interval check is gated by gauge level which limits work when gauge is not full.</li>
+<li><code>ABoostCheckPoint::BeginPlay</code> (line 32) is empty — confirm the overlap binding is wired in a subclass or Blueprint.</li>
+</ul>
+<h1>Layer 2 — Contract surface</h1>
+<p>Key fields on <code>ASimulatePhysicsCar</code> (NOS-related):</p>
+<pre><code class="language-cpp">float NitroGauge;            // 0..1; full = 1.0
+float CurrentNitroForce;
+float StandardNitroBoost;    // base force per activation
+float NitroBoostDuration;
+float NitroBurnSpeed;
+int32 NitroBoostCounter;     // 0/1/2 stacking
+bool  bIsNitroActive;
+</code></pre>
+<p>Key fields on <code>UAIDecisionComponent</code> (NOS-related):</p>
+<pre><code class="language-cpp">float NOSCheckInterval;                       // accumulated DeltaTime
+bool  bShouldUseNOS;                          // flag consumed by AutoDrive
+// from FAIDifficultyProfile:
+float AIDifficultyProfile.NOSCheckInterval;   // interval threshold
+float AIDifficultyProfile.NOSUsageFrequency;  // probability [0..1]
+</code></pre>
+<p>Entry points:</p>
+<ul>
+<li>Player: <code>APrototypeRacingPlayerController::BoostNitrous</code> (line 97) or <code>APhysicCarController::BoostNitrous</code> (line 67).</li>
+<li>AI: <code>UAIDecisionComponent::TickComponent</code> sets flag → <code>ASimulatePhysicsCar::AutoDrive</code> fires.</li>
+<li>Refill: <code>ABoostCheckPoint::OnOverlapBegin</code>.</li>
+</ul>
+<h2>Links</h2>
+<ul>
+<li>Audit: <code>Docs/audit/DM-NOS_nos.md</code></li>
+<li>Structurizr: <code>DM_NOS_Components</code></li>
+</ul>
+</body></html>

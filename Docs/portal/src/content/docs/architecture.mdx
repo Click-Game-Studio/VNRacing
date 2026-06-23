@@ -1,0 +1,123 @@
+---
+title: Kiến trúc (sơ đồ tương tác)
+description: Sơ đồ C4 LikeC4 tương tác cho client mobile VNRacing trên UE5. Bấm vào ô box bất kỳ của một tính năng để nhảy thẳng tới trang thiết kế chi tiết của nó.
+---
+
+import DiagramView from '../../components/DiagramView.tsx';
+
+export const base = import.meta.env.BASE_URL;
+
+Các sơ đồ C4 dưới đây là mô hình nguồn duy nhất (LikeC4). Tất cả đều tương tác:
+**kéo (pan)** bằng cách rê canvas, **phóng to (zoom)** bằng con lăn chuột, và
+**drill down** bằng cách bấm vào một ô container hoặc ô tính năng.
+
+:::tip[Lối tắt cho dev]
+Bấm vào một **ô tính năng** (DM-*, VT-*, GM-*, CU-*, CDN, SUP-*) hoặc ô component
+của nó để mở thẳng trang Thiết kế chi tiết (Low-Level Design) tương ứng — không
+cần bấm đúp hay icon duyệt. Bấm vào một container hoặc hệ thống bên ngoài
+(external system) thì dùng điều hướng nội bộ của sơ đồ LikeC4.
+:::
+
+## System Context
+
+Toàn hệ thống nhìn tổng thể: người chơi mobile, client UE5, và các dịch vụ
+bên ngoài mà nó trao đổi. Bấm vào ô **client** để drill vào các container.
+
+<DiagramView client:only="react" viewId="index" base={base} project="current" />
+
+## Containers
+
+Sáu nhóm runtime bên trong client. Bấm vào một container để xem các tính năng
+nằm trong nó.
+
+<DiagramView client:only="react" viewId="containers" base={base} project="current" />
+
+## Component view theo tính năng
+
+Mỗi tính năng có một sơ đồ riêng: các class C++ và nhóm Blueprint thật của nó,
+kèm các tính năng lân cận (hiển thị mờ, bấm được để chuyển sang). **Bấm vào ô
+tính năng hoặc ô component để mở trang LD tương ứng.**
+
+### Drive Mode (Epic #279)
+
+#### DM-PHYS DriveMode / Physics
+<DiagramView client:only="react" viewId="dmPhys" base={base} project="current" />
+
+#### DM-RACE Basic Racing
+<DiagramView client:only="react" viewId="dmRace" base={base} project="current" />
+
+#### DM-NOS NOS
+<DiagramView client:only="react" viewId="dmNos" base={base} project="current" />
+
+#### DM-RAMP RAMP
+<DiagramView client:only="react" viewId="dmRamp" base={base} project="current" />
+
+#### DM-CAM CAMERA
+<DiagramView client:only="react" viewId="dmCam" base={base} project="current" />
+
+#### DM-SET SETTING
+<DiagramView client:only="react" viewId="dmSet" base={base} project="current" />
+
+### VN Tour (Epic)
+
+#### VT-MAP Map Đua / Huế City
+<DiagramView client:only="react" viewId="vtMap" base={base} project="current" />
+
+#### VT-CITY City Progression
+<DiagramView client:only="react" viewId="vtCity" base={base} project="current" />
+
+#### VT-TRACK Area-Track Unlock
+<DiagramView client:only="react" viewId="vtTrack" base={base} project="current" />
+
+#### VT-CARPROG Car-Progression
+<DiagramView client:only="react" viewId="vtCarProg" base={base} project="current" />
+
+#### VT-REWARD Reward
+<DiagramView client:only="react" viewId="vtReward" base={base} project="current" />
+
+### Game Mode (Epic)
+
+#### GM-MP MULTIPLAYER
+<DiagramView client:only="react" viewId="gmMp" base={base} project="current" />
+
+#### GM-DC DAILY CHALLENGE ❌ (chưa có code)
+<DiagramView client:only="react" viewId="gmDc" base={base} project="current" />
+
+### Customize (Epic)
+
+#### CU-ROOM Customize Room
+<DiagramView client:only="react" viewId="cuRoom" base={base} project="current" />
+
+#### CU-MENU Main menu
+<DiagramView client:only="react" viewId="cuMenu" base={base} project="current" />
+
+### CDN
+
+#### CDN Content Download
+<DiagramView client:only="react" viewId="cdnFeat" base={base} project="current" />
+
+### Hệ thống nền (Support — ngoài CSV)
+
+#### SUP-AI Racer AI
+<DiagramView client:only="react" viewId="supAi" base={base} project="current" />
+
+#### SUP-POOL Object Pooling
+<DiagramView client:only="react" viewId="supPool" base={base} project="current" />
+
+#### SUP-INV Inventory
+<DiagramView client:only="react" viewId="supInv" base={base} project="current" />
+
+#### SUP-PROF User Profile / Economy
+<DiagramView client:only="react" viewId="supProf" base={base} project="current" />
+
+#### SUP-SHOP Shop / IAP / Ads
+<DiagramView client:only="react" viewId="supShop" base={base} project="current" />
+
+#### SUP-TUT Tutorial / Onboarding
+<DiagramView client:only="react" viewId="supTut" base={base} project="current" />
+
+#### SUP-DBG Debug & Track Test
+<DiagramView client:only="react" viewId="supDbg" base={base} project="current" />
+
+#### SUP-PERF Performance & PSO
+<DiagramView client:only="react" viewId="supPerf" base={base} project="current" />
