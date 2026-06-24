@@ -13,8 +13,8 @@ description: Lộ trình 7 phase triển khai multiplayer cho PrototypeRacing.
 - Auto-generate version: `<app>-<yyyymmdd>-r<P4_CL>`
 - Validate dry-run → publish thật → cập nhật Nakama runtime env
 
-### Phase 1 — Server-authoritative Race Validation (2-3 sprints)
-- **Mục tiêu**: Thay thế client-submit MMR bằng dedicated-server-submit MMR
+### Phase 1 — Soft-authoritative Race Validation (2-3 sprints)
+- **Mục tiêu**: Server validate kết quả đua (vị trí, thời gian, lap) để phát hiện gian lận rõ ràng, thay thế client-submit MMR bằng dedicated-server-submit MMR
 - **Độ khó**: High
 - **Phụ thuộc**: Phase 0 (CI/CD), dedicated server GameMode
 - Dedicated server RaceTrackManager nhận Login/Logout + race result

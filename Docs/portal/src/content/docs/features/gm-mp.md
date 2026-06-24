@@ -12,11 +12,11 @@ description: "Thiết kế chi tiết: client Nakama, matchmaking, waiting room 
 
 GM-MP hợp nhất F11 (Backend/Nakama) và F12 (Multiplayer Race) thành một feature. GM-MP lo các service auth/session/realtime/match phía client của Nakama, các kiểu contract backend dùng chung và game mode waiting-room để xác thực join-token rồi travel vào level đua online.
 
-⚠️ **Trạng thái: partial.** Waiting-room và xác thực join-token đã hiện thực. **Race flow server-authoritative CHƯA implement** — đây là gap lớn nhất của Game Mode epic.
+⚠️ **Trạng thái: partial.** Waiting-room và xác thực join-token đã hiện thực. **Race validation soft-authoritative CHƯA implement** — đây là gap lớn nhất của Game Mode epic.
 
 ## Phạm vi
 
-GM-MP là lớp giao tiếp phía client kết hợp với waiting-room shell. GM-MP không vận hành server economy, không thực thi race server-authoritative.
+GM-MP là lớp giao tiếp phía client kết hợp với waiting-room shell. GM-MP không vận hành server economy, không thực thi race validation soft-authoritative.
 
 ## Thành phần
 
@@ -36,9 +36,9 @@ Thiết lập auth/session đi qua `UNakamaServiceSubsystem`. `UMatchServiceSubs
 
 Không có per-frame hotspot ở tầng gateway. Coupling 2 chiều giữa `UNakamaServiceSubsystem` và `UMatchServiceSubsystem` (`NakamaServiceSubsystem.cpp:8,90,157,162`) khiến test cô lập khó và tăng rủi ro vòng lặp init. `NetUpdateFrequency=100 Hz/xe` (`SimulatePhysicsCar.cpp:82-87`) chưa gây vấn đề khi đua AI offline nhưng sẽ tiêu tốn băng thông lớn khi bật PvP thật.
 
-## Gap — Race server-authoritative
+## Gap — Soft-authoritative race validation
 
-Server-side race authority (server clamp/relay, anti-cheat, kết quả có thẩm quyền) **chưa có**. Hiện client tự sim. Đây là gap P0 khi bật PvP.
+Server-side race validation (soft-authoritative) (server clamp/relay, anti-cheat, kết quả có thẩm quyền) **chưa có**. Hiện client tự sim. Đây là gap P0 khi bật PvP.
 
 ## API công khai
 
@@ -46,7 +46,7 @@ Entry point đã xác minh: vòng đời auth/session/realtime (`UNakamaServiceS
 
 ## Phần chưa kiểm chứng
 
-Xác thực physics/kết quả đua có thẩm quyền, giao thức snapshot dedicated server và thẩm quyền anti-cheat đòi hỏi rà soát trong editor/nguồn vượt ngoài bằng chứng hiện có.
+Xác thực kết quả đua soft-authoritative, giao thức snapshot dedicated server và thẩm quyền anti-cheat đòi hỏi rà soát trong editor/nguồn vượt ngoài bằng chứng hiện có.
 
 ## Tham chiếu
 

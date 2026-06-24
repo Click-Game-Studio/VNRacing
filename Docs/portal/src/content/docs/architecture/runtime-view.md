@@ -33,7 +33,7 @@ Các component view được nhắc dưới đây đều tương tác được t
 4. `MultiplayerWaitingRoomGameMode` kiểm tra join token và travel vào path waiting room/race.
 5. Content download dùng ChunkDownloader và UI patch; luồng content đầy đủ nên tránh các lần load blocking và debug message trong bản shipping.
 
-Phần chưa kiểm chứng: nguồn xác nhận các dịch vụ online phía client và việc kiểm tra waiting room, nhưng chưa xác nhận một server-authoritative race authority hoàn chỉnh.
+Phần chưa kiểm chứng: nguồn xác nhận các dịch vụ online phía client và việc kiểm tra waiting room, nhưng chưa xác nhận một soft-authoritative race validation hoàn chỉnh.
 
 ## Kịch bản D: Hỗ trợ hiệu năng và debug
 

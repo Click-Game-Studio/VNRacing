@@ -31,5 +31,5 @@ description: Mục tiêu chất lượng, các điểm nóng P0/P1 từ audit, v
 ## Phần chưa kiểm chứng
 
 - Mức phủ về Blueprint graph còn cục bộ. Các audit đã kiểm chứng một số BP gameplay/UI chọn lọc, nhưng không phải mọi WidgetBlueprint và asset Blueprint.
-- Luồng server-authoritative multiplayer race đầy đủ chưa có bằng chứng trong source; nên coi GM-MP là client/waiting-room cộng với kiến trúc mục tiêu.
+- Luồng soft-authoritative multiplayer race validation đầy đủ chưa có bằng chứng trong source; nên coi GM-MP là client/waiting-room cộng với kiến trúc mục tiêu.
 - Commerce backend authority và việc wiring native mobile provider chưa hoàn chỉnh ở mức production trong bằng chứng source.

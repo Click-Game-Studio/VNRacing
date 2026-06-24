@@ -24,7 +24,7 @@ Tài liệu Multiplayer này là bản **preview kiến trúc** dựa trên bả
 | Dedicated Server | AMultiplayerWaitingRoomGameMode, join-token, ServerTravel | ✅ |
 | Client UI | UMultiplayerMatchmakingWidget state machine | ✅ |
 | CI/CD publish | publish_edgegap_server.sh (local validated) | ✅ |
-| **Server-authoritative race** | Race result do server phê duyệt | ❌ |
+| **Soft-authoritative race validation** | Server kiểm tra kết quả để phát hiện gian lận rõ ràng, không kiểm soát cứng physics từng frame. | ❌ |
 | **UX Scenes** | Intro/Quick/Post-game scenes | ❌ |
 | **Lobby / Private Match** | 4 US Lobby Match | ❌ |
 | **AI Takeover** | Chạy giúp khi disconnect | ❌ |

@@ -12,7 +12,7 @@ Sơ đồ System Context tương tác nằm ở trang [Kiến trúc](/architectu
 | Mobile Player | Người chơi iOS / Android dùng điều khiển cảm ứng, các màn hình đua, garage và điều hướng meta-game. |
 | VNRacing UE5 Mobile Client | Một module client UE duy nhất hiện đang nắm gameplay, meta/economy, UI, lưu trữ cục bộ, dịch vụ online phía client và tooling. |
 | Nakama | Ranh giới auth, session, realtime socket và matchmaking thông qua Nakama UE SDK. |
-| Edgegap / Dedicated Server | Ranh giới hosting/server mục tiêu. Source xác nhận luồng waiting-room/join-token, nhưng race server-authoritative đầy đủ thì chưa có bằng chứng hoàn chỉnh. |
+| Edgegap / Dedicated Server | Ranh giới hosting/server mục tiêu. Source xác nhận luồng waiting-room/join-token, nhưng race validation soft-authoritative đầy đủ thì chưa có bằng chứng hoàn chỉnh. |
 | GameAnalytics | Chỉ là nơi thu telemetry; trạng thái gameplay không nên phụ thuộc vào việc gửi event. |
 | App Store / Play Billing | Nhà cung cấp entitlement IAP mục tiêu. Hiện source đang đấu nối một commerce provider giả lập (mock); các provider native/xác thực receipt phía server còn là khoảng trống. |
 | Content CDN | Mục tiêu cho việc tải pak/chunk qua ChunkDownloader. |
