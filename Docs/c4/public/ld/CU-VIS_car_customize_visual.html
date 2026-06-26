@@ -1,0 +1,55 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CU-VIS — Car Customize Visual — Low-Level Design</title><style>
+:root{color-scheme:light dark}
+body{max-width:920px;margin:0 auto;padding:2rem 1.25rem;
+  font:16px/1.6 -apple-system,Segoe UI,Roboto,sans-serif;
+  background:#0d1117;color:#c9d1d9}
+a{color:#58a6ff}
+h1,h2,h3{line-height:1.25;margin-top:1.6em;border-bottom:1px solid #30363d;padding-bottom:.3em}
+code{background:#161b22;padding:.15em .4em;border-radius:4px;font-size:.9em}
+pre{background:#161b22;padding:1rem;border-radius:8px;overflow:auto}
+pre code{background:none;padding:0}
+table{border-collapse:collapse;width:100%;margin:1em 0}
+th,td{border:1px solid #30363d;padding:.5em .75em;text-align:left}
+th{background:#161b22}
+blockquote{border-left:3px solid #30363d;margin:0;padding-left:1em;color:#8b949e}
+</style></head>
+<body><h1>CU-VIS — Car Customize Visual — Low-Level Design</h1>
+<blockquote>
+<p>Source: Context-engine verification (no implementation found). OpenProject: #401.
+Subs: CU-VIS-BODY #555, CU-VIS-PAINT #556, CU-VIS-PREV #557, CU-VIS-CAM #558, CU-VIS-TEST #559.</p>
+</blockquote>
+<h2>Feature summary and boundaries</h2>
+<p>🆕 since 2026-06-23. CU-VIS defines a Visual Car Customization feature — separate from the existing CU-ROOM (Customize Room) which handles the garage/customization UI and CR calculation. CU-VIS would own the visual-only customization flow: body parts, paints/decals, preview, camera functions, and test drive.</p>
+<p>The existing <code>UCarCustomizationManager</code> does handle mesh/material application by part name, but there is no dedicated &quot;visual customization&quot; subsystem or screen distinct from the general garage/customize flow. This feature is a <strong>gap</strong>.</p>
+<h3>CU-VIS-BODY Customize Body Parts (#555)</h3>
+<p>🆕 since 2026-06-23. Sub-feature of CU-VIS.</p>
+<p>❌ <strong>Gap: not yet implemented.</strong> Work-package #555 defines per-part body customization (bumpers, skirts, spoilers, wheels, etc.). The existing <code>UCustomizeCarSubsystem</code> applies mesh/material by part name, but there is no dedicated body-parts selection UI or part-swap workflow.</p>
+<h3>CU-VIS-PAINT Customize Paints &amp; Decals (#556)</h3>
+<p>🆕 since 2026-06-23. Sub-feature of CU-VIS.</p>
+<p>❌ <strong>Gap: not yet implemented.</strong> Work-package #556 defines paint color selection, decal application, and material customization. No dedicated paint/decal system exists beyond basic material overrides in <code>UCarCustomizationManager</code>.</p>
+<h3>CU-VIS-PREV Customize Preview (#557)</h3>
+<p>🆕 since 2026-06-23. Sub-feature of CU-VIS.</p>
+<p>❌ <strong>Gap: not yet implemented.</strong> Work-package #557 defines a preview/viewport for the customized car showing changes in real-time. No dedicated preview system exists.</p>
+<h3>CU-VIS-CAM Camera Functions (#558)</h3>
+<p>🆕 since 2026-06-23. Sub-feature of CU-VIS.</p>
+<p>❌ <strong>Gap: not yet implemented.</strong> Work-package #558 defines camera controls in the customization preview (orbit, zoom, rotation). The existing <code>AFollowCarCamera</code> is a race chase-cam, not a preview camera.</p>
+<h3>CU-VIS-TEST Car Test (#559)</h3>
+<p>🆕 since 2026-06-23. Sub-feature of CU-VIS.</p>
+<p>❌ <strong>Gap: not yet implemented.</strong> Work-package #559 defines a test-drive button from the customization screen — entering a short track to test the customized car&#39;s feel.</p>
+<h2>Layer 1 — Implementation map</h2>
+<p>No implementation exists for CU-VIS or any of its sub-features. The existing code in <code>UCarCustomizationManager</code> and <code>UCustomizeCarSubsystem</code> handles mesh/material application within the CU-ROOM context; they would be the foundation for building CU-VIS but currently lack a dedicated visual-customization UX.</p>
+<h2>Layer 2 — Contract surface</h2>
+<p>No verified entry points. Proposed integration:</p>
+<ul>
+<li>CU-VIS should reuse <code>UCustomizeCarSubsystem::ApplyPartMesh/Material</code> for the actual part application.</li>
+<li>Preview viewport should be a separate UMG widget with a SceneCapture2D or in-level camera actor.</li>
+<li>Paint/Decal system could extend the existing material slot system in <code>UCustomizableCar</code>.</li>
+</ul>
+<h2>Links</h2>
+<ul>
+<li>Portal: <code>Docs/portal/src/content/docs/features/cu-vis.md</code></li>
+<li>Cross-ref: CU-ROOM (existing customization code), DM-CAM (camera integration)</li>
+</ul>
+</body></html>

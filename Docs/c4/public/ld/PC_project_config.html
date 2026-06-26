@@ -1,0 +1,67 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PC — Project Config — Low-Level Design</title><style>
+:root{color-scheme:light dark}
+body{max-width:920px;margin:0 auto;padding:2rem 1.25rem;
+  font:16px/1.6 -apple-system,Segoe UI,Roboto,sans-serif;
+  background:#0d1117;color:#c9d1d9}
+a{color:#58a6ff}
+h1,h2,h3{line-height:1.25;margin-top:1.6em;border-bottom:1px solid #30363d;padding-bottom:.3em}
+code{background:#161b22;padding:.15em .4em;border-radius:4px;font-size:.9em}
+pre{background:#161b22;padding:1rem;border-radius:8px;overflow:auto}
+pre code{background:none;padding:0}
+table{border-collapse:collapse;width:100%;margin:1em 0}
+th,td{border:1px solid #30363d;padding:.5em .75em;text-align:left}
+th{background:#161b22}
+blockquote{border-left:3px solid #30363d;margin:0;padding-left:1em;color:#8b949e}
+</style></head>
+<body><h1>PC — Project Config — Low-Level Design</h1>
+<blockquote>
+<p>Source: DevOps/build infrastructure (not client runtime source).
+OpenProject: #148.</p>
+</blockquote>
+<h2>Feature summary and boundaries</h2>
+<p>🔧 <strong>Status: infra.</strong> PC covers the DevOps, build pipeline and infrastructure configuration for VNRacing. This is not a client runtime feature and has no C++ subsystem — it lives in CI/CD scripts, build configs and tooling outside <code>PrototypeRacing/Source/</code>.</p>
+<p>PC scope includes:</p>
+<ul>
+<li>Unreal build configuration (target files, ini configs, packaging rules).</li>
+<li>Chunk/pak splitting policy for CDN delivery (defines what goes into which pak chunk; the client runtime consumer is <strong>CDN</strong> #250).</li>
+<li>AWS bucket setup for chunk upload and distribution.</li>
+<li>k6 load testing scripts for backend/Nakama endpoint stress tests.</li>
+</ul>
+<p>No embed diagram — infra/no C4 client component view for PC.</p>
+<h2>Layer 1 — Implementation map</h2>
+<p>No C++ components to map. Infrastructure artefacts live outside <code>PrototypeRacing/Source/</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Artefact (proposed / known)</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Build target / packaging rules</td>
+<td>Controls pak splitting (primary + chunk N); feeds CDN pak files.</td>
+</tr>
+<tr>
+<td>AWS upload scripts</td>
+<td>Push pak chunks to S3/CDN bucket post-build.</td>
+</tr>
+<tr>
+<td>k6 load test scripts</td>
+<td>Stress-test Nakama endpoints; validates GM-MP backend capacity.</td>
+</tr>
+<tr>
+<td>CI/CD pipeline definition</td>
+<td>Automates build → package → upload → test cycle.</td>
+</tr>
+</tbody></table>
+<h2>Layer 2 — Contract surface</h2>
+<p>PC produces artefacts consumed by CDN (#250) at runtime and by GM-MP (#273) indirectly (k6 validates backend capacity). There are no C++ entry points in PC itself.</p>
+<h2>Links</h2>
+<ul>
+<li>Portal: <code>Docs/portal/src/content/docs/features/pc.md</code></li>
+<li>No audit file — infra feature, no client C++ code to audit.</li>
+<li>Cross-ref: CDN (#250) — runtime chunk download consumer; GM-MP (#273) — k6 load test target</li>
+</ul>
+</body></html>

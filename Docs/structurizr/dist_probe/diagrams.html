@@ -1,0 +1,3209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Structurizr - Structurizr Lite</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="keywords" content="software architecture, software architecture diagrams, c4 model" />
+
+    <link rel="icon" href="/static/img/favicon.png" />
+    <link rel="apple-touch-icon" href="/static/img/apple-touch-icon.png" />
+
+    <link href="/static/css/bootstrap-3.3.7.min.css" rel="stylesheet" media="screen" />
+    <link href="/static/css/bootstrap-theme-3.3.7.min.css" rel="stylesheet" media="screen" />
+    <link href="/static/css/structurizr.css" rel="stylesheet" media="screen" />
+    <link href="/static/css/structurizr-print.css" rel="stylesheet" media="print" />
+    <link href="/static/css/open-sans.css" rel="stylesheet" />
+
+    <script src="/static/js/jquery-3.6.3.min.js"></script>
+    <script src="/static/js/bootstrap-3.3.7.min.js"></script>
+    <script type="text/javascript" src="/static/js/structurizr-2025.11.08.js"></script>
+    <script type="text/javascript" src="/static/js/structurizr-ui-2025.11.08.js"></script>
+    <script type="text/javascript" src="/static/js/structurizr-util-2025.11.08.js"></script>
+</head>
+
+<script nonce="NWRjMTc5NGUtNzI2Yi00NzUyLWJjNDYtODY0YTU4NTJjYTk3">
+    structurizr.ui.initDarkMode('/static/css/structurizr-dark.css');
+</script>
+
+<body>
+
+    <style>
+            body {
+                padding-top: 0;
+            }
+        </style>
+    <div id="content"><script src="/static/js/crypto-js-4.1.1.min.js"></script>
+
+<script type="text/javascript" src="/static/js/structurizr-client-2025.11.08.js"></script>
+<script type="text/javascript" src="/static/js/structurizr-workspace-2025.11.08.js"></script>
+<script type="text/javascript" src="/static/js/structurizr-encryption-2025.11.08.js"></script>
+
+<script nonce="NWRjMTc5NGUtNzI2Yi00NzUyLWJjNDYtODY0YTU4NTJjYTk3">
+    function loadWorkspace(json) {
+        try {
+            if (typeof beforeWorkspaceLoaded === 'function') {
+                beforeWorkspaceLoaded(json);
+            }
+
+            structurizr.workspace = new structurizr.Workspace(json);
+            workspaceLoaded();
+
+            if (typeof afterWorkspaceLoaded === 'function') {
+                afterWorkspaceLoaded(structurizr.workspace.getJson());
+                $(window).trigger('resize');
+            }
+        } catch (err) {
+            if (window.logError) {
+                logError('Error loading workspace', window.href, 1, err);
+            }
+            console.log(err);
+
+            if (progressMessage !== undefined) {
+                progressMessage.show('There is a problem loading your workspace - ' + err);
+            }
+        }
+    }
+
+    function loadWorkspaceFromParent() {
+        structurizr.workspace = parent.structurizr.workspace;
+
+        try {
+            if (typeof beforeWorkspaceLoaded === 'function') {
+                beforeWorkspaceLoaded(structurizr.workspace.getJson());
+            }
+
+            workspaceLoaded();
+
+            if (typeof afterWorkspaceLoaded === 'function') {
+                afterWorkspaceLoaded(structurizr.workspace.getJson());
+                $(window).trigger('resize');
+            }
+        } catch (err) {
+            logError('Error loading workspace', window.href, 1, err);
+            console.log(err);
+
+            if (progressMessage !== undefined) {
+                progressMessage.show('There is a problem loading your workspace - ' + err);
+            }
+        }
+    }
+</script>
+
+<div class="modal fade" id="clientSideEncryptedWorkspacePassphraseModal" tabindex="-1" role="dialog" aria-labelledby="keyModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+               <h2 class="modal-title">Client-side encrypted workspace</h2>
+            </div>
+            <div class="modal-body">
+                <p>
+                    The workspace "<span id="clientSideEncryptedWorkspacePassphraseModalName"></span>" has been client-side encrypted, please enter the passphrase to decrypt it.
+                </p>
+
+                <div class="form-group">
+                    <input id="passphrase" type="password" class="form-control" placeholder="Passphrase" required="true" />
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input id="storePassphraseInLocalStorage" type="checkbox" /> Save passphrase in browser local storage
+                    </label>
+                </div>
+
+                <div id="decryptionAlert" class="alert alert-danger" role="alert" style="display:none">
+                    The workspace could not be decrypted.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="decryptButton" type="button" class="btn btn-primary">Decrypt</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script nonce="NWRjMTc5NGUtNzI2Yi00NzUyLWJjNDYtODY0YTU4NTJjYTk3">
+    function showPassphraseModalAndDecryptWorkspace(workspace, callback) {
+        var modal = $('#clientSideEncryptedWorkspacePassphraseModal');
+        var workspaceName = $('#clientSideEncryptedWorkspacePassphraseModalName');
+        workspaceName.append(workspace.name);
+
+        modal.on('shown.bs.modal', function (e) {
+            $('#passphrase').focus();
+        });
+
+        modal.find('#decryptButton').click(function () {
+            promptForPassphraseAndDecryptWorkspace(workspace, callback);
+        });
+
+        modal.find('#passphrase').keydown(function(evt) {
+            if (evt.keyCode === 13) { // the enter key
+                promptForPassphraseAndDecryptWorkspace(workspace, callback);
+            }
+        });
+
+        var passphrase = getWorkspaceEncryptionPassphraseFromLocalStorage(workspace.id);
+        if (passphrase) {
+            decryptWorkspace(workspace, passphrase, callback);
+        } else {
+            modal.modal({ keyboard: false });
+        }
+    }
+
+    function promptForPassphraseAndDecryptWorkspace(workspace, callback) {
+        var modal = $('#clientSideEncryptedWorkspacePassphraseModal');
+        var passphrase = modal.find('#passphrase').val();
+        var storePassphrase = modal.find('#storePassphraseInLocalStorage')[0].checked;
+        if (storePassphrase === true) {
+            putWorkspaceEncryptionPassphraseInLocalStorage(workspace.id, passphrase);
+        }
+
+        decryptWorkspace(workspace, passphrase, callback);
+    }
+
+    function decryptWorkspace(workspace, passphrase, callback) {
+        var modal = $('#clientSideEncryptedWorkspacePassphraseModal');
+
+        try {
+            structurizrEncryptionStrategy = new structurizr.io.EncryptionStrategy(
+                {
+                    iterationCount: workspace.encryptionStrategy.iterationCount,
+                    iv: workspace.encryptionStrategy.iv,
+                    keySize: workspace.encryptionStrategy.keySize,
+                    location: 'Client',
+                    salt: workspace.encryptionStrategy.salt,
+                    type: workspace.encryptionStrategy.type,
+                    passphrase: passphrase
+                }
+            );
+
+            var decryptedWorkspace = structurizrEncryptionStrategy.decrypt(workspace);
+
+            modal.modal('hide');
+            callback(decryptedWorkspace);
+        } catch (e) {
+            console.error("Could not decrypt the workspace with the given passphrase");
+            removeWorkspaceEncryptionPassphraseFromLocalStorage(workspace.id);
+
+            modal.find('#decryptionAlert').show();
+        }
+    }
+
+    function getWorkspaceEncryptionPassphraseFromLocalStorage(id) {
+        return localStorage.getItem("workspace/" + id + "/passphrase");
+    }
+
+    function removeWorkspaceEncryptionPassphraseFromLocalStorage(id) {
+        return localStorage.removeItem("workspace/" + id + "/passphrase");
+    }
+
+    function putWorkspaceEncryptionPassphraseInLocalStorage(id, passphrase) {
+        return localStorage.setItem("workspace/" + id + "/passphrase", passphrase);
+    }
+</script><link href="/static/css/joint-3.6.5.css" rel="stylesheet" media="screen" />
+<script src="/static/js/lodash-4.17.21.js"></script>
+<script src="/static/js/backbone-1.4.1.js"></script>
+<script type="text/javascript" src="/static/js/joint-3.6.5.js"></script>
+<script type="text/javascript" src="/static/js/dagre-0.7.3.min.js"></script>
+<script type="text/javascript" src="/static/js/graphlib-2.1.3.min.js"></script>
+
+<script type="text/javascript" src="/static/js/gifshot-0.4.4.js"></script>
+
+<script type="text/javascript" src="/static/js/structurizr-diagram-2025.11.08.js"></script>
+<script type="text/javascript" src="/static/js/structurizr-healthcheck-2025.11.08.js"></script>
+
+<div id="diagramControls">
+            <div id="banner"></div>
+                    <div class="row">
+                        <div class="col-xs-2" style="padding: 18px 20px 10px 20px">
+                            <a href="/workspace"><img src="/static/img/structurizr-banner.png" alt="Structurizr" class="img-light img-responsive brandingLogo" /><img src="/static/img/structurizr-banner-dark.png" alt="Structurizr" class="img-dark img-responsive brandingLogo" /></a>
+                        </div>
+                        <div class="col-xs-10 centered" style="padding: 20px 30px 0px 30px">
+                            <div class="centered">
+                                <div class="form-inline " style="margin-bottom: 8px">
+    <div class="form-group">
+        <div class="btn-group">
+            <button id="homeButton" class="btn btn-default" title="Home"><img src="/static/bootstrap-icons/house.svg" class="icon-btn" /></button>
+            <script nonce="NWRjMTc5NGUtNzI2Yi00NzUyLWJjNDYtODY0YTU4NTJjYTk3">$('#homeButton').click(function() { window.location.href='/'; });</script>
+            <button id="backButton" class="btn btn-default backButton" title="Go back to the last viewed diagram [b]"><img src="/static/bootstrap-icons/arrow-90deg-left.svg" class="icon-btn" /></button>
+        </div>
+        <script nonce="NWRjMTc5NGUtNzI2Yi00NzUyLWJjNDYtODY0YTU4NTJjYTk3">
+            $('#backButton').click(function() { back(); });
+        </script>
+
+        <div class="modelViewButtons btn-group">
+            <button id="diagramKeyButton" class="btn btn-default" title="Diagram key [i]"><img src="/static/bootstrap-icons/info-circle.svg" class="icon-btn" /></button>
+            <button id="diagramTooltipOnButton" class="btn btn-default diagramTooltipOnButton" title="Diagram tooltips on [t]"><img src="/static/bootstrap-icons/chat-square-text.svg" class="icon-btn" /></button>
+            <button id="diagramTooltipOffButton" class="btn btn-default hidden diagramTooltipOffButton" title="Diagram tooltips off [t]"><img src="/static/bootstrap-icons/chat-square-text-fill.svg" class="icon-btn" /></button>
+            <button id="filterOnButton" class="btn btn-default"  title="Filter"><img src="/static/bootstrap-icons/funnel.svg" class="icon-btn" /></button>
+            <button id="filterOffButton" class="btn btn-default hidden" title="Filter"><img src="/static/bootstrap-icons/funnel-fill.svg" class="icon-btn" /></button>
+            <button id="perspectivesOnButton" class="btn btn-default hidden" title="Perspectives"><img src="/static/bootstrap-icons/binoculars.svg" class="icon-btn" /></button>
+            <button id="perspectivesOffButton" class="btn btn-default hidden" title="Perspectives"><img src="/static/bootstrap-icons/binoculars-fill.svg" class="icon-btn" /></button>
+            <button id="healthOnButton" class="btn btn-default hidden" title="Health checks"><img src="/static/bootstrap-icons/heart-pulse.svg" class="icon-btn" /></button>
+            <button id="healthOffButton" class="btn btn-default hidden" title="Health checks"><img src="/static/bootstrap-icons/heart-pulse-fill.svg" class="icon-btn" /></button>
+            <button id="explorationsButton" class="btn btn-default hidden" title="Explore"><img src="/static/bootstrap-icons/diagram-3.svg" class="icon-btn" /></button>
+        </div>
+        <script nonce="NWRjMTc5NGUtNzI2Yi00NzUyLWJjNDYtODY0YTU4NTJjYTk3">
+            $('#diagramKeyButton').click(function() { showKey(); });
+            $('#diagramTooltipOnButton').click(function() { toggleTooltip(); });
+            $('#diagramTooltipOffButton').click(function() { toggleTooltip(); });
+            $('#filterOnButton').click(function() {
+                openFilterModal();
+                $('#filterOnButton').addClass('hidden');
+                $('#filterOffButton').removeClass('hidden');
+            });
+            $('#filterOffButton').click(function() {
+                openFilterModal();
+            });
+            $('#perspectivesOnButton').click(function() { openPerspectivesModal(); });
+            $('#perspectivesOffButton').click(function() { openPerspectivesModal(); });
+            $('#showDiagramScopeOnButton').click(function() { showDiagramScope(true); });
+            $('#showDiagramScopeOffButton').click(function() { showDiagramScope(false); });
+            $('#healthOnButton').click(function() { showHealth(true); });
+            $('#healthOffButton').click(function() { showHealth(false); });
+        </script>
+
+        <div class="btn-group">
+            <button id="exportToPNGButton" class="btn btn-default" title="Export diagram and key/legend to PNG"><img src="/static/bootstrap-icons/filetype-png.svg" class="icon-btn" /></button>
+            <button id="exportToSVGButton" class="btn btn-default" title="Export diagram and key to SVG"><img src="/static/bootstrap-icons/filetype-svg.svg" class="icon-btn" /></button>
+
+            <button id="helpButton" class="btn btn-default" title="Help"><img src="/static/bootstrap-icons/question-circle.svg" class="icon-btn" /></button>
+        </div>
+        <script nonce="NWRjMTc5NGUtNzI2Yi00NzUyLWJjNDYtODY0YTU4NTJjYTk3">
+            $('#exportToPNGButton').click(function() { exportToPNG(); });
+            $('#exportToSVGButton').click(function() { exportToSVG(); });
+            $('#helpButton').click(function() { window.open('https://docs.structurizr.com/ui/diagrams'); });
+        </script>
+
+        <div class="btn-group">
+            <button id="saveButton" class="btn btn-default" title="Save workspace" disabled="true" style="text-shadow: none"><img src="/static/bootstrap-icons/folder-check.svg" class="icon-btn icon-white" /></button>
+        </div>
+        <script nonce="NWRjMTc5NGUtNzI2Yi00NzUyLWJjNDYtODY0YTU4NTJjYTk3">$('#saveButton').click(function() { saveWorkspace(); });</script>
+        </div>
+</div>
+
+<div class="form-inline">
+    <div class="form-group">
+        <span id="diagramEditButtons">
+
+        <select id="pageSize" class="form-control" style="font-size: 12px;">
+            <option id="none" value="none">Canvas size - Custom</option>
+            <option id="A6_Landscape" value="1748x1240 %>">A6 - Landscape</option>
+            <option id="A5_Landscape" value="2480x1748 %>">A5 - Landscape</option>
+            <option id="A4_Landscape" value="3508x2480 %>">A4 - Landscape</option>
+            <option id="A3_Landscape" value="4961x3508 %>">A3 - Landscape</option>
+            <option id="A2_Landscape" value="7016x4961 %>">A2 - Landscape</option>
+            <option id="A1_Landscape" value="9933x7016 %>">A1 - Landscape</option>
+            <option id="A0_Landscape" value="14043x9933 %>">A0 - Landscape</option>
+            <option id="Letter_Landscape" value="3300x2550 %>">Letter - Landscape</option>
+            <option id="Legal_Landscape" value="4200x2550 %>">Legal - Landscape</option>
+            <option id="Slide_4_3" value="3306x2480 %>">Slide 4:3 - Landscape</option>
+            <option id="Slide_16_9" value="3508x1973 %>">Slide 16:9 - Landscape</option>
+            <option id="Slide_16_10" value="3508x2193 %>">Slide 16:10 - Landscape</option>
+            <option id="A6_Portrait" value="1240x1748 %>">A6 - Portrait</option>
+            <option id="A5_Portrait" value="1748x2480 %>">A5 - Portrait</option>
+            <option id="A4_Portrait" value="2480x3508 %>">A4 - Portrait</option>
+            <option id="A3_Portrait" value="3508x4961 %>">A3 - Portrait</option>
+            <option id="A2_Portrait" value="4961x7016 %>">A2 - Portrait</option>
+            <option id="A1_Portrait" value="7016x9933 %>">A1 - Portrait</option>
+            <option id="A0_Portrait" value="9933x14043 %>">A0 - Portrait</option>
+            <option id="Letter_Portrait" value="2550x3300 %>">Letter - Portrait</option>
+            <option id="Legal_Portrait" value="2550x4200 %>">Legal - Portrait</option>
+            </select>
+
+        <div class="btn-group">
+            <button id="pageSizeDecreaseButton" class="btn btn-default" title="Decrease canvas size"><img src="/static/bootstrap-icons/file-earmark-minus.svg" class="icon-btn" /></button>
+            <button id="pageSizeAutoButton" class="btn btn-default" title="Auto canvas size"><img src="/static/bootstrap-icons/file-earmark-diff.svg" class="icon-btn" /></button>
+            <button id="pageSizeIncreaseButton" class="btn btn-default" title="Increase canvas size"><img src="/static/bootstrap-icons/file-earmark-plus.svg" class="icon-btn" /></button>
+        </div>
+        <script nonce="NWRjMTc5NGUtNzI2Yi00NzUyLWJjNDYtODY0YTU4NTJjYTk3">
+            $('#pageSizeDecreaseButton').click(function(event) { structurizr.diagram.decreasePageSize(event); });
+            $('#pageSizeAutoButton').click(function() { structurizr.diagram.autoPageSize(); });
+            $('#pageSizeIncreaseButton').click(function(event) { structurizr.diagram.increasePageSize(event); });
+        </script>
+
+        <div class="btn-group">
+            <button id="alignSelectedElementsLeftButton" class="btn btn-default multipleElementsSelectedButton" disabled="disabled" title="Align left"><img src="/static/bootstrap-icons/align-start.svg" class="icon-btn" /></button>
+            <button id="alignSelectedElementsVerticalCentreButton" class="btn btn-default multipleElementsSelectedButton" disabled="disabled" title="Align centre"><img src="/static/bootstrap-icons/align-center.svg" class="icon-btn" /></button>
+            <button id="alignSelectedElementsRightButton" class="btn btn-default multipleElementsSelectedButton" disabled="disabled" title="Align right"><img src="/static/bootstrap-icons/align-end.svg" class="icon-btn" /></button>
+            <button id="distributeSelectedElementsHorizontallyButton" class="btn btn-default multipleElementsSelectedButton" disabled="disabled" title="Distribute horizontally"><img src="/static/bootstrap-icons/distribute-horizontal.svg" class="icon-btn" /></button>
+        </div>
+        <script nonce="NWRjMTc5NGUtNzI2Yi00NzUyLWJjNDYtODY0YTU4NTJjYTk3">
+            $('#alignSelectedElementsLeftButton').click(function() { structurizr.diagram.alignSelectedElementsLeft(); });
+            $('#alignSelectedElementsVerticalCentreButton').click(function() { structurizr.diagram.alignSelectedElementsVerticalCentre(); });
+            $('#alignSelectedElementsRightButton').click(function() { structurizr.diagram.alignSelectedElementsRight(); });
+            $('#distributeSelectedElementsHorizontallyButton').click(function() { structurizr.diagram.distributeSelectedElementsHorizontally(); });
+        </script>
+
+        <div class="btn-group">
+            <button id="alignSelectedElementsTopButton" class="btn btn-default multipleElementsSelectedButton" disabled="disabled" title="Align top"><img src="/static/bootstrap-icons/align-top.svg" class="icon-btn" /></button>
+            <button id="alignSelectedElementsHorizontalCentreButton" class="btn btn-default multipleElementsSelectedButton" disabled="disabled" title="Align middle"><img src="/static/bootstrap-icons/align-middle.svg" class="icon-btn" /></button>
+            <button id="alignSelectedElementsBottomButton" class="btn btn-default multipleElementsSelectedButton" disabled="disabled" title="Align bottom"><img src="/static/bootstrap-icons/align-bottom.svg" class="icon-btn" /></button>
+            <button id="distributeSelectedElementsVerticallyButton" class="btn btn-default multipleElementsSelectedButton" disabled="disabled" title="Distribute vertically"><img src="/static/bootstrap-icons/distribute-vertical.svg" class="icon-btn" /></button>
+        </div>
+        <script nonce="NWRjMTc5NGUtNzI2Yi00NzUyLWJjNDYtODY0YTU4NTJjYTk3">
+            $('#alignSelectedElementsTopButton').click(function() { structurizr.diagram.alignSelectedElementsTop(); });
+            $('#alignSelectedElementsHorizontalCentreButton').click(function() { structurizr.diagram.alignSelectedElementsHorizontalCentre(); });
+            $('#alignSelectedElementsBottomButton').click(function() { structurizr.diagram.alignSelectedElementsBottom(); });
+            $('#distributeSelectedElementsVerticallyButton').click(function() { structurizr.diagram.distributeSelectedElementsVertically(); });
+        </script>
+
+        <div class="btn-group">
+            <button id="centreDiagramOrSelectedElementsButton" class="btn btn-default" title="Centre diagram or selected elements"><img src="/static/bootstrap-icons/grid.svg" class="icon-btn" /></button>
+            <button id="openAutoLayoutModalButton" class="btn btn-default" id="autoLayoutButton" title="Auto-layout"><img src="/static/bootstrap-icons/magic.svg" class="icon-btn" /></button>
+            <button id="undoButton" class="btn btn-default" id="undoButton" disabled="disabled" title="Undo layout changes [u]"><img src="/static/bootstrap-icons/arrow-counterclockwise.svg" class="icon-btn" /></button>
+        </div>
+        <script nonce="NWRjMTc5NGUtNzI2Yi00NzUyLWJjNDYtODY0YTU4NTJjYTk3">
+            $('#centreDiagramOrSelectedElementsButton').click(function() { structurizr.diagram.centreDiagramOrSelectedElements(); });
+            $('#openAutoLayoutModalButton').click(function() { openAutoLayoutModal(); });
+            $('#undoButton').click(function() { structurizr.diagram.undo(); });
+        </script>
+
+        </span>
+        <span id="diagramNotEditableMessage" class="smaller hidden" style="margin-left: 10px">This diagram is not editable because automatic layout is enabled - see <a href="https://docs.structurizr.com/ui/diagrams/automatic-layout" target="_blank">Help - Automatic layout</a> for more details.</span>
+    </div>
+</div>
+</div>
+                        </div>
+                    </div>
+                </div>
+    <div class="row" style="padding: 0; margin: 0">
+    <div id="diagramNavigationPanel" class="col-xs-2 hidden-xs hidden-sm ">
+        <div class="centered" style="margin-top: 20px; margin-bottom: 5px">
+            <a href="/workspace" title="Workspace"><img src="/static/bootstrap-icons/folder.svg" class="icon-sm" /></a>
+            |
+            <a href="/workspace/documentation" title="Documentation"><img src="/static/bootstrap-icons/book.svg" class="icon-sm" /></a>
+            |
+            <a href="/workspace/decisions" title="Decisions"><img src="/static/bootstrap-icons/journal-text.svg" class="icon-sm" /></a>
+        </div>
+
+        <div id="inspectionSummary" class="centered hidden" style="margin-bottom: 5px">
+            <a href="/workspace/inspections" target="_blank" title="Inspections">
+            <img src="/static/bootstrap-icons/exclamation-diamond.svg" class="icon-sm" /> <span id="inspectionsError"></span> |
+            <img src="/static/bootstrap-icons/exclamation-triangle.svg" class="icon-sm" /> <span id="inspectionsWarning"></span> |
+            <img src="/static/bootstrap-icons/info-circle.svg" class="icon-sm" /> <span id="inspectionsInfo"></span> |
+            <img src="/static/bootstrap-icons/x-circle.svg" class="icon-sm" /> <span id="inspectionsIgnore"></span>
+            </a>
+        </div>
+        <div class="centered" style="margin-bottom: 20px">
+            <a id="renderingModeLightLink" href="" title="Light"><img src="/static/bootstrap-icons/sun.svg" class="icon-sm" /></a> |
+            <a id="renderingModeDarkLink" href="" title="Dark"><img src="/static/bootstrap-icons/moon-fill.svg" class="icon-sm" /></a> |
+            <a id="renderingModeSystemLink" href="" title="System"><img src="/static/bootstrap-icons/sliders.svg" class="icon-sm" /></a>
+        </div>
+
+        <div id="diagramNavigation" style="padding-top: 15px"></div>
+
+    </div>
+
+    <div class="col-xs-10" style="padding: 0">
+        <div id="diagram" tabindex="1" style="position: relative; ">
+            <div id="progressMessage" class="structurizrBackgroundBase hidden"></div>
+
+<script nonce="NWRjMTc5NGUtNzI2Yi00NzUyLWJjNDYtODY0YTU4NTJjYTk3">
+    structurizr.ui.ProgressMessage = class ProgressMessage {
+
+        #progressMessage = $('#progressMessage');
+
+        show(html) {
+            this.#progressMessage.html(html);
+            this.#progressMessage.removeClass('hidden');
+        }
+
+        hide() {
+            this.#progressMessage.addClass('hidden');
+        }
+    }
+
+    const progressMessage = new structurizr.ui.ProgressMessage();
+</script><div class="modal fade" id="keyModal" tabindex="-1" role="dialog" aria-labelledby="keyModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body centered">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <div id="diagramKey"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script nonce="NWRjMTc5NGUtNzI2Yi00NzUyLWJjNDYtODY0YTU4NTJjYTk3">
+    function showKey() {
+        $('#diagramKey').html(structurizr.diagram.exportCurrentDiagramKeyToSVG());
+        $('#keyModal').modal('show');
+    }
+</script><div class="modal fade" id="quickFindModal" tabindex="-1" role="dialog" aria-labelledby="quickFindModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <input id="quickFindModalFilter" type="text" placeholder="Start typing..." class="form-control" />
+                </div>
+            </div>
+            <div class="modal-body">
+                <div id="quickFindModalItems"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/static/js/structurizr-quick-navigation-2025.11.08.js"></script><style>
+    #tooltip {
+        font-size: 14px;
+        color: #000000;
+        background: #eeeeee;
+        padding: 10px;
+        margin: 20px;
+        position: absolute;
+        z-index: 10;
+        opacity: 0.98;
+        border: 2px #666666 solid;
+        border-radius: 5px;
+        width: 33%;
+        max-width: 33%;
+        overflow: hidden;
+    }
+    #tooltipName {
+        font-size: 20px;
+        font-weight: normal;
+    }
+    #tooltipParent {
+        font-size: 8px;
+    }
+    #tooltipMetadata {
+        font-size: 10px;
+    }
+    #tooltipType {
+        font-size: 10px;
+    }
+    #tooltipDescription {
+        font-size: 12px;
+        margin-top: 10px;
+    }
+    #tooltipTags {
+        margin-top: 10px;
+        font-size: 10px;
+    }
+    #tooltipProperties {
+        margin-top: 15px;
+        font-size: 10px;
+    }
+    #tooltipUrl {
+        margin-top: 10px;
+        font-size: 10px;
+    }
+    #tooltip .tag {
+        border-width: 1px;
+        border-style: solid;
+        padding: 3px 3px 3px 3px;
+        margin: 3px 3px 3px 0;
+        border-radius: 6px;
+        white-space: nowrap;
+        display: inline-block;
+    }
+</style>
+
+<style media="print">
+    #tooltip {
+        display: none;
+    }
+</style>
+
+<div id="tooltip" class="hidden">
+    <div id="tooltipHeader">
+        <div id="tooltipName"></div>
+        <div id="tooltipParent"></div>
+        <div id="tooltipMetadata"></div>
+        <div id="tooltipDescription"></div>
+        <hr />
+    </div>
+    <div id="tooltipTags"></div>
+    <div id="tooltipProperties"></div>
+    <div id="tooltipUrl"></div>
+    <div id="tooltipAdditionalContent"></div>
+</div>
+
+<script type="text/javascript" src="/static/js/structurizr-tooltip-2025.11.08.js"></script><div class="modal fade" id="navigationModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body" style="padding: 0">
+                <div>
+                    <select class="form-control" id="navigationList"></select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/static/js/structurizr-navigation-2025.11.08.js"></script><div id="embeddedControls" style="text-align: right; position: absolute; bottom: 10px; right: 10px; opacity: 0.1; z-index: 100;">
+                <div class="btn-group">
+                    <button id="stepBackwardInAnimationButton" class="btn btn-default hidden dynamicDiagramButton stepBackwardAnimationButton" title="Step backward [,]"><img src="/static/bootstrap-icons/skip-backward.svg" class="icon-btn" /></button>
+                    <button id="startAnimationButton" class="btn btn-default hidden dynamicDiagramButton startAnimationButton" title="Play animation"><img src="/static/bootstrap-icons/play.svg" class="icon-btn" /></button>
+                    <button id="stopAnimationButton" class="btn btn-default hidden dynamicDiagramButton stopAnimationButton" title="Stop animation"><img src="/static/bootstrap-icons/stop.svg" class="icon-btn" /></button>
+                    <button id="stepForwardInAnimationButton" class="btn btn-default hidden dynamicDiagramButton stepForwardAnimationButton" title="Step forward [.]"><img src="/static/bootstrap-icons/skip-forward.svg" class="icon-btn" /></button>
+                </div>
+                <script nonce="NWRjMTc5NGUtNzI2Yi00NzUyLWJjNDYtODY0YTU4NTJjYTk3">
+                    $('#stepBackwardInAnimationButton').click(function() { stepBackwardInAnimation(); });
+                    $('#startAnimationButton').click(function() { startAnimation(true); });
+                    $('#stopAnimationButton').click(function() { stopAnimation(true); });
+                    $('#stepForwardInAnimationButton').click(function() { stepForwardInAnimation(); });
+                </script>
+
+                <div class="btn-group">
+                    <button id="zoomOutButton" class="btn btn-default" title="Zoom out [-]"><img src="/static/bootstrap-icons/zoom-out.svg" class="icon-btn" /></button>
+                    <button id="zoomInButton" class="btn btn-default" title="Zoom in [+]"><img src="/static/bootstrap-icons/zoom-in.svg" class="icon-btn" /></button>
+                </div>
+                <button id="enterFullScreenButton" class="btn btn-default" title="Enter Full Screen [f]"><img src="/static/bootstrap-icons/fullscreen.svg" class="icon-btn" /></button>
+                <button id="exitFullScreenButton" class="btn btn-default hidden" title="Exit Full Screen [Escape]"><img src="/static/bootstrap-icons/fullscreen-exit.svg" class="icon-btn" /></button>
+
+                <script nonce="NWRjMTc5NGUtNzI2Yi00NzUyLWJjNDYtODY0YTU4NTJjYTk3">
+                    $('#zoomOutButton').click(function() { structurizr.diagram.zoomOut(); });
+                    $('#zoomInButton').click(function() { structurizr.diagram.zoomIn(); });
+
+                    $('#enterFullScreenButton').click(function() { enterPresentationMode(); });
+                    $('#exitFullScreenButton').click(function() { structurizr.ui.exitFullScreen(); });
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script nonce="NWRjMTc5NGUtNzI2Yi00NzUyLWJjNDYtODY0YTU4NTJjYTk3">
+    function runGraphvizForView(view, callback) {
+        if (view.automaticLayout.applied !== true) {
+            const url = '/graphviz?view=' + view.key;
+            runGraphviz(url, function() {
+                view.automaticLayout.applied = true;
+                callback();
+            });
+        } else {
+            if (callback) {
+                callback();
+            }
+        }
+    }
+
+    function runGraphvizWithParameters(rankDirection, rankSeparation, nodeSeparation, edgeSeparation, linkVertices, margin, resize, callback) {
+        const view = structurizr.diagram.getCurrentView();
+        const url = '/graphviz?view=' + view.key + '&resizePaper=' + resize + '&rankDirection=' + rankDirection + '&rankSeparation=' + rankSeparation + '&nodeSeparation=' + nodeSeparation + '&margin=' + margin
+
+        runGraphviz(url, callback);
+    }
+
+    function runGraphviz(url, callback) {
+        if (false === true) {
+            console.log('Graphviz cannot be used on client-side encrypted workspaces - skipping');
+            if (callback) {
+                callback();
+            }
+        } else {
+            $.ajax({
+                url: url,
+                type: 'POST',
+                contentType: 'application/json; charset=UTF-8',
+                cache: false,
+                headers: {
+                    'Content-Type': 'application/json; charset=UTF-8'
+                },
+                dataType: 'json',
+                data: getMinimalJson()
+            })
+            .done(function (data, textStatus, jqXHR) {
+                if (data.views) {
+                    structurizr.workspace.copyLayoutFrom(data.views);
+                }
+                if (callback) {
+                    callback();
+                }
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                progressMessage.hide();
+
+                console.log('Automatic layout failed');
+                logError(jqXHR, textStatus, errorThrown);
+            });
+        }
+    }
+
+    function getMinimalJson() {
+        const workspace = structurizr.workspace.getJson();
+
+        if (workspace.properties) {
+            delete workspace.properties['structurizr.dsl'];
+        }
+        delete workspace.documentation;
+
+        if (workspace.model.softwareSystems) {
+            workspace.model.softwareSystems.forEach(function (softwareSystem) {
+                delete softwareSystem.documentation;
+
+                if (softwareSystem.containers) {
+                    softwareSystem.containers.forEach(function (container) {
+                        delete container.documentation;
+                    });
+                }
+            });
+        }
+
+        // and copy across the current layout information
+        workspace.views = structurizr.workspace.views;
+
+        return JSON.stringify(workspace, null, '    ');
+    }
+</script><div class="modal fade" id="embedModal" tabindex="-1" role="dialog" aria-labelledby="embedModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h2 class="modal-title">iframe embed</h2>
+            </div>
+
+            <div id="diagramEmbed" class="modal-body">
+                <p>
+                    The code below allows you to embed your diagram(s) using a responsive iframe.
+                    
+                        See <a href="https://docs.structurizr.com/onpremises/embed" target="_blank">On-premises installation - Embed</a> for more details.
+                        </p>
+
+                <pre class="embedCode"><code id="embedCodeFragment">&lt;iframe <b>id="myEmbeddedDiagram"</b> src="<span class="baseUrl"></span>/embed/1?diagram=<span class="diagramEmbedDiagramId"></span>&diagramSelector=<span class="diagramEmbedDiagramSelector">false</span>&<b>iframe=myEmbeddedDiagram</b>" width="100%" marginwidth="0" marginheight="0" frameborder="0" scrolling="no" allowfullscreen="true"&gt;&lt;/iframe&gt;
+
+&lt;script type="text/javascript" src="<span class="staticContentUrl"></span>/js/structurizr-embed.js"&gt;&lt;/script&gt;</code></pre>
+                    <div>
+                    <label>Include diagram selector <input type="checkbox" id="diagramSelectorToggle" /></label>
+                </div>
+
+                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script nonce="NWRjMTc5NGUtNzI2Yi00NzUyLWJjNDYtODY0YTU4NTJjYTk3">
+
+    $('#embedCodeFragment').click(function() { structurizr.util.selectText('embedCodeFragment'); });
+    $('#notionUrl').click(function() { structurizr.util.selectText('notionUrl'); });
+
+    $('#diagramSelectorToggle').click(function() {
+        if ($('#diagramSelectorToggle').is(':checked')) {
+            $('.diagramEmbedDiagramSelector').html('true');
+        } else {
+            $('.diagramEmbedDiagramSelector').html('false');
+        }
+    });
+
+    function initEmbed() {
+        const baseUrl = window.location.protocol + '//' + window.location.host;
+        $('.baseUrl').text(baseUrl);
+
+        var staticContentUrl = '/static';
+        if (staticContentUrl.indexOf("/") === 0) {
+            staticContentUrl = baseUrl + staticContentUrl;
+        }
+        $('.staticContentUrl').text(staticContentUrl);
+
+    }
+
+    function openEmbedModal() {
+        $('#embedModal').modal();
+    }
+</script><div class="modal fade" id="exportModal" tabindex="-1" role="dialog" aria-labelledby="exportModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h2 class="modal-title">Export</h2>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <select multiple class="form-control" id="exportViewList" size="10">
+                    </select>
+                </div>
+
+                <div class="centered" id="exportPNGOptions">
+                    <label style="margin-right: 20px">
+                        <input type="checkbox" id="exportPNGDiagramMetadata" checked="checked" />
+                        Include diagram title, description, and metadata
+                    </label>
+
+                    <label style="margin-right: 20px">
+                        <input type="checkbox" id="exportPNGCropDiagrams" />
+                        Crop diagrams
+                    </label>
+
+                    <label style="margin-right: 20px">
+                        <input type="checkbox" id="exportPNGAnimationSteps" />
+                        Include animation steps
+                    </label>
+
+                    <label style="margin-right: 20px">
+                        <input type="checkbox" id="exportPNGDownload" />
+                        Automatically download
+                    </label>
+                </div>
+
+                <div class="centered" id="exportSVGOptions">
+                    <label style="margin-right: 20px">
+                        <input type="checkbox" id="exportSVGDiagramMetadata" checked="checked" />
+                        Include diagram title, description, and metadata
+                    </label>
+
+                    <label>
+                        <input type="checkbox" id="exportSVGDownload" />
+                        Automatically download
+                    </label>
+                </div>
+
+                <div class="centered" style="margin-bottom: 10px">
+                    <label for="exportFilenamePrefix">Filename prefix</label> <input type="text" id="exportFilenamePrefix" class="form-control" style="width: auto; display: inline-block;" />
+                </div>
+
+                <div class="centered">
+                    <button id="exportCurrentViewButton" type="button" class="btn btn-default">Export current diagram</button>
+                    <button id="exportSelectedViewsButton" type="button" class="btn btn-default">Export selected diagrams</button>
+                    <button id="exportAllViewsButton" type="button" class="btn btn-default">Export all diagrams</button>
+                    <button id="publishAllViewsButton" type="button" class="btn btn-default hidden">Publish all diagrams</button>
+                </div>
+
+                <div id="exportAnimation" class="centered hidden" style="margin-top: 5px">
+                    <label>
+                        Animated GIF frame duration (seconds)
+                    </label>
+                    <input type="number" id="animatedGIFInterval" value="3" style="width: 50px" />
+                    <button id="exportAnimatedGIFButton" type="button" class="btn btn-default">Create animated GIF</button>
+                </div>
+
+                <div id="exportedDiagrams" class="centered" style="margin-top: 40px"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script nonce="NWRjMTc5NGUtNzI2Yi00NzUyLWJjNDYtODY0YTU4NTJjYTk3">
+    var exportFormat = 'png';
+
+    $('#exportCurrentViewButton').click(function() { exportCurrentView(); });
+    $('#exportSelectedViewsButton').click(function() { exportSelectedViews(); });
+    $('#exportAllViewsButton').click(function() { exportAllViews(); });
+    $('#publishAllViewsButton').click(function() { publishAllViews(); });
+    $('#exportAnimatedGIFButton').click(function() { createGIF(); });
+
+    $('#exportModal').on('shown.bs.modal', function () {
+        structurizr.diagram.setKeyboardShortcutsEnabled(false)
+    });
+
+    $('#exportModal').on('hidden.bs.modal', function () {
+        structurizr.diagram.setKeyboardShortcutsEnabled(true)
+    });
+
+    function initExports() {
+        const viewList = $('#exportViewList');
+
+        views.forEach(function(view) {
+            viewList.append(
+                $('<option></option>').val(structurizr.util.escapeHtml(view.key)).html(structurizr.util.escapeHtml(structurizr.ui.getTitleForView(view)))
+            );
+        });
+
+        viewList.attr("size", Math.min(10, views.length));
+
+        viewList.change(function() {
+            var selectedItems = $(this).val();
+            $('#exportSelectedViewsButton').attr('disabled', !(selectedItems && selectedItems.length > 0));
+        });
+
+        $('#exportFilenamePrefix').val('structurizr-' + (structurizr.workspace.id > 0 ? structurizr.workspace.id + '-' : ''));
+
+        $('#exportPNGCropDiagrams').change(function() {
+            if ($('#exportPNGCropDiagrams').is(':checked') === true) {
+                $('#exportPNGDiagramMetadata').prop('checked', false);
+            }
+        });
+
+        $('#exportPNGDiagramMetadata').change(function() {
+            if ($('#exportPNGDiagramMetadata').is(':checked') === true) {
+                $('#exportPNGCropDiagrams').prop('checked', false);
+            }
+        });
+
+        
+    }
+
+    function exportCurrentView() {
+        $('#exportedDiagrams').empty();
+        const currentView = structurizr.diagram.getCurrentViewOrFilter();
+
+        if (exportFormat === 'svg') {
+            const includeMetadata = $('#exportSVGDiagramMetadata').is(':checked') === true;
+            const download = $('#exportSVGDownload').is(':checked') === true;
+
+            exportDiagramsToSVG([ currentView.key ], includeMetadata, download, currentView);
+        } else {
+            const includeMetadata = $('#exportPNGDiagramMetadata').is(':checked') === true;
+            const includeAnimationSteps = $('#exportPNGAnimationSteps').is(':checked') === true;
+            if (includeAnimationSteps === true) {
+                $('#exportAnimation').removeClass('hidden');
+            } else {
+                $('#exportAnimation').addClass('hidden');
+            }
+            const crop = $('#exportPNGCropDiagrams').is(':checked') === true;
+            const download = $('#exportPNGDownload').is(':checked') === true;
+
+            exportDiagramsToPNG([ currentView.key ], includeMetadata, includeAnimationSteps, crop, download, currentView);
+        }
+    }
+
+    function exportSelectedViews() {
+        $('#exportedDiagrams').empty();
+        $('#exportAnimation').addClass('hidden');
+        const currentView = structurizr.diagram.getCurrentViewOrFilter();
+
+        var viewList = $('#exportViewList');
+        var selectedValues = viewList.val();
+        if (selectedValues) {
+            if (exportFormat === 'svg') {
+                const includeMetadata = $('#exportSVGDiagramMetadata').is(':checked') === true;
+                const download = $('#exportSVGDownload').is(':checked') === true;
+
+                exportDiagramsToSVG(selectedValues, includeMetadata, download, currentView);
+            } else {
+                const includeMetadata = $('#exportPNGDiagramMetadata').is(':checked') === true;
+                const includeAnimationSteps = $('#exportPNGAnimationSteps').is(':checked') === true;
+                if (includeAnimationSteps === true) {
+                    $('#exportAnimation').removeClass('hidden');
+                } else {
+                    $('#exportAnimation').addClass('hidden');
+                }
+                const crop = $('#exportPNGCropDiagrams').is(':checked') === true;
+                const download = $('#exportPNGDownload').is(':checked') === true;
+
+                exportDiagramsToPNG(selectedValues, includeMetadata, includeAnimationSteps, crop, download, currentView);
+            }
+        }
+    }
+
+    function exportAllViews() {
+        $('#exportedDiagrams').empty();
+        $('#exportAnimation').addClass('hidden');
+        const currentView = structurizr.diagram.getCurrentViewOrFilter();
+
+        var selectedValues = $("#exportViewList option").map(function() {return $(this).val();}).get();
+        if (selectedValues) {
+            if (exportFormat === 'svg') {
+                const includeMetadata = $('#exportSVGDiagramMetadata').is(':checked') === true;
+                const download = $('#exportSVGDownload').is(':checked') === true;
+
+                exportDiagramsToSVG(selectedValues, includeMetadata, download, currentView);
+            } else {
+                const includeMetadata = $('#exportPNGDiagramMetadata').is(':checked') === true;
+                const includeAnimationSteps = $('#exportPNGAnimationSteps').is(':checked') === true;
+                if (includeAnimationSteps === true) {
+                    $('#exportAnimation').removeClass('hidden');
+                } else {
+                    $('#exportAnimation').addClass('hidden');
+                }
+                const crop = $('#exportPNGCropDiagrams').is(':checked') === true;
+                const download = $('#exportPNGDownload').is(':checked') === true;
+
+                exportDiagramsToPNG(selectedValues, includeMetadata, includeAnimationSteps, crop, download, currentView);
+            }
+        }
+    }
+
+    function exportDiagramsToPNG(viewsToExport, includeDiagramMetadata, includeDiagramAnimations, crop, download, originalView) {
+        structurizr.diagram.onViewChanged(undefined);
+
+        if (viewsToExport && viewsToExport.length > 0) {
+            const viewToExport = structurizr.workspace.findViewByKey(viewsToExport[0]);
+
+            changeView(viewToExport, function () {
+                if (includeDiagramAnimations === true) {
+                    structurizr.diagram.exportCurrentDiagramKeyToPNG(function(diagramKeyAsPNG) {
+
+                        var stepNumber = 1;
+                        structurizr.diagram.startAnimation(false);
+
+                        const f = function () {
+                            structurizr.diagram.exportCurrentDiagramToPNG(includeDiagramMetadata, crop, function (diagramAsPNG) {
+                                addExportedPNGToPage(diagramAsPNG, undefined, stepNumber, download);
+
+                                structurizr.diagram.stepForwardInAnimation();
+                                stepNumber++;
+
+                                if (structurizr.diagram.animationStarted() === false) {
+                                    structurizr.diagram.exportCurrentDiagramToPNG(includeDiagramMetadata, crop, function (diagramAsPNG) {
+                                        addExportedPNGToPage(diagramAsPNG, diagramKeyAsPNG, stepNumber, download);
+                                        viewsToExport.splice(0, 1);
+                                        exportDiagramsToPNG(viewsToExport, includeDiagramMetadata, includeDiagramAnimations, crop, download, originalView);
+                                    });
+                                } else {
+                                    f();
+                                }
+                            });
+                        }
+
+                        f();
+                    });
+                } else {
+                    structurizr.diagram.exportCurrentDiagramToPNG(includeDiagramMetadata, crop, function(diagramAsPNG) {
+                        structurizr.diagram.exportCurrentDiagramKeyToPNG(function(diagramKeyAsPNG) {
+                            addExportedPNGToPage(diagramAsPNG, diagramKeyAsPNG, undefined, download);
+
+                            viewsToExport.splice(0, 1);
+                            exportDiagramsToPNG(viewsToExport, includeDiagramMetadata, includeDiagramAnimations, crop, download, originalView);
+                        });
+                    });
+                }
+            });
+        } else {
+            setTimeout(function() {
+                structurizr.diagram.onViewChanged(viewChanged);
+                changeView(originalView);
+            }, 1000);
+        }
+    }
+
+    function addExportedPNGToPage(diagramAsPNG, diagramKeyAsPNG, stepNumber, download) {
+        const currentView = structurizr.diagram.getCurrentViewOrFilter();
+        const viewTitle = structurizr.ui.getTitleForView(currentView);
+
+        var downloadFilenamePrefix = $('#exportFilenamePrefix').val();
+        downloadFilenamePrefix += currentView.key;
+        var downloadFilenameSuffix = '.png';
+
+        if (stepNumber !== undefined) {
+            var paddedStepNumber = ("00" + stepNumber);
+            downloadFilenameSuffix = '-' + paddedStepNumber.substr(paddedStepNumber.length-3) + '.png';
+        }
+
+        const exportedImageElement = document.getElementById("exportedDiagrams");
+
+        var div = document.createElement('div');
+        div.style = "display: inline-block; margin: 10px; vertical-align: top; max-width: 300px";
+        exportedImageElement.appendChild(div);
+
+        var title = document.createElement('h6');
+        title.appendChild(document.createTextNode(viewTitle));
+        div.appendChild(title);
+
+        var img = document.createElement('img');
+        img.className = "img-thumbnail exportedPNGDiagram";
+        img.style = "display: block; margin: 0 auto 5px auto";
+        var link = document.createElement("a");
+        link.appendChild(img);
+        div.appendChild(link);
+
+        var filename = document.createElement('div');
+        filename.appendChild(document.createTextNode(downloadFilenamePrefix + downloadFilenameSuffix));
+        filename.style = "font-size: 8px; margin-bottom: 10px";
+        div.appendChild(filename);
+
+        img.src = diagramAsPNG;
+        link.download = downloadFilenamePrefix + downloadFilenameSuffix;
+        link.href = URL.createObjectURL(structurizr.util.dataURIToBlob(diagramAsPNG));
+
+        if (download) {
+            link.click();
+        }
+
+        if (diagramKeyAsPNG !== undefined) {
+            var imgKey = document.createElement('img');
+            imgKey.className = "img-thumbnail";
+            img.style = "display: block; margin: 0 auto 5px auto";
+            var linkKey = document.createElement("a");
+            linkKey.appendChild(imgKey);
+            div.appendChild(linkKey);
+
+            filename = document.createElement('div');
+            filename.appendChild(document.createTextNode(downloadFilenamePrefix + '-key.png'));
+            filename.style = "font-size: 8px; margin-bottom: 10px";
+            div.appendChild(filename);
+
+            imgKey.src = diagramKeyAsPNG;
+            linkKey.download = downloadFilenamePrefix + '-key.png';
+            linkKey.href = URL.createObjectURL(structurizr.util.dataURIToBlob(diagramKeyAsPNG));
+
+            if (download) {
+                linkKey.click();
+            }
+        }
+    }
+
+    function exportDiagramsToSVG(viewsToExport, includeDiagramMetadata, download, originalView) {
+        structurizr.diagram.onViewChanged(undefined);
+
+        if (viewsToExport && viewsToExport.length > 0) {
+            const viewToExport = structurizr.workspace.findViewByKey(viewsToExport[0]);
+
+            changeView(viewToExport, function () {
+                var diagramAsSVG = structurizr.diagram.exportCurrentDiagramToSVG(includeDiagramMetadata);
+                diagramAsSVG = replaceLocalThemes(diagramAsSVG);
+
+                var diagramKeyAsSVG;
+                if (viewToExport.type !== structurizr.constants.IMAGE_VIEW_TYPE) {
+                    diagramKeyAsSVG = structurizr.diagram.exportCurrentDiagramKeyToSVG();
+                    diagramKeyAsSVG = replaceLocalThemes(diagramKeyAsSVG);
+                }
+
+                addExportedSVGToPage(diagramAsSVG, diagramKeyAsSVG, download);
+
+                viewsToExport.splice(0, 1);
+                exportDiagramsToSVG(viewsToExport, includeDiagramMetadata, download, originalView);
+            });
+        } else {
+            setTimeout(function() {
+                structurizr.diagram.onViewChanged(viewChanged);
+                changeView(originalView);
+            }, 1000);
+        }
+    }
+
+    function addExportedSVGToPage(diagramAsSVG, diagramKeyAsSVG, download) {
+        const currentView = structurizr.diagram.getCurrentViewOrFilter();
+        const viewTitle = structurizr.ui.getTitleForView(currentView);
+
+        var baseFilename = $('#exportFilenamePrefix').val();
+        baseFilename += currentView.key;
+        const diagramFilename = baseFilename + '.svg';
+        const keyFilename = baseFilename + '-key.svg'
+
+        var exportedImageElement = document.getElementById("exportedDiagrams");
+
+        var div = document.createElement('div');
+        div.style = "display: inline-block; margin: 10px; vertical-align: top; width: 300px; max-width: 300px";
+        exportedImageElement.appendChild(div);
+
+        var title = document.createElement('h6');
+        title.appendChild(document.createTextNode(viewTitle));
+        div.appendChild(title);
+
+        var img = document.createElement('div');
+        img.className = "img-thumbnail";
+        img.style = "display: block; margin-bottom: 5px";
+        var link = document.createElement("a");
+        link.appendChild(img);
+        div.appendChild(link);
+
+        var blob = structurizr.util.toBlob(diagramAsSVG, 'text/html;charset=utf-8');
+        var url = URL.createObjectURL(blob);
+        img.innerHTML = diagramAsSVG;
+        link.download = diagramFilename;
+        link.href = url;
+
+        var filename = document.createElement('div');
+        filename.appendChild(document.createTextNode(diagramFilename));
+        filename.style = "font-size: 8px; margin-bottom: 10px";
+        div.appendChild(filename);
+
+        if (download) {
+            link.click();
+        }
+
+        if (diagramKeyAsSVG) {
+            var imgKey = document.createElement('div');
+            imgKey.className = "img-thumbnail";
+            imgKey.style = "display: block; margin-bottom: 5px";
+            var linkKey = document.createElement("a");
+            linkKey.appendChild(imgKey);
+            div.appendChild(linkKey);
+
+            var blobKey = structurizr.util.toBlob(diagramKeyAsSVG, 'text/html;charset=utf-8');
+            var urlKey = URL.createObjectURL(blobKey);
+            imgKey.innerHTML = diagramKeyAsSVG;
+            linkKey.download = keyFilename;
+            linkKey.href = urlKey;
+
+            filename = document.createElement('div');
+            filename.appendChild(document.createTextNode(keyFilename));
+            filename.style = "font-size: 8px; margin-bottom: 10px";
+            div.appendChild(filename);
+
+            if (download) {
+                linkKey.click();
+            }
+        }
+    }
+
+    function createGIF() {
+        var images = [];
+
+        var gifWidth = $('.exportedPNGDiagram')[0].naturalWidth;
+        var gifHeight = $('.exportedPNGDiagram')[0].naturalHeight;
+
+        $('.exportedPNGDiagram').each(function() {
+            images.push($(this).attr('src'));
+        });
+
+        var durationPerFrame = parseInt($('#animatedGIFInterval').val());
+
+        var exportedImageElement = document.getElementById("exportedDiagrams");
+        var div = document.createElement('div');
+        div.style = "display: inline-block; margin: 10px; vertical-align: top; max-width: 300px";
+        exportedImageElement.appendChild(div);
+
+        var title = document.createElement('h6');
+        title.appendChild(document.createTextNode("Animated GIF (" + images.length + " frames; " + durationPerFrame + " seconds per frame)"));
+        div.appendChild(title);
+
+        var link = document.createElement("a");
+        link.download = 'structurizr.gif';
+
+        var img = document.createElement('img');
+        img.width = "300";
+        img.className = "img-thumbnail exportedGIFDiagram";
+        img.style = "display: block; margin-bottom: 5px";
+        img.src = "/static/img/progress.gif";
+        link.appendChild(img);
+        div.appendChild(link);
+        document.getElementById("exportedDiagrams").appendChild(div);
+
+        gifshot.createGIF({
+            gifWidth: gifWidth,
+            gifHeight: gifHeight,
+            'images': images,
+            'interval': durationPerFrame,
+            'frameDuration': 1
+        },function(obj) {
+            if(!obj.error) {
+                var image = obj.image;
+
+                img.src = image;
+
+                var blob = structurizr.util.dataURIToBlob(obj.image);
+                var url = URL.createObjectURL(blob);
+                link.href = url;
+            }
+        });
+    }
+
+    function exportToPNG() {
+        $('#exportModal .modal-title').html('Export to PNG');
+        exportFormat = 'png';
+        $('#exportPNGOptions').removeClass('hidden');
+        $('#exportSVGOptions').addClass('hidden');
+        $('#exportAnimation').addClass('hidden');
+        $('#exportedDiagrams').empty();
+        $('#exportModal').modal();
+    }
+
+    function exportToSVG() {
+        $('#exportModal .modal-title').html('Export to SVG');
+        exportFormat = 'svg';
+        $('#exportPNGOptions').addClass('hidden');
+        $('#exportSVGOptions').removeClass('hidden');
+        $('#exportAnimation').addClass('hidden');
+        $('#exportedDiagrams').empty();
+        $('#exportModal').modal();
+    }
+
+    function replaceLocalThemes(svg) {
+        return svg.replace(/xlink:href="\/static\/themes\//g, 'xlink:href="https://static.structurizr.com/themes/');
+    }
+
+</script><script nonce="NWRjMTc5NGUtNzI2Yi00NzUyLWJjNDYtODY0YTU4NTJjYTk3">
+
+    function initPerspectives() {
+        const perspectiveNames = structurizr.workspace.getPerspectiveNames();
+        if (perspectiveNames.length > 0) {
+            $('#perspectivesOnButton').removeClass('hidden');
+        }
+    }
+
+    function openPerspectivesModal() {
+        const perspectiveNames = structurizr.workspace.getPerspectiveNames();
+
+        if (perspectiveNames.length > 0) {
+            const options = [
+                {
+                    label: '(none)',
+                    value: ''
+                }
+            ].concat(perspectiveNames.map(function (name) {
+                return {
+                    label: name,
+                    value: name
+                };
+            }));
+
+            openNavigationModal(options, structurizr.diagram.getPerspective(), function(perspective) {
+                if (perspective.length > 0) {
+                    structurizr.diagram.showPerspective(perspective);
+                    tooltip.disable();
+                    toggleTooltip();
+
+                    $('#perspectivesOnButton').addClass('hidden');
+                    $('#perspectivesOffButton').removeClass('hidden');
+                    $('#perspectivesOffButton').attr('title', 'Perspective: ' + perspective);
+                } else {
+                    if (structurizr.diagram.hasPerspective()) {
+                        deactivatePerspective();
+                    }
+                }
+            });
+        }
+    }
+
+    function deactivatePerspective() {
+        structurizr.diagram.clearPerspective();
+        tooltip.enable();
+        toggleTooltip();
+
+        $('#perspectivesOnButton').removeClass('hidden');
+        $('#perspectivesOffButton').addClass('hidden');
+        $('#perspectivesOffButton').attr('title', 'Perspectives');
+    }
+
+</script><div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="filterModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content centered">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <span id="tagSelector"></span>
+                <span>
+                    <button id="deselectAllTagsButton" type="button" class="btn btn-default" title="Deselect all tags"><img src="/static/bootstrap-icons/tags.svg" class="icon-btn" /></button>
+                    <button id="selectAllTagsButton" type="button" class="btn btn-default" title="Select all tags"><img src="/static/bootstrap-icons/tags-fill.svg" class="icon-btn" /></button>
+                    <button id="deactivateFilter" type="button" class="btn btn-default" title="Deactivate filter"><img src="/static/bootstrap-icons/x-circle.svg" class="icon-btn" /></button>
+                    <button id="activateFilter" type="button" class="btn btn-default" title="Activate filter"><img src="/static/bootstrap-icons/check-circle.svg" class="icon-btn" /></button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script nonce="NWRjMTc5NGUtNzI2Yi00NzUyLWJjNDYtODY0YTU4NTJjYTk3">
+
+    function initFilter() {
+        const tags = structurizr.workspace.getUserDefinedTags();
+
+        if (tags.length === 0) {
+            $('#filterOnButton').addClass('hidden');
+            return;
+        }
+
+        const filter = structurizr.diagram.getFilter();
+        filter.tags = tags;
+        structurizr.diagram.setFilter(filter);
+
+        const tagSelector = $('#tagSelector');
+
+        $('#deselectAllTagsButton').click(function() {
+            const filter = structurizr.diagram.getFilter();
+            filter.tags = [];
+            structurizr.diagram.setFilter(filter);
+
+            $('#filterModal .tag').removeClass('tagOn');
+            $('#filterModal .tag').addClass('tagOff');
+        });
+        $('#selectAllTagsButton').click(function() {
+            const filter = structurizr.diagram.getFilter();
+            filter.tags = structurizr.workspace.getUserDefinedTags();
+            structurizr.diagram.setFilter(filter);
+
+            $('#filterModal .tag').removeClass('tagOff');
+            $('#filterModal .tag').addClass('tagOn');
+        });
+        $('#deactivateFilter').click(function() {
+            structurizr.diagram.filterOff();
+            $('#filterOnButton').removeClass('hidden');
+            $('#filterOffButton').addClass('hidden');
+            closeFilterModal();
+        });
+        $('#activateFilter').click(function() {
+            closeFilterModal();
+        });
+
+        tags.forEach(function(tag) {
+            const span = document.createElement('span');
+            span.classList.add('tag');
+            span.classList.add('tagOn');
+            span.innerHTML = structurizr.util.escapeHtml(tag);
+
+            span.onclick = function() {
+                const filter = structurizr.diagram.getFilter();
+
+                if (filter.tags.indexOf(tag) > -1) {
+                    filter.tags.splice(filter.tags.indexOf(tag), 1);
+                    structurizr.diagram.setFilter(filter);
+                    span.classList.remove('tagOn');
+                    span.classList.add('tagOff');
+                } else {
+                    filter.tags.push(tag);
+                    structurizr.diagram.setFilter(filter);
+                    span.classList.remove('tagOff');
+                    span.classList.add('tagOn');
+                }
+            };
+
+            tagSelector[0].appendChild(span);
+        });
+    }
+
+    function openFilterModal() {
+        const filter = structurizr.diagram.getFilter();
+        if (filter.active === false) {
+            filter.active = true;
+            structurizr.diagram.setFilter(filter);
+        }
+
+        $('#filterModal').modal({ backdrop: false });
+    }
+
+    function closeFilterModal() {
+        $('#filterModal').modal('hide');
+    }
+
+    function deactivateFilter() {
+        structurizr.diagram.filterOff();
+        $('#filterOffButton').addClass('hidden');
+        $('#filterOnButton').removeClass('hidden');
+    }
+</script><div class="modal fade" id="autoLayoutModal" tabindex="-1" role="dialog" aria-labelledby="autoLayoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h2 class="modal-title">Auto-layout</h2>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="autoLayoutImplementation">Implementation</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="autoLayoutImplementation">
+                                <option value="dagre">Dagre</option>
+                                <option value="graphviz">Graphviz</option>
+                                </select>
+                        </div>
+                    </div>
+
+                    <div id="autoLayoutRankDirectionFormGroup" class="form-group">
+                        <label class="control-label col-sm-4" for="autoLayoutRankDirection">Direction</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="autoLayoutRankDirection">
+                                <option value="TopBottom">Top to bottom</option>
+                                <option value="BottomTop">Bottom to top</option>
+                                <option value="LeftRight">Left to right</option>
+                                <option value="RightLeft">Right to left</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="autoLayoutResizePageFormGroup" class="form-group">
+                        <label class="control-label col-sm-4" for="autoLayoutResizePage">Resize page</label>
+                        <div class="col-sm-8">
+                            <input type="checkbox" id="autoLayoutResizePage" checked="checked" />
+                        </div>
+                    </div>
+
+                    <div id="autoLayoutVerticesFormGroup" class="form-group">
+                        <label class="control-label col-sm-4" for="autoLayoutVertices">Vertices</label>
+                        <div class="col-sm-8">
+                            <input type="checkbox" id="autoLayoutVertices" />
+                        </div>
+                    </div>
+
+                    <div id="autoLayoutMarginFormGroup" class="form-group">
+                        <label class="control-label col-sm-4" for="autoLayoutMargin">Margin</label>
+                        <div class="col-sm-8">
+                            <input type="number" id="autoLayoutMargin" value="400" /> (pixels)
+                        </div>
+                    </div>
+
+                    <div id="autoLayoutRankSeparationFormGroup" class="form-group">
+                        <label class="control-label col-sm-4" for="autoLayoutRankSeparation">Rank separation</label>
+                        <div class="col-sm-8">
+                            <input type="number" id="autoLayoutRankSeparation" value="300" /> (pixels)
+                        </div>
+                    </div>
+
+                    <div id="autoLayoutNodeSeparationFormGroup" class="form-group">
+                        <label class="control-label col-sm-4" for="autoLayoutNodeSeparation">Node separation</label>
+                        <div class="col-sm-8">
+                            <input type="number" id="autoLayoutNodeSeparation" value="300" /> (pixels)
+                        </div>
+                    </div>
+
+                    <div id="autoLayoutEdgeSeparationFormGroup" class="form-group">
+                        <label class="control-label col-sm-4" for="autoLayoutEdgeSeparation">Edge separation</label>
+                        <div class="col-sm-8">
+                            <input type="number" id="autoLayoutEdgeSeparation" value="300" /> (pixels)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group centered" style="margin-top: 40px">
+                    <button id="gatherElementsButton" class="btn btn-default" title="Bring elements back onto the diagram"><img src="/static/bootstrap-icons/magnet.svg" class="icon-btn" /> Bring elements back onto canvas</button>
+                    <button id="removeAllVerticesButton" class="btn btn-default" title="Remove all vertices"><img src="/static/bootstrap-icons/slash-lg.svg" class="icon-btn" /> Remove all vertices</button>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="closeAutoLayoutModalButton" type="button" class="btn btn-default">Cancel</button>
+                <button id="runAutoLayoutButton" type="button" class="btn btn-default">Auto-layout</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script nonce="NWRjMTc5NGUtNzI2Yi00NzUyLWJjNDYtODY0YTU4NTJjYTk3">
+
+    $('#gatherElementsButton').click(function() { structurizr.diagram.gatherElementsOnCanvas(); closeAutoLayoutModal(); });
+    $('#removeAllVerticesButton').click(function() { structurizr.diagram.removeAllVertices(); closeAutoLayoutModal(); });
+    $('#closeAutoLayoutModalButton').click(function() { closeAutoLayoutModal(); });
+    $('#runAutoLayoutButton').click(function() { runAutoLayout(); });
+
+    function initAutoLayout() {
+        $('#autoLayoutImplementation').change(function () {
+            var implementation = $(this).val();
+            if (implementation === 'graphviz') {
+                showOptionsForGraphviz();
+            } else {
+                showOptionsForDagre();
+            }
+        });
+    }
+
+    function showOptionsForGraphviz() {
+        $('#autoLayoutVerticesFormGroup').addClass('hidden');
+        $('#autoLayoutEdgeSeparationFormGroup').addClass('hidden');
+    }
+
+    function showOptionsForDagre() {
+        $('#autoLayoutVerticesFormGroup').removeClass('hidden');
+        $('#autoLayoutEdgeSeparationFormGroup').removeClass('hidden');
+    }
+
+    
+        $('#autoLayoutImplementation').val('graphviz');
+        showOptionsForGraphviz();
+    
+
+    function openAutoLayoutModal() {
+        $('#autoLayoutModal').modal();
+    }
+
+    function closeAutoLayoutModal() {
+        $('#autoLayoutModal').modal('hide');
+    }
+
+    function runAutoLayout() {
+        closeAutoLayoutModal();
+
+        const implementation = $('#autoLayoutImplementation').val();
+
+        if (implementation === 'dagre') {
+            structurizr.diagram.runDagre(
+                $('#autoLayoutRankDirection').val(),
+                $('#autoLayoutRankSeparation').val(),
+                $('#autoLayoutNodeSeparation').val(),
+                $('#autoLayoutEdgeSeparation').val(),
+                $('#autoLayoutVertices').is(':checked'),
+                $('#autoLayoutMargin').val(),
+                $('#autoLayoutResizePage').is(':checked')
+            )
+        } else {
+            runGraphvizWithParameters(
+                $('#autoLayoutRankDirection').val(),
+                $('#autoLayoutRankSeparation').val(),
+                $('#autoLayoutNodeSeparation').val(),
+                $('#autoLayoutEdgeSeparation').val(),
+                $('#autoLayoutVertices').is(':checked'),
+                $('#autoLayoutMargin').val(),
+                $('#autoLayoutResizePage').is(':checked'),
+                function() {
+                    structurizr.diagram.refresh();
+                    workspaceChanged();
+                }
+            );
+        }
+    }
+</script><div class="modal fade" id="noViewsModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h2 class="modal-title"><span id="diagramInformationTitle">Please note</span></h2>
+            </div>
+            <div class="modal-body">
+                <p>There are no views defined in this workspace.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script nonce="NWRjMTc5NGUtNzI2Yi00NzUyLWJjNDYtODY0YTU4NTJjYTk3">
+    function openNoViewsModal() {
+        const modal = $('#noViewsModal');
+        modal.on('hidden.bs.modal', function (e) {
+            window.location.href = '/workspace';
+        });
+
+        modal.modal('show');
+    }
+</script><style>
+    #lasso {
+        background: #dddddd;
+        position: absolute;
+        z-index: 10;
+        opacity: 0.5;
+        border: 2px #cccccc solid;
+    }
+</style>
+
+<div id="lasso" class="hidden"></div>
+
+<script nonce="NWRjMTc5NGUtNzI2Yi00NzUyLWJjNDYtODY0YTU4NTJjYTk3">
+    const lasso = $('#lasso');
+</script><div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h2 class="modal-title">Review</h2>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Select the diagram(s) that you would like to include in the review.
+                    
+                        See <a href="https://docs.structurizr.com/onpremises/diagram-review" target="_blank">On-premises installation - Diagram review</a> for more details.
+                        </p>
+
+                <form id="createReviewForm" method="post" action="/user/review/create" target="_blank">
+                    <input type="hidden" name="workspaceId" value="1" />
+                    <div id="createReviewFormFiles" class="hidden"></div>
+
+                    <div class="form-group">
+                        <select multiple class="form-control" id="reviewViewList" size="10">
+                        </select>
+                    </div>
+
+                    <div class="form-group form-inline centered">
+                        <select class="form-control" style="display: inline-block" name="review">
+                            <option value="General">General review</option>
+                            <option value="Risk">Risk review</option>
+                            <option value="STRIDE">STRIDE review</option>
+                        </select>
+
+                        <select class="form-control" style="display: inline-block" name="workspace">
+                            <option value="1">Private (use workspace settings)</option>
+                            <option value="">Public (allow unauthenticated access)</option>
+                        </select>
+                    </div>
+                </form>
+                &nbsp;
+            </div>
+            <div class="modal-footer">
+                <button id="reviewSelectedViewsButton" type="button" class="btn btn-default">Create review</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script nonce="NWRjMTc5NGUtNzI2Yi00NzUyLWJjNDYtODY0YTU4NTJjYTk3">
+
+    $('#reviewSelectedViewsButton').click(function() { createReviewForSelectedViews(); });
+
+    function initReview() {
+        const viewList = $('#reviewViewList');
+
+        structurizr.workspace.getViews().forEach(function(view) {
+            viewList.append(
+                $('<option></option>').val(structurizr.util.escapeHtml(view.key)).html(structurizr.util.escapeHtml(structurizr.ui.getTitleForView(view)))
+            );
+        });
+
+        viewList.attr("size", Math.min(10, structurizr.workspace.getViews().length));
+
+        viewList.change(function () {
+            const selectedItems = $(this).val();
+            $('#reviewSelectedViewsButton').attr('disabled', !(selectedItems && selectedItems.length > 0));
+        });
+    }
+
+    function createReviewForSelectedViews() {
+        $('#reviewSelectedViewsButton').prop('disabled', true);
+        var viewList = $('#reviewViewList');
+        var selectedViews = viewList.val();
+        var images = [];
+
+        if (selectedViews) {
+            if (!Array.isArray(selectedViews)) {
+                selectedViews = [ selectedViews ];
+            }
+
+            selectedViews.forEach(function (view) {
+                images.push(undefined);
+            });
+
+            var formFiles = document.getElementById('createReviewFormFiles');
+            formFiles.innerHTML = '';
+
+            exportDiagramsForReview(selectedViews, structurizr.diagram.getCurrentViewOrFilter().key);
+        }
+    }
+
+    function exportDiagramsForReview(viewsToExport, originalViewKey) {
+        if (viewsToExport && viewsToExport.length > 0) {
+            const viewToExport = viewsToExport[0];
+
+            structurizr.diagram.changeView(viewToExport, function () {
+                structurizr.diagram.exportCurrentDiagramToPNG(true, false, function(diagramAsPNG) {
+                    const formFiles = document.getElementById('createReviewFormFiles');
+                    const input = document.createElement("input");
+                    input.setAttribute("type", "hidden");
+                    input.setAttribute("name", "file");
+                    input.setAttribute("value", diagramAsPNG);
+                    formFiles.appendChild(input);
+
+                    viewsToExport.splice(0, 1);
+                    exportDiagramsForReview(viewsToExport, originalViewKey);
+                });
+            });
+        } else {
+            document.getElementById('createReviewForm').submit();
+            $('#reviewModal').modal('hide');
+
+            setTimeout(function() {
+                structurizr.diagram.changeView(originalViewKey);
+            }, 1000);
+        }
+    }
+
+    function openReviewModal() {
+        $('#reviewModal').modal();
+    }
+</script><script nonce="NWRjMTc5NGUtNzI2Yi00NzUyLWJjNDYtODY0YTU4NTJjYTk3">
+
+    progressMessage.show('<p>Loading workspace...</p>');
+
+    const DARK_MODE_COOKIE_NAME = 'structurizr.darkMode';
+    structurizr.ui.DEFAULT_FONT_NAME = "Open Sans, Tahoma, Arial";
+
+    $('#renderingModeLightLink').click(function(event) {
+        event.preventDefault();
+        structurizr.ui.setRenderingMode(structurizr.ui.RENDERING_MODE_LIGHT);
+        structurizr.diagram.setDarkMode(structurizr.ui.isDarkMode());
+    });
+
+    $('#renderingModeDarkLink').click(function(event) {
+        event.preventDefault();
+        structurizr.ui.setRenderingMode(structurizr.ui.RENDERING_MODE_DARK);
+        structurizr.diagram.setDarkMode(structurizr.ui.isDarkMode());
+    });
+
+    $('#renderingModeSystemLink').click(function(event) {
+        event.preventDefault();
+        structurizr.ui.setRenderingMode(structurizr.ui.RENDERING_MODE_SYSTEM);
+        structurizr.diagram.setDarkMode(structurizr.ui.isDarkMode());
+    });
+
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+        if (structurizr.ui.getRenderingMode() === structurizr.ui.RENDERING_MODE_SYSTEM) {
+            structurizr.diagram.setDarkMode(structurizr.ui.isDarkMode());
+        }
+    });
+
+    var embed = false;
+    var diagramSelector = false;
+    var views;
+    const viewKeys = [];
+    var viewsVisited = new structurizr.util.Stack();
+    var unsavedChanges = false;
+    var publishThumbnails = true;
+    var presentationMode = false;
+    var healthCheck;
+
+    function workspaceLoaded() {
+        if (!structurizr.workspace.hasViews()) {
+            openNoViewsModal();
+
+            structurizr.scripting = new function() {
+                this.isDiagramRendered = function() {
+                    return true;
+                };
+
+                this.getViews = function() {
+                    return [];
+                };
+            };
+
+            return;
+        } else {
+            views = structurizr.workspace.getViews();
+        }
+
+        structurizr.ui.loadThemes('/static/themes/', function() {
+            init();
+        });
+    }
+
+    function init() {
+        structurizr.ui.applyBranding();
+
+        structurizr.diagram = new structurizr.ui.Diagram('diagram', true, diagramCreated);
+        structurizr.diagram.setEmbedded(false);
+        structurizr.diagram.setDarkMode(structurizr.ui.isDarkMode());
+
+        structurizr.diagram.setTooltip(tooltip);
+        structurizr.diagram.setLasso(lasso);
+        structurizr.diagram.setNavigationEnabled(true);
+        structurizr.diagram.onWorkspaceChanged(workspaceChanged);
+        structurizr.diagram.onElementDoubleClicked(elementDoubleClicked);
+        structurizr.diagram.onRelationshipDoubleClicked(relationshipDoubleClicked);
+        structurizr.diagram.onElementsSelected(toggleMultiSelectButtons);
+        structurizr.diagram.onViewChanged(viewChanged);
+        structurizr.diagram.onAnimationStarted(animationStarted);
+        structurizr.diagram.onAnimationStopped(animationStopped);
+        structurizr.scripting = new function() {
+
+            this.isDiagramRendered = function() {
+                return structurizr.diagram.isRendered();
+            };
+
+            this.exportCurrentDiagramToPNG = function(options, callback) {
+                if (options === undefined) {
+                    options = {};
+                }
+
+                if (options.includeMetadata === undefined) {
+                    options.includeMetadata = true;
+                }
+
+                if (options.crop === undefined) {
+                    options.crop = false;
+                }
+
+                return structurizr.diagram.exportCurrentDiagramToPNG(options.includeMetadata, options.crop, callback);
+            };
+
+            this.exportCurrentDiagramKeyToPNG = function(callback) {
+                return structurizr.diagram.exportCurrentDiagramKeyToPNG(callback);
+            };
+
+            this.exportCurrentDiagramToSVG = function(options) {
+                if (options === undefined) {
+                    options = {};
+                }
+
+                if (options.includeMetadata === undefined) {
+                    options.includeMetadata = true;
+                }
+
+                var svg = structurizr.diagram.exportCurrentDiagramToSVG(options.includeMetadata);
+                svg = replaceLocalThemes(svg);
+
+                return svg;
+            };
+
+            this.exportCurrentDiagramKeyToSVG = function() {
+                var svg = structurizr.diagram.exportCurrentDiagramKeyToSVG();
+                svg = replaceLocalThemes(svg);
+
+                return svg;
+            };
+
+            this.getViews = function() {
+                const views = [];
+
+                structurizr.workspace.getViews().forEach(function(view) {
+                    views.push(
+                        {
+                            key: view.key,
+                            name: structurizr.ui.getTitleForView(view),
+                            description: view.description ? view.description : '',
+                            type: view.type
+                        }
+                    )
+                });
+
+                return views;
+            };
+
+            this.getViewKey = function() {
+                return structurizr.diagram.getCurrentViewOrFilter().key;
+            };
+
+            this.getView = function() {
+                return structurizr.diagram.getCurrentViewOrFilter();
+            }
+
+            this.changeView = function(viewKey) {
+                const view = structurizr.workspace.findViewByKey(viewKey);
+                if (view) {
+                    changeView(view);
+                } else {
+                    throw 'A view with the key "' + viewKey + '" could not be found.';
+                }
+            };
+
+        };
+
+        initEmbed();
+        initPerspectives();
+        initFilter();
+        initAutoLayout();
+        initReview();
+        healthCheck = new structurizr.HealthCheck(updateHealth);
+
+        
+
+        initQuickNavigation();
+        initExports();
+        initSizing();
+        initControls();
+        initKeyboardShortcuts();
+        initInspectionSummary();
+
+        
+
+        progressMessage.hide();
+    }
+
+    function viewChanged(key) {
+        $('#keyModal').modal('hide');
+
+        // set the view key in the embed code modal
+        $('.diagramEmbedDiagramId').text(key);
+
+        const view = structurizr.workspace.findViewByKey(key);
+
+        $('#diagramControls').removeClass('hidden');
+        $('#undoButton').prop('disabled', true);
+
+        if (viewsVisited.peek() !== key) {
+            viewsVisited.push(key);
+        }
+        $('.backButton').attr("disabled", viewsVisited.count() === 1);
+
+        selectDiagramByView(view);
+        const editable = structurizr.diagram.isEditable();
+
+        healthCheck.stop();
+
+        if (view.type === structurizr.constants.IMAGE_VIEW_TYPE) {
+            $('#diagramEditButtons').addClass('hidden');
+            $('#diagramNotEditableMessage').addClass('hidden');
+            $('#editDiagramButton').addClass('hidden');
+            $('.modelViewButtons').addClass('hidden');
+
+            structurizr.diagram.resize();
+            structurizr.diagram.zoomToWidthOrHeight();
+            refreshThumbnail();
+
+            return;
+        }
+
+         $('.modelViewButtons').removeClass('hidden');
+
+        if (editable) {
+            $('#diagramEditButtons').removeClass('hidden');
+        } else {
+            $('#diagramEditButtons').addClass('hidden');
+
+            if (embed && !diagramSelector) {
+                $('#diagramControls').addClass('hidden');
+            }
+        }
+
+        // disable some UI elements based upon whether the diagram is editable
+        $('#autoLayoutButton').prop('disabled', !editable);
+        getPageSizeDropDown().prop('disabled', !editable);
+
+        $('.multipleElementsSelectedButton').prop('disabled', true);
+
+        if (
+            view.type === structurizr.constants.SYSTEM_CONTEXT_VIEW_TYPE ||
+            view.type === structurizr.constants.CONTAINER_VIEW_TYPE ||
+            view.type === structurizr.constants.COMPONENT_VIEW_TYPE ||
+            (view.type === structurizr.constants.DYNAMIC_VIEW_TYPE && view.elementId !== undefined) ||
+            (view.type === structurizr.constants.DEPLOYMENT_VIEW_TYPE && view.softwareSystemId !== undefined)
+        ) {
+            $('#showDiagramScopeOnButton').removeClass('hidden');
+            $('#showDiagramScopeOffButton').addClass('hidden');
+        } else {
+            $('#showDiagramScopeOnButton').addClass('hidden');
+            $('#showDiagramScopeOffButton').addClass('hidden');
+        }
+
+        if (view.type === "Dynamic" || (view.animations && view.animations.length > 1)) {
+            $('.dynamicDiagramButton').removeClass("hidden");
+
+            $('.stepBackwardAnimationButton').attr("disabled", true);
+            $('.startAnimationButton').attr("disabled", false);
+            $('.stopAnimationButton').attr("disabled", true);
+            $('.stepForwardAnimationButton').attr("disabled", false);
+        } else {
+            $('.dynamicDiagramButton').addClass("hidden");
+        }
+
+        var elementsHaveHealthChecks = false;
+        if (view.type === structurizr.constants.DEPLOYMENT_VIEW_TYPE) {
+            view.elements.forEach(function(ev) {
+                const element = structurizr.workspace.findElementById(ev.id);
+                if (element && element.healthChecks && element.healthChecks.length > 0) {
+                    elementsHaveHealthChecks = true;
+                }
+            })
+        }
+
+        if (elementsHaveHealthChecks) {
+            $('#healthOnButton').removeClass('hidden');
+            $('#healthOffButton').addClass('hidden');
+        } else {
+            $('#healthOnButton').addClass('hidden');
+            $('#healthOffButton').addClass('hidden');
+        }
+
+        const explorationsButton = document.getElementById('explorationsButton');
+        if (explorationsButton) {
+            if (view.type === structurizr.constants.CUSTOM_VIEW_TYPE || view.type === structurizr.constants.SYSTEM_LANDSCAPE_VIEW_TYPE || view.type === structurizr.constants.SYSTEM_CONTEXT_VIEW_TYPE || view.type === structurizr.constants.CONTAINER_VIEW_TYPE || view.type === structurizr.constants.COMPONENT_VIEW_TYPE) {
+                explorationsButton.onclick = function () {
+                    const urlPrefix = '/workspace';
+                    const urlSuffix = '';
+                    window.open(urlPrefix + '/explore/graph' + urlSuffix + '#' + encodeURIComponent(view.key));
+                };
+
+                $('#explorationsButton').removeClass('hidden');
+            } else if (view.type === structurizr.constants.DEPLOYMENT_VIEW_TYPE) {
+                explorationsButton.onclick = function () {
+                    const urlPrefix = '/workspace';
+                    const urlSuffix = '';
+                    window.open(urlPrefix + '/explore/tree' + urlSuffix + '#' + encodeURIComponent(view.key));
+                };
+
+                $('#explorationsButton').removeClass('hidden');
+            } else {
+                $('#explorationsButton').addClass('hidden');
+            }
+        }
+
+        configureTooltip(view);
+
+        if (structurizr.diagram.getCurrentView().automaticLayout !== undefined) {
+            $('#editDiagramButton').addClass('hidden');
+            $('#diagramNotEditableMessage').removeClass('hidden');
+        } else {
+            $('#editDiagramButton').removeClass('hidden');
+            $('#diagramNotEditableMessage').addClass('hidden');
+        }
+
+        structurizr.diagram.resize();
+        structurizr.diagram.zoomToWidthOrHeight();
+        refreshThumbnail();
+    }
+
+    function configureTooltip(view) {
+        const STRUCTURIZR_TOOLTIPS_PROPERTY_NAME = 'structurizr.tooltips';
+        if (view.properties) {
+            if (view.properties[STRUCTURIZR_TOOLTIPS_PROPERTY_NAME] === 'true') {
+                tooltip.disable();
+                toggleTooltip();
+                return;
+            } else if (view.properties[STRUCTURIZR_TOOLTIPS_PROPERTY_NAME] === 'false') {
+                tooltip.enable();
+                toggleTooltip();
+                return;
+            }
+        }
+
+        if (structurizr.workspace.views.configuration.properties) {
+            if (structurizr.workspace.views.configuration.properties[STRUCTURIZR_TOOLTIPS_PROPERTY_NAME] === 'true') {
+                tooltip.disable();
+                toggleTooltip();
+                return;
+            } else if (structurizr.workspace.views.configuration.properties[STRUCTURIZR_TOOLTIPS_PROPERTY_NAME] === 'false') {
+                tooltip.enable();
+                toggleTooltip();
+                return;
+            }
+        }
+    }
+
+    function refreshThumbnail() {
+        const view = structurizr.diagram.getCurrentViewOrFilter();
+        const viewKey = view.key;
+
+        if (structurizr.workspace.id < 1 || structurizr.diagram.hasPerspective() || structurizr.diagram.getFilter().active) {
+            // don't generate thumbnail
+        } else {
+            structurizr.diagram.exportCurrentThumbnailToPNG(function (thumbnail) {
+                const domId = '#diagram' + (viewKeys.indexOf(viewKey) + 1) + 'Thumbnail';
+                var suffix;
+
+                if (structurizr.ui.isDarkMode()) {
+                    $(domId + ' img.img-dark').attr('src', thumbnail);
+                    suffix = 'thumbnail-dark.png';
+                } else {
+                    $(domId + ' img.img-light').attr('src', thumbnail);
+                    suffix = 'thumbnail.png';
+                }
+
+                if (publishThumbnails) {
+                    putImage(viewKey, viewKey + '-' + suffix, thumbnail);
+
+                    // and if this is the first view, make this the workspace thumbnail
+                    if (viewKey === views[0].key) {
+                        putImage(viewKey, suffix, thumbnail);
+                    }
+                }
+            });
+        }
+    }
+
+    function workspaceChanged() {
+        $('#undoButton').prop('disabled', structurizr.diagram.undoStackIsEmpty());
+        $('#saveButton').prop('disabled', false);
+        $('#saveButton').addClass('btn-danger');
+        unsavedChanges = true;
+    }
+
+    function selectDiagramByView(view)
+    {
+        $('#viewType option[value="' + view.key + '"]').prop('selected', true);
+
+        if (structurizr.workspace.id > 0) {
+            $('.diagramThumbnail').removeClass('diagramThumbnailActive');
+            var index = 1;
+            views.forEach(function (v) {
+                if (view.key === v.key) {
+                    const thumbnail = $('#diagram' + index + 'Thumbnail');
+                    thumbnail.addClass('diagramThumbnailActive');
+                }
+                index++;
+            });
+
+            scrollActiveThumbnailIntoView();
+        }
+    }
+
+    function scrollActiveThumbnailIntoView() {
+        // scroll the thumbnail into view
+        var diagramNavigation = $('#diagramNavigationPanel');
+        var thumbnail = $('.diagramThumbnailActive');
+        if (diagramNavigation.length > 0 && thumbnail.length > 0) {
+            if (thumbnail.offset().top < diagramNavigation.offset().top) {
+                thumbnail[0].scrollIntoView(true);
+            } else if ((thumbnail.offset().top + thumbnail.height()) > (diagramNavigation.offset().top + diagramNavigation.height())) {
+                thumbnail[0].scrollIntoView(false);
+            }
+        }
+    }
+
+    function back() {
+        if (viewsVisited.count() > 1) {
+            viewsVisited.pop();
+            const key = viewsVisited.peek();
+            window.location.hash = encodeURIComponent(key);
+        }
+    }
+
+    function initThumbnails() {
+        var html = '';
+        var index = 1;
+        views.forEach(function(view) {
+            viewKeys.push(view.key);
+            var id = 'diagram' + index;
+            var title = structurizr.util.escapeHtml(structurizr.ui.getTitleForView(view));
+
+            html += '<div id="' + id + 'Thumbnail" class="diagramThumbnail centered small">';
+
+            
+            html += '<img src="/workspace/1/images/' + structurizr.util.escapeHtml(view.key) + '-thumbnail.png" class="img-light img-thumbnail viewThumbnail" />';
+            html += '<img src="/workspace/1/images/' + structurizr.util.escapeHtml(view.key) + '-thumbnail-dark.png" class="img-dark img-thumbnail viewThumbnail" />';
+            
+
+            html += '<div>';
+            html += title;
+            html += '<br /><span class="small">#' + structurizr.util.escapeHtml(view.key) + '</span>';
+            html += '</div></div>';
+
+            index++;
+        });
+
+        $('#diagramNavigation').append(html);
+
+        $('.viewThumbnail').on('error', function() {
+            $(this).on('error', undefined);
+            $(this).attr('src', '/static/img/thumbnail-not-available.png');
+        });
+
+        index = 1;
+        views.forEach(function(view) {
+            document.getElementById('diagram' + index + 'Thumbnail').onclick = function() {
+                window.location.hash = encodeURIComponent(view.key);
+            };
+
+            index++;
+        });
+    }
+
+    function initDiagramSelector() {
+        const viewsDropDown = $('#viewType');
+        viewsDropDown.empty();
+
+        views.forEach(function(view) {
+            viewsDropDown.append(
+                $('<option></option>').val(structurizr.util.escapeHtml(view.key)).html(structurizr.util.escapeHtml(structurizr.ui.getTitleForView(view)))
+            );
+        });
+    }
+
+    function openCurrentDiagramInNewWindow() {
+        const hash = window.location.hash;
+        var url = '/workspace/diagrams';
+        var diagramIdentifier = '';
+        const perspective = '';
+
+        if (hash === undefined || hash.trim().length === 0) {
+            diagramIdentifier = '';
+        } else {
+            diagramIdentifier = window.location.hash.substring(1);
+        }
+
+        if (perspective.length > 0) {
+            if (url.indexOf('?') === -1) {
+                url = url + '?perspective=' + perspective;
+            } else {
+                url = url + '&perspective=' + perspective;
+            }
+        }
+
+        window.open(url + '#' + diagramIdentifier);
+    }
+
+    function initSizing() {
+        structurizr.diagram.getPossibleViewportWidth = function() {
+            const diagramNavigation = $('#diagramNavigationPanel');
+            var diagramNavigationWidth = 0;
+            if (diagramNavigation && diagramNavigation.is(':visible')) {
+                diagramNavigationWidth = diagramNavigation.outerWidth();
+            }
+
+            if (structurizr.ui.isFullScreen()) {
+                return screen.width - diagramNavigationWidth;
+            } else {
+                if (false) {
+                    return window.innerWidth - diagramNavigationWidth;
+                } else {
+                    return $('#diagram').innerWidth();
+                }
+            }
+        };
+
+        structurizr.diagram.getPossibleViewportHeight = function() {
+            var diagramControlsHeight = $('#diagramControls').outerHeight(true);
+            if (diagramControlsHeight === undefined) {
+                diagramControlsHeight = 0;
+            }
+
+            if (structurizr.ui.isFullScreen()) {
+                if (presentationMode) {
+                    return screen.availHeight;
+                } else {
+                    return screen.availHeight - diagramControlsHeight;
+                }
+            } else {
+                return window.innerHeight - diagramControlsHeight;
+            }
+        };
+    }
+
+    function initControls() {
+        $('#editorButton').prop('disabled', !true);
+
+        if (structurizr.ui.isFullScreenEnabled()) {
+            $('#enterPresentationModeButton').removeClass('hidden');
+        }
+    }
+
+    function initKeyboardShortcuts() {
+        structurizr.diagram.onkeydown(function(e) {
+            const leftArrow = 37;
+            const pageUp = 33;
+            const rightArrow = 39;
+            const pageDown = 34;
+            const upArrow = 38;
+            const downArrow = 40;
+
+            if (structurizr.diagram.isNavigationEnabled()) {
+                if (e.which === leftArrow || e.which === upArrow || e.which === pageUp) {
+                    navigateToPreviousDiagram();
+                    e.preventDefault();
+                    return;
+                } else if (e.which === rightArrow || e.which === downArrow || e.which === pageDown) {
+                    navigateToNextDiagram();
+                    e.preventDefault();
+                    return;
+                }
+            }
+        });
+
+        structurizr.diagram.onkeypress(function(e) {
+            const plus = 43;
+            const equals = 61;
+            const minus = 45;
+            const comma = 44;
+            const dot = 46;
+            const a = 97;
+            const b = 98;
+            const c = 99;
+            const d = 100;
+            const f = 102;
+            const h = 104;
+            const i = 105;
+            const j = 106;
+            const l = 108;
+            const m = 109;
+            const n = 110;
+            const p = 112;
+            const r = 114;
+            const t = 116;
+            const u = 117;
+            const v = 118;
+            const w = 119;
+
+            if (e.which === comma) {
+                if (structurizr.diagram.currentViewIsDynamic() || structurizr.diagram.currentViewHasAnimation()) {
+                    stepBackwardInAnimation();
+                    e.preventDefault();
+                    return;
+                }
+            } else if (e.which === dot) {
+                if (structurizr.diagram.currentViewIsDynamic() || structurizr.diagram.currentViewHasAnimation()) {
+                    stepForwardInAnimation();
+                    e.preventDefault();
+                    return;
+                }
+            } else if (e.which === a) {
+                if (structurizr.diagram.isEditable()) {
+                    structurizr.diagram.selectAllElements();
+                    e.preventDefault();
+                    return;
+                }
+            } else if (e.which === d) {
+                if (structurizr.diagram.isEditable() && structurizr.diagram.hasElementsSelected()) {
+                    structurizr.diagram.deselectAllElements();
+                    e.preventDefault();
+                    return;
+                } else {
+                    structurizr.diagram.toggleDescription();
+                    e.preventDefault();
+                    return;
+                }
+            } else if (e.which === m) {
+                structurizr.diagram.toggleMetadata();
+                e.preventDefault();
+                return;
+            } else if (e.which === plus || e.which === equals) {
+                structurizr.diagram.zoomIn();
+                e.preventDefault();
+                return;
+            } else if (e.which === minus) {
+                structurizr.diagram.zoomOut();
+                e.preventDefault();
+                return;
+            } else if (e.which === w) {
+                structurizr.diagram.zoomFitWidth();
+                e.preventDefault();
+                return;
+            } else if (e.which === h) {
+                structurizr.diagram.zoomFitHeight();
+                e.preventDefault();
+                return;
+            } else if (e.which === c) {
+                structurizr.diagram.zoomFitContent();
+                e.preventDefault();
+                return;
+            } else if (e.which === u) {
+                structurizr.diagram.undo();
+                e.preventDefault();
+                return;
+            } else if (e.which === n && !false) {
+                const navigationIsVisible = $('#diagramNavigationPanel').is(":visible");
+
+                if (navigationIsVisible) {
+                    $('#diagramNavigationPanel').addClass('hidden');
+                } else {
+                    $('#diagramNavigationPanel').removeClass('hidden');
+                }
+
+                resize();
+
+                e.preventDefault();
+                return;
+            } else if (e.which === r) {
+                if (structurizr.diagram.hasLinkHighlighted() && structurizr.diagram.isEditable()) {
+                    structurizr.diagram.toggleRoutingOfHighlightedLink();
+                    e.preventDefault();
+                    return;
+                }
+            } else if (e.which === j) {
+                if (structurizr.diagram.hasLinkHighlighted() && structurizr.diagram.isEditable()) {
+                    structurizr.diagram.toggleJumpOfHighlightedLink();
+                    e.preventDefault();
+                    return;
+                }
+            } else if (e.which === v) {
+                if (structurizr.diagram.hasLinkHighlighted() && structurizr.diagram.isEditable()) {
+                    structurizr.diagram.addVertex();
+                    e.preventDefault();
+                    return;
+                }
+            } else if (e.which === i) {
+                if (structurizr.diagram.getCurrentView().type !== structurizr.constants.IMAGE_VIEW_TYPE) {
+                    showKey();
+                    return;
+                }
+            } else if (e.which === f) {
+                enterPresentationMode();
+                return;
+            } else if (e.which === p && !e.metaKey) {
+                openPerspectivesModal();
+                return;
+            } else if (e.which === t) {
+                toggleTooltip();
+                return;
+            } else if (e.which === b) {
+                back();
+                return;
+            } else if (e.which === l && structurizr.diagram.isEditable()) {
+                openAutoLayoutModal();
+                e.preventDefault();
+                return;
+            }
+        });
+    }
+
+    function initInspectionSummary() {
+        const errors = structurizr.workspace.getProperty('structurizr.inspection.error');
+        if (errors !== undefined) {
+            $('#inspectionsError').text(errors);
+            $('#inspectionSummary').removeClass('hidden');
+        }
+
+        const warnings = structurizr.workspace.getProperty('structurizr.inspection.warning');
+        if (warnings !== undefined) {
+            $('#inspectionsWarning').text(warnings);
+        }
+
+        const infos = structurizr.workspace.getProperty('structurizr.inspection.info');
+        if (infos !== undefined) {
+            $('#inspectionsInfo').text(infos);
+        }
+        const ignores = structurizr.workspace.getProperty('structurizr.inspection.ignore');
+        if (ignores !== undefined) {
+            $('#inspectionsIgnore').text(ignores);
+        }
+
+    }
+
+    function navigateToPreviousDiagram() {
+        const currentView = structurizr.diagram.getCurrentViewOrFilter();
+
+        var index = views.indexOf(currentView);
+        if (index > 0) {
+            window.location.hash = '#' + views[index-1].key;
+        }
+    }
+
+    function navigateToNextDiagram() {
+        const currentView = structurizr.diagram.getCurrentViewOrFilter();
+
+        var index = views.indexOf(currentView);
+        if (index < views.length -1) {
+            window.location.hash = '#' + views[index+1].key;
+        }
+    }
+
+    function diagramCreated() {
+        if (structurizr.workspace.id > 0) { // i.e. not a demo page
+            initThumbnails();
+        }
+
+        var diagramIdentifier = '';
+
+        if (window.location.hash) {
+            const hash = window.location.hash;
+            if (hash && hash.length > 1) {
+                diagramIdentifier = decodeURIComponent(hash.substring(1)); // remove the # symbol
+            }
+        }
+
+        if (!diagramIdentifier) {
+            if (structurizr.diagram.isEditable()) {
+                diagramIdentifier = structurizr.workspace.views.configuration.lastSavedView;
+            } else {
+                diagramIdentifier = structurizr.workspace.views.configuration.defaultView;
+            }
+            if (!diagramIdentifier) {
+                diagramIdentifier = '';
+            }
+        }
+
+        var view = structurizr.workspace.findViewByKey(diagramIdentifier);
+        if (!view) {
+            view = views[0];
+        }
+
+        if (view) {
+            changeView(view);
+        }
+
+        window.onhashchange = function () {
+            if (window.location.hash) {
+                var diagramIdentifier = window.location.hash;
+                if (diagramIdentifier && diagramIdentifier.length > 1) {
+                    diagramIdentifier = decodeURIComponent(diagramIdentifier.substring(1)); // remove the # symbol
+                }
+
+                var view = structurizr.workspace.findViewByKey(diagramIdentifier);
+                if (view) {
+                    progressMessage.show('<p>Rendering ' + structurizr.util.escapeHtml(structurizr.ui.getTitleForView(view)) + '</p><p style="font-size: 66%">(#' + structurizr.util.escapeHtml(view.key) + ')</p>');
+
+                    setTimeout(function() {
+                        changeView(view, function() {
+                            progressMessage.hide();
+
+                            
+                        });
+                    }, 10);
+                }
+            }
+        };
+
+        $(window).on("beforeunload", function() {
+            if (structurizr.diagram.isEditable()) {
+                if (unsavedChanges) {
+                    return "There are unsaved changes to one or more diagrams in this workspace - diagram layout will be lost.";
+                }
+            }
+        });
+
+        
+
+        document.getElementById('diagram-viewport').addEventListener('wheel', function(event) {
+                if (event.ctrlKey === true) {
+                    if (event.wheelDelta > 0) {
+                        structurizr.diagram.zoomIn(event);
+                    } else {
+                        structurizr.diagram.zoomOut(event);
+                    }
+
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+            },
+            {
+                passive: false
+            });
+    }
+
+    function changeView(view, callback) {
+        structurizr.diagram.reset();
+        var actualView = view;
+        if (view.type === structurizr.constants.FILTERED_VIEW_TYPE) {
+            actualView = structurizr.workspace.findViewByKey(view.baseViewKey);
+        }
+
+        if (actualView.automaticLayout) {
+            if (actualView.automaticLayout.implementation === 'Graphviz' && true) {
+                runGraphvizForView(
+                    actualView,
+                    function () {
+                        structurizr.diagram.changeView(view.key, function() {
+                            if (structurizr.diagram.getCurrentViewOrFilter().type !== structurizr.constants.FILTERED_VIEW_TYPE) {
+                                structurizr.diagram.autoPageSize();
+                            }
+
+                            if (callback) {
+                                callback();
+                            }
+                        });
+                    }
+                );
+            } else if (
+                (actualView.automaticLayout.implementation === 'Graphviz' && false) ||
+                actualView.automaticLayout.implementation === 'Dagre' ||
+                actualView.automaticLayout.implementation === undefined
+            ) {
+                structurizr.diagram.changeView(view.key, function () {
+                    structurizr.diagram.runDagre(
+                        actualView.automaticLayout.rankDirection,
+                        actualView.automaticLayout.rankSeparation,
+                        actualView.automaticLayout.nodeSeparation,
+                        actualView.automaticLayout.edgeSeparation,
+                        actualView.automaticLayout.vertices,
+                        true
+                    );
+
+                    if (structurizr.diagram.getCurrentViewOrFilter().type !== structurizr.constants.FILTERED_VIEW_TYPE) {
+                        structurizr.diagram.autoPageSize();
+                    }
+
+                    if (callback) {
+                        callback();
+                    }
+                });
+            }
+        } else {
+            structurizr.diagram.changeView(view.key, callback);
+        }
+    }
+
+    function initQuickNavigation() {
+        views.forEach(function(view) {
+            const title = structurizr.util.escapeHtml(structurizr.ui.getTitleForView(view));
+            quickNavigation.addItem(title + ' <span class="viewKey">(#' + structurizr.util.escapeHtml(view.key) + ')</span>', '/workspace/diagrams#' + structurizr.util.escapeHtml(view.key));
+        });
+
+        quickNavigation.onOpen(function() {
+            structurizr.diagram.setKeyboardShortcutsEnabled(false);
+        });
+        quickNavigation.onClose(function() {
+            structurizr.diagram.setKeyboardShortcutsEnabled(true);
+        });
+    }
+
+    function createReview() {
+        $('#reviewSelectedViewsButton').prop('disabled', false);
+        $('#reviewViewList').val(structurizr.diagram.getCurrentViewOrFilter().key);
+        $('#reviewModal').modal();
+    }
+
+    function processWorkspaceLink(url) {
+        if (url !== undefined) {
+            if (url.indexOf(structurizr.constants.INTRA_WORKSPACE_URL_PREFIX + '/diagrams#') === 0) {
+                // convert {workspace}/diagrams#key to #key
+                url = url.substring((structurizr.constants.INTRA_WORKSPACE_URL_PREFIX + '/diagrams').length);
+            } else if (url.indexOf(structurizr.constants.INTRA_WORKSPACE_URL_PREFIX) === 0) {
+                // convert {workspace}/doc... to /workspace/1234/doc... (where 1234 is the current workspace ID)
+                url = '/workspace' + url.substring(structurizr.constants.INTRA_WORKSPACE_URL_PREFIX.length) + '';
+            } else if (url.indexOf(structurizr.constants.INTER_WORKSPACE_URL_PREFIX) === 0) {
+                // convert {workspace:123456}/doc... to /workspace/123456/doc...
+                const targetWorkspaceId = url.substring(url.indexOf(structurizr.constants.INTER_WORKSPACE_URL_SEPARATOR) + 1, url.indexOf(structurizr.constants.INTER_WORKSPACE_URL_SUFFIX));
+                url = '/workspace' + url.substring(url.indexOf(structurizr.constants.INTER_WORKSPACE_URL_SUFFIX) + 1);
+                url = url.replace('1', targetWorkspaceId);
+            }
+        }
+
+        return url;
+    }
+
+    function elementDoubleClicked(evt, elementId) {
+        const element = structurizr.workspace.findElementById(elementId);
+        if (element) {
+            const elementUrl = processWorkspaceLink(element.url);
+
+            if (evt.altKey === true && elementUrl !== undefined) {
+                navigateTo(elementUrl);
+                return;
+            }
+
+            const options = [];
+            var views = [];
+            if (element.type === structurizr.constants.SOFTWARE_SYSTEM_ELEMENT_TYPE) {
+                if (structurizr.diagram.getCurrentView().type === structurizr.constants.SYSTEM_LANDSCAPE_VIEW_TYPE || structurizr.diagram.getCurrentView().softwareSystemId !== element.id) {
+                    views = structurizr.workspace.findSystemContextViewsForSoftwareSystem(element.id);
+                    if (views.length === 0) {
+                        views = structurizr.workspace.findContainerViewsForSoftwareSystem(element.id);
+                    }
+                } else if (structurizr.diagram.getCurrentView().type === structurizr.constants.SYSTEM_CONTEXT_VIEW_TYPE) {
+                    views = structurizr.workspace.findContainerViewsForSoftwareSystem(element.id);
+                }
+            } else if (element.type === structurizr.constants.CONTAINER_ELEMENT_TYPE) {
+                views = structurizr.workspace.findComponentViewsForContainer(element.id);
+            } else if (element.type === structurizr.constants.SOFTWARE_SYSTEM_INSTANCE_ELEMENT_TYPE) {
+                views = structurizr.workspace.findSystemContextViewsForSoftwareSystem(element.softwareSystemId);
+            } else if (element.type === structurizr.constants.CONTAINER_INSTANCE_ELEMENT_TYPE) {
+                views = structurizr.workspace.findComponentViewsForContainer(element.containerId);
+            }
+
+            views = views.concat(structurizr.workspace.findDynamicViewsForElement(element.id));
+            views = views.concat(structurizr.workspace.findImageViewsForElement(element.id));
+
+            views.forEach(function(view) {
+                options.push({
+                    value: '#' + view.key,
+                    label: structurizr.ui.getTitleForView(view) + ' (#' + view.key + ')'
+                });
+            });
+
+            if (element.documentation && element.documentation.sections && element.documentation.sections.length > 0) {
+                const documentationUrl = '/workspace/documentation/' + encodeURI(toScope(element)) + '';
+                options.push({
+                    value: documentationUrl,
+                    label: 'Documentation'
+                });
+            }
+
+            if (element.documentation && element.documentation.decisions && element.documentation.decisions.length > 0) {
+                const decisionsUrl = '/workspace/decisions/' + encodeURI(toScope(element)) + '';
+                options.push({
+                    value: decisionsUrl,
+                    label: 'Decisions'
+                });
+            }
+
+            if (elementUrl !== undefined) {
+                var label = elementUrl;
+                if (elementUrl.indexOf('#') === 0) {
+                    const key = elementUrl.substring(1);
+                    const view = structurizr.workspace.findViewByKey(key);
+                    if (view) {
+                        label = structurizr.ui.getTitleForView(view) + ' (#' + view.key + ')'
+                    }
+                }
+                options.push({
+                    value: elementUrl,
+                    label: label
+                });
+            }
+
+            if (element.properties) {
+                Object.keys(element.properties).forEach(function(name) {
+                    const value = element.properties[name];
+                    if (value.indexOf('http://') === 0 || value.indexOf('https://') === 0) {
+                        options.push({
+                            value: value,
+                            label: name
+                        })
+                    }
+                });
+            }
+
+            if (options.length === 1) {
+                navigateTo(options[0].value);
+            } else {
+                openNavigationModal(options);
+            }
+        }
+    }
+
+    function toScope(element) {
+        if (element.type === structurizr.constants.SOFTWARE_SYSTEM_ELEMENT_TYPE) {
+            return element.name;
+        } else if (element.type === structurizr.constants.CONTAINER_ELEMENT_TYPE) {
+            const softwareSystem = structurizr.workspace.findElementById(element.parentId);
+            return toScope(softwareSystem) + '/' + element.name;
+        } else if (element.type === structurizr.constants.COMPONENT_ELEMENT_TYPE) {
+            const container = structurizr.workspace.findElementById(element.parentId);
+            return toScope(container) + '/' + element.name;
+        }
+
+        return undefined;
+    }
+
+    function relationshipDoubleClicked(evt, relationshipId) {
+        const relationship = structurizr.workspace.findRelationshipById(relationshipId);
+        if (relationship) {
+            const options = [];
+
+            if (relationship.url !== undefined) {
+                options.push({
+                    value: processWorkspaceLink(relationship.url),
+                    label: relationship.url
+                });
+            }
+
+            if (relationship.properties) {
+                Object.keys(relationship.properties).forEach(function(name) {
+                    const value = relationship.properties[name];
+                    if (value.indexOf('http://') === 0 || value.indexOf('https://') === 0) {
+                        options.push({
+                            value: value,
+                            label: name
+                        })
+                    }
+                });
+            }
+
+            if (relationship.linkedRelationshipId) {
+                const linkedRelationship = structurizr.workspace.findRelationshipById(relationship.linkedRelationshipId);
+                if (linkedRelationship.url !== undefined) {
+                    options.push({
+                        value: processWorkspaceLink(linkedRelationship.url),
+                        label: linkedRelationship.url
+                    });
+                }
+
+                if (linkedRelationship.properties) {
+                    Object.keys(linkedRelationship.properties).forEach(function(name) {
+                        const value = linkedRelationship.properties[name];
+                        if (value.indexOf('http://') === 0 || value.indexOf('https://') === 0) {
+                            options.push({
+                                value: value,
+                                label: name
+                            })
+                        }
+                    });
+                }
+            }
+
+            if (options.length === 1) {
+                navigateTo(options[0].value);
+            } else {
+                openNavigationModal(options);
+            }
+        }
+    }
+
+    function isRendered() {
+        return structurizr.diagram && structurizr.diagram.isRendered();
+    }
+
+    function isExportable() {
+        return structurizr.diagram && structurizr.diagram.isExportable();
+    }
+
+    function saveWorkspace() {
+        $('#saveButton').prop('disabled', true);
+
+        if (structurizr.autoSave === false) {
+            progressMessage.show('<p>Saving workspace...</p>');
+        }
+
+        structurizr.workspace.views.configuration.lastSavedView = structurizr.diagram.getCurrentViewOrFilter().key;
+        structurizr.saveWorkspace(function(response) {
+            if (response.success === true) {
+                progressMessage.hide();
+
+                $('#saveButton').prop('disabled', true);
+                $('#saveButton').removeClass('btn-danger');
+                unsavedChanges = false;
+
+                refreshThumbnail();
+            } else {
+                $('#saveButton').prop('disabled', false);
+                if (response.message) {
+                    console.log(response.message);
+                    if (progressMessage) {
+                        progressMessage.show(response.message);
+                    }
+                }
+            }
+        });
+    }
+
+    function putImage(viewKey, filename, imageAsBase64EncodedDataUri, callback) {
+        $.ajax({
+            url: '/workspace/1/images/' + encodeURIComponent(filename),
+            type: 'PUT',
+            contentType: 'text/plain',
+            cache: false,
+            headers: {
+                'Content-Type': 'text/plain'
+            },
+            dataType: 'json',
+            data: imageAsBase64EncodedDataUri
+        })
+        .done(function(data, textStatus, jqXHR) {
+            if (callback) {
+                callback(viewKey);
+            }
+        })
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            // status[viewKey] = true;
+            console.log(jqXHR);
+            console.log(jqXHR.status);
+            console.log("Text status: " + textStatus);
+            console.log("Error thrown: " + errorThrown);
+
+            if (callback) {
+                callback(viewKey);
+            }
+        });
+    }
+
+    function openDocumentation() {
+        openDocumentationOrDecisions('documentation', hasDocumentation);
+    }
+
+    function openDecisions() {
+        openDocumentationOrDecisions('decisions', hasDecisions);
+    }
+
+    function openDocumentationOrDecisions(path, fn) {
+        var view = structurizr.diagram.getCurrentView();
+        var elementId;
+
+        if (view.type === 'SystemContext' || view.type === 'Container') {
+            elementId = view.softwareSystemId;
+        } else if (view.type === 'Component') {
+            elementId = view.containerId;
+        } else if (view.type === 'Dynamic') {
+            elementId = view.elementId;
+        } else if (view.type === 'Deployment') {
+            elementId = view.softwareSystemId;
+        }
+
+        if (elementId) {
+            var element = structurizr.workspace.findElementById(elementId);
+            if (element) {
+                if (element.type === 'SoftwareSystem') {
+                    var softwareSystem = element;
+
+                    if (fn(softwareSystem)) {
+                        window.location.href='/workspace/' + path + '/' + structurizr.util.escapeHtml(softwareSystem.name) + '';
+                    } else {
+                        window.location.href='/workspace/' + path + '';
+                    }
+
+                    return;
+                } else if (element.type === 'Container') {
+                    var container = element;
+                    var softwareSystem = structurizr.workspace.findElementById(container.parentId);
+
+                    if (fn(container)) {
+                        window.location.href='/workspace/' + path + '/' + structurizr.util.escapeHtml(softwareSystem.name) + '/' + structurizr.util.escapeHtml(container.name) + '';
+                    } else if (fn(softwareSystem)) {
+                        window.location.href='/workspace/' + path + '/' + structurizr.util.escapeHtml(softwareSystem.name) + '';
+                    } else {
+                        window.location.href='/workspace/' + path + '';
+                    }
+
+                    return;
+                }
+            }
+        }
+
+        window.location.href='/workspace/' + path + '';
+    }
+
+    function hasDocumentation(element) {
+        return element.documentation && element.documentation.sections && element.documentation.sections.length > 0;
+    }
+
+    function hasDecisions(element) {
+        return element.documentation && element.documentation.decisions && element.documentation.decisions.length > 0;
+    }
+
+    
+
+    $('#embeddedControls').hover(
+        function() {
+            $('#embeddedControls').css('opacity', '1.0');
+        },
+        function() {
+            $('#embeddedControls').css('opacity', '0.1');
+        }
+    );
+
+    $(window).resize(function() {
+        resize();
+    });
+
+    function resize() {
+        if (structurizr.diagram) {
+            const navigationIsVisible = $('#diagramNavigationPanel').is(":visible");
+
+            if (navigationIsVisible) {
+                $('#diagram').parent().css('width', '');
+            } else {
+                $('#diagram').parent().css('width', '100%');
+            }
+
+            structurizr.diagram.resize();
+            structurizr.diagram.zoomToWidthOrHeight();
+
+            
+        }
+    }
+
+    window.onorientationchange = function() {
+        if (structurizr.diagram) {
+            structurizr.diagram.resize();
+            structurizr.diagram.zoomToWidthOrHeight();
+        }
+    };
+
+    function enterPresentationMode() {
+        presentationMode = true;
+
+        if (!structurizr.ui.isFullScreen()) {
+            structurizr.ui.enterFullScreen('diagram');
+        }
+
+        $('#enterPresentationModeButton').addClass('hidden');
+        $('.structurizrDiagramViewport').css('background', '#000000');
+        structurizr.diagram.resize();
+        structurizr.diagram.zoomToWidthOrHeight();
+    }
+
+    function exitPresentationMode() {
+        $('#enterPresentationModeButton').removeClass('hidden');
+        $('.structurizrDiagramViewport').css('background', '');
+
+        if (!structurizr.diagram.isEmbedded()) {
+            $('#diagramNavigationPanel').removeClass('hidden');
+        }
+
+        presentationMode = false;
+    }
+
+    function toggleTooltip() {
+        if (tooltip.isEnabled()) {
+            tooltip.disable();
+            $('.diagramTooltipOnButton').removeClass('hidden');
+            $('.diagramTooltipOffButton').addClass('hidden');
+        } else {
+            tooltip.enable();
+            $('.diagramTooltipOnButton').addClass('hidden');
+            $('.diagramTooltipOffButton').removeClass('hidden');
+        }
+    }
+
+    function getViewDropDown() {
+        return $("#viewType");
+    }
+
+    function getPageSizeDropDown() {
+        return $("#pageSize");
+    }
+
+    getViewDropDown().change(function() {
+        var key = getViewDropDown().val();
+        setTimeout(function() {
+            window.location.hash = encodeURIComponent(key);
+        }, 10);
+    });
+
+    getPageSizeDropDown().change(function() {
+        var pageSize = getPageSizeDropDown().val();
+        if (pageSize === 'none') {
+            structurizr.diagram.getCurrentView().paperSize = undefined;
+        } else {
+            var dimensions = pageSize.split("x");
+            structurizr.diagram.setPageSize(parseInt(dimensions[0]), parseInt(dimensions[1]));
+            structurizr.diagram.getCurrentView().paperSize = $('#pageSize option:selected').attr('id');
+        }
+    });
+
+    function animationStarted() {
+        $('.stepBackwardAnimationButton').prop("disabled", false);
+        $('.startAnimationButton').prop("disabled", true);
+        $('.stopAnimationButton').prop("disabled", false);
+    }
+
+    function animationStopped() {
+        $('.stepBackwardAnimationButton').prop("disabled", true);
+        $('.startAnimationButton').prop("disabled", false);
+        $('.stopAnimationButton').attr("disabled", true);
+    }
+
+    function startAnimation(autoPlay) {
+        structurizr.diagram.startAnimation(autoPlay);
+    }
+
+    function stepBackwardInAnimation() {
+        structurizr.diagram.stepBackwardInAnimation();
+    }
+
+    function stepForwardInAnimation() {
+        structurizr.diagram.stepForwardInAnimation();
+    }
+
+    function stopAnimation() {
+        structurizr.diagram.stopAnimation();
+    }
+
+    $(document).bind('webkitfullscreenchange mozfullscreenchange fullscreenchange fullscreenChange MSFullscreenChange',function(){
+        if (structurizr.ui.isFullScreen()) {
+            structurizr.diagram.resize();
+
+            if (presentationMode) {
+                structurizr.diagram.zoomToWidthOrHeight();
+            }
+
+            $('#enterFullScreenButton').addClass("hidden");
+            $('#exitFullScreenButton').removeClass("hidden");
+        } else {
+            if (presentationMode) {
+                exitPresentationMode();
+            }
+
+            structurizr.diagram.resize();
+            structurizr.diagram.zoomToWidthOrHeight();
+
+            $('#enterFullScreenButton').removeClass("hidden");
+            $('#exitFullScreenButton').addClass("hidden");
+        }
+    });
+
+    function toggleMultiSelectButtons(elements) {
+        $('.multipleElementsSelectedButton').prop('disabled', elements.length < 2);
+    }
+
+    function showDiagramScope(bool) {
+        if (bool) {
+            $('#showDiagramScopeOnButton').addClass('hidden');
+            $('#showDiagramScopeOffButton').removeClass('hidden');
+            structurizr.diagram.showDiagramScope(true);
+        } else {
+            $('#showDiagramScopeOnButton').removeClass('hidden');
+            $('#showDiagramScopeOffButton').addClass('hidden');
+            structurizr.diagram.showDiagramScope(false);
+        }
+    }
+
+    function showHealth(bool) {
+        if (bool) {
+            $('#healthOnButton').addClass('hidden');
+            $('#healthOffButton').removeClass('hidden');
+
+            healthCheck.start();
+        } else {
+            $('#healthOnButton').removeClass('hidden');
+            $('#healthOffButton').addClass('hidden');
+
+            healthCheck.stop();
+        }
+    }
+
+    function updateHealth(allHealthChecks, currentHealthCheck) {
+        var elementId = currentHealthCheck.elementId;
+        var numberOfHealthChecks = 0;
+        var numberOfSuccessfulHealthChecks = 0 ;
+        var numberOfHealthChecksForElement = 0;
+        var numberOfSuccessfulHealthChecksForElement = 0;
+
+        allHealthChecks.forEach(function(healthCheck) {
+            numberOfHealthChecks++;
+            if (healthCheck.status === true) {
+                numberOfSuccessfulHealthChecks++;
+            }
+
+            if (healthCheck.elementId === elementId) {
+                numberOfHealthChecksForElement++;
+                if (healthCheck.status === true) {
+                    numberOfSuccessfulHealthChecksForElement++;
+                }
+            }
+        });
+
+        var percentageOfSuccessfulHealthChecksForElement = (numberOfSuccessfulHealthChecksForElement / numberOfHealthChecksForElement);
+
+        var green = "#5cb85c";
+        var amber = "#f0ad4e";
+        var red =   "#d9534f";
+
+        var background;
+
+        if (percentageOfSuccessfulHealthChecksForElement === 1) {
+            background = green;
+        } else if (percentageOfSuccessfulHealthChecksForElement === 0) {
+            background = red;
+        } else {
+            background = amber;
+        }
+
+        structurizr.diagram.changeColorOfElement(elementId, background);
+    }
+</script>
+
+<script nonce="NWRjMTc5NGUtNzI2Yi00NzUyLWJjNDYtODY0YTU4NTJjYTk3">
+    var username = "";
+    
+    const agent = '';
+
+    structurizr.autoSave = false;
+    var structurizrEncryptionStrategy;
+    const structurizrApiClient = new structurizr.io.StructurizrApiClient(
+        "/api",
+        "1",
+        "dac96967-eb4d-47af-9a00-79b79fa475ad",
+        "6aa1a236-1c23-4259-82a2-f0736592c724",
+        "",
+        username,
+        agent
+    );
+
+    structurizrApiClient.getWorkspace(
+        "",
+        function(response) {
+            if (response.success) {
+                const json = response.json;
+                json.id = 1; // force the workspace ID to be set correctly
+
+                if (json.ciphertext && json.encryptionStrategy) {
+                    showPassphraseModalAndDecryptWorkspace(json, loadWorkspace);
+                } else {
+                    loadWorkspace(json);
+                }
+            } else {
+                if (response.message) {
+                    console.log(response.message);
+                    if (progressMessage) {
+                        progressMessage.show('<p>Error</p><p style="font-size: 75%">' + structurizr.util.escapeHtml(response.message) + '</p>');
+                    }
+                }
+            }
+        }
+    );
+
+    structurizr.saveWorkspace = function(callback) {
+        const workspace = structurizr.workspace.getJson();
+        workspace.views = structurizr.workspace.views;
+
+        if (structurizrEncryptionStrategy) {
+            try {
+                const encryptedWorkspace = structurizrEncryptionStrategy.encrypt(workspace);
+                if (encryptedWorkspace) {
+                    structurizrApiClient.putWorkspace(encryptedWorkspace, callback);
+                }
+            } catch (e) {
+                console.error(e);
+                alert("Workspace " + id + " could not be saved - " + e);
+            }
+        } else {
+            structurizrApiClient.putWorkspace(workspace, callback);
+        }
+    };
+</script><script nonce="NWRjMTc5NGUtNzI2Yi00NzUyLWJjNDYtODY0YTU4NTJjYTk3">
+    var autoSaveInterval = 5000;
+    structurizr.autoSave = true;
+
+    function autoSave() {
+        setTimeout(function() {
+            if (unsavedChanges) {
+                saveWorkspace();
+            }
+            autoSave();
+        }, autoSaveInterval);
+    }
+
+    autoSave();
+</script>
+</div>
+
+    </body>
+
+    <script nonce="NWRjMTc5NGUtNzI2Yi00NzUyLWJjNDYtODY0YTU4NTJjYTk3">
+        window.onerror = function (msg, url, lineNo, columnNo, error) {
+            logError(msg, url, lineNo, error);
+        };
+
+        function logError(msg, url, lineNo, error) {
+            console.log(msg);
+        }
+
+        $('#renderingModeLightLink').click(function(event) {
+            event.preventDefault();
+            structurizr.ui.setRenderingMode(structurizr.ui.RENDERING_MODE_LIGHT);
+        });
+
+        $('#renderingModeDarkLink').click(function(event) {
+            event.preventDefault();
+            structurizr.ui.setRenderingMode(structurizr.ui.RENDERING_MODE_DARK);
+        });
+
+        $('#renderingModeSystemLink').click(function(event) {
+            event.preventDefault();
+            structurizr.ui.setRenderingMode(structurizr.ui.RENDERING_MODE_SYSTEM);
+        });
+    </script>
+</html>

@@ -1,0 +1,33 @@
+@startuml dmRace
+' SPIKE: C4-PlantUML component view (DM-RACE) with CLICKABLE component boxes.
+' Demonstrates drill-down: each component links to its feature LD page, and
+' neighbouring features link to THEIR pages (the cross-feature navigation that
+' the LikeC4 model expresses via navigateTo).
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/v2.10.0/C4_Component.puml
+
+title DM-RACE Basic Racing — Components (bấm một ô để mở trang liên quan)
+
+Container_Boundary(dmrace, "DM-RACE Basic Racing") {
+  Component(mgr,    "ARaceTrackManager",   "C++ (1869 dòng)",  "Orchestrator: ranking, checkpoint, AI setup", $link="/VNRacing/features/dm-race")
+  Component(gm,     "ARacingCarGameMode",  "C++",              "Spawn race manager + xe", $link="/VNRacing/features/dm-race")
+  Component(state,  "ARaceGameState",      "C++",              "Replicate số xe + readiness", $link="/VNRacing/features/dm-race")
+  Component(ctrl,   "ARacingCarController", "C++ (365 dòng)",  "Player controller; RPC race state", $link="/VNRacing/features/dm-race")
+  Component(cp,     "ARaceCheckpoint",     "C++",              "Trigger overlap -> báo manager", $link="/VNRacing/features/dm-race")
+}
+
+' Neighbouring features — clicking these jumps to a DIFFERENT feature page.
+Component_Ext(phys, "DM-PHYS Physics",   "Feature", "Physics xe",        $link="/VNRacing/features/dm-phys")
+Component_Ext(ai,   "SUP-AI Racer AI",   "Feature", "Chính sách AI",     $link="/VNRacing/features/sup-ai")
+Component_Ext(nos,  "DM-NOS NOS",        "Feature", "Boost nitro",       $link="/VNRacing/features/dm-nos")
+Component_Ext(city, "VT-CITY Progression","Feature","Tiêu thụ kết quả",  $link="/VNRacing/features/vt-city")
+
+Rel(gm, mgr, "Spawn")
+Rel(mgr, cp, "GetAllActorsOfClass")
+Rel(mgr, ctrl, "RPC ranking")
+Rel(mgr, phys, "Giữ physics")
+Rel(mgr, ai, "Quyết định AI")
+Rel(mgr, nos, "Boost")
+Rel(mgr, city, "HandleRaceCompleted")
+
+SHOW_LEGEND()
+@enduml

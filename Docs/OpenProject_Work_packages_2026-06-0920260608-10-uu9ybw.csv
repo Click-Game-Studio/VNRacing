@@ -1,0 +1,2698 @@
+﻿id,Subject,Type,Status,Assignee,Priority,Team,Work,Total work,Author,Category,Version,Bug Types,Project phase,Project,Parent,Description
+156,Drive Mode,Feature,In testing,"",High,"","",995.0,Son  Nguyen ,"","","","",VNRacing,"","Feature tập hợp các tính năng liên quan tới cảm giác lái của xe, bao gồm:
+
+*   Lái xe bình thường, Drift, sử dụng NOS.
+    
+*   Va chạm với môi trường, với xe khác.
+    
+*   Sử dụng các công cụ đặc biệt trong cuộc đua như Ramp, Pad Boost tốc độ.  
+      
+    
+    https://www.notion.so/sss-click/Drive-Mode-2fcd1a0054d280cd8897ec9bcd73aa17?source=copy\_link"
+157,"    Tôi muốn có cảm giác đua xe arcade,drift để thu thập nos",User story,In testing,"",Normal,"","",187.0,Son  Nguyen ,"","","","",VNRacing,Feature #156: Drive Mode,""
+173,Tech Art Documentation,Feature,In progress,Phu Pham,Normal,"","",4.0,Son  Nguyen ,"","","","",VNRacing,Epic #210: Technical Art,""
+197,"    Tôi muốn cảm giác Arcade nhưng vẫn có yếu tố va chạm,nhưng tôi không muốn xe lật ",User story,In testing,"",High,"","",300.5,Giang Duong Vo Tra,Game Design,"","","",VNRacing,Feature #156: Drive Mode,""
+205,User Profiles,Feature,New,"",Normal,"","",240.5,Giang Duong Vo Tra,"","","","",VNRacing,"",""
+206,"(UserProfile) Là Player, tôi muốn được xem các thông tin tổng quan về quá trình chơi của tôi (Giờ chơi, số lượng Track đã Unlock, v.v) để tự bao quát được quá trình chơi Game này.",User story,In progress,"",Normal,"","",240.5,Giang Duong Vo Tra,"","","","",VNRacing,Feature #205: User Profiles,"Điều kiện hoàn thành:  
+1\. Thực hiện chức năng UserProfile:
+
+*   Cho phép người chơi xem được các thông tin tổng quan của mình trong quá trình chơi Game.
+    
+*   Cho phép người chơi thực hiện các tác vụ cơ bản như đổi tên, xem player ID, đổi Avatar, v.v.
+    
+
+2\. GD cung cấp tài liệu mô tả các chức năng:
+
+*   Các thông tin sẽ hiển thị trên User Profile.
+    
+*   Các chức năng người dùng có thể thực hiện được trong User Profile.
+    
+
+3\. UI/UX:
+
+*   Thiết kế giao diện hợp lý để người chơi có thể thấy được các thông tin cần thiết trên màn hình.
+    
+*   Thiết kế các luồng giao diện phụ để người chơi có thể truy cập các tính năng trong này.
+    
+*   Animation và FX đầy đủ cho các Elements trong UI.
+    
+
+4\. Concepts &amp; 2D:
+
+*   Cung cấp các Asset cần thiết cho UI.
+    
+*   Cung cấp các Concepts khác cần thiết cho tính năng nếu cần thiết.
+    
+
+5\. Dev:
+
+*   Phát triển các tính năng được mô tả trong GDD.
+    
+*   Đảm bảo các tính năng không xung đột với các tính năng đã có.
+    
+*   Đảm bảo các tính năng không bị Bug.
+    
+
+6\. Performance:
+
+*   Các tính năng liên quan tới US không làm tụt FPS của game.
+    
+
+7\. Sound &amp; Music:
+
+*   Nhạc nền riêng khi vào Screen của US này.
+    
+*   SFX liên quan tới các tương tác trên Screen."
+210,Technical Art,Epic,In progress,"",Normal,"","",185.0,Giang Duong Vo Tra,"","","","",VNRacing,"","Yêu cầu kỹ thuật cho Hạng mục Technical Art&nbsp;
+
+1.  Style &amp; Art Breakdown
+    
+    Tài liệu thể hiện việc lựa chọn Style, các đặc điểm mỹ thuật từ các game tham khảo,
+    
+    <br>
+    
+2.  Technology  
+    Engine sử dụng
+    
+    Platform
+    
+    Rendering method
+    
+    Lighting Techniques 
+    
+    Shadown Techniques
+    
+    Assets Making techniques 
+    
+    FX Making Techniques
+    
+    <br>
+    
+3.  Stresss Test
+    
+    Bài test một level mẫu để đảm bảo các yếu tố 2 và 1 được lựa chọn đúng đắn, nếu không đúng phải lặp lại quy trình 
+    
+    <br>
+    
+4.  level &amp; Scene config
+    
+    Hướng dẫn lighting config và scene config cho level Desinger, ghi rõ các thống số và mức tải.
+    
+    <br>
+    
+5.  Assets Guide line
+    
+    Viết tài liệu hướng dẫn về 
+    
+    <br>
+    
+6.  Optimization techniques"
+217,Game Scene,Epic,New,"",Normal,"","","",Son  Nguyen ,"","","","",VNRacing,"",""
+218,"    Tôi muốn trong khi đua,có phần infor của các player,có rank player - player title",User story,In progress,"",High,"","",175.0,Giang Duong Vo Tra,"","","","",VNRacing,Feature #156: Drive Mode,""
+221,Gamemode _MultiPlayer_Play Online,User story,On hold,"",Normal,"","",4.0,Son  Nguyen ,"","","","",VNRacing,User story #375:    Tôi muốn có nhiều Game Mode,""
+222,    Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,User story,On hold,Phuoc Ho Duc,Normal,"","","",Son  Nguyen ,"","","","",VNRacing,User story #221: Gamemode _MultiPlayer_Play Online,""
+244,        Setup CI/CD pipeline cho game server builds,Task,On hold,Tan  Phan Huynh,Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+246,        Lên kế hoạch chi tiết phần lập trình demo multiplayer Racing,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+247,        Lên kế hoạch phần lập trình multiplayer Racing,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+250,"        Nakama kiểm tra tình trạng game server được nhận,xác nhận tình trạng và thực hiện chu trình lock server",Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+251,"        Game server hồi đáp với Nakama về tình trạng của bản thân,đáp ứng lock server và chờ người chơi đăng nhập",Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+252,        Thiết kế architecture tổng quan cho multiplayer module,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+253,        Setup Perforce workflow và branching strategy cho multiplayer,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+254,        Định nghĩa data structures cho matchmaking và game session,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+255,        Define matchmaking flow và state machine,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+256,        Code review backend matchmaking logic,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+257,        Test matchmaking với multiple clients,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+258,        Document API endpoints và protocols,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+261,"        Handle match lifecycle (creation,start,end)",Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+269,        Review network replication architecture,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+270,        Test multiplayer với 4 clients,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+272,        Create game server health monitoring,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+273,        Implement player disconnect handling,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+274,        Setup logging và debugging tools,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+275,        Setup game server build configuration,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+276,        Implement vehicle replication (simulated clients),Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+277,        Configure client-side prediction cho owning client,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+278,        Disable collision cho simulated vehicles,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+279,        Implement debug visualization (boxes),Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+280,        Implement in-game multiplayer HUD,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+281,        Implement player list widget,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+282,        Create race position indicators	,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+283,        Implement end-race results screen,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+284,        Bind player list to game state,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+285,        Update position indicators real-time,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+286,        Implement results screen data,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+287,        Comprehensive integration testing,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+288,        Performance profiling,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+289,        Create deployment documentation,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+290,        Final code review và refactoring,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+291,        Deploy Nakama to staging environment,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+292,        Upload game server build to Edgegap,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+293,        Configure production settings,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+294,        Test monitoring dashboard,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+295,        Optimize code,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+296,        Polish animations và transitions,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+299,        End-to-end flow testing,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+300,        Handle edge cases và error scenarios,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+301,        Create integration test suite,Task,On hold,"",Normal,Dev,"","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+302,        Fix bugs from integration testing,Bug,New,"",Normal,"","","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+303,        Fix UI bugs và visual issues,Bug,New,"",Normal,"","","",Son  Nguyen ,"","","","",VNRacing,User story #222:     Tôi muốn được chơi game với các player khác một cách ngẫu nhiên,""
+305,Task test,Task,In progress,"",Normal,"","","",Son  Nguyen ,"","","","",VNRacing,"",""
+312,BUG TEST,Bug,New,"",Normal,"","",108.0,Son  Nguyen ,"","",Audio Bugs,"",VNRacing,"",""
+315,UI,Epic,In progress,"",Normal,"","",185.25,Giang Duong Vo Tra,"","","","",VNRacing,"",Các hạng mục của Dev về UI
+331,Shop&IAP,Feature,In progress,"",Normal,"","",12.0,Giang Duong Vo Tra,"","","","",VNRacing,"",""
+332,"     Tôi muốn có thêm nhiều thời gian chơi, không có gặp quảng cáo, và có khởi đầu tốt hơn các player khác",User story,In specification,"",Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,Feature #331: Shop&IAP,""
+334,Tutorials,Feature,New,"",Normal,"","",239.0,Giang Duong Vo Tra,"","","","",VNRacing,Feature #343: Progression,""
+335,    Tôi muốn tutorial cho tôi biết các thông tin cần thiết trong lần đua đầu tiên,User story,In progress,Phuoc Ho Duc,Normal,"","",239.0,Giang Duong Vo Tra,"","","","",VNRacing,Feature #334: Tutorials,""
+336,    Tôi muốn có một số hướng dẫn phụ cho các tính năng phụ trong game bằng hình thức pop up thông tin ,User story,New,"",Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,Feature #334: Tutorials,""
+338,    Tôi muốn có nhiều Race Mode chơi,Feature,In testing,"",Normal,"","",30.5,Giang Duong Vo Tra,"","","","",VNRacing,"",""
+340,Car Customize,Feature,In specification,"",Normal,"","",1069.0,Giang Duong Vo Tra,"","","","",VNRacing,"",""
+341,Visual Customize,User story,In specification,"",Normal,"","",504.5,Giang Duong Vo Tra,"","","","",VNRacing,Feature #340: Car Customize,"Là player, tôi muốn thay đổi ngoại hình của xe, có thể đổi từng bộ phận - đổi màu xe - thêm decal cho xe"
+342,Performance Customize,User story,New,Phuoc Ho Duc,Normal,"",4.0,90.0,Giang Duong Vo Tra,"","","","",VNRacing,Feature #340: Car Customize,"  
+  
+**Là Player, tôi muốn độ phần Performance xe mà tôi yêu thích, sử dụng các tài nguyên thu thập được trong quá trình chơi để tăng tính sở hữu và cảm giác thành tựu khi chơi Game.**
+
+*     
+    Tiêu chí hoàn thành:&nbsp;  
+    1- Có Design rõ ràng về chức năng nâng cấp Performance:
+    
+*   GD bổ sung chức năng nâng cấp Customize Performance.
+    
+*   GD bổ sung các điều kiện cần thiết để nâng cấp.
+    
+*   GD đảm bảo cảm giác nâng cấp có sự kích thích và tạo hứng thú cho người chơi.
+    
+*   GD bổ sung các tài liệu bổ sung cần thiết cho các bên để hoàn thành US.
+    
+    <br>
+    
+
+2 - UI/UX
+
+*   Luồng vào chức năng thuận tiện dễ hiểu.
+    
+*   Các phím chức năng rõ ràng dễ thao tác, hiển thị đúng các yêu cầu cần thiết để nâng cấp xe.
+    
+*   Đặt cùng chỗ với chức năng Customize Visual để thuận tiện cho người chơi khi thao tác.
+    
+*   Không có lỗi UI/UX.
+    
+    <br>
+    
+
+3 - Chức năng của Customize Performance
+
+*   Đảm bảo đúng các chức năng liệt kê của GD.
+    
+*   Chức năng không gây xung đột với các chức năng hiện có.
+    
+*   Chức năng hoạt động ổn định, không có lỗi.
+    
+
+4 - Performance
+
+*   Chức năng không gây tụt Performance của Game."
+343,Progression,Feature,New,Phuoc Ho Duc,Normal,"","",360.5,Giang Duong Vo Tra,"","","","",VNRacing,"",""
+345,"    Trong quá trình phá đảo, tôi muốn sưu tập thêm nhiều xe mới",User story,New,"",Normal,"","",10.0,Giang Duong Vo Tra,"","","","",VNRacing,Feature #343: Progression,""
+346,"    Trong quá trình phá đảo, tôi muốn xe tôi được nâng cấp thêm ",User story,New,"",Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,Feature #343: Progression,""
+347,"(FanService) Là Player, tôi muốn có các nhiệm vụ ngẫu nhiên khi bắt đầu cuộc đua với các phần thưởng khi hoàn thành.",User story,New,"",Normal,"","",12.5,Giang Duong Vo Tra,"","","","",VNRacing,Feature #374: Game Mode,"Điều kiện hoàn thành:  
+1\. Thực hiện chức năng Fan Service:
+
+*   Định nghĩa, phân loại các FS và phần thưởng.
+    
+*   Update Skill lên UI.
+    
+
+2\. GD cung cấp tài liệu mô tả các chức năng:
+
+*   Các thông tin về phân loại và định nghĩa FS, phương pháp kích hoạt.
+    
+*   Quy định số lượng NOS tăng khi thực hiện các FS.
+    
+*   Thông tin hiển thị trên màn hình khi kích hoạt và hoàn thành FS.
+    
+
+3\. UI/UX:
+
+*   Thiết kế giao diện hợp lý để người chơi có thể thấy được các thông tin cần thiết trên màn hình.
+    
+*   Animation và FX đầy đủ cho các Elements trong UI.
+    
+
+4\. Concepts &amp; 2D:
+
+*   Cung cấp các Asset cần thiết cho UI.
+    
+*   Cung cấp các Concepts khác cần thiết cho tính năng nếu cần thiết.
+    
+
+5\. Dev:
+
+*   Phát triển các tính năng được mô tả trong GDD.
+    
+*   Đảm bảo các tính năng không xung đột với các tính năng đã có.
+    
+*   Đảm bảo các tính năng không bị Bug.
+    
+
+6\. Performance:
+
+*   Các tính năng liên quan tới US không làm tụt FPS của game.
+    
+
+7\. Sound &amp; Music:
+
+*   SFX liên quan tới các tương tác trên Screen."
+348,    Tôi muốn trải nghiệm 10 phút đầu chơi game hấp dẫn,User story,In specification,"",Normal,"","",2.0,Giang Duong Vo Tra,"","","","",VNRacing,Feature #343: Progression,""
+374,Game Mode,Feature,New,Phuoc Ho Duc,Normal,"","",411.0,Giang Duong Vo Tra,"","","","",VNRacing,"",""
+375,   Tôi muốn có nhiều Game Mode,User story,New,Phuoc Ho Duc,Normal,"","",9.0,Giang Duong Vo Tra,"","","","",VNRacing,Feature #374: Game Mode,""
+376,Racer A.I,Feature,New,"",Normal,"","",97.0,Giang Duong Vo Tra,"","","","",VNRacing,"",""
+377,"    Tôi muốn các AI phải có hành vi tự nhiên, có chiến đấu với người chơi",User story,In specification,Phuoc Ho Duc,Normal,"","",63.0,Giang Duong Vo Tra,"","","","",VNRacing,Feature #376: Racer A.I,""
+378,    Tôi muốn độ khó của AI vừa phải và phù hợp,User story,In progress,Phuoc Ho Duc,Normal,"","",34.0,Giang Duong Vo Tra,"","","","",VNRacing,Feature #376: Racer A.I,""
+379,Guideline cho UI về Performance,Task,Waiting For Approve,Phu Pham,Normal,Tech Art,4.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Feature #173: Tech Art Documentation,""
+380,Programming,Epic,New,"",Normal,"","",160.0,Giang Duong Vo Tra,"","","","",VNRacing,"",""
+381,Game Designer Document ,Task,New,"",Normal,Game Design,"","",Giang Duong Vo Tra,"","","","",VNRacing,"",""
+382,Levels/Track,Epic,New,"",Normal,"","",2888.0,Giang Duong Vo Tra,"","","","",VNRacing,"",""
+383,Tôi muốn khám phá nhiều địa danh trong khi chơi,User story,In progress,"",Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,Epic #382: Levels/Track,""
+386,Nakama - cấu trúc dữ liệu,Task,New,"",Normal,Dev,"",7.0,Giang Duong Vo Tra,"","","","",VNRacing,Epic #380: Programming,""
+387,Rewards,Feature,In specification,"",Normal,"","",49.0,Giang Duong Vo Tra,"","","","",VNRacing,Feature #343: Progression,""
+388,Ads Definitions,Feature,New,"",Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,"",""
+390,   Tôi muốn sau mỗi màn chơi được reward các item giúp tôi nâng cấp,Task,New,"",Normal,Game Design,"",21.0,Giang Duong Vo Tra,"","","","",VNRacing,Feature #387: Rewards,""
+391,"    Tôi muốn có thêm giờ chơi từ việc xem quảng cáo, Có thể skip được thời điểm quảng cáo hợp lý ",Task,New,"",Normal,Game Design,"","",Giang Duong Vo Tra,"","","","",VNRacing,Feature #388: Ads Definitions,""
+392,In-Game Mini Map,User story,In progress,Phuoc Ho Duc,Normal,"","",48.5,Giang Duong Vo Tra,"","","","",VNRacing,Feature #156: Drive Mode,"Là người chơi, tôi muốn có phần mini map trong lúc đua để có thể theo dõi chặng đua, Mini Map đẹp, dễ quan sát trên màn hình điện thoại"
+393,Debug,Feature,New,"",Normal,"","",135.0,Giang Duong Vo Tra,"","","","",VNRacing,Epic #380: Programming,""
+398,Game State,Feature,In specification,"",Normal,"","",140.0,Giang Duong Vo Tra,"","","","",VNRacing,Feature #156: Drive Mode,""
+417,"Document US 197: Tôi muốn cảm giác Arcade nhưng vẫn có yếu tố va chạm, nhưng tôi không muốn xe lật",Task,Waiting For Approve,Phuoc Ho Duc,Normal,Game Design,8.0,14.0,Giang Duong Vo Tra,"","","","",VNRacing,"User story #197:     Tôi muốn cảm giác Arcade nhưng vẫn có yếu tố va chạm,nhưng tôi không muốn xe lật ",Update thêm tài liệu cho ME7
+418,"Document US 18:     Tôi muốn các AI phải có hành vi tự nhiên, có chiến đấu với người chơi",Task,Waiting For Approve,Phuoc Ho Duc,Normal,Game Design,12.0,"",Giang Duong Vo Tra,"","","","",VNRacing,"User story #377:     Tôi muốn các AI phải có hành vi tự nhiên, có chiến đấu với người chơi",1.  Document cho &nbsp;ME30 và ME33
+419,Document US19 : Tôi muốn độ khó của AI vừa phải và phù hợp ,Task,Waiting For Approve,Phuoc Ho Duc,Normal,Game Design,12.0,"",Giang Duong Vo Tra,"","","","",VNRacing,User story #378:     Tôi muốn độ khó của AI vừa phải và phù hợp,1.  Document cho ME31 và ME32
+421,Document US342 :Tôi muốn độ phần performance xe,Task,Waiting For Approve,Phuoc Ho Duc,Normal,Game Design,4.0,"",Giang Duong Vo Tra,"","","","",VNRacing,User story #342: Performance Customize,Document cho ME18
+422,Document US26: Tôi muốn sau mỗi màn chơi được reward các item giúp tôi nâng cấp,Task,Waiting For Approve,Phuoc Ho Duc,Normal,Game Design,16.0,"",Giang Duong Vo Tra,Game Design,"","","",VNRacing,Task #390:    Tôi muốn sau mỗi màn chơi được reward các item giúp tôi nâng cấp,"Document &nbsp;ME40, ME41, ME42. Đã làm Cash còn Items, cần hệ thống lại"
+442,Testing & Polish - Unit tests and integration tests,Task,On hold,Dat Quang,High,Dev,8.0,"",Giang Duong Vo Tra,"","","","",VNRacing,"User story #197:     Tôi muốn cảm giác Arcade nhưng vẫn có yếu tố va chạm,nhưng tôi không muốn xe lật ",""
+450,Ai phần intro countdown map Sơn Trà Sprint đang bị âm xuống đất,Bug,Tested,Liem Tran,Normal,"",2.0,"",Giang Duong Vo Tra,"","","","",VNRacing,"User story #197:     Tôi muốn cảm giác Arcade nhưng vẫn có yếu tố va chạm,nhưng tôi không muốn xe lật ",""
+451,"FanService không hoạt động, khi đua xong out ra main menu bị ẩn phần thông tin người chơi ",Bug,Tested,Doi Huynh Van,Normal,"",4.0,"",Giang Duong Vo Tra,"","","","",VNRacing,"User story #347: (FanService) Là Player, tôi muốn có các nhiệm vụ ngẫu nhiên khi bắt đầu cuộc đua với các phần thưởng khi hoàn thành.",""
+455,"GD_Document US 218-Tôi muốn trong khi đua, có phần infor của các player, có rank player- player titile",Task,Waiting For Approve,Phuoc Ho Duc,Normal,Game Design,3.0,"",Giang Duong Vo Tra,"","","","",VNRacing,"User story #218:     Tôi muốn trong khi đua,có phần infor của các player,có rank player - player title",""
+473,UI_US342_Tôi muốn độ phần performance xe,Summary task,New,"",Normal,UI/UX,"","",Giang Duong Vo Tra,"","","","",VNRacing,Epic #315: UI,""
+477,Các điểm để Customize bộ phận trên xe khi vào Customize Vissual không đúng hình thiết kế.,Bug,Tested,Duy LeHoang,Normal,"",2.0,"",Giang Duong Vo Tra,"","","","",VNRacing,User story #341: Visual Customize,""
+478, Crash khi vào map,Bug,Tested,Doi Huynh Van,Normal,"",2.0,"",Giang Duong Vo Tra,"","",Crashing,"",VNRacing,Epic #382: Levels/Track,nguyên nhân là do không tìm thấy playerid trong TMap (null)
+479,"Thay Mesh FrontBumper bị sai khi đổi giữa các Options 1, 2, 3",Bug,Tested,Dat Quang,Normal,"",1.0,"",Giang Duong Vo Tra,"","","Objects, Physics & Decors","",VNRacing,User story #341: Visual Customize,Bug Bản Build 2196 - OBJ77
+481,Các điểm để Customize bộ phận trên xe khi vào Customize Visual không hoạt động.,Bug,Tested,Duy LeHoang,Normal,"",1.0,"",Giang Duong Vo Tra,"","",Feature & Functions Defects,"",VNRacing,User story #341: Visual Customize,Bug Build 2196
+482,"Chức năng xoay Camera khi vuốt vào màn hình ở các Screen Home, Showroom và Customize ",Bug,Tested,Dat Quang,Normal,"",1.0,"",Giang Duong Vo Tra,"","",Feature & Functions Defects,"",VNRacing,User story #341: Visual Customize,\*Hiện không thể vuốt Camera khi điểm chạm đầu trùng với Mesh xe trên màn hình.
+483,    Tôi muốn các màn chơi có độ khó phù hợp,User story,New,"",Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,Epic #382: Levels/Track,""
+484,"    Trong khi chơi, tôi muốn có một số yếu tố ngẫu nhiên để làm cuộc đua thêm thú vị",User story,New,"",Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,Epic #382: Levels/Track,""
+485,"    Trong khi chơi, tôi muốn đâm một số chướng ngại vật ngẫu nhiên",User story,New,"",Normal,"","",6.0,Giang Duong Vo Tra,"","","","",VNRacing,Epic #382: Levels/Track,""
+486,    Tôi muốn màn chơi phù hợp với các Race mode,User story,New,"",Normal,"","",21.5,Giang Duong Vo Tra,"","","","",VNRacing,Epic #382: Levels/Track,""
+487,Tôi muốn có các đoạn Cutscene ngắn khi bắt đầu và kết thúc cuộc đua để Showcase cảnh đẹp mỗi khu vực và đội hình đua. ,User story,New,"",Normal,"","",104.0,Giang Duong Vo Tra,"","","","",VNRacing,Feature #156: Drive Mode,Asset Cinematic: https://docs.google.com/spreadsheets/d/1qEnf8xX4KAxx6VDb3zD04qaXBPDHHbPUbexqjnIG7nQ/edit?gid=1916069163#gid=1916069163
+488,    Tôi muốn được chơi game với bạn bè của tôi thông qua kết bạn,User story,On hold,"",Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,User story #221: Gamemode _MultiPlayer_Play Online,""
+489,"    Tôi muốn các item nâng cấp phải thật sự đáng giá, hợp lý và đẹp",User story,Confirmed,"",Normal,"","",12.0,Giang Duong Vo Tra,"","","","",VNRacing,Feature #331: Shop&IAP,""
+490,"Camera Customize SideBoard  chưa Focus vào đúng khu vực SideBoard, bị chặn bởi UI",Bug,Waiting For Approve,Phu Pham,Normal,"",8.0,"",Giang Duong Vo Tra,"","","","",VNRacing,User story #341: Visual Customize,Bug bản build 2916
+491,UI_Car Customize_Key Sreen,Task,In progress,Ty Dang,Normal,UI/UX,"",11.5,Giang Duong Vo Tra,"","","","",VNRacing,Feature #340: Car Customize,http://repo.clickstudio.com.vn:9002/productions/4d82250d-8824-43ee-919f-aa24a00fa6da/episodes/c593c4c2-a014-4d8e-b64e-f74255a33ac9/shots/f5c6722f-f47f-4bd1-ace7-4be1d25cc938
+493,UI_Car Customize_Performance,Task,Waiting For Approve,Ty Dang,Normal,UI/UX,"",28.5,Giang Duong Vo Tra,"","","","",VNRacing,User story #342: Performance Customize,http://repo.clickstudio.com.vn:9002/productions/4d82250d-8824-43ee-919f-aa24a00fa6da/episodes/c593c4c2-a014-4d8e-b64e-f74255a33ac9/shots/tasks/4a808c10-9deb-4825-8f1d-c248203ebf66
+495,UI_CarCustomize_Visual_Color,Task,Waiting For Approve,Ty Dang,Normal,UI/UX,"",7.0,Giang Duong Vo Tra,"","","","",VNRacing,Summary task #2661: UI/UX_Visual Customize ,http://repo.clickstudio.com.vn:9002/productions/4d82250d-8824-43ee-919f-aa24a00fa6da/episodes/c593c4c2-a014-4d8e-b64e-f74255a33ac9/shots/543383af-8ac0-493b-9733-1e0adc9a0199
+498,UI Game Mode,Summary task,New,"",Normal,UI/UX,"",16.0,Giang Duong Vo Tra,"","","","",VNRacing,Epic #315: UI,""
+501,Multiplayer_MatchMaking,Task,New,"",Normal,UI/UX,"",8.0,Giang Duong Vo Tra,"","","","",VNRacing,Summary task #498: UI Game Mode,""
+502,Multiplayer_MatchMaking_Loading,Task,New,"",Normal,UI/UX,"",3.0,Giang Duong Vo Tra,"","","","",VNRacing,Summary task #498: UI Game Mode,""
+504,UI Title Loading,Summary task,New,"",Normal,UI/UX,"","",Giang Duong Vo Tra,"","","","",VNRacing,Epic #315: UI,""
+505,Title,Task,New,"",Normal,UI/UX,"",1.5,Giang Duong Vo Tra,"","","","",VNRacing,User story #2046: Title Screen,""
+506,Title_GameLogo,Task,New,"",Normal,UI/UX,"","",Giang Duong Vo Tra,"","","","",VNRacing,Summary task #504: UI Title Loading,""
+507,TitlePlay_Loading,Task,Waiting For Approve,"",Normal,UI/UX,"",1.25,Giang Duong Vo Tra,"","","","",VNRacing,User story #2046: Title Screen,""
+508,Work in Progress,Task,New,"",Normal,UI/UX,"",3.0,Giang Duong Vo Tra,"","","","",VNRacing,User story #2046: Title Screen,""
+511,UI Play_Pause,Summary task,New,"",Normal,UI/UX,"",15.7,Giang Duong Vo Tra,"","","","",VNRacing,Epic #315: UI,""
+514,Play_Pause-Setting_Graphics,Summary task,New,"",Normal,UI/UX,"",3.0,Giang Duong Vo Tra,"","","","",VNRacing,User story #2048: Pause Game,""
+515,Play_Pause-Setting_Language,Summary task,New,"",Normal,UI/UX,"","",Giang Duong Vo Tra,"","","","",VNRacing,User story #2048: Pause Game,""
+516,Play_Pause-Setting_Sounds&Musics,Task,New,"",Normal,UI/UX,"","",Giang Duong Vo Tra,"","","","",VNRacing,User story #2048: Pause Game,""
+517,Play_PauseMenu,Task,New,"",Normal,UI/UX,"",10.0,Giang Duong Vo Tra,"","","","",VNRacing,User story #2048: Pause Game,""
+518,Play_PauseMenu-PopUp,Task,New,"",Normal,UI/UX,"","",Giang Duong Vo Tra,"","","","",VNRacing,User story #2048: Pause Game,""
+519,Play_Rewards_Money,Task,New,"",Normal,UI/UX,"",2.0,Giang Duong Vo Tra,"","","","",VNRacing,Summary task #511: UI Play_Pause,""
+520,Play Rewards,Task,New,"",Normal,UI/UX,"",10.5,Giang Duong Vo Tra,"","","","",VNRacing,Summary task #511: UI Play_Pause,""
+522,Play_Rewards_WatchAds,Task,New,"",Normal,UI/UX,"",3.2,Giang Duong Vo Tra,"","","","",VNRacing,Summary task #511: UI Play_Pause,""
+523,UI_In Game,Summary task,New,"",Normal,UI/UX,"",67.5,Giang Duong Vo Tra,"","","","",VNRacing,Epic #315: UI,""
+526,Icon,Task,New,"",Normal,UI/UX,"","",Giang Duong Vo Tra,"","","","",VNRacing,Summary task #523: UI_In Game,""
+527,UI_Play_Countdown,Task,In progress,"",Normal,UI/UX,"","",Giang Duong Vo Tra,"","","","",VNRacing,User story #487: Tôi muốn có các đoạn Cutscene ngắn khi bắt đầu và kết thúc cuộc đua để Showcase cảnh đẹp mỗi khu vực và đội hình đua. ,http://repo.clickstudio.com.vn:9002/productions/4d82250d-8824-43ee-919f-aa24a00fa6da/episodes/c593c4c2-a014-4d8e-b64e-f74255a33ac9/shots/62d4aa18-dea9-4e9c-a219-69063acd2d4d
+528,PlayResults,Task,New,"",Normal,UI/UX,"",17.0,Giang Duong Vo Tra,"","","","",VNRacing,Summary task #523: UI_In Game,""
+529,Race_HUD,Task,Waiting For Approve,"",Normal,UI/UX,"",14.0,Giang Duong Vo Tra,"","","","",VNRacing,Summary task #523: UI_In Game,""
+530,RaceMode_Circuit,Task,New,"",Normal,UI/UX,"",2.0,Giang Duong Vo Tra,"","","","",VNRacing,Summary task #523: UI_In Game,""
+531,RaceMode_Sprint,Task,New,"",Normal,UI/UX,"",2.0,Giang Duong Vo Tra,"","","","",VNRacing,Summary task #523: UI_In Game,""
+532,RaceMode_TimeAttack,Task,New,"",Normal,UI/UX,"",13.5,Giang Duong Vo Tra,"","","","",VNRacing,Summary task #523: UI_In Game,""
+534,UI - Setting,Summary task,New,"",Normal,UI/UX,"","",Giang Duong Vo Tra,"","","","",VNRacing,Epic #315: UI,""
+539,UI_Profile_Tôi muốn xem được thông tin giờ chơi và các item tôi sỡ hữu,Summary task,In progress,"",Normal,UI/UX,"","",Giang Duong Vo Tra,"","","","",VNRacing,Epic #315: UI,""
+540,UI_Inventory,Task,Waiting For Approve,Ty Dang,Normal,UI/UX,"","",Giang Duong Vo Tra,"","","","",VNRacing,Summary task #2251: UI Design_Inventory,http://repo.clickstudio.com.vn:9002/productions/4d82250d-8824-43ee-919f-aa24a00fa6da/episodes/c593c4c2-a014-4d8e-b64e-f74255a33ac9/shots/d7185f72-e7d2-46c0-8439-4d7dc3a19233
+541,Inventory_Performance,Task,Waiting For Approve,Ty Dang,Normal,UI/UX,"","",Giang Duong Vo Tra,"","","","",VNRacing,Summary task #2251: UI Design_Inventory,http://repo.clickstudio.com.vn:9002/productions/4d82250d-8824-43ee-919f-aa24a00fa6da/episodes/c593c4c2-a014-4d8e-b64e-f74255a33ac9/shots/tasks/11df51a5-1256-47ca-8b6f-62313331b44b
+547,UI_SHOP,Summary task,New,"",Normal,UI/UX,"",8.8,Giang Duong Vo Tra,"","","","",VNRacing,Epic #315: UI,""
+548,Shop_BoosterBundles,Task,Waiting For Approve,"",Normal,UI/UX,0.0,6.0,Giang Duong Vo Tra,"","","","",VNRacing,"User story #489:     Tôi muốn các item nâng cấp phải thật sự đáng giá, hợp lý và đẹp",""
+550,Shop_DLC_CardInfo,Task,New,"",Normal,UI/UX,0.0,5.0,Giang Duong Vo Tra,"","","","",VNRacing,Summary task #547: UI_SHOP,""
+551,UI_Tutorial,Summary task,New,"",Normal,UI/UX,"",21.0,Giang Duong Vo Tra,"","","","",VNRacing,Epic #315: UI,""
+555,WIRE FRAME,Summary task,New,"",Normal,UI/UX,"","",Giang Duong Vo Tra,"","","","",VNRacing,Epic #315: UI,""
+556,User Profiles & User Inventory,Summary task,New,"",Normal,UI/UX,"","",Giang Duong Vo Tra,"","","","",VNRacing,Epic #315: UI,""
+557,UI_Achievements,Summary task,New,"",Normal,UI/UX,"","",Giang Duong Vo Tra,"","","","",VNRacing,Epic #315: UI,""
+561,Document US341: Tôi muốn độ phần Visual xe,Task,Waiting For Approve,Phuoc Ho Duc,Normal,Game Design,"","",Giang Duong Vo Tra,"","","","",VNRacing,User story #341: Visual Customize,""
+562,"Document US345: trong quá trình phá đảo, tôi muốn sưu tập thêm nhiều xe mới",Task,New,Phuoc Ho Duc,Normal,Game Design,"","",Giang Duong Vo Tra,"","","","",VNRacing,"User story #345:     Trong quá trình phá đảo, tôi muốn sưu tập thêm nhiều xe mới",""
+563,Document Elements in Level Creation for VNRacing,Task,Waiting For Approve,Phu Pham,Normal,Tech Art,2.0,"",Giang Duong Vo Tra,"","","","",VNRacing,"User story #485:     Trong khi chơi, tôi muốn đâm một số chướng ngại vật ngẫu nhiên",""
+564,Button 3D lúc click được lúc không click được ở Car Customize,Bug,Specified,Tan  Phan Huynh,Normal,"",10.0,14.0,Giang Duong Vo Tra,"","","","",VNRacing,"User story #1831: Là Player, Tôi muốn có tính năng Customize","Xe VF8, khi kéo camera lên cao để Button 3D Customize FrontBumper, SideBoard, v.v xuống sát phía mép dưới màn thì không bấm được Button 3D.
+
+Test trên iOS Build 4230."
+568,Production,Summary task,New,"",Normal,"","","",Son  Nguyen ,"","","","",VNRacing Trailer,"",""
+569,Assets Development,Summary task,New,"",Normal,"","","",Son  Nguyen ,"","","","",VNRacing Trailer,"",""
+570,Shots Development,Summary task,New,"",Normal,"","","",Son  Nguyen ,"","","","",VNRacing Trailer,"",""
+573,Nút RACE bị dính viền màu trắng ở tất cả các Screen,Bug,Waiting For Approve,"",Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,Epic #315: UI,""
+574,Part RearWing sai Text ,Bug,Tested,Duy LeHoang,Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,User story #341: Visual Customize,""
+575,Điều chỉnh lại góc/vị trí Camera đang bị lệch & Relocate File Outro,Bug,Waiting For Approve,Phu Pham,Normal,"",3.0,"",Giang Duong Vo Tra,"","","","",VNRacing,User story #487: Tôi muốn có các đoạn Cutscene ngắn khi bắt đầu và kết thúc cuộc đua để Showcase cảnh đẹp mỗi khu vực và đội hình đua. ,"\+ Xử lí lại các vị trí bị lệch, bị sai góc camera ban đầu.&nbsp;
+
+\+ Re-located lại file outro vào 1 folder mới, để team level sau đó sẽ đưa vào level"
+598,Fix lại cho phần khói Drift đoạn cuối bị mất sau khi đổi qua sequence khác,Bug,Waiting For Approve,Phu Pham,Normal,"",4.0,"",Giang Duong Vo Tra,"","","","",VNRacing,"User story #157:     Tôi muốn có cảm giác đua xe arcade,drift để thu thập nos",""
+604,Project Report,Summary task,New,Giang Duong Vo Tra,Normal,UI/UX,"","",Son  Nguyen ,"","","","",VNRacing,"",""
+622,Document the tools used for the level,Task,Waiting For Approve,Phu Pham,Normal,Tech Art,4.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Epic #382: Levels/Track,""
+631," Document US346: Trong quá trình phá đảo, tôi muốn xe tôi được nâng cấp thêm ",Task,Waiting For Approve,Phuoc Ho Duc,Normal,Game Design,"","",Giang Duong Vo Tra,"","","","",VNRacing,"User story #346:     Trong quá trình phá đảo, tôi muốn xe tôi được nâng cấp thêm ",""
+634, Document US 206 Tôi muốn xem được thông tin giờ chơi và các item tôi sỡ hữu ,Task,Waiting For Approve,Phuoc Ho Duc,Normal,Game Design,"","",Giang Duong Vo Tra,"","","","",VNRacing,"User story #206: (UserProfile) Là Player, tôi muốn được xem các thông tin tổng quan về quá trình chơi của tôi (Giờ chơi, số lượng Track đã Unlock, v.v) để tự bao quát được quá trình chơi Game này.",""
+635,Document US 335 : Tôi muốn tutorial cho tôi biết các thông tin cần thiết trong lần đua đầu tiên,Task,Waiting For Approve,"",Normal,Game Design,"","",Giang Duong Vo Tra,"","","","",VNRacing,User story #335:     Tôi muốn tutorial cho tôi biết các thông tin cần thiết trong lần đua đầu tiên,""
+636,Document US336:     Tôi muốn có một số hướng dẫn phụ cho các tính năng phụ trong game bằng hình thức pop up thông tin ,Task,On hold,"",Normal,Game Design,"","",Giang Duong Vo Tra,"","","","",VNRacing,User story #336:     Tôi muốn có một số hướng dẫn phụ cho các tính năng phụ trong game bằng hình thức pop up thông tin ,""
+637,Document US348: Tôi muốn trải nghiệm 10 phút đầu chơi game hấp dẫn,Task,New,Phuoc Ho Duc,Normal,Game Design,"","",Giang Duong Vo Tra,"","","","",VNRacing,"",""
+638,"Document US 332: Tôi muốn có thêm nhiều thời gian chơi, không có gặp quảng cáo, và có khởi đầu tốt hơn các player khác",Task,On hold,Phuoc Ho Duc,Normal,Game Design,"","",Giang Duong Vo Tra,"","","","",VNRacing,"User story #332:      Tôi muốn có thêm nhiều thời gian chơi, không có gặp quảng cáo, và có khởi đầu tốt hơn các player khác",""
+639,Document US 486: Tôi muốn màn chơi phù hợp với các Race mode,Task,Waiting For Approve,Phuoc Ho Duc,Normal,Game Design,"","",Giang Duong Vo Tra,"","","","",VNRacing,User story #486:     Tôi muốn màn chơi phù hợp với các Race mode,""
+652,"Debug, bảng Car Stats chưa sắp xếp đúng thứ tự như trong Sheet",Bug,Tested,Liem Tran,Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,Task #653: GD_Bug List ( Cũ cần ReOpen),""
+660,Quy tắc đặt tên cho người chơi,Task,Waiting For Approve,Phuoc Ho Duc,Normal,Game Design,"","",Giang Duong Vo Tra,"","","","",VNRacing,"User story #206: (UserProfile) Là Player, tôi muốn được xem các thông tin tổng quan về quá trình chơi của tôi (Giờ chơi, số lượng Track đã Unlock, v.v) để tự bao quát được quá trình chơi Game này.",""
+661,Nghiên cứu về giới hạn độ tuổi với các thể loại game đua xe này,Task,Waiting For Approve,Phuoc Ho Duc,Normal,Game Design,"","",Giang Duong Vo Tra,"","","","",VNRacing,"User story #206: (UserProfile) Là Player, tôi muốn được xem các thông tin tổng quan về quá trình chơi của tôi (Giờ chơi, số lượng Track đã Unlock, v.v) để tự bao quát được quá trình chơi Game này.",""
+662,Spawn UI Intro xe SUV vào trong sau khi hết sequence,Task,Waiting For Approve,Phu Pham,Normal,Tech Art,4.0,"",Giang Duong Vo Tra,"","","","",VNRacing,User story #487: Tôi muốn có các đoạn Cutscene ngắn khi bắt đầu và kết thúc cuộc đua để Showcase cảnh đẹp mỗi khu vực và đội hình đua. ,""
+667,Implement Screen_Car Customize_Visual_Color,Task,Waiting For Approve,Nhu Truong,Normal,Dev,4.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Task #495: UI_CarCustomize_Visual_Color,""
+673,Set up Collision cho map HA và ST,Task,Waiting For Approve,trandinhchinh8402 @gmail.com,Normal,Level Design,20.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Epic #382: Levels/Track,""
+674,Level team kiểm tra lại đặt đủ các phần begin - end của track đua,Task,Waiting For Approve,trandinhchinh8402 @gmail.com,Normal,Level Design,4.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Epic #382: Levels/Track,""
+676,GD_Buglist 2426,Bug,In progress,Phuoc Ho Duc,Normal,"",8.0,25.5,Giang Duong Vo Tra,"","","","",VNRacing,Bug #312: BUG TEST,""
+680,"Ở cả 2 Screen MainMenu và Car Selections, chức năng xoay Camera bị lỗi giật hình khi giữ và kéo",Bug,Tested,Dat Quang,Normal,"",1.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Bug #676: GD_Buglist 2426,""
+683,Các nút Customize Car Visual 3D không bấm được,Bug,Tested,Dat Quang,Normal,"",1.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Bug #676: GD_Buglist 2426,""
+684,Nút Color vẫn còn bị dính trên màn hình khi hide UI trong Customize Visual,Bug,Tested,Dat Quang,Normal,"",1.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Bug #676: GD_Buglist 2426,""
+685,"Customize Perform, bấm trực tiếp vào các thanh chỉ số thì bị lỗi Text",Bug,Tested,Dat Quang,Normal,"",1.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Bug #676: GD_Buglist 2426,""
+686,"Customize Perform, bấm trực tiếp vào các thanh chỉ số ra Screen khác với bấm vào nút Upgrade",Bug,Tested,Dat Quang,Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,Bug #676: GD_Buglist 2426,""
+691,Lỗi hiện UI đua trong Intro Cinematics,Bug,Tested,Liem Tran,Normal,"",2.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Bug #676: GD_Buglist 2426,""
+692,Lỗi hiện UI đua trong Outro Cinematics,Bug,Tested,Dat Quang,Normal,"",2.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Bug #676: GD_Buglist 2426,""
+696,Lỗi Intro Cinematic cho xe ở Sơn Trà Circuit,Bug,Waiting For Approve,trandinhchinh8402 @gmail.com,Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,Bug #676: GD_Buglist 2426,""
+697,Lỗi Outro Cinematic ở Sơn Trà Circuit,Bug,Waiting For Approve,trandinhchinh8402 @gmail.com,Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,Bug #676: GD_Buglist 2426,""
+698,Lỗi kết thúc cuộc đua lâu khi Outro Cinematic kết thúc ở tất cả các Track,Bug,Tested,Liem Tran,Normal,"",0.5,"",Giang Duong Vo Tra,"","","","",VNRacing,Bug #676: GD_Buglist 2426,""
+700,Lỗi Intro Cinematic cho xe ở NHS Circuit,Bug,Waiting For Approve,trandinhchinh8402 @gmail.com,Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,Bug #676: GD_Buglist 2426,""
+702,Các track DN Downtown chưa có Cinematic giới thiệu cho khu vực,Bug,Tested,Nhu Truong,Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,Bug #676: GD_Buglist 2426,""
+703,Track DN Downtown Sprint chưa có Cinematic Outro,Bug,Waiting For Approve,trandinhchinh8402 @gmail.com,Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,Bug #676: GD_Buglist 2426,""
+704,Track DN Downtown Circuit đang bị gắn nhầm Game Mode thành Sprint,Bug,Tested,Nhu Truong,Normal,"",1.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Bug #676: GD_Buglist 2426,""
+709,Track DN Downtown TimeAttack chưa có Cinematic Outro,Bug,Waiting For Approve,trandinhchinh8402 @gmail.com,Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,Bug #676: GD_Buglist 2426,""
+718,Set up Trigger để kích hoạt các chặn có pháo hoa _Track Downtown,Task,Waiting For Approve,Phu Pham,Normal,Tech Art,7.0,"",Giang Duong Vo Tra,"","","","",VNRacing,"User story #1282: Là Player, tôi muốn đua xe ở Da Nang Downtown",""
+745,M4: Final Polish,Task,New,Son Nguyen Nam,High,Dev,4.0,"",Giang Duong Vo Tra,"","","","",VNRacing,User story #335:     Tôi muốn tutorial cho tôi biết các thông tin cần thiết trong lần đua đầu tiên,""
+751,FX_Map Sơn Trà,Summary task,In progress,"",Normal,Level Design,"","",Giang Duong Vo Tra,"","","","",VNRacing,"",""
+753,TÀI KHOẢN DEVELOPER - VNRACING ,Task,New,Giang Duong Vo Tra,Normal,Admin,"","",Giang Duong Vo Tra,"","","","",VNRacing,"",""
+770, Kiểm tra lại phần Load intro cho map Hội An ,Task,On hold,Phu Pham,Normal,Tech Art,8.0,"",Giang Duong Vo Tra,"","","","",VNRacing,"User story #1280: Là Player, tôi muốn đua xe ở phố cổ Hội An","Một số góc quay trong intro thì có 1 số track có load, 1 số track thì mình sẽ k load để tối ưu. Cần kiểm tra lại các góc đó để tìm ra các góc có thể dùng chung, hoặc nếu trường hợp không ổn thì sẽ làm riêng thêm mỗi map 1 cái. Mỗi track như sprint, TA, circuit sẽ load 1 phần chứ k phải load toàn bộ map."
+775,"Vùng tương tác UI 3D cho các bộ phận Car Customize quá nhỏ, khó bấm.",Bug,Tested,Son Nguyen Nam,Normal,"",2.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Task #772: GD_Buglist 2513,https://docs.google.com/spreadsheets/d/18UxRL1DhOXAba6uO2Sqv8xWixA5rLX7Dx\_qAMF5iVvM/edit?gid=1285783599#gid=1285783599&amp;range=C124
+779,Track Sơn Trà Time Attack có lỗi Collision ở vạch xuất phát.,Bug,Waiting For Approve,trandinhchinh8402 @gmail.com,Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,Task #772: GD_Buglist 2513,https://docs.google.com/spreadsheets/d/18UxRL1DhOXAba6uO2Sqv8xWixA5rLX7Dx\_qAMF5iVvM/edit?gid=1285783599#gid=1285783599&amp;range=C128
+781,Track Sơn Trà Circuit không load Outro Cinematic,Bug,Waiting For Approve,trandinhchinh8402 @gmail.com,Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,Task #772: GD_Buglist 2513,https://docs.google.com/spreadsheets/d/18UxRL1DhOXAba6uO2Sqv8xWixA5rLX7Dx\_qAMF5iVvM/edit?gid=1285783599#gid=1285783599&amp;range=C130
+786,Cái dù ở khu vực Bồng binh Cầu Rồng Track Sơn Trà TimeAttack không tông bể được,Bug,Waiting For Approve,trandinhchinh8402 @gmail.com,Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,Task #772: GD_Buglist 2513,https://docs.google.com/spreadsheets/d/18UxRL1DhOXAba6uO2Sqv8xWixA5rLX7Dx\_qAMF5iVvM/edit?gid=1285783599#gid=1285783599&amp;range=C136
+790,Tên xe trên màn hình Customize chung và Customize Visual không giống nhau,Bug,Tested,Duy LeHoang,Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,Task #772: GD_Buglist 2513,https://docs.google.com/spreadsheets/d/18UxRL1DhOXAba6uO2Sqv8xWixA5rLX7Dx\_qAMF5iVvM/edit?gid=1285783599#gid=1285783599&amp;range=C140
+791,Chức năng đổi Decal (Skin) chưa hoạt động,Bug,On hold,"",Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,Task #772: GD_Buglist 2513,https://docs.google.com/spreadsheets/d/18UxRL1DhOXAba6uO2Sqv8xWixA5rLX7Dx\_qAMF5iVvM/edit?gid=1285783599#gid=1285783599&amp;range=C141
+792,Screen Shop bị thiếu các Animation Transition và Animation chọn,Bug,Tested,Son Nguyen Nam,Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,Task #772: GD_Buglist 2513,https://docs.google.com/spreadsheets/d/18UxRL1DhOXAba6uO2Sqv8xWixA5rLX7Dx\_qAMF5iVvM/edit?gid=1285783599#gid=1285783599&amp;range=C142
+793,Track Sơn Trà Circuit: Collsion hai bên đường đua bị lòi ra khiến xe bị đâm ngược lại,Bug,Waiting For Approve,trandinhchinh8402 @gmail.com,Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,"User story #2003: Là Player, tôi muốn có một Track Circuit trong Area Sơn Trà.",https://docs.google.com/spreadsheets/d/18UxRL1DhOXAba6uO2Sqv8xWixA5rLX7Dx\_qAMF5iVvM/edit?gid=1285783599#gid=1285783599&amp;range=C143
+794,"Track Sơn Trà Circuit có Performance thấp, chơi nhanh nóng máy.",Bug,In progress,Phu Pham,Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,"User story #2003: Là Player, tôi muốn có một Track Circuit trong Area Sơn Trà.",https://docs.google.com/spreadsheets/d/18UxRL1DhOXAba6uO2Sqv8xWixA5rLX7Dx\_qAMF5iVvM/edit?gid=1285783599#gid=1285783599&amp;range=C144
+795,"Track Sơn Trà Circuit, đoạn đường hầm, phần vỉa hè bên trái hơi cao làm xe bị xuyên.",Bug,Waiting For Approve,trandinhchinh8402 @gmail.com,Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,"User story #2003: Là Player, tôi muốn có một Track Circuit trong Area Sơn Trà.",""
+796,"Track Sơn Trà Circuit, đoạn bồn cây bị xuyên Collision",Bug,Waiting For Approve,trandinhchinh8402 @gmail.com,Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,"User story #2003: Là Player, tôi muốn có một Track Circuit trong Area Sơn Trà.",https://docs.google.com/spreadsheets/d/18UxRL1DhOXAba6uO2Sqv8xWixA5rLX7Dx\_qAMF5iVvM/edit?gid=1285783599#gid=1285783599&amp;range=C146
+797,Track Sơn Trà TimeAttack: Collsion hai bên đường đua bị lòi ra khiến xe bị đâm ngược lại,Bug,Waiting For Approve,trandinhchinh8402 @gmail.com,Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,Task #772: GD_Buglist 2513,https://docs.google.com/spreadsheets/d/18UxRL1DhOXAba6uO2Sqv8xWixA5rLX7Dx\_qAMF5iVvM/edit?gid=1285783599#gid=1285783599&amp;range=C147
+799,Track DN DownTown Sprint kết thúc trước khi người chơi về đích,Bug,Waiting For Approve,trandinhchinh8402 @gmail.com,Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,Task #772: GD_Buglist 2513,https://docs.google.com/spreadsheets/d/18UxRL1DhOXAba6uO2Sqv8xWixA5rLX7Dx\_qAMF5iVvM/edit?gid=1285783599#gid=1285783599&amp;range=C149
+802,Track DN DownTown Circuit: Collsion hai bên đường đua bị lòi ra khiến xe bị đâm ngược lại,Bug,Waiting For Approve,trandinhchinh8402 @gmail.com,Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,Task #772: GD_Buglist 2513,https://docs.google.com/spreadsheets/d/18UxRL1DhOXAba6uO2Sqv8xWixA5rLX7Dx\_qAMF5iVvM/edit?gid=1285783599#gid=1285783599&amp;range=C152
+804,Track DN DownTown Lỗi Mesh dưới gầm cầu vượt,Bug,Waiting For Approve,trandinhchinh8402 @gmail.com,Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,Task #772: GD_Buglist 2513,https://docs.google.com/spreadsheets/d/18UxRL1DhOXAba6uO2Sqv8xWixA5rLX7Dx\_qAMF5iVvM/edit?gid=1285783599#gid=1285783599&amp;range=C154
+841,Triển khai tài liệu ( Plan & Breakdown),Task,On hold,Doi Huynh Van,Normal,Dev,32.0,"",Giang Duong Vo Tra,"","","","",VNRacing,"User story #206: (UserProfile) Là Player, tôi muốn được xem các thông tin tổng quan về quá trình chơi của tôi (Giờ chơi, số lượng Track đã Unlock, v.v) để tự bao quát được quá trình chơi Game này.",""
+846,Map DN DownTown TimeAttack bị lỗi Cinematic Outro,Bug,In specification,Phu Pham,Normal,"",4.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Task #772: GD_Buglist 2513,""
+849,Track Hoi An Sprint: Collsion hai bên đường đua bị lòi ra khiến xe bị đâm ngược lại,Bug,Waiting For Approve,trandinhchinh8402 @gmail.com,Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,Task #772: GD_Buglist 2513,""
+850, Track Hoi An Sprint: Chưa đặt Collision cho khu vực lên cầu,Bug,Waiting For Approve,trandinhchinh8402 @gmail.com,Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,Task #772: GD_Buglist 2513,""
+852,"Track HoiAn time Attack có Performance thấp, chơi nhanh nóng máy.",Bug,In progress,Phu Pham,Normal,"",8.0,8.0,Giang Duong Vo Tra,"","","","",VNRacing,Task #772: GD_Buglist 2513,""
+853,Bộ Suspension của xe đôi lúc xe hỏng trong Cinematic Outro,Bug,Test failed,Hieu Hoang,Normal,"",4.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Task #772: GD_Buglist 2513,""
+856,Các Track Downtown chưa có các dải Barrier phân làn đua,Bug,Waiting For Approve,trandinhchinh8402 @gmail.com,Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,Task #772: GD_Buglist 2513,""
+857,List FX For Game ,Task,Waiting For Approve,Phuoc Ho Duc,Normal,Game Design,"",16.0,Giang Duong Vo Tra,"","","","",VNRacing,Epic #974: FX,""
+858,List Item - Thumnail - Card cần Concept lại ,Task,Waiting For Approve,Phuoc Ho Duc,Normal,Game Design,"","",Giang Duong Vo Tra,"","","","",VNRacing,Epic #315: UI,""
+861,SOUND & MUSIC,Epic,In specification,"",Normal,"","",289.5,Giang Duong Vo Tra,"","","","",VNRacing,"","Brief : [https://www.notion.so/sss-click/SoundBrief\_VnRacing\_V1-331d1a0054d2808ca3d2fda8610e3091](https://www.notion.so/sss-click/SoundBrief_VnRacing_V1-331d1a0054d2808ca3d2fda8610e3091)
+
+Task list 0204:&nbsp;
+
+https://docs.google.com/spreadsheets/d/1FKIQgkniHCPSQIVF2h6U0EKdiX4wOSL2GGCXwGlIhHw/edit?usp=sharing
+
+<br>"
+865,"Phần mặt đường Sơn Trà Circuit - đoạn xe trên núi, hồ sen bị nháy ",Bug,Waiting For Approve,trandinhchinh8402 @gmail.com,Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,"User story #2003: Là Player, tôi muốn có một Track Circuit trong Area Sơn Trà.",""
+880,Nghiên cứu Tool Set Up đường đua ,Task,Waiting For Approve,Phu Pham,Normal,Tech Art,16.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Epic #382: Levels/Track,"*   Tech Art sẽ kiểm tra performance (tris, drawcall) khi dùng tool làm đường, sau đó convert sang static mesh và tối ưu (decimate).
+    
+*   Từ kết quả sẽ đưa ra guideline sử dụng, benchmark và mức tối ưu phù hợp giữa visual và performance."
+893,Document - Yêu cầu xuất file cho team 3D - đảm bảo được các tính năng trong thiết kế,Task,Waiting For Approve,Long Tran,Normal,Dev,2.0,"",Giang Duong Vo Tra,"","","","",VNRacing,User story #341: Visual Customize,""
+939,"Test hệ thống Incline, Decline, điều chỉnh thông số và Feedback cho Dev",Task,Waiting For Approve,Phuoc Ho Duc,Normal,Game Design,1.0,"",Giang Duong Vo Tra,"","","","",VNRacing,"User story #197:     Tôi muốn cảm giác Arcade nhưng vẫn có yếu tố va chạm,nhưng tôi không muốn xe lật ",""
+941,Audio của động cơ xe khi đi từ tốc độ 60 - 100 km/h bị đều,Bug,New,"",High,"","","",Giang Duong Vo Tra,"","",Audio Bugs,"",VNRacing,Task #940: GD_Buglist 2703,"*   Steps to Reproduce:  
+    1\. Vào đua các Track bất kỳ.  
+    2\. Chạy lên tốc độ khoảng 100 Km/h  
+    3\. Cua qua lại để kéo tốc độ xuống 60 Km/h.  
+    4\. Nghe Audio xe
+    
+*   Resulting Behavior:
+    
+    Audio của xe khi chạy từ 60 - 100 km/h bị đều.
+    
+*   Expected Behavior:
+    
+    Audio của xe điều chỉnh hợp lý theo hệ số vòng tua.
+    
+    System Info: iOS
+    
+    <br>"
+942,Khi đang đua mà Quit thì về lại màn hình Track Selection của Area hiện tại chứ không phải màn hình Car Customize,Bug,Tested,Hieu Hoang,Normal,"",1.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Task #940: GD_Buglist 2703,""
+945,"Lỗi Texture mặt đường ở đoạn xuất phát, Map Sơn Trà Circuit",Bug,Waiting For Approve,trandinhchinh8402 @gmail.com,Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,"User story #2003: Là Player, tôi muốn có một Track Circuit trong Area Sơn Trà.",""
+946,"Không thể nghe được Audio của động cơ trong Cutscene Intro đếm ngược, khi Cutscene quay trở lại điều khiển xe thì Audio của xe bị cắt ngang vào",Bug,New,"",High,"","","",Giang Duong Vo Tra,"","",Audio Bugs,"",VNRacing,Task #940: GD_Buglist 2703,"*   Steps to Reproduce:  
+    1\. Vào đua Map bất kỳ.  
+    2\. Check Audio Cinematic Intro  
+    3\. Check Audio sau khi xuất phát&nbsp;
+    
+*   Resulting Behavior:
+    
+    Audio của động cơ xe không thể nghe thấy trong Cinematic Intro.  
+    Khi kết thúc đếm ngược, tiếng động cơ của xe bị Cut-Off vào giữa Game
+    
+*   Expected Behavior:
+    
+    Có thể nghe được tiếng động cơ của xe trong Cinematic Intro và tiếng động cơ liền mạch từ Cinematic tới khi người chơi bắt đầu đua.
+    
+*   System Info: iOS"
+947,"Track DownTown Sprint bị set Barrier sai, không thể về đích được",Bug,Waiting For Approve,trandinhchinh8402 @gmail.com,Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,Task #940: GD_Buglist 2703,""
+948,Track NHS Time Attack Checkpoint tăng điểm chưa hợp lý,Bug,Tested,Nhu Truong,Normal,"",0.5,"",Giang Duong Vo Tra,"","","","",VNRacing,Task #940: GD_Buglist 2703,""
+950,Chưa tự đổi xe sau khi thoát khỏi Garage,Bug,Tested,Dat Quang,Normal,"",2.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Task #940: GD_Buglist 2703,""
+951,Chưa Update đúng tên của xe trên Intro Cinematics,Bug,Tested,Dat Quang,Normal,"",2.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Task #940: GD_Buglist 2703,""
+952,Thiếu Design cho các Panel nâng cấp khi nâng cấp xe lên Level Max,Bug,In specification,Phuoc Ho Duc,Normal,"","","",Giang Duong Vo Tra,"","",Design Bug,"",VNRacing,Task #940: GD_Buglist 2703,"*   Steps to Reproduce:
+    
+    1\. Vào Car Customize Performance  
+    2\. Nâng cấp Max một chỉ số.  
+    3\. Check Panels nâng cấp bên trái
+    
+*   Resulting Behavior:
+    
+    Chưa có Design nên hiển thị bị lỗi
+    
+*   Expected Behavior:
+    
+    Cần có Design và Dev UI ở đây
+    
+*   System Info: iOS"
+953,Nút Back chưa hoạt động đúng chức năng ở Screen Car Customize trong Main Screen,Bug,Tested,Nhu Truong,Normal,"",2.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Task #940: GD_Buglist 2703,""
+954,"Khi bấm nút Back để đổi Screen, vẫn có 1 khoảng thời gian có thể bấm các nút trên Screen hiện tại làm UI bị lỗi. Các lỗi phổ biến gồm: Mất các Panel trên UI, Chạy 2 Animation cùng một lúc.",Bug,Tested,Liem Tran,Normal,"",2.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Task #940: GD_Buglist 2703,""
+955,Spawn nút Back sẽ làm Animation Transition chạy liên tục.,Bug,Tested,Liem Tran,Normal,"",2.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Task #940: GD_Buglist 2703,""
+958,Vạch xuất phát của Track Sơn Trà Circuit có vật cản lạ,Bug,In specification,thong tran,Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,"User story #2003: Là Player, tôi muốn có một Track Circuit trong Area Sơn Trà.",""
+959,Thiếu Audio khi chạy qua vũng nước ở Track Sơn Trà Circuit,Bug,New,"",Normal,"","","",Giang Duong Vo Tra,"","",Audio Bugs,"",VNRacing,"User story #2003: Là Player, tôi muốn có một Track Circuit trong Area Sơn Trà.",""
+961,Cinematic Intro của Track Hội An Circuit bị lỗi,Bug,Waiting For Approve,Phu Pham,Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,Task #940: GD_Buglist 2703,""
+964,UI Race Result chưa cập nhật số tiền thắng cuộc,Bug,Tested,Nhu Truong,Normal,"",2.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Task #940: GD_Buglist 2703,""
+972,CONCEPT,Epic,Waiting For Approve,"",Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,"",""
+974,FX,Epic,In progress,"",Normal,"","",16.0,Giang Duong Vo Tra,"","","","",VNRacing,"",""
+1040,"Là Player, tôi muốn đua xe ở địa hình Ngũ Hành Sơn",User story,On hold,"",Normal,"","",357.0,Giang Duong Vo Tra,"","","","",VNRacing,"User story #2006: Là Player, tôi muốn có City Đà Nẵng trong Vn Tour GameMode.",""
+1041,Test Decal dải xanh thực vật trên núi _Ngũ Hành Sơn,Task,Waiting For Approve,Phu Pham,Normal,Tech Art,4.0,"",Giang Duong Vo Tra,"","","","",VNRacing,"User story #1040: Là Player, tôi muốn đua xe ở địa hình Ngũ Hành Sơn",""
+1047,Hiệu ứng mưa & mặt đường ướt cho Ngũ Hành Sơn,Task,Waiting For Approve,Phu Pham,Normal,Tech Art,"","",Giang Duong Vo Tra,"","","","",VNRacing,"User story #1040: Là Player, tôi muốn đua xe ở địa hình Ngũ Hành Sơn",""
+1048,"Là Player, Tôi muốn đua xe ở địa hình Đông Giang",User story,In progress,"",Normal,"","",463.5,Giang Duong Vo Tra,"","","","",VNRacing,"User story #2006: Là Player, tôi muốn có City Đà Nẵng trong Vn Tour GameMode.",""
+1060,Mất step trong Script Tutorial BasicControls1,Bug,Tested,Dat Quang,Normal,"",2.0,"",Giang Duong Vo Tra,"","","","",VNRacing,User story #335:     Tôi muốn tutorial cho tôi biết các thông tin cần thiết trong lần đua đầu tiên,""
+1066,UI_Race_Skill,Task,New,"",Normal,UI/UX,"","",Giang Duong Vo Tra,"","","","",VNRacing,"User story #2039: (Skill) Là Player, tôi muốn khi thực hiện các Skill trong khi đua sẽ được thưởng bằng cách Refill thanh NOS để có động lực thực hiện các kỹ năng này nhiều hơn.",""
+1092,Test Link #1,Bug,New,"",Normal,"","","",Phuoc Ho Duc,"","","","",VNRacing,"",""
+1096,Reward Module - FRewardEntry + URewardManager + Loot Table Logic,Task,On hold,"",Normal,Dev,6.0,"",Giang Duong Vo Tra,"","","","",VNRacing,"User story #206: (UserProfile) Là Player, tôi muốn được xem các thông tin tổng quan về quá trình chơi của tôi (Giờ chơi, số lượng Track đã Unlock, v.v) để tự bao quát được quá trình chơi Game này.",""
+1098,Test Plan + Documentation Setup - Test Cases + API Reference Draft,Task,Waiting For Approve,Nhu Truong,Normal,Dev,6.0,"",Giang Duong Vo Tra,"","","","",VNRacing,"User story #206: (UserProfile) Là Player, tôi muốn được xem các thông tin tổng quan về quá trình chơi của tôi (Giờ chơi, số lượng Track đã Unlock, v.v) để tự bao quát được quá trình chơi Game này.",""
+1102,Reward Integration + Race Hook - Inventory Integration + Loot Crate Flow,Task,On hold,"",Normal,Dev,4.0,"",Giang Duong Vo Tra,"","","","",VNRacing,"User story #206: (UserProfile) Là Player, tôi muốn được xem các thông tin tổng quan về quá trình chơi của tôi (Giờ chơi, số lượng Track đã Unlock, v.v) để tự bao quát được quá trình chơi Game này.",""
+1104,Module Testing - Profile + Inventory + Item + SaveManager + Reward Testing,Task,Waiting For Approve,Nhu Truong,Normal,Dev,6.0,"",Giang Duong Vo Tra,"","","","",VNRacing,"User story #206: (UserProfile) Là Player, tôi muốn được xem các thông tin tổng quan về quá trình chơi của tôi (Giờ chơi, số lượng Track đã Unlock, v.v) để tự bao quát được quá trình chơi Game này.",""
+1105,Final Integration + Bug Fixes - All Modules UI Binding + Critical Bug Fixes,Task,On hold,"",Normal,Dev,4.0,"",Giang Duong Vo Tra,"","","","",VNRacing,"User story #206: (UserProfile) Là Player, tôi muốn được xem các thông tin tổng quan về quá trình chơi của tôi (Giờ chơi, số lượng Track đã Unlock, v.v) để tự bao quát được quá trình chơi Game này.",""
+1112,UI_Inventory_LootCrates ,Task,Waiting For Approve,Ty Dang,Normal,UI/UX,"","",Giang Duong Vo Tra,"","","","",VNRacing,Summary task #2251: UI Design_Inventory,http://repo.clickstudio.com.vn:9002/productions/4d82250d-8824-43ee-919f-aa24a00fa6da/episodes/c593c4c2-a014-4d8e-b64e-f74255a33ac9/shots/tasks/a3296670-b6f2-4e51-b78b-8ea43a689af8
+1113,UI_Inventory_LootCrates_PopupOpenLoot,Task,Waiting For Approve,Ty Dang,Normal,UI/UX,"","",Giang Duong Vo Tra,"","","","",VNRacing,Summary task #2251: UI Design_Inventory,http://repo.clickstudio.com.vn:9002/productions/4d82250d-8824-43ee-919f-aa24a00fa6da/episodes/c593c4c2-a014-4d8e-b64e-f74255a33ac9/shots/tasks/501ad578-09df-4fca-874a-0a35e0868bd2
+1115,Set up kích hoạt sound động cơ xe ở Cinematic,Task,On hold,Long Tran,Normal,Dev,"","",Giang Duong Vo Tra,"","","","",VNRacing,Epic #861: SOUND & MUSIC,""
+1135,Tạo instance cho asset HA vs chuyển đổi từ movable sang static cho asset,Task,New,thong tran,Normal,Level Design,1.0,"",Giang Duong Vo Tra,"","","","",VNRacing,"Task #1116:  Check mesh level Hội An, cần tool đổi sang static mesh",""
+1137,Kiểm tra hiệu năng trên điện thoại,Task,On hold,Dat Quang,Normal,Dev,"","",Giang Duong Vo Tra,"","","","",VNRacing,"Bug #852: Track HoiAn time Attack có Performance thấp, chơi nhanh nóng máy.",""
+1147,Track NHS Circuit và Sprint đang bị tráo vị trí cho nhau ở màn hình Track Selections,Bug,Tested,Liem Tran,High,"",1.0,"",Phuoc Ho Duc,"","",UI/UX,"",VNRacing,"","*   Steps to Reproduce:
+    
+    1\. Chọn đua map Circuit hoặc Sprint trong Area HoiAn
+    
+*   Resulting Behavior:
+    
+    Chọn đua map Circuit thì load map Sprint và ngược lại
+    
+*   Expected Behavior:
+    
+    Chọn đua map Circuit thì đua map Circuit và tương tự với Sprint
+    
+*   System Info: iOS"
+1149,Track NHS Sprint chưa có đủ 3 đối thủ A.I,Bug,Tested,Liem Tran,High,"",1.0,"",Phuoc Ho Duc,"","","Objects, Physics & Decors","",VNRacing,"","*   Steps to Reproduce:
+    
+    1\. Vào đua map NHS Sprint.  
+    2\. Check số lượng tay đua trên màn hình.
+    
+*   Resulting Behavior:
+    
+    Chưa có 3 đối thủ A.I
+    
+*   Expected Behavior:
+    
+    Có 3 đối thủ A.I
+    
+*   System Info: iOS"
+1150,Track NHS Sprint chưa có đủ 3 đối thủ A.I,Bug,New,"",Normal,"","","",Phuoc Ho Duc,"","","Objects, Physics & Decors","",VNRacing,Epic #382: Levels/Track,"Steps to Reproduce:
+
+1\. Vào đua map NHS Sprint
+
+Resulting Behavior:
+
+Game chưa có A.I
+
+Expected Behavior:
+
+Game có đủ 3 A.I
+
+System Info: iOS"
+1151,Track NHS Time Attack không cộng giờ khi qua Checkpoint,Bug,Waiting For Approve,Liem Tran,Immediate,"",1.0,"",Phuoc Ho Duc,"","","Objects, Physics & Decors","",VNRacing,Epic #382: Levels/Track,"Steps to Reproduce:
+
+1.  Vào đua map NHS Time Attack.
+    
+2.  Đua qua các checkpoint cho tới Checkpoint thứ 5
+    
+
+Resulting Behavior:
+
+Check point từ thứ 5 trở đi không được cộng giờ.
+
+Expected Behavior:
+
+Các Checkpoint cộng giờ như bình thường.
+
+System Info: iOS"
+1152,UI TimeAttack hiện chữ Hurry Up ở giây thứ 60,Bug,Tested,Dat Quang,High,"",1.0,"",Phuoc Ho Duc,"","",UI/UX,"",VNRacing,Feature #338:     Tôi muốn có nhiều Race Mode chơi,"Steps to Reproduce:
+
+1\. Vào đua map Mode TimeAttack bất kỳ.  
+2\. Làm cho thời gian đếm ngược lên 60s.  
+3\. Check UI
+
+Resulting Behavior:
+
+Khi thời gian đếm ngược lên 60s, chữ Hurry Up hiện lên
+
+Expected Behavior:
+
+Chữ Hurry Up chỉ hiện lên khi thời gian đếm ngược còn 10s.
+
+System Info: iOS"
+1155,Crash Game khi Restart Track Dn Downtown Sprint,Bug,Tested,"",Immediate,"",1.0,9.0,Phuoc Ho Duc,"","",Feature & Functions Defects,"",VNRacing,"","Steps to Reproduce:
+
+1.  Vào đua Track DN Downtown Sprint
+    
+2.  Bấm Restart.
+    
+
+Resulting Behavior:
+
+&nbsp;Game Crash khi xác nhận Yes để Restart
+
+Expected Behavior:
+
+Chức năng Restart hoạt động bình thường.
+
+System Info: iOS"
+1158,Nhiệm vụ FS Certain Expectation tự động kích hoạt khi người chơi đạt vị trí thứ 3 trong cuộc đua chứ không đợi người chơi về đích.,Bug,Tested,Doi Huynh Van,Normal,"",1.0,"",Phuoc Ho Duc,"","",Feature & Functions Defects,"",VNRacing,"","Steps to Reproduce:
+
+1.  Vào cuộc đua bất kỳ
+    
+2.  Bắt nhiệm vụ FS Certain Expectation
+    
+3.  Đạt vị trí thứ 3 trong cuộc đua.
+    
+
+Resulting Behavior:
+
+Nhiệm vụ tự động hoàn thành khi người chơi đạt vị trí thứ 3 trong khi đua.
+
+Expected Behavior:
+
+Nhiệm vụ không hoàn thành khi người chơi đạt vị trí thứ 3 trong khi đua mà đạt vị trí thứ 3 khi về đích.
+
+System Info: iOS"
+1160,GD Buglist 3152,Task,New,"",Normal,Game Design,"","",Giang Duong Vo Tra,"","","","",VNRacing,Bug #312: BUG TEST,""
+1162,Texture RearBumper xe VF Lux bị thiếu chữ F,Bug,New,"",Normal,"","","",Phuoc Ho Duc,"","",Graphicals,"",VNRacing,"","Steps to Reproduce:
+
+1.  Vào đua với xe VF Lux hoặc vào màn hình Car Customize
+    
+2.  Kiểm tra phần RearBumper
+    
+
+Resulting Behavior:
+
+Texture trên RearBumper xe chỉ hiện &quot;V I N \_ A S T&quot;
+
+Expected Behavior:
+
+Texture trên RearBumper xe chỉ hiện &quot;V I N F A S T&quot;
+
+System Info: iOS"
+1163,Dev_Implement_Transition_FX_Anim_UI491_Car Customize_Key Screen,Task,Waiting For Approve,Son Nguyen Nam,Normal,Dev,3.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Feature #340: Car Customize,""
+1165,Còn sót lại các Text Place Holder tại các địa điểm trong các Track Hội An,Bug,New,thong tran,Normal,"","","",Phuoc Ho Duc,"","","Objects, Physics & Decors","",VNRacing,"","Steps to Reproduce:  
+1\. Vào đua Track Hội An Circuit, Sprint hoặc TimeAttack
+
+2\. Quan sát đường đua xung quanh khi đua.
+
+Resulting Behavior:
+
+Xuất hiện các Text Place Holder tại một số địa điểm: OCEAN BRIDGE, LANTERN CHICANE. CHUA CAU, HOI AN MARKET.  
+Check File để xem chi tiết.
+
+Expected Behavior:
+
+Không xuất hiện các Text Place Holder.
+
+System Info: iOS"
+1167,Implement UI495 CarCustomize_Visual_Color (Anim - Transition - Fx) ,Task,Waiting For Approve,Nhu Truong,Normal,Dev,3.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Task #495: UI_CarCustomize_Visual_Color,""
+1169,Các Screen Race Results chưa cập nhật đúng thông tin tên Track đua hiện tại,Bug,Tested,Nhu Truong,Normal,"",3.0,"",Phuoc Ho Duc,"","",UI/UX,"",VNRacing,"","Steps to Reproduce:
+
+1.  Vào đua Track bất kỳ.
+    
+2.  Đua hết, check Screen Race Results
+    
+
+Resulting Behavior:
+
+Phần hiển thị tên Map chưa đúng với Map hiện tại đang đua.
+
+Expected Behavior:
+
+Phần hiển thị tên Map đúng với Map hiện tại đang đua
+
+System Info: iOS"
+1171,Lỗi Texute khu vực vòng xuyến Hoa Sen của các Map DN Downtown,Bug,New,"",Normal,"","","",Phuoc Ho Duc,"","",Graphicals,"",VNRacing,"","Steps to Reproduce:
+
+1.  Vào đua Map DN DownTown bất kỳ.
+    
+2.  Chạy qua khu vực vòng xuyến hoa sen như trong hình.
+    
+3.  Check Texture
+    
+
+<img class=""op-uc-image op-uc-image_inline"" src=""/api/v3/attachments/917/content"">
+
+Resulting Behavior:
+
+*   Texture khu vực này bị lỗi.
+    
+
+Expected Behavior:
+
+*   Texture khu vực này bình thường,
+    
+
+System Info: iOS"
+1179,Environment _Mưa_Ngũ Hành Sơn ,Task,New,Phu Pham,Normal,Tech Art,8.0,11.0,Giang Duong Vo Tra,"","","","",VNRacing,"User story #1040: Là Player, tôi muốn đua xe ở địa hình Ngũ Hành Sơn",""
+1181,TA_Level Lighting Validation_Track Hội An Sprint,Task,Waiting For Approve,Phu Pham,High,Level Design,20.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Summary task #2357: Lighting_Track Hội An Sprint ,"*   Inspect các asset để kiểm tra lỗi (Nếu có)
+    
+*   Chỉnh sửa lỗi nếu có thể trực tiếp trên engine.
+    
+*   re-baked lại phần lighting để check.
+    
+
+Next step 25/2:&nbsp;
+
+*   \+ Note các thông số, cũng như phương án sửa cho level
+    
+*   \+ Nghiên cứu thêm xử lý AO trong môi trường"
+1188, TA_Sample_Lighting ban đêm_Map Downtown,Task,In progress,Phu Pham,Normal,Tech Art,16.0,"",Giang Duong Vo Tra,"",W10-11,"","",VNRacing,"User story #1282: Là Player, tôi muốn đua xe ở Da Nang Downtown",""
+1189,Collision ,Summary task,Specified,thong tran,Normal,Level Design,"",4.0,Giang Duong Vo Tra,"","","","",VNRacing,Epic #382: Levels/Track,Location file: /Content/Actors/BP\_SplineTool\_Collision.uasset
+1190,"Màn hình Race Result không cập nhật thông tin giờ đua từ vị trí thứ 2 trở xuống,  không cập nhật đúng loại xe của tay đua ( Cập nhật )",Bug,New,"",Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,"Bug #1168: Màn hình Race Result không cập nhật thông tin giờ đua từ vị trí thứ 2 trở xuống, không cập nhật đúng loại xe của tay đua.",""
+1194,Set up Data base về mặt dữ liệu,Summary task,On hold,Tan  Phan Huynh,Normal,Dev,"",2.0,Giang Duong Vo Tra,"","","","",VNRacing,Epic #380: Programming,""
+1206,Implement Screen_CarCustomize_Performance ,Task,In progress,Nhu Truong,Normal,Dev,4.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Task #493: UI_Car Customize_Performance,""
+1220,Xử lý PSO trên iOS,Task,New,Liem Tran,Normal,Dev,3.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Epic #210: Technical Art,""
+1230,GD_Buglist 3270,Task,New,Phuoc Ho Duc,Normal,Game Design,"","",Giang Duong Vo Tra,"","","","",VNRacing,Bug #312: BUG TEST,""
+1233,UI/UX_Không thể bấm nút Next ở Screen Track Selection sau khi thoát ra từ 5 Track đua bất kỳ (Có thể thoát bằng cách Quit hoặc hoàn thành),Bug,Tested,Doi Huynh Van,Immediate,"",1.0,"",Phuoc Ho Duc,"","",UI/UX,"",VNRacing,"","Steps to Reproduce:
+
+1.  Vào đua 5 Track đua bất kỳ liên tục.
+    
+2.  Có thể đua hết hoặc Quit giữa trận.
+    
+3.  Sau khi thoát ra từ Track đua thứ 5 (quit hoặc hoàn thành), check nút Next ở Screen TrackSelection của Area bất kỳ.
+    
+
+Resulting Behavior:
+
+*   Không thể bấm nút Next ở ScreenTrack Selection của Area bất kỳ.
+    
+
+Expected Behavior:
+
+*   Nút Next ở ScreenTrack Selection của Area bất kỳ hoạt động bình thường.
+    
+
+System Info: iOS 22, Iphone 16 Pro."
+1234,FEA_Không thể lưu tên đã đặt trong Userprofile,Bug,New,"",High,"","","",Phuoc Ho Duc,"","",Feature & Functions Defects,"",VNRacing,"","Steps to Reproduce:
+
+1.  Vào User Profile, kích hoạt chức năng đổi tên,
+    
+2.  Thử nhập vào một cái tên hợp lệ,
+    
+3.  Bấm Confrm (Trên màn hình hiện thông báo Debug tên hợp lệ, không có Badword)
+    
+
+Resulting Behavior:
+
+*   Tên người dùng mới không được cập nhật lên giao diện User Profile.
+    
+*   Tên người dùng mới không được cập nhật lên giao diện Race Results sau khi đua xong.
+    
+
+Expected Behavior:
+
+*   Tên người dùng mới được cập nhật lên giao diện User Profile.
+    
+*   Tên người dùng mới được cập nhật lên giao diện Race Results sau khi đua xong.
+    
+
+System Info: iOS12, Iphone16 Pro."
+1235,UI/UX_Xuất hiện tên và vị trí của các tay đua trong các Intro Cinematic.,Bug,Tested,Nhu Truong,High,"",1.0,"",Phuoc Ho Duc,"","",UI/UX,"",VNRacing,"","Steps to Reproduce:
+
+1.  Vào đua Track bất kỳ.
+    
+2.  Xem Intro Cinematic.
+    
+3.  Check Intro Cinematic, tại vị trí đặt các tay đua.
+    
+
+Resulting Behavior:
+
+*   Xuất hiện Widget tên và vị trí đua của các tay đua trong Cinematic.
+    
+
+Expected Behavior:
+
+*   Không xuất hiện Widget tên và vị trí đua của các tay đua trong Cinematic.
+    
+*   Widget tên và vị trí đua của các tay đua chỉ xuất hiện sau khi chạy xong Cinematic, bắt đầu cuộc đua.
+    
+
+System Info: iOS12, Iphone16 Pro."
+1237,GRA_Screen Car Customize và Garage bị cháy sáng.,Bug,New,"",High,"","","",Phuoc Ho Duc,"","",Graphicals,"",VNRacing,"","Steps to Reproduce:
+
+1.  Vào Screen Car Customize và Garage.
+    
+2.  Kiểm tra ánh sáng môi trường.
+    
+
+Resulting Behavior:
+
+*   Ánh sáng môi trường hoạt động không bình thường, cháy sáng nặng.
+    
+
+Expected Behavior:
+
+*   Ánh sáng môi trường hoạt động bình thường, không bị cháy sáng.
+    
+
+System Info: iOS12, Iphone16 Pro."
+1238,"GRA_Material của phần Wheel xe VF Lux, VF 8 và Merc không hiển thị đúng ngoài môi trường đua.",Bug,On hold,Dat Quang,High,"",1.0,"",Phuoc Ho Duc,"","",Graphicals,"",VNRacing,"","Steps to Reproduce:
+
+1.  Check Material của Wheel trong Editor.
+    
+2.  Check Material của Wheel trong Screen Garage và Screen Customize.
+    
+3.  Check Material của Wheel trong cuộc đua ở bất kỳ Track nào.
+    
+4.  So sánh.
+    
+
+Resulting Behavior:
+
+*   Material Wheel của các xe ngoài môi trường bị mất Metallics, biến thành màu trắng không giống file Sources, không đồng đều ở các Screen..
+    
+
+Expected Behavior:
+
+*   Material Wheel của các xe ngoài môi trường hiển thị giống như file Sources và đồng đều ở tất cả các Screen..
+    
+
+System Info: iOS12, Iphone16 Pro."
+1239,OBJ_Xe trong Cinematic Outro bị nghiêng.,Bug,New,"",High,"","","",Phuoc Ho Duc,"","","Objects, Physics & Decors","",VNRacing,"","Steps to Reproduce:
+
+1.  Vào đua bất kỳ Map nào với bất kỳ xe nào. (VF Lux và Mer dễ thấy hơn)
+    
+2.  Kết thúc cuộc đua, xem Outro Cinematics.
+    
+3.  Check xe.
+    
+
+Resulting Behavior:
+
+*   Xe bị nghiêng chéo về phía trước khi kết thúc Outro Cinematics.
+    
+
+Expected Behavior:
+
+*   Xe không bị nghiêng.
+    
+
+System Info: iOS12, Iphone16 Pro."
+1246,Implement_FX_Anim_Transit_UI525_Gamemode,Task,Waiting For Approve,Son Nguyen Nam,Normal,Dev,2.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Task #525: GameMode-Key Screen,https://op.iconic.io.vn/api/v3/attachments/3277/content
+1248,FEA_Khi chọn xe khác trong Screen ShowRoom (Garage) thì không thể kích hoạt tính năng Customize Visual.,Bug,Tested,Dat Quang,Immediate,"",1.0,"",Phuoc Ho Duc,"","",Feature & Functions Defects,"",VNRacing,User story #341: Visual Customize,"Steps to Reproduce:
+
+1.  Vào Screen ShowRoom (Garage).
+    
+2.  Đổi xe.
+    
+3.  Vào Screen Customzie bằng cách bấm vào nút Customize hoặc thoát ra ngoài MainMenu rồi bấm Customize.
+    
+4.  Thử vào Mode Customize Visual.
+    
+
+Resulting Behavior:
+
+*   Không thể bấm vào chế độ Customize Visual.
+    
+
+Expected Behavior:
+
+*   Vẫn có thể bấm vào chế độ Customize Visual như bình thường.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1249,UI_Chưa Update thời gian chơi của người chơi trong Scren Race Results.,Bug,Tested,Dat Quang,Normal,"",1.0,"",Phuoc Ho Duc,"","",UI/UX,"",VNRacing,"","Steps to Reproduce:
+
+1.  Đua hết một cuộc đua.
+    
+2.  Vào Screen Race Results (Screen nhận tiền).
+    
+3.  Check UI.
+    
+
+Resulting Behavior:
+
+*   Panel YourTime chưa Update thời gian đua thực tế của người chơi.
+    
+
+Expected Behavior:
+
+*   Panel YourTime Update thời gian đua thực tế của người chơi.
+    
+
+System Info: iOS26.2, Iphone16 Plus.
+
+<img class=""op-uc-image op-uc-image_inline"" src=""/api/v3/attachments/956/content"">
+
+<br>"
+1250,UI/UX_Chưa Update thời gian đua của các Track sau cuộc đua vào các Panel Track Selection,Bug,Tested,Doi Huynh Van,Normal,"",1.0,"",Phuoc Ho Duc,"","",UI/UX,"",VNRacing,"","Steps to Reproduce:
+
+1.  Vào đua một Track bất kỳ.
+    
+2.  Đua tới khi kết thúc cuộc đua.
+    
+3.  Check lại thời gian đua Best của Track đó.
+    
+
+Resulting Behavior:
+
+*   Thời gian đua Best không được cập nhật nhưng Vị trí được cập nhật.
+    
+*   Thường chỉ cập nhật Track ở giữa của bộ Track Selection (Track Circuit) ,các Track còn lại thì không được cập nhật.
+    
+
+Expected Behavior:
+
+*   Cập nhật thời gian đua Best mỗi khi người chơi phá được kỷ lục đua.
+    
+
+System Info: iOS26.2, Iphone16 Plus.  
+  
+
+<img class=""op-uc-image op-uc-image_inline"" src=""/api/v3/attachments/958/content"">"
+1251,"UI/UX_Screen Upgrade Performance chưa Update số tiền chính xác của người chơi, khi người chơi nâng cấp chưa trừ tiền.",Bug,Tested,Dat Quang,Normal,"",1.0,"",Phuoc Ho Duc,"","",UI/UX,"",VNRacing,"","Steps to Reproduce:
+
+1.  Vào Screen Customize Performance.
+    
+2.  Chọn nâng cấp một trong các chỉ số.
+    
+3.  Check số tiền.
+    
+
+Resulting Behavior:
+
+*   Chưa cập nhật số tiền hiện tại và số tiền bị trừ đi sau nâng cấp.
+    
+
+Expected Behavior:
+
+*   Số tiền hiện tại và số tiền bị trừ đi được câp nhật đúng,
+    
+
+System Info: iOS26.2, Iphone16 Plus.  
+  
+
+<img class=""op-uc-image op-uc-image_inline"" src=""/api/v3/attachments/959/content"">"
+1252,DES_Design WireFrame cho Screen Customize Visual chưa hợp lý khi có trên 3 Elements Material xuất hiện trên màn hình khi đang điều chỉnh Color xe.,Bug,New,Phuoc Ho Duc,Immediate,"","","",Phuoc Ho Duc,"","",UI/UX,"",VNRacing,"","Steps to Reproduce:
+
+1.  Vào Screen Customize Visual.
+    
+2.  Vào chế độ Color đổi màu cho Body.
+    
+
+Resulting Behavior:
+
+*   Screen bị chật khi có trên 3 Element Material cùng xuất hiện trên màn hình
+    
+
+Expected Behavior:
+
+*   Screem không bị chật khi có trên 3 Element Material cùng xuất hiện trên màn hình.
+    
+
+System Info: iOS26.2, Iphone16 Plus.
+
+<img class=""op-uc-image op-uc-image_inline"" src=""/api/v3/attachments/961/content"">
+
+<br>"
+1254,"UI/UX_Screen Game Mode, các Card chọn Game Mode chưa Update các Icon ở góc trên bên phải  như trong thiết kế.",Bug,New,"",Normal,"","","",Phuoc Ho Duc,"","",UI/UX,"",VNRacing,"","Steps to Reproduce:
+
+1.  Vào Screen GameMode Selection
+    
+2.  Check góc trên bên phải của các Panel giới thiệu Game Mode.
+    
+
+Resulting Behavior:
+
+*   Các Panel thiếu các Icon như trong Design
+    
+
+Expected Behavior:
+
+*   Các Panel có đủ các Icon như trong Design.
+    
+
+System Info: iOS26.2, Iphone16 Plus.  
+  
+
+<img class=""op-uc-image op-uc-image_inline"" src=""/api/v3/attachments/964/content"">"
+1255,"UI/UX_Track NHS Sprint & NHS TimeAttack chưa Update đúng quãng đường đua còn lại, về đích khi mới chỉ 90% cuộc đua.",Bug,New,"",Normal,"","","",Phuoc Ho Duc,"","",UI/UX,"",VNRacing,"","Steps to Reproduce:
+
+1.  Vào Track NHS Sprint và NHS TimeAttack.
+    
+2.  Đua tới cuối Track.
+    
+3.  Check Race HUD.
+    
+
+Resulting Behavior:
+
+*   Cuộc đua kết thúc khi số đếm dừng ở 90%
+    
+
+Expected Behavior:
+
+*   Cuộc đua kết thúc khi số đếm dừng ở 99%
+    
+
+System Info: iOS26.2, Iphone16 Plus.
+
+<br>"
+1256,"FEA_Tutorial Scripts 1, nếu giữ nút rẽ trái hoặc phải trước khi Steps 4 (Drift Toggle) yêu cầu trên màn hình thì Step 4 sẽ tự động kích hoạt.",Bug,Tested,Dat Quang,High,"",2.0,"",Phuoc Ho Duc,"","",Feature & Functions Defects,"",VNRacing,"","Steps to Reproduce:
+
+1.  First Player Restart và Test như bình thường.
+    
+2.  Hoàn thành Step 3.
+    
+3.  Tiếp tục sử dụng Control Trái/Phải để đua (Không để chế độ chạy tự động)
+    
+4.  Chơi tới Steps 4.
+    
+
+Resulting Behavior:
+
+*   Steps 4 hiện lên và hoàn thành ngay lập tức khi người chơi nhả ngón tay khỏi màn hình.
+    
+*   Nếu người chơi còn giữ nút rẽ trái thì Step 5 cũng đồng thời hoàn thành.
+    
+
+Expected Behavior:
+
+*   Step 4 không tự động kích hoạt.
+    
+*   Tutorial có thể sửa theo hướng đợi người chơi kết thúc Input hiện tại (Bỏ tay ra khỏi màn hình) rồi mới nhận lại Input của người chơi.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1257,"FEA_Ở chế độ FirstPlayer, sau khi kết thúc Scripts Basics Controls 1 chưa tự động load vào Map VN Tour mà load vào Screen Main.",Bug,Tested,Dat Quang,High,"",1.0,"",Phuoc Ho Duc,"","",Graphicals,"",VNRacing,"","Steps to Reproduce:
+
+1.  Hoàn thành Tutorial Basics Control 1.
+    
+2.  Đua hết Track Sơn Trà Sprint hiện tại và Sklip hết màn hình Results sau cuộc đua.
+    
+3.  Check Screen.
+    
+
+Resulting Behavior:
+
+*   Game Load Screen Main rồi mới load Screen Vn Tour.
+    
+
+Expected Behavior:
+
+*   Game Load Screen Vn Tour mà không qua Screen Main.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1258,"FEA_Tutorial Scripts 2, lỗi không kích hoạt Step 4.",Bug,Tested,Liem Tran,High,"",1.0,"",Phuoc Ho Duc,"","",Feature & Functions Defects,"",VNRacing,"","Steps to Reproduce:
+
+1.  Lựa chọn FirstTime Player. chơi hết Tutorial Scripts 1.
+    
+2.  Theo các bước của Tutorials Scipts 2.
+    
+3.  Tới Step 4.
+    
+
+Resulting Behavior:
+
+*   Không kích hoạt Step 4, trên màn hình Nút Race bị khóa.
+    
+
+Expected Behavior:
+
+*   Step 4 kích hoạt bình thường.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1259,"GRA_Đồ họa của game bị nhạt, mất màu.",Bug,New,"",Immediate,"","","",Phuoc Ho Duc,"","","","",VNRacing,"",""
+1261,"Nút Home ở màn hình chọn Map bấm vào  không trở về màn hình chính, bị lỗi",Bug,Tested,Liem Tran,Normal,"","","",Giang Duong Vo Tra,"","","","",VNRacing,User story #1930: Main Menu Game,""
+1262,Sau khi đua xong out ra bị mất mainscreen.,Bug,Tested,Liem Tran,Normal,"",1.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Task #528: PlayResults,""
+1263,Race_Reset,Task,New,"",Normal,UI/UX,"","",Giang Duong Vo Tra,"","","","",VNRacing,Summary task #523: UI_In Game,""
+1265,Check&Fix lại font chữ Game Mode ,Bug,Tested,Hieu Hoang,Normal,"",0.5,"",Giang Duong Vo Tra,"","","","",VNRacing,Task #525: GameMode-Key Screen,""
+1266,Sound Map Sơn Trà Circuit,Summary task,New,Hu Huynh,Normal,Sound,8.0,8.0,Giang Duong Vo Tra,"","","","",VNRacing,"User story #2003: Là Player, tôi muốn có một Track Circuit trong Area Sơn Trà.",""
+1267,Sound Map Hội An,Summary task,New,Hu Huynh,Normal,Sound,8.0,8.0,Giang Duong Vo Tra,"","","","",VNRacing,Epic #861: SOUND & MUSIC,""
+1268,Ambience Sound Track Son Tra Circuit ,Task,New,"",Normal,Sound,"","",Giang Duong Vo Tra,"","","","",VNRacing,Summary task #1266: Sound Map Sơn Trà Circuit,""
+1269,Track Sơn Trà Time Attack,Task,New,"",Normal,Sound,"","",Giang Duong Vo Tra,"","","","",VNRacing,"",""
+1270,Ambience Sound Hoi An Sprint,Task,New,"",Normal,Sound,"","",Giang Duong Vo Tra,"","","","",VNRacing,Summary task #1267: Sound Map Hội An,""
+1271,Ambience Sound Hoi An Circuit,Task,New,"",Normal,Sound,"","",Giang Duong Vo Tra,"","","","",VNRacing,Summary task #1267: Sound Map Hội An,""
+1272,Ambience Sound Họi An Time Attack ,Task,New,"",Normal,Sound,"","",Giang Duong Vo Tra,"","","","",VNRacing,Summary task #1267: Sound Map Hội An,""
+1273,Sound Map Downtown,Summary task,New,Hu Huynh,Normal,Sound,24.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Epic #861: SOUND & MUSIC,""
+1274,Sound Map Ngu Hanh Son,Summary task,New,Hu Huynh,Normal,Sound,24.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Epic #861: SOUND & MUSIC,""
+1275,Sound Map Dong Giang,Summary task,New,Hu Huynh,Normal,Sound,"","",Giang Duong Vo Tra,"","","","",VNRacing,Epic #861: SOUND & MUSIC,""
+1276,Sound VF8 Car,Task,New,"",Normal,Sound,56.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Summary task #1279: CAR SOUND,""
+1277,Sound Mercedes-Benz AMG GT R,Task,New,"",Normal,Sound,56.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Summary task #1279: CAR SOUND,""
+1278,Sound Sedan Car ,Task,New,"",Normal,Sound,56.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Summary task #1279: CAR SOUND,""
+1279,CAR SOUND,Summary task,Waiting For Approve,Ai Vuong,Normal,Sound,"",168.0,Giang Duong Vo Tra,"","","","",VNRacing,Epic #861: SOUND & MUSIC,"*   Tiếng động cơ 3 xe: LUXA, VF8,MER
+    
+    <br>"
+1280,"Là Player, tôi muốn đua xe ở phố cổ Hội An",User story,In progress,"",Normal,"","",341.5,Giang Duong Vo Tra,"","","","",VNRacing,"User story #2006: Là Player, tôi muốn có City Đà Nẵng trong Vn Tour GameMode.",""
+1281,"Là Player, tôi muốn đua xe ở địa hình Sơn Trà ",User story,In progress,"",Normal,"","",1048.0,Giang Duong Vo Tra,"","","","",VNRacing,"User story #2006: Là Player, tôi muốn có City Đà Nẵng trong Vn Tour GameMode.",""
+1282,"Là Player, tôi muốn đua xe ở Da Nang Downtown",User story,In progress,"",Normal,"","",497.0,Giang Duong Vo Tra,"","","","",VNRacing,"User story #2006: Là Player, tôi muốn có City Đà Nẵng trong Vn Tour GameMode.",""
+1285,Concept Review Level Đông Giang,Task,On hold,Châu Nguyễn,Normal,Concept Art,"","",Giang Duong Vo Tra,"","","","",VNRacing,"User story #1048: Là Player, Tôi muốn đua xe ở địa hình Đông Giang",""
+1287,Concept Review Level Da Nang Downtown,Task,Waiting For Approve,Châu Nguyễn,Normal,Concept Art,4.0,"",Giang Duong Vo Tra,"","","","",VNRacing,"User story #1282: Là Player, tôi muốn đua xe ở Da Nang Downtown",""
+1290,BAKE LIGHT,Summary task,New,"",Normal,Tech Art,"","",Giang Duong Vo Tra,"","","","",VNRacing,Feature #1658: Lighting Setting,""
+1327,GD_ Buglist 3395,Task,New,Phuoc Ho Duc,Normal,Dev,"",3.0,Giang Duong Vo Tra,"","","","",VNRacing,Bug #312: BUG TEST,""
+1351,FEA_Xe trong Screen Garage bị lệch qua phải so với UI,Bug,Waiting For Approve,Liem Tran,High,"",2.0,"",Phuoc Ho Duc,"","",Feature & Functions Defects,"",VNRacing,User story #341: Visual Customize,"Steps to Reproduce:
+
+1.  Vào Screen Garage.
+    
+2.  Check Camera và so sánh với UI trên Screen.
+    
+
+Resulting Behavior:
+
+*   Camera bị lệch sang phải.
+    
+    <img class=""op-uc-image op-uc-image_inline"" src=""/api/v3/attachments/1025/content"">
+    
+
+Expected Behavior:
+
+*   Camera nằm chính giữa khu vực chọn xe trên UI như trong REF.
+    
+*   <img class=""op-uc-image op-uc-image_inline"" src=""/api/v3/attachments/1003/content"">
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1352,OBJ_Thiếu các Object làm rào chắn cho khu vực dưới cầu Map DownTown Circuit,Bug,Confirmed,thong tran,Normal,"","","",Phuoc Ho Duc,"","","Objects, Physics & Decors","",VNRacing,"User story #1282: Là Player, tôi muốn đua xe ở Da Nang Downtown","Steps to Reproduce:
+
+1.  Đua Map DN Downtown Circuit.
+    
+2.  Chạy tới khu vực trong REF.
+    
+
+Resulting Behavior:
+
+*   Khu vực không có Object Visual rào chắn nhưng có Collision.
+    
+
+Expected Behavior:
+
+*   Khu vực có Object Visual rào chắn và có Collision.
+    
+
+<img class=""op-uc-image op-uc-image_inline"" src=""/api/v3/attachments/1007/content"">
+
+System Info: iOS26.2, Iphone16 Plus."
+1357,FEA_Chức năng Restart xe bị Stuck không hoạt động trong một số trường hợp,Bug,Confirmed,"",Normal,"",2.0,"",Phuoc Ho Duc,"","",Feature & Functions Defects,"",VNRacing,"","Steps to Reproduce:
+
+1.  Vào Track DN DownTown TimeAttack
+    
+2.  Đua tới đoạn bồng binh.
+    
+3.  Tông vào bồng binh để văng ra tường đối diện.
+    
+
+Resulting Behavior:
+
+*   Xe bị Stuck ở đoạn tường đối diện, Stuck tại một chỗ, không hiện nút Restart.
+    
+
+Expected Behavior:
+
+*   Nút Restart hiện lên để người chơi có thể Unstuck.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1358,FEA_Các Object Simple Destructible cản đường xe khi nằm cạnh nhau.,Bug,New,"",Normal,"","","",Phuoc Ho Duc,"","",Feature & Functions Defects,"",VNRacing,"",Chưa thể tái hiện lại được.
+1359,"FEA_Các xe VF Lux, VF8 và Merc chưa sáng đèn chiếu hậu khi đạp phanh Drift.",Bug,Developed,Liem Tran,Normal,"",1.0,"",Phuoc Ho Duc,"","",Feature & Functions Defects,"",VNRacing,"User story #157:     Tôi muốn có cảm giác đua xe arcade,drift để thu thập nos","Steps to Reproduce:
+
+1.  Vào đua Track bất kỳ với bất kỳ xe nào.
+    
+2.  Đạp Drift khi đang đua.
+    
+3.  Check đèn chiếu hậu
+    
+
+Resulting Behavior:
+
+*   Đèn chiếu hậu không sáng khi đạp nút Drift.
+    
+    <img class=""op-uc-image op-uc-image_inline"" src=""/api/v3/attachments/1041/content"">
+    
+
+Expected Behavior:
+
+*   Đèn chiếu hậu sáng khi đạp nút Drift.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1362,GD_Review MVP 2 ,Task,New,Phuoc Ho Duc,Normal,Game Design,2.0,"",Giang Duong Vo Tra,"","","","",VNRacing,"",""
+1375,"UI/UX_Screen UserProfile thiếu nút Home, nếu đi tới Screen UserProfile từ Screen GameMode Selection thì sẽ hiện nút Home nhưng bấm thì mất luôn thanh TopBar.",Bug,Tested,Son Nguyen Nam,Normal,"",4.0,"",Phuoc Ho Duc,"","",UI/UX,"",VNRacing,"User story #206: (UserProfile) Là Player, tôi muốn được xem các thông tin tổng quan về quá trình chơi của tôi (Giờ chơi, số lượng Track đã Unlock, v.v) để tự bao quát được quá trình chơi Game này.","Steps to Reproduce:
+
+1.  Vào Game, ở Screen MainMenu bấm vào Avatar để check Screen UserProfile.
+    
+2.  Back khỏi Screen UserProfile, về lại Screen MainMenu.
+    
+3.  Bấm Race để vào Screen GameMode Selections.
+    
+4.  Bấm UserProfile.
+    
+5.  Thử bấm nút Home hiện lên trong UserProfile.
+    
+
+Resulting Behavior:
+
+*   Screen UserProfile khi bấm từ Screen MainMenu không có nút Home.
+    
+*   Screen UserProfile khi bấm từ Screen GameMode Selection có nút Home.
+    
+    *   Thử bấm nút Home trong trường hợp này thì sẽ bị mất luôn thanh Top bar.
+        
+    *   Nút Home không hoạt động đúng chức năng (Về lại Screen Main)
+        
+
+Expected Behavior:
+
+*   Screen UserProfile hiện nút Home và nút Home hoạt động chính xác trong tất cả các trường hợp.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1376,"UI/UX_Screen UserProfile, chức năng đặt tên chưa phản hồi lại tác vụ đổi tên đúng và sai của người chơi trên Panel đổi tên ( UI542 Profile_Error và UI542_Profile_Name_Suitable).",Bug,Tested,Son Nguyen Nam,Normal,"",2.0,2.0,Phuoc Ho Duc,"","",UI/UX,"",VNRacing,"User story #206: (UserProfile) Là Player, tôi muốn được xem các thông tin tổng quan về quá trình chơi của tôi (Giờ chơi, số lượng Track đã Unlock, v.v) để tự bao quát được quá trình chơi Game này.","Steps to Reproduce:
+
+1.  Vào Scren UserProfile.
+    
+2.  Thử đổi tên đúng.
+    
+3.  Thử đổi tên saiu.
+    
+4.  Check UI.
+    
+
+Resulting Behavior:
+
+*   UI không phản ứng khi người chơi đổi tên đúng hoặc sai,
+    
+
+Expected Behavior:
+
+*   UI phản ứng khi người chơi đổi tên đúng hoặc sai theo thiết kế.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1377,"UI/UX_Screen User Profile, phần Inventory, lỗi Animation khi bấm vào các Performance Part để xem Details.",Bug,In specification,Son Nguyen Nam,Normal,"",2.0,"",Phuoc Ho Duc,"","",UI/UX,"",VNRacing,"User story #206: (UserProfile) Là Player, tôi muốn được xem các thông tin tổng quan về quá trình chơi của tôi (Giờ chơi, số lượng Track đã Unlock, v.v) để tự bao quát được quá trình chơi Game này.","Steps to Reproduce:
+
+1.  Vào Screen UserProfile.
+    
+2.  Đổi sang Tab Inventory.
+    
+3.  Thử bấm vào Item Performance trong Inventory.
+    
+4.  Check UI Animation.
+    
+
+Resulting Behavior:
+
+*   UiIAnimation xem Detail bị lỗi khi xuất hiện.
+    
+
+Expected Behavior:
+
+*   UiIAnimation xem Detail không bị lỗi khi xuất hiện.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1378,"UI/UX_Chức năng đổi Avatar, Avatar bị lỗi hiển thị bị thu hẹp lại và bị dăm khi thay.",Bug,Tested,Son Nguyen Nam,Normal,"",2.0,"",Phuoc Ho Duc,"","",UI/UX,"",VNRacing,"","Steps to Reproduce:
+
+1.  Vào Screen UserProfile.
+    
+2.  Bấm vào chức năng đổi Avatar để thử sang một cái Avatar khác.
+    
+3.  Kiểm tra Panel nơi UserProfile mới xuất hiện.
+    
+
+Resulting Behavior:
+
+*   Avatar mới đổi bị thu hẹp lại và bị dăm hình.
+    
+
+Expected Behavior:
+
+*   Avatar mới hoạt động bình thường.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1380,UI/UX_Chưa hiển thị đầy đủ các thông tin liên quan tới các hoạt động của người chơi In-Game,Bug,Specified,Doi Huynh Van,Normal,"",2.0,10.0,Phuoc Ho Duc,"","",UI/UX,"",VNRacing,"User story #206: (UserProfile) Là Player, tôi muốn được xem các thông tin tổng quan về quá trình chơi của tôi (Giờ chơi, số lượng Track đã Unlock, v.v) để tự bao quát được quá trình chơi Game này.","Steps to Reproduce:
+
+1.  Reset Game
+    
+2.  Chơi vài trận để Game ghi nhận tiến trình.
+    
+3.  Check tiến trình của người chơi trong Screen UserProfile
+    
+
+Resulting Behavior:
+
+*   Chỉ có thông tin Online Time là có cập nhật.
+    
+
+Expected Behavior:
+
+*   Các thông tin còn lại (WinRates, Total Races, Top Speed, TotalRaceTime, v.v) chưa cập nhật trên UI.
+    
+*   <img class=""op-uc-image op-uc-image_inline"" src=""/api/v3/attachments/1034/content"">
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1381,UI/UX_Không thể bấm Shop và Achievement từ Screen UserProfile,Bug,Tested,Son Nguyen Nam,Normal,"",4.0,"",Phuoc Ho Duc,"","",UI/UX,"",VNRacing,"","Steps to Reproduce:
+
+1.  Vào Screen UserProfile,
+    
+2.  Thử bấm nút Shop hoặc Achievement để chuyển qua các Screen tương ứng.
+    
+3.  Bấm nút Back
+    
+4.  Check UI
+    
+
+Resulting Behavior:
+
+*   Không thể chuyển qua các Screen Shop hoặc Achievement khi bấm nút tương ứng.
+    
+*   Các Screen Shop và Achievement vẫn Load ở phía sau nhưng không chạy Transition out.
+    
+
+Expected Behavior:
+
+*   Các nút hoạt động bình thường.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1383,"Shading cho Car in Game ( VF8, SEDAN, MER)",Task,On hold,Phu Pham,Normal,Tech Art,6.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Task #1413: Car shading in game,""
+1384,CARS SHADING,Summary task,New,"",Normal,Tech Art,"",45.0,Giang Duong Vo Tra,"","","","",VNRacing,Epic #210: Technical Art,""
+1385,Shading cho Car in Main Menu&Garage,Task,On hold,Phu Pham,High,Tech Art,6.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Task #1414: Car shading in UI Scene ,""
+1386,"CRA_Chức năng Debug ""Move To Test Level"" Crash Game khi nhấn vào",Bug,Waiting For Approve,Liem Tran,Normal,"",1.0,"",Phuoc Ho Duc,"","",Crashing,"",VNRacing,"","Steps to Reproduce:
+
+1.  Vào Game.
+    
+2.  Bấm nút Move To Test Level trên thanh chức năng Debug.
+    
+
+Resulting Behavior:
+
+*   Crash Game
+    
+
+Expected Behavior:
+
+*   Chức năng Debug hoạt động bình thường.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1388,"UI/UX_Screen Game Mode Selection sai tỉ lệ các Panel, nút NEXT Chồng lên Panel Multiplayer",Bug,Specified,Thinh Nguyen,Normal,"",2.0,2.0,Phuoc Ho Duc,"","",UI/UX,"",VNRacing,User story #375:    Tôi muốn có nhiều Game Mode,"Steps to Reproduce:
+
+1.  Vào Screen Game Mode Selection.
+    
+2.  Check UI
+    
+
+Resulting Behavior:
+
+*   UI chưa đúng tỉ lệ, nút NEXT bị chồng lên Panel Multiplayer.
+    
+    <img class=""op-uc-image op-uc-image_inline"" src=""/api/v3/attachments/1038/content""><img class=""op-uc-image op-uc-image_inline"">
+    
+
+Expected Behavior:
+
+*   Các yếu tố UI đúng tỉ lệ.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1391,FEA_Chức năng Restart xe bị Crash ở đoạn bùng binh Map DownTown Circuit Spawn người chơi vào vị trí lỗi,Bug,In specification,"",Normal,"","","",Phuoc Ho Duc,"","",Feature & Functions Defects,"",VNRacing,"","Steps to Reproduce:
+
+1.  Vào đua Map DownTown Circuit.
+    
+2.  Cố gắng tông vào hai bên đường để xe lật gần bùng binh.
+    
+3.  Bấm nút Restart.
+    
+
+Resulting Behavior:
+
+*   Xe Spawn ra ở phần trong của bùng binh làm xe bị kẹt.
+    
+*   Xe Spawn ra ở phần đường hầm dưới bùng binh chứ không phải giữa đường ở trên như bình thường.
+    
+
+Expected Behavior:
+
+*   Xe Spawn ra giữa đường như bình thường.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1394,Lighting cho Main Menu Scene,Task,New,thong tran,Normal,Level Design,3.0,"",Giang Duong Vo Tra,"","","","",VNRacing,User story #1930: Main Menu Game,""
+1395,UI/UX_Nút Drift ở Setting Brake Toggle On chưa giữ kích hoạt FX khi còn đang kích hoạt Drift.,Bug,Specified,Liem Tran,Normal,"",1.0,1.0,Phuoc Ho Duc,"","",UI/UX,"",VNRacing,"User story #157:     Tôi muốn có cảm giác đua xe arcade,drift để thu thập nos","Steps to Reproduce:
+
+1.  Vào Setting, mục Gameplay chỉnh Brake Toggle thành On.
+    
+2.  Vào đua Track bất kỳ.
+    
+3.  Bấm nút Drift để bắt đầu đua.
+    
+4.  Giữ Drift bằng cách lái qua lại.
+    
+5.  Check nút Drift.
+    
+
+Resulting Behavior:
+
+*   Nút Drift chỉ chạy FX một lần khi được kích hoạt
+    
+*   Khi Drift lâu thì nút Drift &nbsp;không chạy FX nữa.
+    
+
+Expected Behavior:
+
+*   Nút Drift chạy FX bất cứ khi nào xe còn đang ở  Mode Drift.
+    
+    <img class=""op-uc-image op-uc-image_inline"" src=""/api/v3/attachments/1040/content"">
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1396,MD_Tạo 1 tấm texture shadow giả AO cho phần dưới xe,Task,Waiting For Approve,Đông Huỳnh,Normal,Model,2.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Summary task #1712: Garage_Showroom & Car Customize,\\\\10.7.6.250\\job\\SSS\_RACING\\models\\LuxA\_Turbo\\Textures\\Shadow\_Tex
+1397,Sample cho Dev_ Tool cho phần shading các xe qua các map ổn định,Task,New,Phu Pham,Normal,Tech Art,1.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Task #1413: Car shading in game,""
+1401,PLAN MVP3,Task,In progress,Phuoc Ho Duc,Normal,Game Design,5.0,"",Giang Duong Vo Tra,"","","","",VNRacing,"",""
+1406,Chức năng Restart xe không hoạt động khi xe tông vào bên hong đường gần đoạn bùng binh Map  DownTown Circuit,Bug,In specification,Doi Huynh Van,Normal,"",2.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Task #1327: GD_ Buglist 3395,""
+1412,Build Version 0.1.0.3417,Build ,New,Phuoc Ho Duc,Normal,"","","",Perforce Integration Bot,"","","","",VNRacing,User story #1867: Test Feature OP Review Build,"Jenkins Build thành công, đường dẫn bản build:
+
+**Android:**
+
+[Tải về Android Build 0.1.0.3417](http://repo.clickstudio.com.vn:9091/repository/racing/client/android/0.1.0.3417/android-0.1.0.3417.zip)
+
+**iOS:**
+
+Cập nhật trên TestFlight
+"
+1413,Car shading in game,Task,New,"",Normal,Tech Art,"",11.0,Giang Duong Vo Tra,"","","","",VNRacing,Summary task #1384: CARS SHADING,""
+1414,Car shading in UI Scene ,Task,New,"",Normal,Tech Art,"",30.0,Giang Duong Vo Tra,"","","","",VNRacing,Summary task #1384: CARS SHADING,""
+1415,Hoi An Assets,Summary task,New,"",Normal,Model,"","",Son  Nguyen ,"","","","",VNRacing,Epic #217: Game Scene,""
+1416,Hoi An Level,User story,New,Phuoc Ho Duc,Normal,"","","",Son  Nguyen ,"","","","",VNRacing,Epic #217: Game Scene,"As Player, I want to race in Hoi An Town, Culture - Architect - Vietnamese Style"
+1417,In - Game Levels,Feature,New,"",Normal,"","","",Son  Nguyen ,"","","","",VNRacing,Epic #217: Game Scene,""
+1418,In Menu Levels,Feature,New,"",Normal,"","","",Son  Nguyen ,"","","","",VNRacing,Epic #217: Game Scene,""
+1432,CAMERA _INTRO CAR IN GAME,Summary task,Specified,Phu Pham,Normal,Tech Art,"",56.0,Giang Duong Vo Tra,"","","","",VNRacing,User story #487: Tôi muốn có các đoạn Cutscene ngắn khi bắt đầu và kết thúc cuộc đua để Showcase cảnh đẹp mỗi khu vực và đội hình đua. ,""
+1433,CARS INTRO,Summary task,In progress,Phu Pham,Normal,Tech Art,"",86.0,Giang Duong Vo Tra,"","","","",VNRacing,"User story #1777: Tôi muốn có cảm giác thoả mãn về chiếc xe của mình khi bắt đầu đua, Góc máy đẹp - Cinematic scene","*   Intro Sedan Car: http://repo.clickstudio.com.vn:9002/productions/4d82250d-8824-43ee-919f-aa24a00fa6da/episodes/7f94b158-8a12-4584-b3ae-eccd369f22c4/edits/tasks/131a8e00-8e82-4015-a07f-f354084d754f
+    
+*   Intro VF8 :http://repo.clickstudio.com.vn:9002/productions/4d82250d-8824-43ee-919f-aa24a00fa6da/episodes/7f94b158-8a12-4584-b3ae-eccd369f22c4/edits/tasks/4bafe396-8c12-4f28-a30a-86af3ebd9ecf
+    
+*   Intro Mers: http://repo.clickstudio.com.vn:9002/productions/4d82250d-8824-43ee-919f-aa24a00fa6da/episodes/7f94b158-8a12-4584-b3ae-eccd369f22c4/edits/tasks/ded06749-ed05-4f87-8dbd-adc853a9b7df"
+1442,Điều tra các Case xe bị lật khi đi trên lề và khi tông vào các Simple Destruction Objects,Task,New,Phuoc Ho Duc,Normal,Game Design,4.0,"",Giang Duong Vo Tra,"","","","",VNRacing,"User story #197:     Tôi muốn cảm giác Arcade nhưng vẫn có yếu tố va chạm,nhưng tôi không muốn xe lật ",""
+1446,Implement Screen_CarCustomize_Visual_Parts ,Task,Waiting For Approve,Duy LeHoang,Normal,Dev,4.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Task #496: UI_Car Customize_Visual_Parts,""
+1447,Document_Thiết kế tính năng tự động cân bằng cho Camera xe,Task,New,Phuoc Ho Duc,Normal,Game Design,4.0,"",Giang Duong Vo Tra,"","","","",VNRacing,"Task #417: Document US 197: Tôi muốn cảm giác Arcade nhưng vẫn có yếu tố va chạm, nhưng tôi không muốn xe lật",""
+1450,UI/UX - Panel đầu tiên trong Screen Gamemode Selection bị răng cưa,Bug,Specified,Son Nguyen Nam,Normal,"",0.5,"",Giang Duong Vo Tra,"","","","",VNRacing,"User story #1864: Là Player, tôi muốn có GameMode chơi đơn cho phép đua khắp các địa danh nổi tiếng ở Việt Nam để thỏa mãn trí tò mò vì chưa có tựa Game đua xe nào lấy bối cảnh ở Việt Nam. (VNTour)",""
+1465,"Các nút Shop, Achievement, Avatar Trong Screen Upgrade không hoạt động đúng",Bug,In specification,Nhu Truong,Normal,"",1.0,"",Giang Duong Vo Tra,"","","","",VNRacing,User story #342: Performance Customize,""
+1466,Outro ,User story,New,"",Normal,"","",6.0,Giang Duong Vo Tra,"","","","",VNRacing,Feature #398: Game State,""
+1473,TA_Tìm giải pháp xử lý shading cho xe in game ,Task,In progress,Phu Pham,Normal,Tech Art,4.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Summary task #1384: CARS SHADING,""
+1474,TA_Giải pháp kết hợp Lighting cho map_ Lighting cho phần đường và xe ,Task,New,Phu Pham,Normal,Tech Art,"","",Giang Duong Vo Tra,"","","","",VNRacing,Feature #1658: Lighting Setting,""
+1475,MD_Giải pháp kết hợp Lighting cho map_ Lighting cho phần đường và xe ,Task,On hold,Đông Huỳnh,Normal,Model,4.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Feature #1658: Lighting Setting,https://docs.google.com/document/d/1MvJnAqf1wD4xrIXdEbIYnBMHJLBYUumjYxWEGnviMJk/edit?tab=t.0
+1476,MD_Look Dev_Mercedes_Basic,Task,Waiting For Approve,Đông Huỳnh,Normal,Model,"","",Giang Duong Vo Tra,"","","","",VNRacing,Summary task #2021: Model _Mercedes Car_Basic,"*   Bánh xe bị hở
+    
+*   Shading bị nứt gãy, vỡ
+    
+*   Chỉnh phần hộp đèn số sau xe"
+1477,MODEL ,Epic,New,"",Normal,"","",4.0,Giang Duong Vo Tra,"","","","",VNRacing,"",""
+1493,Fix logic Customize Performance nhấn Home không trở về screen Home,Task,New,"",Normal,Dev,"","",Giang Duong Vo Tra,"","","","",VNRacing,"Bug #1403: Nút Home trong ShowRoom, Car Customize và Screen Customize Visual khi bấm không quay về Image của Home",""
+1495,Bổ sung rào chắn cho khu vực dưới cầu_Map Downtown Circuit,Task,New,thong tran,Normal,Level Design,"","",Giang Duong Vo Tra,"","","","",VNRacing,Bug #1352: OBJ_Thiếu các Object làm rào chắn cho khu vực dưới cầu Map DownTown Circuit,""
+1496,Sửa logic hiện vị trí của người chơi.,Task,New,"",Normal,Dev,"","",Giang Duong Vo Tra,"","","","",VNRacing,Bug #1367: UI/UX_Screen Track Selection chưa hiển thị đúng vị trí đua của người chơi khi hoàn thành cuộc đua từ vị trí thứ 3 trở đi.,""
+1497,Dev_Setup map RacingTest_Light_Features,Task,On hold,Dat Quang,Normal,Dev,4.0,"",Giang Duong Vo Tra,"","","","",VNRacing,User story #1962: In-Game Performance,""
+1499,"Thêm logic xác định current tab hiện tại, không phải Main thì Visible nút Home",Task,New,"",Normal,Dev,"","",Giang Duong Vo Tra,"","","","",VNRacing,Bug #1453: UI/UX _ Mất nút Home của screen GameModekhi nhấn nút Back từ Screen Achievement,""
+1500,Kiểm tra lại logic rotate camera sau khi tương tác trên màn hình,Task,New,"",Normal,Dev,"","",Giang Duong Vo Tra,"","","","",VNRacing,Bug #1404: Camera đôi lúc bị đứng khi mua vài món phần DLC,""
+1501,Fix lại logic trigger FX khi setting brake toggle hoặc press,Task,New,"",Normal,Dev,"","",Giang Duong Vo Tra,"","","","",VNRacing,Bug #1395: UI/UX_Nút Drift ở Setting Brake Toggle On chưa giữ kích hoạt FX khi còn đang kích hoạt Drift.,""
+1502,Kiểm tra lại tỷ lệ các pannel & nút NEXT trên IOS và Android,Task,New,"",Normal,Dev,"","",Giang Duong Vo Tra,"","","","",VNRacing,"Bug #1388: UI/UX_Screen Game Mode Selection sai tỉ lệ các Panel, nút NEXT Chồng lên Panel Multiplayer",""
+1503,Chỉnh sửa Checkpoint Finish ở các map đặt chưa đúng & Chỉnh sửa xe mesh xe,Task,New,"",Normal,Dev,"","",Giang Duong Vo Tra,"","","","",VNRacing,Bug #1467:  Bánh xe bị chìm/ hở trong Sequence Outro ,""
+1504,Implement Screen Main Screen_UI512,Task,Waiting For Approve,Son Nguyen Nam,Normal,Dev,3.0,3.5,Giang Duong Vo Tra,"","","","",VNRacing,User story #1930: Main Menu Game,""
+1521,GD_Buglist 3516,Task,New,Phuoc Ho Duc,Normal,Game Design,"","",Giang Duong Vo Tra,"","","","",VNRacing,Bug #312: BUG TEST,""
+1528,"Lỗi Collsion khi về đích, xe luôn va chạm với vật thể vô hình nào đó khi đi qua vạch đích và trong Cutscene về đích Track HoiAnSprint",Bug,Tested,Tan  Phan Huynh,Normal,"","",2.0,Phuoc Ho Duc,"","","Objects, Physics & Decors","",VNRacing,"User story #485:     Trong khi chơi, tôi muốn đâm một số chướng ngại vật ngẫu nhiên","Steps to Reproduce:
+
+1.  Vào Track HoiAnSprint với bất kỳ xe nào.
+    
+2.  Đua qua vạch đích trong các Mode Circuit.
+    
+3.  Đua về đích và quan sát chiếc xe trong Cutscene.
+    
+
+Resulting Behavior:
+
+*   Xe luôn va chạm với thứ gì đó vô hình ở vạch đích làm phòng tia lửa va chạm.
+    
+
+Expected Behavior:
+
+*   Nếu không có vật gì hữu hình ở vạch đích thì xe không va chạm làm bắn lửa.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1529,"UI hiển thị các Skill DestroyObstacles và PickUp chưa gom lại khi kích hoạt nhiều lần, UI hiển thị Skill HangTime chưa tính điểm mà hiện lên nhiều lần, UI hiển thị Skill Pursuit chưa hiện lên màn hình.",Bug,Specified,Son Nguyen Nam,Normal,"","",4.0,Phuoc Ho Duc,"","","","",VNRacing,"User story #2039: (Skill) Là Player, tôi muốn khi thực hiện các Skill trong khi đua sẽ được thưởng bằng cách Refill thanh NOS để có động lực thực hiện các kỹ năng này nhiều hơn.","Steps to Reproduce:
+
+1.  Vào cuộc đua bất kỳ, thực hiện các Skill sau và theo dõi trên màn hình.
+    
+    1.  PickUp
+        
+    2.  Destroy Obstacles
+        
+    3.  HangTime
+        
+    4.  Pursuit
+        
+2.  Check Màn hình chơi tại vị trí UI hiển thị.
+    
+
+Resulting Behavior:
+
+*   Các Skill PickUp, DestroyObstacles không gom lại khi kích hoạt nhiều lần.
+    
+*   Skill HangTime không tính điểm.
+    
+*   Skill Pursuit chưa hiển thị lên màn hình.
+    
+
+Expected Behavior:
+
+Dev check lại UI Design.
+
+*   Các Skill PickUp, DestroyObstacles gom lại thành một Panel và tăng số đếm nếu kích hoạt nhiều lần.
+    
+*   Skill HangTime là Skill tính điểm theo thời gian kích hoạt.
+    
+*   Skill Pursuit là Skill tính điểm theo thời gian kích hoạt, kích hoạt khi bám đuôi xe khác.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1530,Setting Generals cho phần Sound&Music khi kéo về 0 chưa tắt Sounds của UI.,Bug,In specification,Ai Vuong,Normal,"",0.5,"",Phuoc Ho Duc,"","","","",VNRacing,"","Steps to Reproduce:
+
+1.  Vào mục Setting, mục Sound &amp; Music
+    
+2.  Kéo thanh General về 0.
+    
+3.  Thử thao tác qua lại với UI.
+    
+
+Resulting Behavior:
+
+*   UI vẫn phát ra tiếng sau khi kéo thanh General của Sound&amp;Music về 0.
+    
+
+Expected Behavior:
+
+*   Không có bất kỳ âm thanh nào In-Game có thể nghe được khi thanh General của Sound&amp;Music về 0.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1531,"RaceMode TimeAttack chưa ngắt tiếng động cơ khi Time'sUp, vẫn còn tiếng động cơ trong màn hình Result Screen.",Bug,In progress,Ai Vuong,Normal,"",0.5,2.5,Phuoc Ho Duc,"","","","",VNRacing,User story #486:     Tôi muốn màn chơi phù hợp với các Race mode,"Steps to Reproduce:
+
+1.  Vào map TimeAttack bất kỳ.
+    
+2.  Cố tình để cho hết giờ, hiện màn hình Time&#39;s Up
+    
+3.  Chuyển qua Screen Results, check Sounds..
+    
+
+Resulting Behavior:
+
+*   Tiếng động cơ xe vẫn còn chạy sau khi màn hình Time&#39;s Up hiện lên.
+    
+
+Expected Behavior:
+
+*   Tiếng động cơ xe từ từ tắt khi màn hình Time&#39;sUp hiện lên, tương tự như khi về đích trong các RaceMode khác.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1532,UI Results của Mode TimeAttack chưa cập nhật thông tin đúng khi người chơi không hoàn thành màn chơi (Trạng thái DNF),Bug,Tested,Son Nguyen Nam,Normal,"","",4.0,Phuoc Ho Duc,"","","","",VNRacing,"User story #1879: Là player, Tôi muốn có Race Mode Time Atack","Steps to Reproduce:
+
+1.  Vào đua màn chơi TimeAttack bất kỳ.
+    
+2.  Cố tình để hết thời gian, không về đích.
+    
+3.  Check Screen Results.
+    
+
+Resulting Behavior:
+
+*   Screen Results không hiện đúng thông tin DNF của người chơi.
+    
+
+Expected Behavior:
+
+*   Screen Results hiện đúng thông tin DNF của người chơi.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1538,Va chạm liên hoàn khi xe A.I hoặc người chơi vừa kích hoạt Restart lại sau khi tông tường hoặc đi ngược chiều.,Bug,Scheduled,Tan  Phan Huynh,Normal,"","",3.0,Phuoc Ho Duc,"","","","",VNRacing,"User story #197:     Tôi muốn cảm giác Arcade nhưng vẫn có yếu tố va chạm,nhưng tôi không muốn xe lật ","Steps to Reproduce:
+
+1.  Chạy trước A.I một đoạn trong cuộc đua.
+    
+2.  Tông vào tường hoặc đi ngược chiều để xe Restart.
+    
+3.  Check khi xe vừa Restart vừa lúc va chạm với các xe khác.
+    
+
+Resulting Behavior:
+
+*   Khi Xe A.I hoặc người chơi vừa Restart có thể nhảy lên đầu các xe khác đang tiến tới hoặc cản trở cuộc đua, gây va chạm liên hoàn.
+    
+
+Expected Behavior:
+
+*   Khi xe A.I hoặc người chơi vừa Restart, tạm thời ngắt va chạm với các xe khác trong vòng 5s, khi này xe sẽ có hiệu ứng Transparent, các xe khác có thể chạy xuyên qua xe vừa Restart.
+    
+*   Ref cho hiệu ứng Transparent:
+    
+    *   [Check](https://op.iconic.io.vn/api/v3/attachments/2047/content)
+        
+
+System Info: iOS26.2, Iphone16 Plus."
+1552,MiniMap của các Map DownTown chưa cập nhật bản có điều chỉnh khác biệt độ cao,Bug,Tested,Son Nguyen Nam,Normal,"","",1.0,Phuoc Ho Duc,"","","","",VNRacing,User story #392: In-Game Mini Map,"Steps to Reproduce:
+
+1.  Vào Map DownTown bất kỳ.
+    
+2.  Chạy tới khu vực bồng binh, chui xuống hầm.
+    
+3.  Check MiniMap
+    
+
+Resulting Behavior:
+
+*   MiniMap chưa cập nhật đúng phiên bản có phân chia độ cao.
+    
+
+Expected Behavior:
+
+*   MiniMap đã cập nhật phiên bản có phân chia độ cao.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1553,Build Version 0.1.0.3496,Build ,New,Phuoc Ho Duc,Normal,"","","",Perforce Integration Bot,"","","","",VNRacing,User story #1867: Test Feature OP Review Build,"Jenkins Build thành công, đường dẫn bản build:
+
+**Android:**
+
+[Tải về Android Build 0.1.0.3496](http://repo.clickstudio.com.vn:9091/repository/racing/client/android/0.1.0.3496/android-0.1.0.3496.zip)
+
+**iOS:**
+
+Cập nhật trên TestFlight
+"
+1554,Thiếu Animation UI khi Upgrade và khi chọn mục Upgrade.,Bug,Tested,Son Nguyen Nam,Normal,"","",8.0,Phuoc Ho Duc,"","","","",VNRacing,User story #342: Performance Customize,"Steps to Reproduce:
+
+1.  Vào Car Customize Performance.
+    
+2.  Chọn một chỉ số bất kỳ
+    
+3.  Nâng cấp một chỉ số bất kỳ
+    
+
+Resulting Behavior:
+
+*   Chưa cập nhật Animation khi chọn chỉ số và khi nâng cấp chỉ số.
+    
+
+Expected Behavior:
+
+Dev check kỹ lại Design UI
+
+*   Có Animation khi chọn chỉ số và khi nâng cấp chỉ số.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1555,"Customize Visual, Animation cập nhật chậm khi chọn Part cụ thể để nâng cấp.",Bug,Specified,Son Nguyen Nam,Normal,"","",2.0,Phuoc Ho Duc,"","","","",VNRacing,User story #341: Visual Customize,"Steps to Reproduce:
+
+1.  Vào Screen Car Customize.
+    
+2.  Chọn một Part để nâng cấp trên màn hình.
+    
+3.  Check UI Animation
+    
+
+Resulting Behavior:
+
+*   UI Animation Load các tùy chọn nâng cấp trước khi các mục để nâng cấp xuất hiện.
+    
+
+Expected Behavior:
+
+Dev check kỹ lại Desgin UI.
+
+*   UI Animation Load đúng thứ tự như trong Design
+    
+
+System Info: iOS26.2, Iphone16 Plus.
+
+Video [https://op.iconic.io.vn/api/v3/attachments/1220/content](https://op.iconic.io.vn/api/v3/attachments/1220/content)"
+1556,UI Car Customize Visual chưa cập nhật đúng tên và Icon của xe đang Customize.,Bug,Test failed,Son Nguyen Nam,Normal,"","",3.0,Phuoc Ho Duc,"","","","",VNRacing,User story #341: Visual Customize,"Steps to Reproduce:
+
+1.  Vào Screen Car Customize Visual.
+    
+2.  Check Panel hiện tên của xe ở bên trái.
+    
+
+Resulting Behavior:
+
+*   Panel luôn hiện tên VF6 và không có Icon,
+    
+
+Expected Behavior:
+
+*   Panel hiện đúng tên của xe đang Customize và Icon.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1557,UI các Parts trong Car Customize đang hiện Text chưa đúng thiết kế,Bug,Tested,Son Nguyen Nam,Normal,"","",4.0,Phuoc Ho Duc,"","","","",VNRacing,User story #341: Visual Customize,"Steps to Reproduce:
+
+1.  Vào Game, Screen Car Customize Visual.
+    
+2.  Chọn Customize Part bất kỳ.
+    
+3.  Chọn Customize Material.
+    
+
+Resulting Behavior:
+
+*   Text của các Part Customize Visual bị tràn viền, chưa đúng thiết kế.
+    
+*   Text của các Material trong Customize Visual chưa đúng thiết kế.
+    
+
+Expected Behavior:
+
+*   Text của các Part Customize Visual chỉ có tối đa hai chữ như trong thiết kế.
+    
+*   Text của các Part Material trong Customize Visual chỉ có tối đa một chữ.;
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1558,"User Profile, mục đổi tên chưa cập nhật đúng lý do đặt tên sai.",Bug,Tested,Son Nguyen Nam,Normal,"","",3.0,Phuoc Ho Duc,"","","","",VNRacing,"User story #206: (UserProfile) Là Player, tôi muốn được xem các thông tin tổng quan về quá trình chơi của tôi (Giờ chơi, số lượng Track đã Unlock, v.v) để tự bao quát được quá trình chơi Game này.","Steps to Reproduce:
+
+1.  Vào UserProfile.
+    
+2.  Chọn đổi tên.
+    
+3.  Cố tình đánh tên thật dài.
+    
+4.  Bấm Confirm, đợi Check.
+    
+
+Resulting Behavior:
+
+*   Game báo là tên trùng nhưng trên Log báo là tên quá dài.
+    
+
+Expected Behavior:
+
+Đề nghị Dev tự check thêm các trường hợp tên không hợp lệ khác để không lặp lại lỗi này.
+
+*   Thông báo trên Log và thông bao trên panel giống nhau.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1559,"User Profile, chưa tự tắt Panel đổi tên khi đổi Profile Avatar",Bug,Tested,Son Nguyen Nam,Normal,"","",3.0,Phuoc Ho Duc,"","","","",VNRacing,"User story #206: (UserProfile) Là Player, tôi muốn được xem các thông tin tổng quan về quá trình chơi của tôi (Giờ chơi, số lượng Track đã Unlock, v.v) để tự bao quát được quá trình chơi Game này.","Steps to Reproduce:
+
+1.  Vào Screen UserProfile
+    
+2.  Chọn chức năng đổi Avatar, đổi Avatar và bấm Confirm.
+    
+
+Resulting Behavior:
+
+*   Panel đổi Avatar không tự tắt.
+    
+
+Expected Behavior:
+
+*   Panel đổi Avatar tự tắt khi người chơi chọn Avatar mới và Confirm.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1560,Collision Physics của xe kém ổn định khi FPS thấp,Bug,In specification,"",High,"","","",Phuoc Ho Duc,"","","","",VNRacing,"User story #197:     Tôi muốn cảm giác Arcade nhưng vẫn có yếu tố va chạm,nhưng tôi không muốn xe lật ","Steps to Reproduce:
+
+1.  Vào bất kỳ Track nào có FPS thấp (&lt; 30 fps)
+    
+2.  Cố tình chạy để xe bị Crash.
+    
+3.  Check hành vi của Collision.
+    
+4.  Tải về các bản Game khác có FPS ổn định hơn.
+    
+5.  Check hành vi của Collision
+    
+
+Resulting Behavior:
+
+*   Xe thường xuyên bị mắc lỗi giật hình khi đụng tường hơn ở các Track có FPS thấp.
+    
+*   Xe thường xuyên bị mắc lỗi xuyên vật thể, Barrier hơn ở các Track có FPS thấp.
+    
+*   Xe thường xuyên bị vấp lề đường và bị lật hơn ở các Track có FPS thấp.
+    
+
+Expected Behavior:
+
+*   Collision Physics vẫn hoạt động tương đối ổn định dù ở mức FPS thấp hơn bình thường. (&lt;30FPS)
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1561,"Screen PlayerInfo, chức năng đổi tên nhân vật thiết kế Flow chưa thuận tiện.",Bug,In specification,Ty Dang,Normal,"","","",Phuoc Ho Duc,"","","","",VNRacing,"User story #206: (UserProfile) Là Player, tôi muốn được xem các thông tin tổng quan về quá trình chơi của tôi (Giờ chơi, số lượng Track đã Unlock, v.v) để tự bao quát được quá trình chơi Game này.","Steps to Reproduce:
+
+1.  Vào Screen PlayerInfo, bật chức năng đổi tên nhân vật..
+    
+2.  Thử nhập tên mới, có thể hợp lệ hoặc không hợp lệ.
+    
+3.  Bấm nứt Confirm và check UI.
+    
+
+Resulting Behavior:
+
+*   Thao tác Check và Confirm tên được xử lý liên tiếp bằng một nút Confirm nhưng nút này không thay đổi nội dung khi đi qua các thao tác chi tiết:
+    
+    *   Nếu nhập tên hợp lệ và bấm nút Confirm, nút Confirm vẫn còn, người chơi bấm vào thì Game sẽ check tên lần nữa chứ không xác nhận tên đã nhập và tự thoát chức năng đổi tên.
+        
+    *   Nếu nhập tên không hợp lệ và bấm nút Confirm, nút Confirm vẫn còn, người chơi bấm vào thì nó sẽ tự check lại tên sai đó một lần nữa.
+        
+*   Người chơi chỉ có thể thoát bằng nút X ở góc.
+    
+
+Expected Behavior:
+
+*   Thao tác Check và Confirm được phân chia rõ ràng hơn, được xử lý chi tiết qua từng trường hợp.
+    
+    *   Người chơi nhập tên vào, bấm Check để kiểm tra tên.
+        
+        *   Nếu tên hợp lệ, nút Check chuyển thành nút Confirm, người chơi bấm vào để xác nhận đổi tên và tắt Panel đổi tên.
+            
+        *   Nếu tên chưa hợp lệ, nút Check không chuyển thành nút Confirm, tên không hợp lệ bị xóa, người chơi tự nhập lại từ đầu và bấm Check lại.
+            
+    *   Thêm chức năng Random tên (Một nút nhỏ bên cạnh ô đặt tên) dựa theo Pool Random đã có sẵn từ GD.
+        
+
+System Info: iOS26.2, Iphone16 Plus."
+1567,"Một số Panel Track trong Screen Track Selection chưa cập nhật MiniMap phiên bản mới nhất, còn các lỗi nối dài đường, thiếu Map, v.v",Bug,Developed,Son Nguyen Nam,Normal,"","",2.0,Phuoc Ho Duc,"","","","",VNRacing,User story #392: In-Game Mini Map,"Steps to Reproduce:
+
+1.  Vào Screen Track Selection của các Area.
+    
+2.  Check Panel MiniMap của các Track
+    
+
+Resulting Behavior:
+
+*   Một số Area có các Track chưa cập nhật MiniMap lên Panel. (NHS, Đông Giang)
+    
+*   Một số Area có các Track chưa cập nhật phiên bản mới nhất. (Hội An, Sơn Trà)
+    
+*   Một số Area cập nhật sai MiniMap (Sơn Trà Circuit)
+    
+
+Expected Behavior:
+
+Đề nghị Dev Check kỹ lại vấn đề Map và MiniMap cho chính xác.
+
+*   Các MiniMap trên Panel đều được cập nhật chính xác theo phiên bản mới nhất.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1574,Build Version 0.1.0.3561,Build ,New,Phuoc Ho Duc,Normal,"","","",Perforce Integration Bot,"","","","",VNRacing,User story #1867: Test Feature OP Review Build,"Jenkins Build thành công, đường dẫn bản build:
+
+**Android:**
+
+[Tải về Android Build 0.1.0.3561](http://repo.clickstudio.com.vn:9091/repository/racing/client/android/0.1.0.3561/android-0.1.0.3561.zip)
+
+**iOS:**
+
+Cập nhật trên TestFlight
+"
+1576,Build Version 0.1.0.3395,Build ,New,Phuoc Ho Duc,Normal,"","","",Perforce Integration Bot,"","","","",VNRacing,User story #1867: Test Feature OP Review Build,"Jenkins Build thành công, đường dẫn bản build:
+
+**Android:**
+
+[Tải về Android Build 0.1.0.3395](http://repo.clickstudio.com.vn:9091/repository/racing/client/android/0.1.0.3395/android-0.1.0.3395.zip)
+
+**iOS:**
+
+Cập nhật trên TestFlight
+"
+1578,Build Version 0.1.0.3375,Build ,New,Phuoc Ho Duc,Normal,"","","",Perforce Integration Bot,"","","","",VNRacing,User story #1867: Test Feature OP Review Build,"Jenkins Build thành công, đường dẫn bản build:
+
+**Android:**
+
+[Tải về Android Build 0.1.0.3375](http://repo.clickstudio.com.vn:9091/repository/racing/client/android/0.1.0.3375/android-0.1.0.3375.zip)
+
+**iOS:**
+
+Cập nhật trên TestFlight
+"
+1580,Build Version 0.1.0.3262,Build ,New,Phuoc Ho Duc,Normal,"","","",Perforce Integration Bot,"","","","",VNRacing,User story #1867: Test Feature OP Review Build,"Jenkins Build thành công, đường dẫn bản build:
+
+**Android:**
+
+[Tải về Android Build 0.1.0.3262](http://repo.clickstudio.com.vn:9091/repository/racing/client/android/0.1.0.3262/android-0.1.0.3262.zip)
+
+**iOS:**
+
+Cập nhật trên TestFlight
+"
+1582,Build Version 0.1.0.3244,Build ,New,Phuoc Ho Duc,Normal,"","","",Perforce Integration Bot,"","","","",VNRacing,User story #1867: Test Feature OP Review Build,"Jenkins Build thành công, đường dẫn bản build:
+
+**Android:**
+
+[Tải về Android Build 0.1.0.3244](http://repo.clickstudio.com.vn:9091/repository/racing/client/android/0.1.0.3244/android-0.1.0.3244.zip)
+
+**iOS:**
+
+Cập nhật trên TestFlight
+"
+1584,Build Version 0.1.0.3191,Build ,New,Phuoc Ho Duc,Normal,"","","",Perforce Integration Bot,"","","","",VNRacing,User story #1867: Test Feature OP Review Build,"Jenkins Build thành công, đường dẫn bản build:
+
+**Android:**
+
+[Tải về Android Build 0.1.0.3191](http://repo.clickstudio.com.vn:9091/repository/racing/client/android/0.1.0.3191/android-0.1.0.3191.zip)
+
+**iOS:**
+
+Cập nhật trên TestFlight
+"
+1587,Document_Model,Summary task,In progress,"",Normal,Model,"",4.0,Giang Duong Vo Tra,"","","","",VNRacing,User story #1963: Main Character Assets Guideline,""
+1588,Document_Workflow cho wheel,Task,Waiting For Approve,Đông Huỳnh,Normal,Model,2.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Summary task #1587: Document_Model,""
+1590,"MD_Asset packge_Điều chỉnh UV ( Hội An, Sơn Trà, Downtown)",Task,Waiting For Approve,"",Normal,Model,32.5,"",Giang Duong Vo Tra,"","","","",VNRacing,"User story #2006: Là Player, tôi muốn có City Đà Nẵng trong Vn Tour GameMode.",LIST ASSET: https://docs.google.com/spreadsheets/d/1zq80AYfrrNngWIUZ83vRLYn2HbVPEe1V0gRp9zwRA0c/edit?gid=0#gid=0
+1598,Build Version 0.1.0.3634,Build ,New,Phuoc Ho Duc,Normal,"","","",Perforce Integration Bot,"","","","",VNRacing,"","Jenkins Build thành công, đường dẫn bản build:
+
+**Android:**
+
+[Tải về Android Build 0.1.0.3634](http://repo.clickstudio.com.vn:9091/repository/racing/client/android/0.1.0.3634/android-0.1.0.3634.zip)
+
+**iOS:**
+
+Cập nhật trên TestFlight
+"
+1599,Review new build version 0.1.0.3634,Task,New,Phuoc Ho Duc,Normal,Game Design,"","",Perforce Integration Bot,"","","","",VNRacing,Build  #1598: Build Version 0.1.0.3634,"- Thêm Debug Car Status (Overtake, Defences, Normal Driving)
+- Thêm tính năng Switch Camera khi đua
+- OP#1523 Thêm FX mưa vào 3 map Ngũ Hành Sơn
+- OP#1453 Fix Bug Mất nút Home của screen GameModekhi nhấn nút Back từ Screen Achievement"
+1609,Blend giữa 2 skybox garage-workshop để tránh bị giật,Task,Waiting For Approve,Liem Tran,High,Dev,2.0,"",Giang Duong Vo Tra,"","","","",VNRacing,User story #1930: Main Menu Game,""
+1611,Điều chỉnh điều khiển xoay xe hiện tại đang không mượt garage và workshop,Task,Waiting For Approve,Liem Tran,High,Dev,16.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Summary task #1712: Garage_Showroom & Car Customize,""
+1612,"Check tính năng A.I mới câp nhật (Follow 3 line, Attack&Defend, Debug)",Task,In progress,Phuoc Ho Duc,Normal,Game Design,2.0,"",Phuoc Ho Duc,"","","","",VNRacing,User story #378:     Tôi muốn độ khó của AI vừa phải và phù hợp,GD check tính năng A.I mới cập nhật và phản hồi lại với Dev
+1620,Ramp Implementation ,Summary task,In progress,"",Normal,Dev,"",54.0,Giang Duong Vo Tra,"","","","",VNRacing,"User story #1995: Là Player, tôi muốn xe có khả năng sử dụng các bục Ramp để bay lên cao, tạo cảm giác lái đa dạng hơn trong quá trình đua.",""
+1625,Dynamic Gravity System Implementation,Task,Waiting For Approve,Dat Quang,Normal,Dev,2.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Summary task #1620: Ramp Implementation ,""
+1630,Landing Recovery & Grace Period,Task,Waiting For Approve,Dat Quang,Normal,Dev,4.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Summary task #1620: Ramp Implementation ,""
+1632,Documentation,Task,Waiting For Approve,Nhu Truong,Normal,Dev,4.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Summary task #1620: Ramp Implementation ,""
+1633,Bug Fixes & Final Integration,Task,New,"",Normal,Dev,2.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Summary task #1620: Ramp Implementation ,""
+1639,Sửa logic của DestroyObstacles và PickUp & logic Skill HangTime chưa tính điểm mà hiện lên nhiều lần ,Task,Waiting For Approve,Thinh Nguyen,Normal,Dev,3.0,"",Giang Duong Vo Tra,"","","","",VNRacing,"Bug #1529: UI hiển thị các Skill DestroyObstacles và PickUp chưa gom lại khi kích hoạt nhiều lần, UI hiển thị Skill HangTime chưa tính điểm mà hiện lên nhiều lần, UI hiển thị Skill Pursuit chưa hiện lên màn hình.","\- Sửa logic của DestroyObstacles và PickUp ( được tạo ra -&gt; cho ẩn hiện ) - Sửa logic Skill HangTime chưa tính điểm mà hiện lên nhiều lần ( được tạo ra -&gt; cho ẩn hiện, rà lại logic )"
+1640,Triển khai hiển thị Skill Pursuit ,Task,Waiting For Approve,Thinh Nguyen,Normal,Dev,1.0,"",Giang Duong Vo Tra,"","","","",VNRacing,"Bug #1529: UI hiển thị các Skill DestroyObstacles và PickUp chưa gom lại khi kích hoạt nhiều lần, UI hiển thị Skill HangTime chưa tính điểm mà hiện lên nhiều lần, UI hiển thị Skill Pursuit chưa hiện lên màn hình.",""
+1657,Performance,Feature,New,"",Normal,"","",89.0,Son  Nguyen ,"","","","",VNRacing,Epic #210: Technical Art,""
+1658,Lighting Setting,Feature,New,"",Normal,"","",4.0,Son  Nguyen ,"","","","",VNRacing,Epic #210: Technical Art,""
+1663,MD_Package Car Part_Car Customize_VF8,Summary task,Waiting For Approve,Nam Nguyen Ky,Normal,Model,106.0,122.0,Giang Duong Vo Tra,"",W5-6,"","",VNRacing,User story #1994: VF8_Car,"[http://repo.clickstudio.com.vn:9002/productions/4d82250d-8824-43ee-919f-aa24a00fa6da/episodes/all/assets?search=\[OpenProjectID\]=\[1663\]](http://repo.clickstudio.com.vn:9002/productions/4d82250d-8824-43ee-919f-aa24a00fa6da/episodes/all/assets?search=[OpenProjectID]=[1663])
+
+  
+<img class=""op-uc-image op-uc-image_inline"" src=""/api/v3/attachments/2036/content"">"
+1664,Triền khai template màu đối với phần Shading xe,Task,New,Phu Pham,Normal,Tech Art,8.0,9.0,Giang Duong Vo Tra,"","","","",VNRacing,Summary task #1712: Garage_Showroom & Car Customize,""
+1667,UI_ US341_Tôi muốn độ phần Visual xe,Summary task,In progress,"",Normal,UI/UX,"","",Giang Duong Vo Tra,"","","","",VNRacing,Epic #315: UI,""
+1669,Build Version 0.1.0.3741,Build ,New,Phuoc Ho Duc,Normal,"","","",Perforce Integration Bot,"","","","",VNRacing,"","Jenkins Build thành công, đường dẫn bản build:
+
+**Android:**
+
+[Tải về Android Build 0.1.0.3741](http://repo.clickstudio.com.vn:9091/repository/racing/client/android/0.1.0.3741/android-0.1.0.3741.zip)
+
+**iOS:**
+
+Cập nhật trên TestFlight
+"
+1670,Review new build version 0.1.0.3741,Task,New,Phuoc Ho Duc,Normal,Game Design,"","",Perforce Integration Bot,"","","","",VNRacing,Build  #1669: Build Version 0.1.0.3741,"- OP#1603 Tích hợp bánh xe Mercedes mới
+- OP#1634 Điều chỉnh Trigger overlap vạch đích
+- OP#1635 Xoá blocking volume phía trước rào chắn
+- OP#1666 Thêm level Material (Nhấn nút Move to Test level)
+- OP#1609 Blend giữa 2 skybox Garage và Workshop
+- OP#1611 Điều chỉnh xoay camera trong Garage và Workshop"
+1671,"Tôi muốn có tấm tăng tốc, cảm giác cạnh tranh và phấn khích khi giành được vị trí vào tấm tăng tốc ",User story,New,"",Normal,"","","",Phuoc Ho Duc,"","","","",VNRacing,Feature #156: Drive Mode,""
+1674,Garage_Customize,Summary task,New,"",Normal,Level Design,"","",Giang Duong Vo Tra,"","","","",VNRacing,"",""
+1675,Kiểm tra + kích hoạt lại Mission FanSevice ,Task,New,"",Normal,Dev,2.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Bug #1157: Mất UI của nhiệm vụ FS trong Intro Cinematic và trong HUD khi đua.,""
+1684,MD_Sửa lại toàn bộ texture đường cho 5 Map_Bake light,Summary task,Specified,Nam Nguyen Ky,Normal,Model,"","",Giang Duong Vo Tra,"","","","",VNRacing,"User story #2006: Là Player, tôi muốn có City Đà Nẵng trong Vn Tour GameMode.",""
+1691,MD_Sửa lại toàn bộ đường ở vạch xuất phát,Summary task,In progress,Nam Nguyen Ky,Normal,Model,80.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Summary task #1433: CARS INTRO,""
+1692,TA_Demo techic cho phần xử lý texture đường khi sử dụng Bake Light,Task,On hold,Phu Pham,Normal,Tech Art,"","",Giang Duong Vo Tra,"","","","",VNRacing,Summary task #1290: BAKE LIGHT,""
+1699,Build Version 0.1.0.3756,Build ,New,Phuoc Ho Duc,Normal,"","","",Perforce Integration Bot,"","","","",VNRacing,"","Jenkins Build thành công, đường dẫn bản build:
+
+**Android:**
+
+[Tải về Android Build 0.1.0.3756](http://repo.clickstudio.com.vn:9091/repository/racing/client/android/0.1.0.3756/android-0.1.0.3756.zip)
+
+**iOS:**
+
+Cập nhật trên TestFlight
+"
+1700,Review new build version 0.1.0.3756,Task,New,Phuoc Ho Duc,Normal,Game Design,"","",Perforce Integration Bot,"","","","",VNRacing,Build  #1699: Build Version 0.1.0.3756,"- OP#1603 Tích hợp bánh xe Mercedes mới
+- OP#1634 Điều chỉnh Trigger overlap vạch đích
+- OP#1635 Xoá blocking volume phía trước rào chắn
+- OP#1641 Bổ sung lựa chọn vẽ Racing Line trong bảng Debug
+- OP#1666 Thêm level Material (Nhấn nút Move to Test level)
+- OP#1609 Blend giữa 2 skybox Garage và Workshop"
+1702,GD&UI_Sửa lại Wireframe và Design Document phần chỉnh Color cho mục CarCustomize Visual thành dạng Presets thay vì Sliders,Summary task,Waiting For Approve,Phuoc Ho Duc,Normal,Game Design,1.0,"",Giang Duong Vo Tra,"","","","",VNRacing,User story #341: Visual Customize,""
+1703,Check Catalogue của các xe có sẵn trong Project và gửi bộ màu mẫu của hãng cho 3D và TechArt. Bổ sung mục CheckList các việc cần làm cho các xe mới thêm vào Project.,Task,Waiting For Approve,Phuoc Ho Duc,Normal,Game Design,1.0,"",Giang Duong Vo Tra,"","","","",VNRacing,"User story #345:     Trong quá trình phá đảo, tôi muốn sưu tập thêm nhiều xe mới",""
+1705,Fix size Button + Font text UI529-Race_HUD,Task,New,"",Normal,Dev,"","",Giang Duong Vo Tra,"","","","",VNRacing,Task #529: Race_HUD,""
+1712,Garage_Showroom & Car Customize,Summary task,In progress,"",Normal,Tech Art,"",55.0,Giang Duong Vo Tra,"","","","",VNRacing,User story #341: Visual Customize,""
+1718,Implement FX UI496_Carcustomize_Visual_Parts_,Task,Waiting For Approve,Nhu Truong,Normal,Dev,6.5,"",Giang Duong Vo Tra,"","","","",VNRacing,Task #496: UI_Car Customize_Visual_Parts,""
+1722,Bổ sung và điều chỉnh Flow chức năng đổi tên nhân vật ,Task,New,"",Normal,UI/UX,"","",Giang Duong Vo Tra,"","","","",VNRacing,"Bug #1561: Screen PlayerInfo, chức năng đổi tên nhân vật thiết kế Flow chưa thuận tiện.",""
+1726,Setup lại material sơn xe + mâm xe,Task,New,"",Normal,Dev,"","",Giang Duong Vo Tra,"","","","",VNRacing,"",""
+1727,Lập/check lại bảng preset màu cho mấy material mới và chuẩn bị API cho bên UI ráp lại ,Task,New,"",Normal,Dev,"","",Giang Duong Vo Tra,"","","","",VNRacing,"",""
+1728,"Sửa lại phần UI để chọn theo preset, khớp vào API",Task,New,"",Normal,Dev,"","",Giang Duong Vo Tra,"","","","",VNRacing,"",""
+1729,Phân bổ lại UI về các User Story,Task,New,Phuoc Ho Duc,Normal,Dev,4.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Epic #315: UI,""
+1743,Build Version 0.1.0.3896,Build ,New,Phuoc Ho Duc,Normal,"","","",Perforce Integration Bot,"","","","",VNRacing,"","Jenkins Build thành công, đường dẫn bản build:
+
+**Android:**
+
+[Tải về Android Build 0.1.0.3896](http://repo.clickstudio.com.vn:9091/repository/racing/client/android/0.1.0.3896/android-0.1.0.3896.zip)
+
+**iOS:**
+
+Cập nhật trên TestFlight
+"
+1744,Review new build version 0.1.0.3896,Task,New,Phuoc Ho Duc,Normal,Game Design,"","",Perforce Integration Bot,"","","","",VNRacing,Build  #1743: Build Version 0.1.0.3896,"*   **OP#1733 Thêm các map Đông Giang vào các track đua (map DongGiang Sprint bị crash trên iOS)**
+    
+*   **OP#1721 Cập nhật UI542 Profile\_Checking, thêm button gợi ý tên**
+    
+*   **OP#1641 Bổ sung lựa chọn vẽ Racing Line trong bảng Debug**
+    
+*   **OP#1716 Trigger để đổi cổng Start thành bảng finish ở lap 2\_Track Sơn Trà Circuit**
+    
+*   OP#1710 Implement\_FX\_Achivements
+    
+*   OP#1719 Implement FX\_Carcusotmize\_Performance (FX Icon,FX Level,FX Stat)
+    
+*   OP#1687 Fix UI497 CarSelection - Thanh Vector sai design màu (QC1401)
+    
+*   OP#1688 Fix Sửa UI491 CarCustomize - Sai Font Stat, Sai Size Rating, ShapeIcon thiếu shadow, Size Shape Upgrade (QC1401)
+    
+*   OP#1690 Chỉnh sửa font, size, shadow, cho các element\_UI510\_QC1401
+    
+*   OP#1693 Chỉnh sửa font, size, shadow,... cho các element trong UI522 (QC14O1)
+    
+*   OP#1694 Chỉnh sửa font, size, shadow,... cho các element trong UI528 (QC1401)
+    
+*   OP#1723 Chỉnh sửa các element trong UI525 theo QC1401 ( Chỉnh lại thanh vector bị dày)
+    
+*   OP#1686 - Fix MainScreen - Font, màu, chất lượng ảnh icon(QC1401)
+    
+*   OP#1704 - Fix Font text UI507-TitlePlay\_Loading
+    
+*   OP#1706 - Fix size card + font + icon UI503 - GameMode\_VnTour\_Selected
+    
+*   OP#1685 - Fix UI505 Title - BackGround video thấp + Logo Vn thấp (QC1401)
+    
+*   OP#1718 - Implement FX UI\_Carcustomize\_Visual\_Parts
+    
+*   OP#1724 - Fix scale screen phù hợp trên nhiều thiết bị (Scale cho CarCustomize Performance)
+    
+*   **Cập nhật cơ chế sử dụng Ramp**"
+1754,MD_Look Dev_ 6 Car parts _Car Customize_ver Sport _MER,Task,Waiting For Approve,Đông Huỳnh,Normal,Model,8.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Summary task #2022: MD_Package Car Part_Car Customize_Mercedes,""
+1755,MD_Look Dev_ 6 Car parts _Car Customize_ver Luxury_MER,Task,Waiting For Approve,Đông Huỳnh,Normal,Model,8.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Summary task #2022: MD_Package Car Part_Car Customize_Mercedes,""
+1762,Dev_Xử lý sound va chạm với vật thể,Task,Waiting For Approve,Liem Tran,Normal,Dev,2.0,"",Giang Duong Vo Tra,"","","","",VNRacing,"User story #197:     Tôi muốn cảm giác Arcade nhưng vẫn có yếu tố va chạm,nhưng tôi không muốn xe lật ",thêm logic spawn sound theo mesh với chỉnh volume theo tốc độ xe
+1763,QC UI US 375 : Tôi muốn có nhiều mode chơi (Transit &Anim & FX),Summary task,New,Chi Le Hoang Quynh,Normal,UI/UX,"","",Giang Duong Vo Tra,"","","","",VNRacing,Summary task #498: UI Game Mode,""
+1768,Build Version 0.1.0.3933,Build ,New,Phuoc Ho Duc,Normal,"","","",Perforce Integration Bot,"","","","",VNRacing,"","Jenkins Build thành công, đường dẫn bản build:
+
+**Android:**
+
+[Tải về Android Build 0.1.0.3933](http://repo.clickstudio.com.vn:9091/repository/racing/client/android/0.1.0.3933/android-0.1.0.3933.zip)
+
+**iOS:**
+
+Cập nhật trên TestFlight
+"
+1769,Review new build version 0.1.0.3933,Task,New,Phuoc Ho Duc,Normal,Game Design,"","",Perforce Integration Bot,"","","","",VNRacing,Build  #1768: Build Version 0.1.0.3933,"- Cập nhật cơ chế sử dụng Ramp
+- OP#641 Sửa lại feedback 1506"
+1771,Xe bị giật và bánh xe có hiện tượng rớt ra khỏi xe. Cần kiểm tra phần vật lý xe,Bug,Scheduled,Long Tran,Normal,"","",4.0,Giang Duong Vo Tra,"","","","",VNRacing,"User story #197:     Tôi muốn cảm giác Arcade nhưng vẫn có yếu tố va chạm,nhưng tôi không muốn xe lật ","<img class=""op-uc-image op-uc-image_inline"" src=""/api/v3/attachments/1661/content"">Bản build: 3933.
+
+1\. Reproduce &amp; xác nhận điều kiện gây lỗi:
+
+*   Tạo scenario test:
+    
+    *   Va chạm ở vận tốc cao
+        
+    *   Giảm FPS (CPU throttle/ lag)
+        
+*   Xác nhận:
+    
+    *   Bánh xe vượt quá giới hạn hành trình (suspension travel)
+        
+
+2\. Xử lý giới hạn chuyển động bánh xe (Clamp / Constraint fix)
+
+*   Thêm hoặc sửa:
+    
+    *   Clamp vị trí bánh xe theo trục suspension
+        
+    *   Giới hạn hành trình bánh xe không vượt quá giá trị thông thường
+        
+*   Đảm bảo:
+    
+    *   Sau va chạm mạnh, bánh xe luôn được kéo về phạm vi hợp lệ
+        
+
+3.Thêm safeguard sau va chạm
+
+*   Sau mỗi va chạm mạnh:
+    
+    *   Validate lại vị trí bánh xe
+        
+    *   Nếu vượt ngưỡng, reset về vị trí hợp lệ gần nhất
+        
+*   Tránh trường hợp:
+    
+    *   Lỗi tích lũy (error stacking) sau nhiều va chạm liên tiếp
+        
+    *   <img class=""op-uc-image op-uc-image_inline"">"
+1772,Tụt FPS ở các map chơi in-games,Bug,Specified,Long Tran,Immediate,"","",8.0,Son  Nguyen ,"",W5-6,"","",VNRacing,Epic #382: Levels/Track,"Từ bản build 3933.  
+Tụt FPS ở hầu hết các đoạn in Game, Đề xuất phương án giải pháp cụ thể để xử lý.
+
+<br>
+
+Mục tiêu optimize: tải hệ thống ổn định, đạt tối thiểu 45 FPS trên điện thoại tầm thấp A55 và 60 FPS trên điện thoại tầm cao S25"
+1773,Shading xe - Ingame ,Bug,In progress,Phu Pham,Normal,"",4.0,13.0,Son  Nguyen ,"","",Graphicals,"",VNRacing,"User story #1777: Tôi muốn có cảm giác thoả mãn về chiếc xe của mình khi bắt đầu đua, Góc máy đẹp - Cinematic scene","*   &nbsp;Build 3933
+    
+*   Mô tả lỗi: Ở các intro tất cả các track đua, phần xe đang bị tối đen
+    
+*   Expected Behavior: Xe ánh sáng phù hợp, phản ứng đúng refleection
+    
+*   System Info: iOS26.2, Iphone16 Plus.
+    
+*   <img class=""op-uc-image op-uc-image_inline"" src=""/api/v3/attachments/1547/content""><img class=""op-uc-image op-uc-image_inline"" src=""/api/v3/attachments/1546/content""><img class=""op-uc-image op-uc-image_inline"" src=""/api/v3/attachments/1545/content"">
+    
+
+<br>"
+1775,Build Version 0.1.0.3959,Build ,New,Phuoc Ho Duc,Normal,"","","",Perforce Integration Bot,"","","","",VNRacing,"","Jenkins Build thành công, đường dẫn bản build:
+
+**Android:**
+
+[Tải về Android Build 0.1.0.3959](http://repo.clickstudio.com.vn:9091/repository/racing/client/android/0.1.0.3959/android-0.1.0.3959.zip)
+
+**iOS:**
+
+Cập nhật trên TestFlight
+"
+1776,Review new build version 0.1.0.3959,Task,New,Phuoc Ho Duc,Normal,Game Design,"","",Perforce Integration Bot,"","","","",VNRacing,Build  #1775: Build Version 0.1.0.3959,- Fix CarPaint Material
+1777,"Tôi muốn có cảm giác thoả mãn về chiếc xe của mình khi bắt đầu đua, Góc máy đẹp - Cinematic scene",User story,New,Phuoc Ho Duc,Normal,"","",99.0,Son  Nguyen ,"","","","",VNRacing,Feature #398: Game State,""
+1778,Intro Car_Sedan,Task,New,"",Normal,Tech Art,"","",Giang Duong Vo Tra,"","","","",VNRacing,Summary task #1433: CARS INTRO,""
+1779,Intro Car_VF8,Task,New,"",Normal,Tech Art,"","",Giang Duong Vo Tra,"","","","",VNRacing,Summary task #1433: CARS INTRO,""
+1780,Intro Car_Mer,Task,New,"",Normal,Tech Art,"","",Giang Duong Vo Tra,"","","","",VNRacing,Summary task #1433: CARS INTRO,""
+1783,TA_Xử lý tấm AO shadow cho xe,Task,Waiting For Approve,Phu Pham,Normal,Tech Art,1.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Bug #1773: Shading xe - Ingame ,""
+1787,Optimize map Hội An,Summary task,In progress,"",Normal,Tech Art,"",45.0,Giang Duong Vo Tra,"","","","",VNRacing,"User story #1280: Là Player, tôi muốn đua xe ở phố cổ Hội An",""
+1790,Dev_Tool để đặt collision tự động ,Task,Waiting For Approve,Doi Huynh Van,High,Dev,4.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Summary task #1189: Collision ,""
+1791,Build Version 0.1.0.3970,Build ,New,Phuoc Ho Duc,Normal,"","","",Perforce Integration Bot,"","","","",VNRacing,"","Jenkins Build thành công, đường dẫn bản build:
+
+**Android:**
+
+[Tải về Android Build 0.1.0.3970](http://repo.clickstudio.com.vn:9091/repository/racing/client/android/0.1.0.3970/android-0.1.0.3970.zip)
+
+**iOS:**
+
+Cập nhật trên TestFlight
+"
+1792,Review new build version 0.1.0.3970,Task,New,Phuoc Ho Duc,Normal,Game Design,"","",Perforce Integration Bot,"","","","",VNRacing,Build  #1791: Build Version 0.1.0.3970,- Update map RampTest
+1793,Spolier Sport và Luxury xe Merc bị cao trục Z so với Spoiler Basic.,Bug,In specification,Nam Nguyen Ky,Normal,"","","",Phuoc Ho Duc,"","","Objects, Physics & Decors","",VNRacing,User story #341: Visual Customize,"Steps to Reproduce:
+
+1.  Vào chế độ Car Customize, xe Mer
+    
+2.  Chọn Part Spoiler.
+    
+3.  Chuyển qua các Part Sport hoặc Luxury.
+    
+
+Resulting Behavior:
+
+*   Spoiler Sport &amp; Luxury bị cao hơn hẳn so với Basic
+    
+
+Expected Behavior:
+
+*   Spoiler Sport &amp; Luxury cao bằng Basic.
+    
+
+System Info: iOS26.2, Iphone16 Plus.
+
+https://drive.google.com/file/d/1YKTirYKlM1HvrTteYdcMzAbS53P4n1j8/view?usp=share\_link"
+1794,Một số Part của xe Mercedes bị lỗi lưới và Material bị ám màu xám.,Bug,In specification,Nam Nguyen Ky,Normal,"","","",Phuoc Ho Duc,"","","Objects, Physics & Decors","",VNRacing,User story #341: Visual Customize,"Steps to Reproduce:
+
+1.  Vào Car Customize Visual, chọn xe Mercedes.
+    
+2.  Kiểm tra các Part trong danh sách Resulting Behavior.
+    
+
+Resulting Behavior:
+
+1.  FrontBumper: Sport, Luxury --&gt; Material bị ám màu xám, mặt lưới lọc gió của xe bị lỗi.
+    
+2.  RearBumper: Basic, Sport, Luxury --&gt; Material bị ám màu xám.
+    
+3.  Roof: Basic, Sport, Luxury --&gt; Material bị ám màu xám.
+    
+4.  SideBoard: Basic, Sport, Luxury --&gt; Material bị ám màu xám.
+    
+5.  Spoiler: Basic, Sport, Luxury --&gt; Material bị ám màu xám.
+    
+
+Expected Behavior:
+
+*   Các Part liệt kê ở trên nhìn rõ ràng và chi tiết, không bị ám màu xám, nếu là vật liệu màu đen thì nên có chất lượng tương tự như Basic Front Bumper.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1795,"UI Car Customize Visual, xe Mercedes Part Front Bumper chưa thay Thumbnail, sai Text.",Bug,Tested,Son Nguyen Nam,Normal,"","",0.25,Phuoc Ho Duc,"","",UI/UX,"",VNRacing,User story #341: Visual Customize,"Steps to Reproduce:
+
+1.  Vào Car Customize Visual, chọn xe Mercedes.
+    
+2.  Check các Part Front Bumer
+    
+
+Resulting Behavior:
+
+*   Các Part Front Bumper chưa có Thumbnails.
+    
+*   Part Basic viết sai chính tả (Bacsic)
+    
+
+Expected Behavior:
+
+*   Các Part Front Bumper có Thumbnails.
+    
+*   Part Basic viết đúng chính tả.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1796,Lỗi Camera tiến tới quá sát xe trong lúc Drift và va chạm.,Bug,In specification,"",Normal,"","","",Phuoc Ho Duc,"","","","",VNRacing,"User story #197:     Tôi muốn cảm giác Arcade nhưng vẫn có yếu tố va chạm,nhưng tôi không muốn xe lật ","Steps to Reproduce:
+
+1.  Vào đua Track bất kỳ.
+    
+2.  Drift nhiều hoặc va chạm nhiều.
+    
+3.  Check Camera của xe.
+    
+
+Resulting Behavior:
+
+*   Camera xe trong khoảng 50% số lần chơi sẽ tiến tới rất sát đuôi xe.
+    
+
+Expected Behavior:
+
+*   Camera giữ khoảng cách lý tưởng ban đầu trong khi chơi, chỉ tiến sát tới đuôi xe trong các trường hợp được chỉ định.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1797,Indicator để vào chức năng Car Customize chưa tốt.,Bug,Specified,Phuoc Ho Duc,Normal,"","","",Phuoc Ho Duc,"","",Design Bug,"",VNRacing,Feature #340: Car Customize,"Steps to Reproduce:
+
+1.  Vào Screen Car Customize
+    
+2.  Vào Screen Car Customize Visual hoặc Performance.
+    
+
+Resulting Behavior:
+
+*   Indicator hiện phần Car Customize Visual trên màn hình có cảm giác bị lỗi.
+    
+
+Expected Behavior:
+
+*   Indicator hiện phần Car Customize Visual trên màn hình đi theo xe chứ không phải tấm Texture hình chữ nhật màu xanh như hiện tại.
+    
+
+System Info: iOS26.2, Iphone16 Plus.
+
+[https://drive.google.com/file/d/1dsI6xr1Vf\_w6JYh3Qq6BtLOhRhjiCRwG/view?usp=share\_link](https://drive.google.com/file/d/1dsI6xr1Vf_w6JYh3Qq6BtLOhRhjiCRwG/view?usp=share_link)
+
+**\*\*SỬA GỘP CÙNG BUG 1800**"
+1798,"Flow để vào thùng đồ Inventory chưa thuận tiện, cần tách riêng ra một khu vực",Bug,Specified,Phuoc Ho Duc,Normal,"","",102.0,Phuoc Ho Duc,"",W5-6,Design Bug,"",VNRacing,"User story #1993: (Inventory) Là Player, tôi muốn có khả năng theo dõi số lượng Item mà mình đang sở hữu cũng như sử dụng nhanh các Item đó ngay trong thùng đồ để tiện lợi hơn trong quá trình kiểm kê và ra quyết định In-Game. ","Steps to Reproduce:
+
+1.  Sửa lại cách tiếp cận chức năng Car inventory
+    
+2.  <br>
+    
+
+Resulting Behavior:
+
+*   Người chơi muốn xem Inventory phải vào User Profile --&gt; Inventory.
+    
+
+Expected Behavior:
+
+*   Inventory có thể vào xem bằng một nút trên giao diện người chơi.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1799,Bánh xe VF8 quá nhỏ so với Body xe.,Bug,In specification,"",Normal,"","","",Phuoc Ho Duc,"","","Objects, Physics & Decors","",VNRacing,User story #1994: VF8_Car,"Steps to Reproduce:
+
+1.  Chọn xe VF8.
+    
+2.  Check phần bánh xe.
+    
+
+Resulting Behavior:
+
+*   Bánh xe VF8 quá nhỏ so với Body.
+    
+
+Expected Behavior:
+
+*   Bánh xe VF8 có kích thước tương ứng với Body xe.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1800,"Car Customize Visual , chức năng mua sắm bằng giỏ hàng chưa thuận tiện.",Bug,Scheduled,Phuoc Ho Duc,Normal,"","",63.0,Phuoc Ho Duc,"",W5-6,Design Bug,"",VNRacing,User story #341: Visual Customize,"Steps to Reproduce:
+
+1.  Chọn mua Part bất kỳ.
+    
+2.  Thêm vào giỏ hàng.
+    
+3.  Bấm vào giỏ hàng, Checkout.
+    
+4.  Hoặc thoát ra khỏi Car Customize Visual và không Checkout.
+    
+5.  Bấm Yes để Discard hết Item trong giỏ hàng.
+    
+
+Resulting Behavior:
+
+*   Quy trình mua sắm lâu và phức tạp.
+    
+
+Expected Behavior:
+
+*   Chọn cái nào thì mua cái đó luôn.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1801,Vị trí các chấm để Customize Part xe Mercedes chưa chính xác lên thân xe.,Bug,Tested,Tan  Phan Huynh,Normal,"","",2.0,Phuoc Ho Duc,"","",Feature & Functions Defects,"",VNRacing,User story #341: Visual Customize,"Steps to Reproduce:
+
+1.  Chọn xe Merc, vào Customize Visual.
+    
+2.  Check vị trí các chấm để Customize trên thân xe.
+    
+
+Resulting Behavior:
+
+*   Vị trí các chấm quá xa so với vị trí thực tế của các Part Customize.
+    
+
+Expected Behavior:
+
+*   Vị trí các chấm vừa đủ gần với vị trí thực tế của các Part Customize.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1802,"Chức năng xoay Camera bị lỗi khi mũi xe ở gần Camera, cả chức năng tự động xoay Camera và xoay Cam chủ động từ người chơi.",Bug,Tested,Tan  Phan Huynh,Normal,"","",8.0,Phuoc Ho Duc,"","","","",VNRacing,User story #341: Visual Customize,"Steps to Reproduce:
+
+1.  Xoay Camera tới mũi xe.
+    
+2.  Thả cho Cam tự động di chuyển
+    
+3.  Hoặc cố tình xoay Camera để mũi xe hướng ra ngoài màn hình.
+    
+
+Resulting Behavior:
+
+*   Camera bị giật lên hoặc xuống khi mũi xe hướng ra ngoài màn hình người chơi.
+    
+
+Expected Behavior:
+
+*   Camera không bị giật lên hoặc xuống.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1803,Các Panel Skills hiển thị khi đua có khoảng cách không đúng với Design.,Bug,Specified,Son Nguyen Nam,Normal,"","",4.0,Phuoc Ho Duc,"","","","",VNRacing,"User story #2039: (Skill) Là Player, tôi muốn khi thực hiện các Skill trong khi đua sẽ được thưởng bằng cách Refill thanh NOS để có động lực thực hiện các kỹ năng này nhiều hơn.","Steps to Reproduce:
+
+1.  Vào Track đua bất kỳ.
+    
+2.  Kích hoạt 2 Skill hoặc nhiều Skills khác nhau.
+    
+3.  Check các Panel Skill.
+    
+
+Resulting Behavior:
+
+*   Panel của Skill thứ hai nằm đè lên Skill đầu tiên. ( 2 Skill khác nhau)
+    
+
+Expected Behavior:
+
+*   Các Panel Skill có khoảng cách chính xác như Design.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1804,Hiển thị Skill Pick chưa đúng khi Pick up nhiều bình NOS trên đường đua.,Bug,Developed,Son Nguyen Nam,Normal,"","",2.0,Phuoc Ho Duc,"",W5-6,"","",VNRacing,"User story #2039: (Skill) Là Player, tôi muốn khi thực hiện các Skill trong khi đua sẽ được thưởng bằng cách Refill thanh NOS để có động lực thực hiện các kỹ năng này nhiều hơn.","Steps to Reproduce:
+
+1.  Vào Track đua bất kỳ.
+    
+2.  Lượm nhiều bình NOS trên đường đua.
+    
+3.  Check Panel Skill NOS
+    
+
+Resulting Behavior:
+
+*   Panel Skill NOS không hiển thị đúng với Design khi Pick up nhiều Skill NOS.
+    
+
+Expected Behavior:
+
+*   Panel Skill NOS hiển thị đúng với Design khi Pick up nhiều Skill NOS.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1805,Skill Hang Time chưa được tính điểm.,Bug,Tested,Tan  Phan Huynh,Normal,"","",4.0,Phuoc Ho Duc,"","",Feature & Functions Defects,"",VNRacing,"User story #2039: (Skill) Là Player, tôi muốn khi thực hiện các Skill trong khi đua sẽ được thưởng bằng cách Refill thanh NOS để có động lực thực hiện các kỹ năng này nhiều hơn.","Steps to Reproduce:
+
+1.  Vào Track Test Ramp.
+    
+2.  Bay lên các Ramp.
+    
+3.  Track UI Skill Ramp.
+    
+
+Resulting Behavior:
+
+*   Skill Ramp hiện lên nhưng chưa tính điểm thời gian trên không.
+    
+
+Expected Behavior:
+
+*   Skill Ramp hiện lên và có tính điểm thời gian trên không.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1806,Sound FX khi va chạm với hàng rào và các nón cảnh báo trên đường quá lớn.,Bug,In specification,"",Normal,"","","",Phuoc Ho Duc,"","",Audio Bugs,"",VNRacing,"","Steps to Reproduce:
+
+1.  Vào Track Sơn Trà Sprint.
+    
+2.  Trong khi đua tông vào các hàng rào và các nón màu cam đặt trên đường
+    
+3.  Nghe SFX
+    
+
+Resulting Behavior:
+
+*   SFX hơi to so với mặt bằng chung.
+    
+
+Expected Behavior:
+
+*   SFX được Balance vừa phải.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1807,Screen Race Result hiển thị sai số thứ tự khi về đích của người chơi.,Bug,Tested,Son Nguyen Nam,Normal,"","",4.0,Phuoc Ho Duc,"","","","",VNRacing,Feature #338:     Tôi muốn có nhiều Race Mode chơi,"Steps to Reproduce:
+
+1.  Vào cuộc đua bất kỳ. (Trừ các Tracks Time Attack)
+    
+2.  Về đích ở vị trí thứ 2 trở xuống.
+    
+3.  Check Screen Result.
+    
+
+Resulting Behavior:
+
+*   Screen Result hiển thị vị trí của người chơi trên bảng tổng sắp và vị trí trên góc phải UI không giống nhau. (Khoảng 50% só lần đua)
+    
+
+Expected Behavior:
+
+*   Screen Result hiển thị vị trí của người chơi trên bảng tổng sắp và vị trí trên góc phải UI đồng bộ và chính xác.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1808,Hiển thị vị trí khi đua trên đầu các tay đua máy không chính xác.,Bug,Developed,Son Nguyen Nam,Normal,"","",4.0,Phuoc Ho Duc,"","","","",VNRacing,"User story #218:     Tôi muốn trong khi đua,có phần infor của các player,có rank player - player title","Steps to Reproduce:
+
+1.  Vào đua Track bất kỳ (Ngoại trừ các Track Time Attack)
+    
+2.  Cố gắng đạt vị trí thứ 2 trở xuống.
+    
+3.  Quan sát số chỉ vị trí trên đầu các tay đua máy ở trước và vị trí hiện tại của người chơi.
+    
+
+Resulting Behavior:
+
+*   Số chỉ vị trí bị ngược so với thực tế (1 --&gt; 4, 3 --&gt; 2, v.v) (Khoảng 50% số lần chơi)
+    
+
+Expected Behavior:
+
+*   Số chỉ vị trí chính xác như thực tế trong cuộc đua.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1809,Screen Track Selection bị lỗi hiển thị khi di chuyển từ bất kỳ Screen nào khác tới nó.,Bug,Specified,Son Nguyen Nam,Normal,"","",6.0,Phuoc Ho Duc,"","",UI/UX,"",VNRacing,Feature #338:     Tôi muốn có nhiều Race Mode chơi,"Steps to Reproduce:
+
+1.  Đã đua hết các Track của một Area.
+    
+2.  Từ Screen Race Result về lại Screen Track Selection của Area đã đua hết Track.
+    
+3.  Check chỗ ghi vị trí hoàn thành của các Track.
+    
+
+Resulting Behavior:
+
+*   Vị trí hoàn thành của các Track không được chọn bị lỗi Text.
+    
+
+Expected Behavior:
+
+*   Vị trí hoàn thành của các Track không được chọn không bị lỗi Text.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1810,Các Screen WorkInProgress chưa có Back ground.,Bug,In specification,"",Normal,"","","",Phuoc Ho Duc,"","",UI/UX,"",VNRacing,"","Steps to Reproduce:
+
+1.  Vào các chức năng chưa được phát triển (Multiplayer, Daily Challenge).
+    
+2.  Check Screen WorkInProgress.
+    
+
+Resulting Behavior:
+
+*   Screen WorkInProgress chưa có Back Ground
+    
+
+Expected Behavior:
+
+*   Screen WorkInProgress có BackGround.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1811,"Screen Main, Camera đặt quá sát xe và quá thấp.",Bug,In specification,"",Normal,"","","",Phuoc Ho Duc,"","","","",VNRacing,"User story #1831: Là Player, Tôi muốn có tính năng Customize","Steps to Reproduce:
+
+1.  Vào Screen Main.
+    
+2.  Check xe trên màn hình.
+    
+
+Resulting Behavior:
+
+*   Camera đặt sát xe và ở vị trí thấp làm xe bị bóp méo phần Cabin lái và làm tổng quan xe không được đẹp.
+    
+
+Expected Behavior:
+
+*   Camera đặt ở vị trí tốt hơn nếu bắt buộc phải cố định chiều dọc để xe bớt bị bóp máp.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1812,"Screen Car Selection & Car Customize, Camera ở quá sát xe làm xe đâm ra khỏi Screen và UI khi xoay.",Bug,In specification,Tan  Phan Huynh,Normal,"","","",Phuoc Ho Duc,"","","","",VNRacing,"User story #1831: Là Player, Tôi muốn có tính năng Customize","Steps to Reproduce:
+
+1.  Vào Screen Car Selection hoặc Car Customize.
+    
+2.  Xoay Camera xung quanh xe.
+    
+3.  Check xe.
+    
+
+Resulting Behavior:
+
+*   Camera ở quá sát xe làm xe đâm ra khỏi Screen và UI.
+    
+
+Expected Behavior:
+
+*   Camera được điều chỉnh hợp lý như trước, giống trong Design.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1813,"Screen UserProfile, nút đổi tên và đổi Avatar đang khó bấm.",Bug,Tested,Son Nguyen Nam,Normal,"","",2.0,Phuoc Ho Duc,"","",UI/UX,"",VNRacing,"User story #206: (UserProfile) Là Player, tôi muốn được xem các thông tin tổng quan về quá trình chơi của tôi (Giờ chơi, số lượng Track đã Unlock, v.v) để tự bao quát được quá trình chơi Game này.","Steps to Reproduce:
+
+1.  Vào Screen UserProfile.
+    
+2.  Bấm đổi tên hoặc đổi Avatar.
+    
+
+Resulting Behavior:
+
+*   Nút bấm nhỏ, có cảm giác bị lệch về góc trên bên phải nên khó bấm.
+    
+
+Expected Behavior:
+
+*   Nút bấm nhạy, dễ bấm.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1814,"Screen User Profile, chức năng đổi tên, khi bấm Random thì nút Confirm chưa đổi thành nút Check, nút Random nhỏ khó bấm.",Bug,In specification,Son Nguyen Nam,Normal,"","",2.0,Phuoc Ho Duc,"","",UI/UX,"",VNRacing,"User story #206: (UserProfile) Là Player, tôi muốn được xem các thông tin tổng quan về quá trình chơi của tôi (Giờ chơi, số lượng Track đã Unlock, v.v) để tự bao quát được quá trình chơi Game này.","Steps to Reproduce:
+
+1.  Vào Chức năng đổi tên trong User Profile.
+    
+2.  Bấm nút Random.
+    
+3.  Check nút Confirm.
+    
+
+Resulting Behavior:
+
+*   Nút Confirm giữ nguyên tình trạng, không tự đổi sang nút Check như trong Design.
+    
+*   Nút Random nhỏ khó bấm.
+    
+
+Expected Behavior:
+
+*   Nút Confirm vẫn đổi sang nút Check khi người dùng bấm nút Random.
+    
+*   Nút Random có thể nhỏ nhưng vùng tương tác kích hoạt nên lớn hơn để dễ bấm.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1818,"Chức năng đổi tên và Avatar trong Profile khiến UI bị Lock ở Screen UserProfile, không thể bấm nút Back hoặc sử dụng thanh tác vụ để về Home.",Bug,Tested,Tan  Phan Huynh,Normal,"","",3.0,Phuoc Ho Duc,"",W5-6,UI/UX,"",VNRacing,"User story #206: (UserProfile) Là Player, tôi muốn được xem các thông tin tổng quan về quá trình chơi của tôi (Giờ chơi, số lượng Track đã Unlock, v.v) để tự bao quát được quá trình chơi Game này.","Steps to Reproduce:
+
+1.  Vào Screen UserProfile, chọn chức năng đổi Avatar.
+    
+2.  Kích hoạt Panel chọn lựa Avatar để đổi.
+    
+3.  Đổi Avatar hoặc không đổi Avatar, bấm Confirm.
+    
+4.  Check UI
+    
+
+Resulting Behavior:
+
+*   Không thể bấm Back hoặc sử dụng thanh tác vụ ở góc trên màn hình để chuyển qua Screen khác.
+    
+
+Expected Behavior:
+
+*   Nút Back và các thanh tác vụ chỉ Lock khi người chơi còn ở trong Panel chọn Avatar, khi Confirm Avatar mới hoặc thoát khỏi Panel này thì trả lại chức năng như cũ.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1820,Lỗi A.I rơi khỏi Map trong khi đua ở Track NHS Circuit.,Bug,In specification,"",Normal,"","","",Phuoc Ho Duc,"","","Objects, Physics & Decors","",VNRacing,"","Steps to Reproduce:
+
+1.  Vào đua Track NHS Circuit.
+    
+2.  Cố tình chạy sau A.I
+    
+3.  Đua tới đoạn bay xuống cầu thang trong hang.
+    
+4.  Check A.I
+    
+
+Resulting Behavior:
+
+*   A.I bị rơi khỏi Map khi tiếp đất sau khi bay xuống cầu thang.
+    
+
+Expected Behavior:
+
+*   A.I không bị rơi khỏi Map.
+    
+
+System Info: iOS26.2, Iphone16 Plus."
+1826,Sửa lại giới hạn của bánh xe để giới hạn khoảng di chuyển được,Task,Waiting For Approve,"",Normal,Dev,4.0,"",Giang Duong Vo Tra,"","","","",VNRacing,Bug #1771: Xe bị giật và bánh xe có hiện tượng rớt ra khỏi xe. Cần kiểm tra phần vật lý xe,""
+1827,Optimize Main Menu,Summary task,New,"",Normal,Dev,"",20.0,Giang Duong Vo Tra,"","","","",VNRacing,User story #1930: Main Menu Game,""
+1831,"Là Player, Tôi muốn có tính năng Customize",User story,In progress,Phuoc Ho Duc,Normal,"","",397.0,Giang Duong Vo Tra,"","","","",VNRacing,Feature #340: Car Customize,"<img class=""op-uc-image op-uc-image_inline"" src=""/api/v3/attachments/1900/content"">
+
+Điều kiện hoàn thành:&nbsp;
+
+<br>
+
+1\.  Level Garage:
+
+*   3D, người chơi có thể xoay Camera xung quanh xe.
+    
+*   Thấy được xe của người chơi đang sử dụng, update khi người chơi đổi xe.
+    
+*   Level Garage đáp ứng về mặt mỹ thuật, tôn lên vẻ đẹp của xe.
+    
+*   Không có lỗi Graphic (Dăm hình, xuyên Mesh, v.v)
+    
+*   Level Garage dùng chung cho 2 chức năng Car Customize và Car Selection.
+    
+
+2\. UI MainMenu:
+
+*   Đẹp và gọn gàng, thể hiện đẩy đủ các thông tin, có đầy đủ Animation và FX khi tương tác:
+    
+    *   Oveview tình trạng tiền Cash và Click đang sở hữu.
+        
+    *   Thông tin Tooltips nếu Game State đạt đủ điều kiện kích hoạt.
+        
+*   Đầy đủ lối tắt tới các chức năng chính của Game:
+    
+    *   Về Main Menu.
+        
+    *   Đổi Xe.
+        
+    *   Customize Xe.
+        
+    *   Vào thùng đồ.
+        
+    *   Xem thông tin User Profile.
+        
+    *   Xem thông tin Achievement.
+        
+    *   Đổi Setting Game.
+        
+    *   Vào Shop mua sắm.
+        
+    *   Xem tin nhắn gửi tới từ hệ thống.
+        
+*   Không có lỗi UI (Tai thỏ, tràn viền, v.v)
+    
+
+3\. Performance:
+
+*   Ổn định ở mức 60FPS trên Target máy. (iOS &amp; Android)
+    
+*   Không làm nóng máy khi để Idle trong khoảng 30 phút.
+    
+
+4\. Sound &amp; Music:
+
+*   Nhạc nền cho Garage.
+    
+*   Các SFX khi tương tác với các chức năng UI và các sự kiện khác trên Screen này."
+1832,FX_NITRO_xe người chơi được sử dụng bình NOS ,Summary task,In progress,"",Normal,FX,"",18.0,Giang Duong Vo Tra,"","","","",VNRacing,"User story #157:     Tôi muốn có cảm giác đua xe arcade,drift để thu thập nos",""
+1834,Tạo FX_NITRO_Xe người chơi khi sử dụng bình NOS (Ver 2),Task,Waiting For Approve,Hoàng Trần Văn Huy,Normal,FX,32.0,"",Giang Duong Vo Tra,"",W5-6,"","",VNRacing,Summary task #2393: FX Khi xe sử dụng NOS & Drift,""

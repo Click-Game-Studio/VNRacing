@@ -1,0 +1,234 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DM-RACE — Basic Racing — Low-Level Design</title><style>
+:root{color-scheme:light dark}
+body{max-width:920px;margin:0 auto;padding:2rem 1.25rem;
+  font:16px/1.6 -apple-system,Segoe UI,Roboto,sans-serif;
+  background:#0d1117;color:#c9d1d9}
+a{color:#58a6ff}
+h1,h2,h3{line-height:1.25;margin-top:1.6em;border-bottom:1px solid #30363d;padding-bottom:.3em}
+code{background:#161b22;padding:.15em .4em;border-radius:4px;font-size:.9em}
+pre{background:#161b22;padding:1rem;border-radius:8px;overflow:auto}
+pre code{background:none;padding:0}
+table{border-collapse:collapse;width:100%;margin:1em 0}
+th,td{border:1px solid #30363d;padding:.5em .75em;text-align:left}
+th{background:#161b22}
+blockquote{border-left:3px solid #30363d;margin:0;padding-left:1em;color:#8b949e}
+</style></head>
+<body><h1>DM-RACE — Basic Racing — Low-Level Design</h1>
+<blockquote>
+<p>Source: <code>Docs/audit/DM-RACE_basic_racing.md</code>, <code>Docs/c4/model.c4</code>, read-only source under <code>PrototypeRacing/Source</code>.
+Structurizr view: <code>DM_RACE_Components</code>.
+OpenProject: #324.</p>
+</blockquote>
+<h2>Feature summary and boundaries</h2>
+<p>DM-RACE owns the full race lifecycle: spawn cars + AI, countdown intro, start race, per-frame checkpoint/lap/ranking/timer tracking, end race and handoff results to VT-CITY. The central actor is <code>ARaceTrackManager</code> — a level-bound orchestrator that coordinates all race logic. NOS boost is owned by DM-NOS; vehicle physics by DM-PHYS; AI decision policy by SUP-AI; camera by DM-CAM.</p>
+<p><img src="../structurizr/embed/DM_RACE_Components" alt="DM-RACE components"></p>
+<h1>Layer 1 — Implementation map and hotspots</h1>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Source mapping</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ARaceTrackManager</code></td>
+<td><code>PrototypeRacing/Private/RaceMode/RaceTrackManager.cpp</code> (1869 lines)</td>
+<td>Central race orchestrator; Tick every frame; owns ranking, checkpoint state, AI setup, intro/outro sequence.</td>
+</tr>
+<tr>
+<td><code>ARacingCarGameMode</code></td>
+<td><code>PrototypeRacing/Private/RacingCarGameMode.cpp</code></td>
+<td>Spawns race manager + cars; handles player login/ready.</td>
+</tr>
+<tr>
+<td><code>ARaceGameState</code></td>
+<td><code>PrototypeRacing/Private/RaceGameState.cpp</code></td>
+<td>Replicates car count + player readiness list.</td>
+</tr>
+<tr>
+<td><code>ARacingCarController</code></td>
+<td><code>PrototypeRacing/Private/RacingCarController.cpp</code> (365 lines)</td>
+<td>Player controller; RPC race state to client HUD.</td>
+</tr>
+<tr>
+<td><code>ARaceCheckpoint</code></td>
+<td><code>PrototypeRacing/Private/RaceMode/RaceCheckpoint.cpp</code></td>
+<td>Trigger overlap → notifies manager.</td>
+</tr>
+<tr>
+<td><code>URaceComponent</code></td>
+<td><code>PrototypeRacing/Private/RaceMode/RaceComponent.cpp</code> (34 lines)</td>
+<td>Tick enabled with empty body — hotspot #3.</td>
+</tr>
+<tr>
+<td><code>ABoostCheckPoint</code></td>
+<td><code>PrototypeRacing/BoostCheckPoint.cpp</code></td>
+<td>Time-bonus checkpoint; Tick body empty (lines 39–41).</td>
+</tr>
+</tbody></table>
+<p>Race lifecycle flow:</p>
+<pre><code>ARacingCarGameMode
+   ├─ spawn ARaceTrackManager
+   ├─ spawn player car + SetupAICar(PlayerStarts)
+   └─ register ready cars → ARaceGameState
+
+ARaceTrackManager::BeginPlay (line 134)
+   └─ GetAllActorsOfClass(ARaceCheckpoint) → AllCheckpoints  (once, OK)
+
+[Intro] → OnStartGameAfterIntroFinish → StartRace → SignalRaceBegin (NetMulticast)
+
+[Each frame] ARaceTrackManager::Tick (line 207)
+   └─ HandleUpdateRanking()  ← HOTSPOT #1 (line 210, unconditional)
+
+[Car hits checkpoint] ARaceCheckpoint::NotifyActorBeginOverlap
+   └─ OnVehicleDetectedAtCheckpoint.Broadcast
+        └─ ARaceTrackManager::HandleVehicleDetectedAtCheckpoint (line 223)
+             └─ update lap/checkpoint, MarkFinished when at finish line
+
+[Ranking changes] OnRankingUpdate.Broadcast
+   └─ ARacingCarController::HandleRankingUpdateCallToClient (RPC) ← HOTSPOT #2
+
+[End] EndRace → OnRaceEnded.Broadcast → VT-CITY HandleRaceCompleted
+</code></pre>
+<h3>Hotspot #1 — P0: <code>Tick → HandleUpdateRanking()</code> every frame</h3>
+<p><code>RaceTrackManager.cpp:207–221</code> calls <code>HandleUpdateRanking()</code> unconditionally at line 210. Inside <code>HandleUpdateRanking()</code> (lines 834–877):</p>
+<ul>
+<li>Loop over all <code>ManagerPlayerInfo</code> computing <code>FVector::DistSquared</code> per car (lines 836–864).</li>
+<li><code>GetPlayerRaceStates()</code> (line 865, defined lines 583–630): <code>GenerateValueArray</code> full copy + <code>Algo::Sort</code> O(n log n) + loop assigning <code>Ranking</code>.</li>
+<li>Loop again calling <code>Vehicle-&gt;SetRaceRank</code> (lines 866–874) + <code>OnRankingUpdate.Broadcast</code> (line 875).</li>
+<li>Line 876: <code>const float CurrentMoment = GetWorld()-&gt;GetTimeSeconds();</code> computed but never used — dead code.</li>
+</ul>
+<p>Fix: <code>UpdateInterval = 0.3f</code> and <code>UpdateCheckpointTimerHandle</code> already exist in the header (line 641). Move <code>HandleUpdateRanking</code> from Tick to a timer at 3–10 Hz. Remove dead code line 876. Disable <code>PrimaryActorTick</code> if Tick has no other work.</p>
+<h3>Hotspot #2 — P0: <code>HandleRankingUpdateCallToClient</code> — GetAllActorsOfClass + O(n²)</h3>
+<p><code>RacingCarController.cpp:286–308</code>: every ranking update calls <code>UGameplayStatics::GetAllActorsOfClass(... ASimulatePhysicsCar ...)</code> (line 291) then a nested loop <code>for State : PlayerRaceState { for Actor : AllCars {...} }</code> (lines 293–307) — O(n²) + world scan cost each time. <code>FPlayerRaceState::Vehicle</code> pointer is already available; replace with <code>State.Vehicle-&gt;CurrentRanking = State.Ranking</code> — O(n), eliminates <code>GetAllActorsOfClass</code>.</p>
+<h3>Hotspot #3 — P1: <code>URaceComponent</code> empty tick</h3>
+<p><code>RaceComponent.cpp:12</code> sets <code>PrimaryComponentTick.bCanEverTick = true</code>; <code>TickComponent</code> (lines 29–34) body is empty. Set <code>bCanEverTick = false</code> or remove the component if unused.</p>
+<h3>Hotspot #4 — P1: Blueprint checkpoint Event Tick</h3>
+<p><code>BP_CheckPoint</code> / <code>BP_BoostCheckPoint</code> (3 nodes each, have <code>Event Tick</code>), <code>BP_DriftZone_Child</code> (12 nodes, <code>Event Tick</code> + <code>Parent: Tick</code>). Checkpoints should be pure event-driven; number per track multiplies the cost. BP audit-only: remove <code>Event Tick</code> in editor if body is empty.</p>
+<h1>Layer 2 — Contract surface</h1>
+<h2>Enum</h2>
+<pre><code class="language-cpp">// RaceCheckpoint.h
+enum class ECheckPointType : uint8 { None=0, Progress=1, Finish=2 };
+// RaceTrackManager.h
+enum class ERaceModeState : uint8 { None=0, Waiting=1, Running=2, End=3 };
+enum class EIntroSequenceType : uint8 { None, LevelIntro, LevelOutro, Car };
+// ERaceState (None/Waiting/Racing/Completed/NotCompleted) — per-player, in SimulatePhysicsCar.
+// ERaceMode (Sprint/TimeAttack/…) — external; determines race rules.
+</code></pre>
+<h2>Key structs</h2>
+<pre><code class="language-cpp">struct FPlayerRaceState {
+    ASimulatePhysicsCar* Vehicle = nullptr;
+    FString  PlayerName;
+    FText    CarName;
+    FName    AvatarId;
+    int32    LapCount = 1;
+    int32    NextExpectedCheckpoint = 0;
+    int32    TotalCheckpointPassed = 0;
+    float    TotalRaceCompletionTime = 0.f;
+    ERaceState RaceState = ERaceState::None;
+    FRaceTime  RaceTime;
+    int32    Ranking = 0;
+    float    DistanceToNextCheckpoint = 0;
+    FName    CarTypeId;
+    bool     bIsAI = false;
+    FAIDifficultyProfile AIDifficultyProfile;
+};
+
+struct FRaceInfo {
+    int32     TotalLap = 1;
+    ERaceMode RaceMode = ERaceMode::Sprint;
+    float     AttackTimeDuration = 30.f;
+    float     TimeBonus = 0.f;
+    int32     CurrentNumberPlayers = 0;
+    ETrackDifficulty TrackDifficulty = ETrackDifficulty::Easy;
+    static FRaceInfo MakeRaceInfo(ERaceMode, int32 InCurrentPlayers);
+};
+</code></pre>
+<h2>Delegates (ARaceTrackManager, BlueprintAssignable)</h2>
+<table>
+<thead>
+<tr>
+<th>Delegate</th>
+<th>Payload</th>
+<th>When fired</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>OnCheckpointPassed</code></td>
+<td><code>const TArray&lt;FPlayerRaceState&gt;&amp;</code></td>
+<td>Car passes checkpoint</td>
+</tr>
+<tr>
+<td><code>OnRankingUpdate</code></td>
+<td><code>const TArray&lt;FPlayerRaceState&gt;&amp;</code></td>
+<td>After each ranking calc</td>
+</tr>
+<tr>
+<td><code>OnPlayerStartRace</code></td>
+<td><code>const TArray&lt;FPlayerRaceState&gt;&amp;</code></td>
+<td>Race begins</td>
+</tr>
+<tr>
+<td><code>OnPlayerFinishedRace</code></td>
+<td><code>const TArray&lt;FPlayerRaceState&gt;&amp;</code></td>
+<td>One car finishes</td>
+</tr>
+<tr>
+<td><code>OnRaceEnded</code></td>
+<td><code>const TArray&lt;FPlayerRaceState&gt;&amp;</code></td>
+<td>Race fully ended</td>
+</tr>
+<tr>
+<td><code>OnLapCompleted</code></td>
+<td><code>(const ASimulatePhysicsCar*, const int&amp;)</code></td>
+<td>Lap complete</td>
+</tr>
+<tr>
+<td><code>OnTimeAttackUpdate</code></td>
+<td><code>const FRaceTime&amp;</code></td>
+<td>Timer tick</td>
+</tr>
+<tr>
+<td><code>OnTimeUp</code></td>
+<td><code>const TArray&lt;FPlayerRaceState&gt;&amp;</code></td>
+<td>Time expired</td>
+</tr>
+<tr>
+<td><code>OnRaceInfoUpdate</code></td>
+<td><code>const FRaceInfo&amp;</code></td>
+<td>RaceInfo changed</td>
+</tr>
+<tr>
+<td><code>OnAIStateChange</code></td>
+<td><code>(const FName&amp;, const EAIDecisionState&amp;)</code></td>
+<td>AI state change</td>
+</tr>
+</tbody></table>
+<h2>Public API — ARaceTrackManager</h2>
+<pre><code class="language-cpp">void StartRace();
+void EndRace();
+void SignalRaceBegin();                          // NetMulticast, Reliable
+void HandleVehicleDetectedAtCheckpoint(ASimulatePhysicsCar*, ECheckPointType, int32);
+void HandleUpdateRanking();                       // ⚠ currently called every frame
+TArray&lt;FPlayerRaceState&gt; GetPlayerRaceStates();
+FPlayerRaceState* GetPlayerRaceState(const ASimulatePhysicsCar*);
+float CalculateRaceProgress(ASimulatePhysicsCar*);
+TArray&lt;ASimulatePhysicsCar*&gt; GetActiveCars() const;
+void InitializePlayerRaceState(ASimulatePhysicsCar*, const bool&amp; bIsAICar=false, ...);
+void SetupAICar(const TArray&lt;APlayerStart*&gt;&amp; PlayerStarts);
+</code></pre>
+<h2>Replication</h2>
+<ul>
+<li><code>ARaceGameState</code>: replicates readiness + car list.</li>
+<li><code>ARaceTrackManager</code>: <code>bAllPlayersReadyForLoadingRelease</code> (ReplicatedUsing), <code>bIsOnlineMap</code> (Replicated). <code>SignalRaceBegin</code> = <code>NetMulticast, Reliable</code>.</li>
+<li><code>ARacingCarController</code>: <code>Handle*CallToClient</code> = <code>Client, Unreliable</code>; <code>SignalReady</code> = <code>Server, Unreliable</code>. <code>VehicleId</code> ReplicatedUsing <code>OnRep_VehicleId</code>.</li>
+</ul>
+<h2>Links</h2>
+<ul>
+<li>Audit: <code>Docs/audit/DM-RACE_basic_racing.md</code></li>
+<li>Structurizr: <code>DM_RACE_Components</code></li>
+</ul>
+</body></html>

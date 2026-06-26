@@ -1,0 +1,90 @@
+No,,,Feature,Task,Estimation (H),Complexity (1 -5),Assign,Dependency,Deadline,QC
+1,Phase 1,Contract Config Snapshot Foundation (Ngày 1-5),,,,,,,,
+2,,,Backend Contract,P1-01A: Định nghĩa RPC/error contract backend v1,4,3,Nam Sơn,—,,Deliv: Chốt endpoint request/response error code và storage touchpoints cho snapshot race session submit result inventory command và reward command.
+3,,,Unreal Integration Contract,P1-01B: Định nghĩa integration contract Unreal ↔ backend,4,3,Thịnh,P1-01A,,Deliv: Chốt payload client gửi/nhận callback retry hook và điểm thay local authority trong Unreal.
+4,,,UI Contract,P1-01C: Định nghĩa UI command-state/error mapping,4,3,Duy,P1-01A,,Deliv: Chốt cách UI hiển thị loading success retry duplicate stale version invalid config và backend timeout.
+5,,,Economy Contract,P1-01D: Định nghĩa economy/reward contract đầu vào cho backend,4,3,Đời,P1-01A,,Deliv: Chốt reward source reward payload duplicate policy config version và các field economy bắt buộc.
+6,,,Data & Mapping,P1-02: Chuẩn hóa bộ dữ liệu item reward pool và customize,12,4,Thịnh,"P1-01B, P1-01D",,Deliv: Có schema dữ liệu rõ cho item reward pool customize và các điểm dùng trong UI/meta.
+7,,,Reward System,P1-03: Thiết kế contract dữ liệu cho Reward System,8,4,Đời,"P1-01D, P1-02",,Deliv: Có contract cho race reward goal reward city unlock token/loot MVP và duplicate policy.
+8,,,Reward System,P1-04: Triển khai Reward System core,16,4,Đời,P1-03,,Deliv: Các nguồn thưởng chính đi qua một resolver thống nhất không còn logic grant rời rạc.
+9,,,Data Validation,P1-05: Xây bộ kiểm tra dữ liệu Reward,12,4,Đời,"P1-02, P1-03",,Deliv: Duplicate item invalid ref rarity/pool lỗi được phát hiện trước runtime.
+10,,,Backend DevOps,P1-06: Setup local/staging Nakama cho progression RPC và storage,8,3,Nam Sơn,P1-01A,,Deliv: Backend environment chạy được có collection/key tối thiểu và account test để gọi RPC.
+11,,,Backend Snapshot,P1-07: Thiết kế snapshot schema và bootstrap player objects,16,4,Nam Sơn,"P1-01A, P1-03, P1-06",,Deliv: Account mới có wallet/inventory/garage-lite/progression mặc định trên Nakama.
+12,,,Backend Snapshot,P1-08: Triển khai Snapshot read API kèm current_config_version,8,3,Nam Sơn,P1-07,,Deliv: Client đọc được snapshot authoritative và biết config version hiện hành.
+13,,,Backend Config,P1-09: Thiết kế config publish MVP lên Nakama storage,12,4,Nam Sơn,"P1-05, P1-06",,Deliv: Có active_version item_master_<version> car_registry_<version> reward_table_<version>.
+14,,,Backend Architecture,P1-10: Implement object versioning/optimistic write guard MVP,8,4,Nam Sơn,P1-07,,Deliv: Mutation wallet/inventory/progression có version guard không overwrite stale state.
+15,,,Unreal Integration,P1-11: Dựng snapshot adapter skeleton trong Unreal,16,4,Thịnh,"P1-01B, P1-08",,Deliv: Unreal nhận snapshot backend và expose data cho UI/meta system theo contract mới.
+16,,,UI Contract,P1-12: Thiết kế UI state contract cho backend command,8,3,Duy,"P1-01C, P1-11",,Deliv: Loading/synced/sync-failed/offline-cache/retry/error reason có mapping rõ với command result.
+17,,,UI Reward,P1-13: Rà soát và hoàn thiện UI cho các flow reward mới,12,3,Duy,"P1-04, P1-11, P1-12",,Deliv: UI có cấu trúc đủ để hiển thị reward từ server payload ở các flow chính.
+18,,,Progression UI,P1-14: Cập nhật VN Tour UI logic theo snapshot/progression mới,12,3,Thịnh,P1-11,,Deliv: VN Tour hiển thị đúng dữ liệu progression authoritative thay vì local-only.
+19,,,Inventory Integration,P1-15: Rà soát và khóa các điểm truy cập Inventory,8,3,Thịnh,P1-11,,Deliv: Inventory chỉ được mutate qua flow được phép chuẩn bị thay local authority bằng backend command.
+20,,,Progression UI,P1-16: Triển khai UI Goal unlock city ở mức representative slice,12,3,Duy,"P1-11, P1-12",,Deliv: UI goal/city unlock sẵn sàng nhận dữ liệu thật từ progression slice.
+21,,,QC Backend,P1-QC-NS: QC backend snapshot/config foundation,2,2,Nam Sơn,"P1-06, P1-07, P1-08, P1-09, P1-10",,Pass: Account mới bootstrap từ backend snapshot trả current_config_version local/staging Nakama chạy lại được.
+22,,,QC Integration,P1-QC-TH: QC Unreal snapshot adapter và local authority boundary,2,2,Thịnh,"P1-11, P1-14, P1-15",,Pass: Client load snapshot từ Nakama VN Tour/Inventory không còn coi local save là source of truth.
+23,,,QC UI,P1-QC-DU: QC UI sync/error foundation,2,2,Duy,"P1-12, P1-13, P1-16",,Pass: UI/debug nhìn được trạng thái sync và mapping loading/synced/sync-failed/offline-cache/retry.
+24,,,QC Data,P1-QC-DO: QC reward/config data foundation,2,2,Đời,"P1-03, P1-04, P1-05",,Pass: Reward contract rõ config/reward data reject duplicate/invalid item/car/ref cơ bản.
+25,,,,,,,,,,
+26,Phase 2,Race Session Reward Authority Idempotent Grant (Ngày 6-10),,,,,,,,
+27,,,Backend Race Authority,P2-01: Triển khai PvE race session creation RPC,8,3,Nam Sơn,"P1-08, P1-09",,Deliv: Backend tạo race_session_id pin config_version validate car/track hợp lệ.
+28,,,Reward System,P2-02: Triển khai reward theo kết quả race,12,4,Đời,"P1-04, P1-05, P1-09, P2-01",,Deliv: Sau race nhận đúng reward theo cấu hình mới và theo config_version đã pin.
+29,,,Backend Race Authority,P2-03: Triển khai PvE result submit RPC và sanity validation,16,4,Nam Sơn,"P2-01, P2-02",,Deliv: Reject duplicate/expired/invalid/impossible result với reason rõ ràng.
+30,,,Backend Reward Ledger,P2-04: Triển khai reward ledger và idempotent grant,20,5,Nam Sơn,"P1-10, P2-03",,Deliv: Retry cùng event_id không grant trùng ledger có trạng thái pending/committed/failed.
+31,,,Unreal Integration,P2-05: Tích hợp submit race result từ Unreal lên backend,12,4,Thịnh,"P1-11, P2-03",,Deliv: End-race gửi payload đúng contract nhận command result và không tự grant local.
+32,,,UI Reward,P2-06: Triển khai race result/reward sync UI,12,3,Duy,"P1-12, P1-13, P2-04, P2-05",,Deliv: Result screen hiển thị reward server payload duplicate/error reason và trạng thái retry rõ ràng.
+33,,,Goals & Progression,P2-07: Triển khai reward theo goal ở mức representative slice,8,3,Đời,"P1-04, P1-16",,Deliv: Một luồng goal có thể complete/claim/grant đúng 1 lần qua reward resolver.
+34,,,Reward Pool Loot,P2-08: Triển khai Token/Loot Crate reward MVP,8,4,Đời,"P1-04, P1-05",,Deliv: Token/Loot Crate sinh reward MVP đúng config full duplicate/batch polish để Post-MVP.
+35,,,Reward Pool Loot,P2-09: Triển khai xử lý duplicate visual item ở mức MVP,8,3,Đời,P2-08,,Deliv: Visual item trùng có rule xử lý tối thiểu không làm sai inventory state.
+36,,,Inventory Integration,P2-10: Triển khai flow use/equip item trong Inventory,16,4,Thịnh,"P1-15, P2-04",,Deliv: Item được use/equip đúng tác dụng và đi qua command path chuẩn bị backend sync.
+37,,,UI Reward,P2-11: Triển khai giao diện kết quả mở Token và Loot Crate MVP,8,3,Duy,"P2-08, P2-09",,Deliv: UI hiển thị reward cuối cùng theo payload đã resolve chưa cần full reveal polish.
+38,,,Progression UI,P2-12: Rà soát và hoàn thiện UI Goal unlock city,8,2,Duy,"P1-16, P2-07",,Deliv: UI goal hiển thị và update đúng dữ liệu thực tế.
+39,,,UI Mapping,P2-13: Rà soát dữ liệu UI cần mapping với Nakama Storage,8,3,Duy,"P1-11, P1-12",,Deliv: Có danh sách field UI đọc/ghi để backend và integration đối chiếu.
+40,,,Backend Observability,P2-14: Bổ sung backend logging/debug payload cho race reward flow,8,2,Nam Sơn,P2-04,,Deliv: Có log đủ để trace session config version reward resolve và ledger status khi QA báo lỗi.
+41,,,QC Backend,P2-QC-NS: QC race session/result submit/ledger backend,2,2,Nam Sơn,"P2-01, P2-03, P2-04, P2-14",,Pass: Race valid grant đúng 1 lần retry không grant trùng invalid race reject rõ lý do backend log trace session đến ledger.
+42,,,QC Integration,P2-QC-TH: QC Unreal race submit integration,2,2,Thịnh,"P2-05, P2-10",,Pass: Client gửi payload đúng contract không tự cộng currency local inventory command path không bypass backend flow.
+43,,,QC UI,P2-QC-DU: QC result/reward UI,2,2,Duy,"P2-06, P2-11, P2-12, P2-13",,Pass: Reward payload khớp UI end-race duplicate/error/retry hiển thị rõ UI field mapping đã bàn giao.
+44,,,QC Data,P2-QC-DO: QC race/goal/token reward rules,2,2,Đời,"P2-02, P2-07, P2-08, P2-09",,Pass: Race reward dùng đúng config_version goal grant đúng 1 lần Token/Loot MVP và duplicate visual MVP không làm sai inventory.
+45,,,,,,,,,,
+46,Phase 3,Inventory Garage Progression Migration Hardening (Ngày 11-15),,,,,,,,
+47,,,Backend Storage,P3-01: Triển khai đồng bộ Profile/Wallet lên Nakama Storage,8,3,Nam Sơn,"P2-04, P2-13",,Deliv: Profile/wallet canonical được đọc/ghi qua backend storage theo version guard.
+48,,,Backend Storage,P3-02: Triển khai đồng bộ Inventory lên Nakama Storage,16,4,Nam Sơn,"P2-04, P2-10, P2-13",,Deliv: Inventory canonical sync được các mutation MVP và không lệch với reward grant.
+49,,,Backend Migration,P3-03: Triển khai progression storage và migration dry-run endpoint/checklist,16,4,Nam Sơn,"P1-07, P2-07, P3-01",,Deliv: Save cũ có thể dry-run mapping sang backend snapshot duplicate migration không grant trùng.
+50,,,Progression Data,P3-04: Cập nhật điều kiện nâng cấp Performance theo cấu hình mới,8,3,Đời,"P1-02, P1-05",,Deliv: Rule nâng cấp performance khớp cấu hình mới chưa cần full upgrade command.
+51,,,Progression Data,P3-05: Rà soát reward/progression data với snapshot backend,8,3,Đời,"P3-01, P3-02, P3-03",,Deliv: Data progression inventory garage-lite và reward không còn field mơ hồ trước final test.
+52,,,Unreal Integration,P3-06: Rà soát và hoàn thiện interaction UI với các hệ thống,12,3,Thịnh,"P1-11, P2-05, P2-10",,Deliv: UI tương tác ổn định với reward inventory garage-lite và progression snapshot.
+53,,,UI Polish,P3-07: Rà soát và hoàn thiện UI các phase trước,12,3,Duy,"P2-06, P2-11, P2-12",,Deliv: UI chính đạt trạng thái đủ demo không còn text/debug tạm ở luồng người chơi.
+54,,,Backend DevOps,P3-08: Chuẩn hóa backend deployment notes env config và handover checklist,8,2,Nam Sơn,"P3-01, P3-02, P3-03",,Deliv: Dev khác có thể dựng lại local/staging backend và chạy smoke test theo tài liệu bàn giao.
+55,,,QC Checklist,P3-09: Viết checklist kiểm thử integration và gameplay interaction,4,2,Thịnh,P3-06,,Deliv: Có checklist rõ cho inventory use/equip race submit reward sync goal/city unlock.
+56,,,QC Checklist,P3-10: Viết checklist kiểm thử UI và UI flow,4,2,Duy,P3-07,,Deliv: Có checklist rõ cho loading/synced/sync-failed/offline-cache/retry và reward reveal.
+57,,,QC Checklist,P3-11: Viết checklist smoke test backend/Nakama,4,2,Nam Sơn,P3-08,,Deliv: Có checklist cho bootstrap snapshot read race session submit result ledger và migration dry-run.
+58,,,Build Test,P3-12: Build test local/staging Nakama và ghi nhận lỗi integration,4,2,Thịnh,"P3-09, P3-11",,Deliv: Có log lỗi integration từ bản build test kết nối backend.
+59,,,Build Test,P3-13: Build test local/staging Nakama và ghi nhận lỗi UI,4,2,Duy,"P3-10, P3-11",,Deliv: Có log lỗi UI từ bản build test kết nối backend.
+60,,,Bug Fix,P3-14: Fix bug core logic/data,12,3,Đời,"P3-12, P3-13",,Deliv: Fix các lỗi core logic/data phát sinh trong quá trình test.
+61,,,Bug Fix,P3-15: Fix bug UI interaction/integration,12,3,Thịnh,"P3-12, P3-13",,Deliv: Fix các lỗi binding interaction và flow giữa UI với subsystem.
+62,,,Bug Fix,P3-16: Fix bug UI visual/flow,12,3,Duy,"P3-12, P3-13",,Deliv: Fix các lỗi UI layout trạng thái hiển thị và flow người chơi.
+63,,,Bug Fix,P3-17: Fix bug backend/storage/RPC,8,3,Nam Sơn,"P3-11, P3-12, P3-13",,Deliv: Fix lỗi backend phát sinh từ smoke test RPC và storage sync.
+64,,,Demo,P3-18: Chuẩn bị demo integration trên build kết nối Nakama,4,2,Thịnh,"P3-14, P3-15, P3-16, P3-17",,Deliv: Bản demo chạy được luồng integration chính.
+65,,,Demo,P3-19: Chuẩn bị demo UI trên build kết nối Nakama,4,2,Duy,"P3-14, P3-15, P3-16, P3-17",,Deliv: UI demo ổn định cho các luồng reward/progression chính.
+66,,,Handover,P3-20: Check toàn bộ hệ thống theo scope hiện tại và bàn giao,12,3,Đời,"P3-18, P3-19",,Deliv: Bàn giao tổng thể kèm danh sách pass/fail known issues và Post-MVP backlog.
+67,,,QC Backend,P3-QC-NS: Final QC backend storage/migration/ledger,2,2,Nam Sơn,"P3-01, P3-02, P3-03, P3-08, P3-11, P3-17",,Pass: Account mới bootstrap migration dry-run không grant trùng reward ledger audit được backend handover checklist đầy đủ.
+68,,,QC Integration,P3-QC-TH: Final QC integration/local authority boundary,2,2,Thịnh,"P3-06, P3-09, P3-12, P3-15, P3-18",,Pass: Snapshot load/reload ổn định local/backend không lệch command fail/timeout không mutate local authority.
+69,,,QC UI,P3-QC-DU: Final QC UI flow/error/retry,2,2,Duy,"P3-07, P3-10, P3-13, P3-16, P3-19",,Pass: UI hiển thị loading/synced/sync-failed/offline-cache/retry rõ và demo reward/progression flow ổn định.
+70,,,QC Data,P3-QC-DO: Final QC data/reward/progression acceptance,2,2,Đời,"P3-04, P3-05, P3-14, P3-20",,Pass: Race result grant đúng delta config invalid bị reject inventory/garage-lite/goal/city unlock đủ cho representative slice.
+71,,,,,,,,,,
+72,Separate Stream,Shop IAP Commerce Backlog,,,,,,,,
+73,,,Commerce,C-IAP-1: Purchase provider abstraction,8,4,TBD,Core reward ledger design,,Deliv: Interface chung cho mock Apple Google provider.
+74,,,Commerce,C-IAP-2: Mock purchase provider,8,2,TBD,C-IAP-1,,Deliv: Internal sandbox purchase flow chạy end-to-end ngoài core progression.
+75,,,Commerce,C-IAP-3: Entitlement mapping + reward bundle bridge,8,4,TBD,C-IAP-1,,Deliv: Product entitlement reward bundle ledger source commerce_future.
+76,,,Commerce,C-IAP-4: Restore retry idempotency design,8,3,TBD,C-IAP-3,,Deliv: Duplicate transaction không grant trùng restore không phá state.
+77,,,Commerce,C-IAP-5: Apple sandbox prep checklist,8,2,TBD,C-IAP-1,,Deliv: Việc cần bật khi Apple account/product/IAP entitlement sẵn sàng.
+78,,,Commerce,C-IAP-6: StoreKit scope boundary,4,2,TBD,C-IAP-5,,Deliv: Real StoreKit end-to-end chỉ làm khi account/product đủ quyền.
+79,,,,,,,,,,
+80,Open Questions,Implementation Kickoff,Decision Needed,Fuel offline / network behavior,2,3,PO+Backend,Before P2,,Chốt hard-block theo backend hay chạy cache rồi reconcile.
+81,Open Questions,Implementation Kickoff,Decision Needed,Race invalid handling,2,3,PO+Backend+QA,Before P2,,Chốt reject/no grant hay manual review queue.
+82,Open Questions,Implementation Kickoff,Decision Needed,Goal reward claim mode,2,3,PO+Gameplay,Before P2,,Chốt auto-grant hay manual claim.
+83,Open Questions,Implementation Kickoff,Decision Needed,Inventory mutation MVP,2,3,PO+Gameplay+Backend,Before P3,,Chốt add/equip hay thêm use/remove trong 15 ngày.
+84,Open Questions,Implementation Kickoff,Decision Needed,Garage-lite depth,2,3,PO+Gameplay,Before P3,,Chốt chỉ CR tổng hay per-part level.
+85,Open Questions,Implementation Kickoff,Decision Needed,Migration dry-run scope,2,4,PO+Backend+Gameplay,Before P3,,Chốt toàn bộ account cũ hay sample/test account.
+86,Open Questions,Implementation Kickoff,Decision Needed,Config version compatibility policy,2,4,PO+Backend+Gameplay,Before P1,,Chốt force update warn hay compatibility window.
+87,Open Questions,Implementation Kickoff,Decision Needed,Shop/IAP stream timing,2,3,PO+Platform,Before Commerce,,Chốt làm sau core 15 ngày hay chạy song song ngoài team core.
+88,Open Questions,Implementation Kickoff,Decision Needed,Backend environment target,2,3,PO+Backend,Before P1,,Chốt local-only staging shared hay cả hai cho demo.
+89,Open Questions,Implementation Kickoff,Decision Needed,Backend logging target,2,3,Backend+QA,Before P2,,Chốt Nakama logger external file hay console trong giai đoạn 15 ngày.

@@ -1,0 +1,61 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SUP-PROF — User Profile / Economy (Hệ thống nền — ngoài CSV) — Low-Level Design</title><style>
+:root{color-scheme:light dark}
+body{max-width:920px;margin:0 auto;padding:2rem 1.25rem;
+  font:16px/1.6 -apple-system,Segoe UI,Roboto,sans-serif;
+  background:#0d1117;color:#c9d1d9}
+a{color:#58a6ff}
+h1,h2,h3{line-height:1.25;margin-top:1.6em;border-bottom:1px solid #30363d;padding-bottom:.3em}
+code{background:#161b22;padding:.15em .4em;border-radius:4px;font-size:.9em}
+pre{background:#161b22;padding:1rem;border-radius:8px;overflow:auto}
+pre code{background:none;padding:0}
+table{border-collapse:collapse;width:100%;margin:1em 0}
+th,td{border:1px solid #30363d;padding:.5em .75em;text-align:left}
+th{background:#161b22}
+blockquote{border-left:3px solid #30363d;margin:0;padding-left:1em;color:#8b949e}
+</style></head>
+<body><h1>SUP-PROF — User Profile / Economy (Hệ thống nền — ngoài CSV) — Low-Level Design</h1>
+<blockquote>
+<p>Source: <code>Docs/audit/SUP-PROF_user_profile.md</code>, <code>Docs/c4/model.c4</code>. Structurizr view: <code>SUP_PROF_Components</code>.
+Ngoài danh sách feature OpenProject 2026-06-15 — hệ thống nền, ứng viên refactor.</p>
+</blockquote>
+<h2>Feature summary and boundaries</h2>
+<p>SUP-PROF owns player identity, wallet currencies, profile stats, fuel/session energy and snapshot sync. It does not own reward rules, shop product catalog or progression topology.</p>
+<p><img src="../structurizr/embed/SUP_PROF_Components" alt="SUP-PROF components"></p>
+<h1>Layer 1 — Implementation map and hotspots</h1>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Source mapping</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>UProfileManagerSubsystem</code></td>
+<td><code>ProfileManagerSubsystem.cpp:14-30,519</code></td>
+<td>Wallet earn/spend, name filter, top-speed sampling timer and profile data.</td>
+</tr>
+<tr>
+<td><code>URaceSessionSubsystem</code></td>
+<td>session source</td>
+<td>Fuel/session energy, recharge timers and current race/session data.</td>
+</tr>
+<tr>
+<td><code>USnapshotAdapterSubsystem</code></td>
+<td>snapshot source</td>
+<td>Player snapshot load/save via Nakama RPC.</td>
+</tr>
+</tbody></table>
+<p>Runtime flow: UI/profile screens read profile; gameplay/progression spends or awards wallet/session resources; save manager persists local state; snapshot adapter can sync through Nakama.</p>
+<p>Hotspots: name filter scans O(name × forbidden words); top-speed sampling timer runs at 5Hz.</p>
+<h1>Layer 2 — Contract surface (verified entry points)</h1>
+<p>Verified entry points: wallet earn/spend checks, profile name validation, session fuel spend/recharge, snapshot load/save through Nakama RPC, save hand-off through <code>UCarSaveGameManager</code>.</p>
+<p>Evidence gap: backend authority for profile/economy is target architecture; current source evidence remains local/prototype-heavy.</p>
+<h2>Links</h2>
+<ul>
+<li>Audit: <code>Docs/audit/SUP-PROF_user_profile.md</code></li>
+<li>Structurizr: <code>SUP_PROF_Components</code></li>
+</ul>
+</body></html>

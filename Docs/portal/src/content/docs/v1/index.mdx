@@ -1,0 +1,65 @@
+---
+title: Portal Kiến trúc VNRacing
+description: Sơ đồ C4 tương tác cùng thiết kế chi tiết (Low-Level Design) cho
+  client game đua xe mobile VNRacing trên UE5.6, dành cho dev, UI/art và mọi
+  người.
+slug: v1
+---
+
+Tài liệu kiến trúc cho **client mobile VNRacing trên UE5.6**: 6 container, các
+tính năng theo taxonomy OpenProject (DM / VT / GM / CU / CDN + hệ thống nền
+Support), các class C++ và Blueprint thật, luồng liên tính năng và mức chi tiết
+triển khai đủ để sửa code. Sơ đồ tương tác và toàn bộ site tìm kiếm được theo
+full-text.
+
+## Dành cho ai
+
+### Dev
+
+Mở **[Kiến trúc](/v1/architecture)**, tìm tính năng cần xử lý, rồi bấm vào ô của
+tính năng đó để mở trang Thiết kế chi tiết (Low-Level Design): class, điểm nóng
+dạng file:dòng, contract API.
+
+Hoặc mở thẳng một tính năng:
+[DM-PHYS](/v1/features/dm-phys) · [DM-RACE](/v1/features/dm-race) ·
+[DM-NOS](/v1/features/dm-nos) · [DM-RAMP](/v1/features/dm-ramp) ·
+[DM-CAM](/v1/features/dm-cam) · [DM-SET](/v1/features/dm-set) ·
+[VT-MAP](/v1/features/vt-map) · [VT-CITY](/v1/features/vt-city) ·
+[VT-TRACK](/v1/features/vt-track) · [VT-CARPROG](/v1/features/vt-carprog) ·
+[VT-REWARD](/v1/features/vt-reward) · [GM-MP](/v1/features/gm-mp) ·
+[GM-DC](/v1/features/gm-dc) · [CU-ROOM](/v1/features/cu-room) ·
+[CU-MENU](/v1/features/cu-menu) · [CDN](/v1/features/cdn) · [PC](/v1/features/pc) ·
+[SUP-AI](/v1/features/sup-ai) · [SUP-POOL](/v1/features/sup-pool) ·
+[SUP-INV](/v1/features/sup-inv) · [SUP-PROF](/v1/features/sup-prof) ·
+[SUP-SHOP](/v1/features/sup-shop) · [SUP-TUT](/v1/features/sup-tut) ·
+[SUP-DBG](/v1/features/sup-dbg) · [SUP-PERF](/v1/features/sup-perf)
+
+### UI / Art
+
+Xem các **[sơ đồ tương tác](/v1/architecture)** để nắm quan hệ và luồng giữa các
+tính năng. Sơ đồ hỗ trợ kéo (pan), phóng to (zoom) và drill-down từ System
+Context xuống từng tính năng. Không cần đọc code.
+
+### Mọi người
+
+Dùng ô tìm kiếm (đầu sidebar) để tìm full-text trên mọi trang. Sidebar liệt kê
+sẵn toàn bộ tính năng và phần kiến trúc.
+
+## Nội dung
+
+* **[Kiến trúc (sơ đồ tương tác)](/v1/architecture)** — mô hình C4 LikeC4: System
+  Context, các Container, và một component view cho mỗi tính năng.
+* **[Kiến trúc (arc42)](/v1/architecture/introduction)** — phần viết: giới thiệu,
+  System Context, sơ đồ Container, danh mục tính năng, sơ đồ Runtime, chất lượng
+  và rủi ro, các quyết định.
+* **[Tính năng (Thiết kế chi tiết)](/v1/features/dm-phys)** — các trang LD cho từng
+  tính năng theo taxonomy OpenProject (DM-RACE chi tiết nhất; phần còn lại là tài
+  liệu định hướng kèm class/Blueprint thật).
+* **[Quyết định (ADR)](/v1/decisions/0001-ranking-update-off-tick)** — hai bản ghi
+  quyết định kiến trúc.
+
+:::note[Nguồn của sơ đồ]
+Sơ đồ sinh từ mô hình **LikeC4** (`specification.c4` + `model.c4` + `views.c4`).
+Bản Structurizr DSL cũ đã ngừng dùng; phần tài liệu arc42 và ADR của nó đã
+chuyển thành các trang ở trên.
+:::

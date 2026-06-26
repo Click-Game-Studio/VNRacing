@@ -1,0 +1,127 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VT-CITY — City Progression — Low-Level Design</title><style>
+:root{color-scheme:light dark}
+body{max-width:920px;margin:0 auto;padding:2rem 1.25rem;
+  font:16px/1.6 -apple-system,Segoe UI,Roboto,sans-serif;
+  background:#0d1117;color:#c9d1d9}
+a{color:#58a6ff}
+h1,h2,h3{line-height:1.25;margin-top:1.6em;border-bottom:1px solid #30363d;padding-bottom:.3em}
+code{background:#161b22;padding:.15em .4em;border-radius:4px;font-size:.9em}
+pre{background:#161b22;padding:1rem;border-radius:8px;overflow:auto}
+pre code{background:none;padding:0}
+table{border-collapse:collapse;width:100%;margin:1em 0}
+th,td{border:1px solid #30363d;padding:.5em .75em;text-align:left}
+th{background:#161b22}
+blockquote{border-left:3px solid #30363d;margin:0;padding-left:1em;color:#8b949e}
+</style></head>
+<body><h1>VT-CITY — City Progression — Low-Level Design</h1>
+<blockquote>
+<p>Source: <code>Docs/audit/VT-CITY_city_progression.md</code>, <code>Docs/c4/model.c4</code>. Structurizr view: <code>VT_CITY_Components</code>.
+OpenProject: #329.</p>
+</blockquote>
+<h2>Feature summary and boundaries</h2>
+<p>VT-CITY owns the full city-goals system and city unlock chain inside VN Tour. It manages the <code>city/area/track</code> hierarchy initialisation, assigns goal pools to newly-unlocked cities, tracks goal completion per tier, unlocks the next city in the chain and fires rewards for completed goals. It also owns <strong>Car Unlock</strong> (#337) — the moment a city unlock grants a new garage car — and <strong>Map Scene Unlock</strong> (#339) — the introduce-scene and debug jump utilities.</p>
+<p>VT-CITY consumes DM-RACE race results (via <code>UProgressionCenterSubsystem::HandleRaceCompleted</code>) and delegates reward calculation to VT-REWARD (<code>URewardCenterSubsystem</code>). Track-level unlock rules live in VT-TRACK; car-rating gates live in VT-CARPROG.</p>
+<p><img src="../structurizr/embed/VT_CITY_Components" alt="VT-CITY components"></p>
+<h2>Layer 1 — Implementation map and hotspots</h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Source mapping</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>UProgressionCenterSubsystem</code></td>
+<td><code>ProgressionCenterSubsystem.cpp:94</code> <code>HandleRecordRaceResult</code></td>
+<td>Facade: receives race result, drives goal checks and city unlock sequence.</td>
+</tr>
+<tr>
+<td><code>UProgressionSubsystem</code></td>
+<td><code>ProgressionSubsystem.cpp</code> (~2641 lines)</td>
+<td>VN Tour data model; city/area/track state, goal pool, unlock chain.</td>
+</tr>
+<tr>
+<td><code>SetupCityGoalPoolTable</code></td>
+<td><code>ProgressionSubsystem.cpp:2150</code></td>
+<td>Parses <code>CityGoalPool</code> DataTable into <code>GoalsByTier</code> map (<code>ECityGoalTier → TArray&lt;FCityGoal&gt;</code>).</td>
+</tr>
+<tr>
+<td><code>BuildAssignedGoalsForNewCity</code></td>
+<td><code>ProgressionSubsystem.cpp:2192</code></td>
+<td>Selects one random goal per tier (Tier1/Tier2/Tier3) and returns 3 <code>FCityAssignedGoalState</code> entries.</td>
+</tr>
+<tr>
+<td><code>CheckCityGoalsAndUnlockNextCity</code></td>
+<td><code>ProgressionSubsystem.cpp:1352</code></td>
+<td>Checks if current city goals are all complete; calls <code>HandleUnlockNextCity</code> if so.</td>
+</tr>
+<tr>
+<td><code>HandleUnlockNextCity</code></td>
+<td><code>ProgressionSubsystem.cpp:1299</code></td>
+<td>Calls <code>VNTourProgressionData.UnlockNextCity</code>, grants city-unlock rewards, assigns goals to new city, broadcasts <code>OnCityUnlocked</code>.</td>
+</tr>
+<tr>
+<td><code>GrantRewardsForCompletedGoal</code></td>
+<td><code>ProgressionSubsystem.cpp:1336</code></td>
+<td>Delegates to <code>URewardCenterSubsystem::GrantGoalCompletionRewards</code> with city ID, city index and goal tier.</td>
+</tr>
+<tr>
+<td><code>EnsureGarageCarsFromProgression</code></td>
+<td><code>ProgressionDebugManager.cpp:476</code> / <code>2163</code></td>
+<td>Car Unlock (#337): syncs garage with cars earned from progression state.</td>
+</tr>
+<tr>
+<td><code>JumpToCity</code> / <code>UnlockAllLocations</code></td>
+<td><code>ProgressionDebugManager.cpp:1681</code> / <code>2097</code>; <code>ProgressionSubsystem.cpp:2109</code></td>
+<td>Map Scene Unlock (#339): debug utilities to jump the player to a city or unlock all locations instantly.</td>
+</tr>
+</tbody></table>
+<p>Runtime flow: DM-RACE calls <code>HandleRaceCompleted</code> → <code>HandleRecordRaceResult</code> → <code>ProcessCurrentCityGoals</code> → <code>CheckCityGoalsAndUnlockNextCity</code>. On unlock: <code>HandleUnlockNextCity</code> → <code>GrantRewardsForUnlockedCity</code> + <code>AssignGoalsToCityUnlockData</code> + <code>OnCityUnlocked.Broadcast</code>.</p>
+<p>Hotspots:</p>
+<ul>
+<li><code>ProgressionCenterSubsystem.cpp:489</code> — <code>LoadSynchronous</code> on city/track icons; blocks game thread each time the VN Tour screen opens.</li>
+<li><code>UProgressionSubsystem</code> god-object (2641 lines): mixes data ownership with orchestration; high maintenance risk.</li>
+<li><code>ProgressionSubsystem.cpp:1813</code> — magic string <code>&quot;ProgressionData&quot;</code> key for DataTable lookup.</li>
+</ul>
+<h2>Layer 2 — Contract surface</h2>
+<h3>Goals Unlock (#331) / Goals Config (#333)</h3>
+<ul>
+<li><code>SetupCityGoalPoolTable(UDataTable*)</code> — called at subsystem init; populates <code>GoalsByTier</code>.</li>
+<li><code>ECityGoalTier</code> values: <code>Tier1</code>, <code>Tier2</code>, <code>Tier3</code>.</li>
+<li><code>BuildAssignedGoalsForNewCity(TArray&lt;FCityAssignedGoalState&gt;&amp;)</code> — produces exactly 3 goals (one per tier); returns <code>false</code> if pool is empty for any tier.</li>
+<li><code>GetRandomGoalByTier(ECityGoalTier, FCityGoal&amp;)</code> (<code>ProgressionSubsystem.cpp:2179</code>) — random selection from tier bucket.</li>
+<li><code>AssignGoalsToCityUnlockData(FCityUnlockData&amp;)</code> (<code>ProgressionSubsystem.cpp:2222</code>) — writes assigned goals into city unlock record.</li>
+</ul>
+<h3>Goals Reward (#340)</h3>
+<ul>
+<li><code>GrantRewardsForCompletedGoal(FCityAssignedGoalState, FCityProgress)</code> → <code>RewardCenterSubsystem::GrantGoalCompletionRewards(FName CityID, int32 CityIndex, ECityGoalTier)</code>.</li>
+<li>Reward center broadcasts <code>OnGoalItemRewardCalculated</code> and <code>OnGoalCashRewardCalculated</code>; UI listens to these delegates.</li>
+</ul>
+<h3>Car Unlock (#337)</h3>
+<ul>
+<li><code>EnsureGarageCarsFromProgression</code> — verifies garage contains all cars earned so far; called after city unlock and on save load.</li>
+</ul>
+<h3>Map Scene Unlock (#339)</h3>
+<ul>
+<li><code>OnCityUnlocked</code> delegate (broadcast from <code>HandleUnlockNextCity</code>) — UI subscribes for introduce-scene trigger.</li>
+<li>Debug: <code>JumpToCity(int32)</code>, <code>UnlockAllLocations()</code>.</li>
+</ul>
+<h3>Item Unlock (#386)</h3>
+<p>🆕 since 2026-06-23. Sub-feature of City Progression.</p>
+<p>❌ <strong>Gap: not yet implemented.</strong> Work-package #386 defines item unlock as part of city progression — granting specific items (visual parts, consumables, currency) as milestone rewards when unlocking new cities. <code>UProgressionSubsystem</code> currently handles city/area/track unlock and goal rewards, but there is no item-unlock milestone system.</p>
+<p><strong>Proposed approach:</strong></p>
+<ul>
+<li>Extend <code>FCityUnlockData</code> with an item grant list.</li>
+<li>In <code>HandleUnlockNextCity</code>, after unlocking the city, iterate the item grant list and call <code>UInventoryManager::AddItem</code>.</li>
+</ul>
+<h2>Links</h2>
+<ul>
+<li>Audit: <code>Docs/audit/VT-CITY_city_progression.md</code></li>
+<li>Structurizr: <code>VT_CITY_Components</code></li>
+<li>Portal: <code>Docs/portal/src/content/docs/features/vt-city.md</code></li>
+<li>Related: VT-TRACK (track unlock), VT-CARPROG (CR gate), VT-REWARD (reward centre)</li>
+</ul>
+</body></html>

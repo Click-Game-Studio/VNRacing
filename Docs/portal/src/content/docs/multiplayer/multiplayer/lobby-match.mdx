@@ -1,0 +1,33 @@
+---
+title: Lobby Match — 4 User Story
+description: Bảng mapping 4 User Story Lobby Match, trạng thái triển khai và phân tích gap.
+---
+
+## 4 User Story Lobby Match
+
+| STT | User Story | Ghi chú kỹ thuật | Trạng thái |
+|:---:|---|:---:|:---:|
+| 1 | Lobby scene show xe đối thủ | Cần Lobby map riêng, hiển thị xe mỗi slot, replicated khi client mới vào. | ⛔ |
+| 2 | Lobby mời friend | Chưa có friends list / invite flow. Cần quyết định nền tảng (Steam/Apple/Google/Nakama). | ⛔ |
+| 3 | Lobby có Challenge tương tự Quick Match | Khi có Lobby map + friends invite, cần replay matchmaking với locked player set. | ⛔ |
+| 4 | Lobby cho phép chọn xe trong đó | Cần custom Garage UI cho Lobby. | ⛔ |
+
+## Phân tích khoảng trống triển khai
+
+Tất cả 4 US Lobby Match đều chưa triển khai (⛔). Lobby Match cần:
+
+1. **Lobby map riêng** — map với replicated car slots, hiển thị car preview của mỗi player
+2. **Friend list** — cần quyết định nền tảng: custom Nakama storage (cross-platform), Apple Game Center, Google Play Games, hay Steam
+3. **Invite flow** — deep link / platform invite + invite code
+4. **Challenge mode** — matchmaking re-trigger với locked player set
+5. **Lobby chọn xe** — custom Garage UI trong môi trường Lobby
+
+## Cơ sở hạ tầng có thể tái sử dụng
+
+| Thành phần | Khả năng tái sử dụng |
+|---|---|
+| Nakama Realtime | Đã có kết nối realtime WebSocket, có thể dùng làm transport cho Lobby state sync |
+| Nakama Storage | Có thể lưu Lobby config, invited players |
+| Matchmaking V6 | Engine matchmaking có thể reuse cho Challenge mode với locked player set |
+| MultiplayerMatchmakingWidget | Có thể mở rộng state machine cho Lobby flow |
+| Dedicated Server layer | Có thể deploy Lobby server riêng hoặc dùng chung dedicated server pool |

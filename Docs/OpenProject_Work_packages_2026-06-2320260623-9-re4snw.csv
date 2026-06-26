@@ -1,0 +1,514 @@
+﻿id,Subject,Type,Status,Assignee,Priority,Work,Total work,Version,Team,Story Points,Sprint,Project phase,Project,Position,Parent,Created on,Author,Accountable,Description
+148,Project Config,Epic,New,"",Normal,"","","",Devops,"","","",VNRacing,1,"",06/01/2026 04:45 PM,Son Nguyen,"",""
+149,Programming,Summary task,New,P.H. Tan,Normal,"","","",Dev,"",Sprint 1,"",VNRacing,1,Epic #148: Project Config,06/01/2026 04:46 PM,Son Nguyen,"","ST tổng hợp tất cả các task liên quan về tổng thể của phần lập trình  
+Topic quan trọng bao gồm  
+Architect Design  
+Project Rules  
+Project Issues&nbsp;  
+Devops"
+150,Production,Project Phase,New,Son Nguyen,Normal,"","","","","","","",VNRacing,2,"",06/01/2026 04:49 PM,Son Nguyen,Son Nguyen,""
+151,Drive Mode,Epic,New,"",High,"",164.0,"",Admin,"","","",VNRacing,3,"",06/01/2026 04:52 PM,Son Nguyen,"",""
+168,VN TOUR - MAP ĐUA,Feature,In specification,"",Normal,"",686.0,"",Admin,"","","",VNRacing,4,Epic #183: VNTour ,06/04/2026 11:01 AM,Giang Dương Võ Trà,"",""
+169,Huế City ,Feature,New,"",Normal,"",686.0,"",Admin,"","","",VNRacing,5,Feature #168: VN TOUR - MAP ĐUA,06/04/2026 11:13 AM,Giang Dương Võ Trà,"",""
+170,Map Huế Đại Nội ,User story,In progress,"",Normal,"",138.0,"",Game Design,"","","",VNRacing,6,Feature #169: Huế City ,06/04/2026 11:14 AM,Giang Dương Võ Trà,"",""
+183,VNTour ,Epic,New,"",High,"",916.0,"",Game Design,"","","",VNRacing,7,"",06/04/2026 02:56 PM,Giang Dương Võ Trà,"",""
+185,"Dev_Implement_Là QA, tôi muốn kiểm tra các thông tin liên quan tới trao thưởng Cash cho người chơi thông qua đua để đối chiếu ngược với các giả thuyết của GD về Progression của người chơi.",Summary task,Developed,Long Trần Anh Thượng,Normal,"",12.0,"",Dev,"","","",VNRacing,9,"User story #184: Là QA, tôi muốn kiểm tra các thông tin liên quan tới trao thưởng Cash cho người chơi thông qua đua (Số Cash đã trao thưởng, số Cash Target cho một City, Scale Index hiện tại) để đối chiếu ngược với các giả thuyết của GD về Progression của người chơi",06/04/2026 02:59 PM,Giang Dương Võ Trà,"",""
+187,Asset Assembly_Map Huế Đại Nội ,Summary task,Waiting for approve,Thống Trần Cao,Normal,40.0,"","",Level,"","","",VNRacing,11,User story #170: Map Huế Đại Nội ,06/04/2026 03:09 PM,Giang Dương Võ Trà,"",""
+188,Lighting_Map Huế Đại Nội ,Summary task,In progress,Thống Trần Cao,Normal,"",56.0,"",Level,"","","",VNRacing,12,User story #170: Map Huế Đại Nội ,06/04/2026 03:10 PM,Giang Dương Võ Trà,"",""
+189,Optimize_Map Huế Đại Nội ,Summary task,Scheduled,Thống Trần Cao,Normal,"",24.0,"",Level,"","","",VNRacing,13,User story #170: Map Huế Đại Nội ,06/04/2026 03:10 PM,Giang Dương Võ Trà,"",""
+190,Map Quốc Học Huế,User story,In progress,"",Normal,"",326.0,"",Game Design,"","","",VNRacing,14,Feature #169: Huế City ,06/04/2026 03:13 PM,Giang Dương Võ Trà,"",""
+191,Block Key Frame_Map Quốc Học Huế,Summary task,In progress,Nhật Võ Tấn,Normal,"",24.0,"",Level,"","","",VNRacing,15,User story #190: Map Quốc Học Huế,06/04/2026 03:32 PM,Giang Dương Võ Trà,"",""
+192,Asset Assembly_Map Quốc Học Huế,Summary task,In specification,Nhật Võ Tấn,Normal,"","","",Level,"","","",VNRacing,16,User story #190: Map Quốc Học Huế,06/04/2026 03:32 PM,Giang Dương Võ Trà,"",""
+193,Lighting_Map Quốc Học Huế,Summary task,In specification,Nhật Võ Tấn,Normal,"","","",Level,"","","",VNRacing,17,User story #190: Map Quốc Học Huế,06/04/2026 03:33 PM,Giang Dương Võ Trà,"",""
+194,Optimize_Map Quốc học Huế ,Summary task,New,Nhật Võ Tấn,Normal,"","","",Level,"","","",VNRacing,18,User story #190: Map Quốc Học Huế,06/04/2026 03:34 PM,Giang Dương Võ Trà,"",""
+195,Map Hồ Thuỷ Tiên,User story,In specification,"",Normal,"",222.0,"",Game Design,"","","",VNRacing,19,Feature #169: Huế City ,06/04/2026 03:35 PM,Giang Dương Võ Trà,"",""
+196,Layout_Map Hồ Thuỷ Tiên,Summary task,In specification,Phước Hồ Đức,Normal,"","","",Game Design,"","","",VNRacing,20,User story #195: Map Hồ Thuỷ Tiên,06/04/2026 03:35 PM,Giang Dương Võ Trà,"",""
+197,Asset Concept_Hồ Thuỷ Tiên,Summary task,In specification,Châu Nguyễn Ngọc Á,Normal,"",98.0,"",2D,"","","",VNRacing,21,User story #195: Map Hồ Thuỷ Tiên,06/04/2026 03:36 PM,Giang Dương Võ Trà,"",""
+198,Asset Making_Hồ Thuỷ Tiên,Summary task,New,Nam Nguyễn Kỳ,Normal,"","","",3D ,"","","",VNRacing,22,User story #195: Map Hồ Thuỷ Tiên,06/04/2026 03:36 PM,Giang Dương Võ Trà,"",""
+199,Asset Assembly_Map Hồ thuỷ Tiên,Summary task,New,"",Normal,"","","",Level,"","","",VNRacing,23,User story #195: Map Hồ Thuỷ Tiên,06/04/2026 03:37 PM,Giang Dương Võ Trà,"",""
+200,Blockout Lighting and Shadow & Setup sẵn light bake_Map Huế Đại Nội ,Task,In progress,Thống Trần Cao,Normal,8.0,"","",Level,"",Sprint 2 - Huế Đại Nội | Level Production ,"",VNRacing,1,Summary task #188: Lighting_Map Huế Đại Nội ,06/04/2026 05:04 PM,Giang Dương Võ Trà,"",""
+201,Bake Light_Track Huế Đại Nội Sprint,Task,Waiting for approve,Thống Trần Cao,Normal,16.0,"","",Level,"",Sprint 2 - Huế Đại Nội | Level Production ,"",VNRacing,2,Summary task #188: Lighting_Map Huế Đại Nội ,06/04/2026 05:05 PM,Giang Dương Võ Trà,"",""
+202,Bake Light_Track Huế Đại Nội Circuit,Task,Waiting for approve,Thống Trần Cao,Normal,16.0,"","",Level,"",Sprint 2 - Huế Đại Nội | Level Production ,"",VNRacing,3,Summary task #188: Lighting_Map Huế Đại Nội ,06/04/2026 05:05 PM,Giang Dương Võ Trà,"",""
+203,Bake Light_Track Huế Đại Nội Time Attack,Task,Waiting for approve,Thống Trần Cao,Normal,16.0,"","",Level,"",Sprint 2 - Huế Đại Nội | Level Production ,"",VNRacing,4,Summary task #188: Lighting_Map Huế Đại Nội ,06/04/2026 05:06 PM,Giang Dương Võ Trà,"",""
+204,Optimize_Huế Đại Nội Sprint,Task,In progress,Thống Trần Cao,Normal,8.0,"","",Level,"",Sprint 2 - Huế Đại Nội | Level Production ,"",VNRacing,5,Summary task #189: Optimize_Map Huế Đại Nội ,06/04/2026 05:12 PM,Giang Dương Võ Trà,"",""
+205,Optimize_Huế Đại Nội Circuit,Task,In progress,Thống Trần Cao,Normal,8.0,"","",Level,"",Sprint 2 - Huế Đại Nội | Level Production ,"",VNRacing,6,Summary task #189: Optimize_Map Huế Đại Nội ,06/04/2026 05:16 PM,Giang Dương Võ Trà,"",""
+206,Optimize_Huế Đại Nội Time Attack,Task,New,Thống Trần Cao,Normal,8.0,"","",Level,"",Sprint 2 - Huế Đại Nội | Level Production ,"",VNRacing,7,Summary task #189: Optimize_Map Huế Đại Nội ,06/04/2026 05:16 PM,Giang Dương Võ Trà,"",""
+207,Asset Making_Quốc Học Huế,Summary task,In specification,Nam Nguyễn Kỳ,Normal,"",244.0,"",Level,"","","",VNRacing,24,User story #190: Map Quốc Học Huế,06/04/2026 05:19 PM,Giang Dương Võ Trà,"",""
+208,Block Key Frame_Quốc Học Huế_Sprint,Task,Waiting for approve,Nhật Võ Tấn,Normal,12.0,"","",Level,"","","",VNRacing,25,Summary task #191: Block Key Frame_Map Quốc Học Huế,06/05/2026 08:23 AM,Giang Dương Võ Trà,"",""
+209,Block Key Frame_Quốc Học Huế_Circuit,Task,Waiting for approve,Nhật Võ Tấn,Normal,6.0,"","",Level,"","","",VNRacing,26,Summary task #191: Block Key Frame_Map Quốc Học Huế,06/05/2026 08:23 AM,Giang Dương Võ Trà,"",""
+210,Block Key Frame_Quốc Học Huế_Time Attack,Task,Waiting for approve,Nhật Võ Tấn,Normal,6.0,"","",Level,"","","",VNRacing,27,Summary task #191: Block Key Frame_Map Quốc Học Huế,06/05/2026 08:24 AM,Giang Dương Võ Trà,"",""
+211,Block out Layout ,Summary task,In progress,"",Normal,"",24.0,"",Level,"","","",VNRacing,28,User story #195: Map Hồ Thuỷ Tiên,06/05/2026 08:34 AM,Giang Dương Võ Trà,"",""
+215,Asset Making_Hero Asset,Task,In progress,Nam Nguyễn Kỳ,Normal,244.0,"","",3D ,"","","",VNRacing,32,Summary task #207: Asset Making_Quốc Học Huế,06/05/2026 10:35 AM,Giang Dương Võ Trà,"",""
+217,Game Design_Drivemode Physic_Document ,Summary task,In specification,Phước Hồ Đức,Normal,"",4.0,"",Game Design,"","","",VNRacing,33,Feature #279: DriveMode - Physics,06/05/2026 04:00 PM,Giang Dương Võ Trà,"",https://docs.google.com/spreadsheets/d/1F04zRaPPfadn5GPnkxtgtsghfdFwTF-ekRsTRrKo1fM/edit?pli=1&amp;gid=0#gid=0
+218,Tech Art_Hồ Thuỷ Tiên,Summary task,Specified,"",Normal,"",36.0,"",TechArt,"","","",VNRacing,34,User story #195: Map Hồ Thuỷ Tiên,06/05/2026 04:03 PM,Giang Dương Võ Trà,"",""
+219,TA_Demo Level_ Mood overcast trời âm u có sương mù,Task,In progress,Phú Phạm Tấn,Normal,8.0,"","",TechArt,"","","",VNRacing,35,Summary task #218: Tech Art_Hồ Thuỷ Tiên,06/05/2026 04:04 PM,Giang Dương Võ Trà,"",&nbsp;Tạo level và bake light theo mood
+220,TA_Đàn quạ bay trên bầu trời ,Task,In progress,Phú Phạm Tấn,Normal,8.0,"","",TechArt,"","","",VNRacing,36,Summary task #218: Tech Art_Hồ Thuỷ Tiên,06/05/2026 04:05 PM,Giang Dương Võ Trà,"",""
+221,TA_Tạo đường bùn lầy,Task,Waiting for approve,Đông Huỳnh,Normal,12.0,"","",TechArt,"","","",VNRacing,37,Summary task #218: Tech Art_Hồ Thuỷ Tiên,06/05/2026 04:06 PM,Giang Dương Võ Trà,"",""
+222,TA_Eye tracking_Rồng & Mascot,Task,In progress,Đông Huỳnh,Normal,8.0,"","",TechArt,"","","",VNRacing,38,Summary task #218: Tech Art_Hồ Thuỷ Tiên,06/05/2026 04:07 PM,Giang Dương Võ Trà,"","*   mắt của con rồng tracking theo xe, có đèn spotlight dọi theo xe/ - - mắt của mấy con mascot tracking theo xe"
+223,Start_Level Prodcuction,Milestone,New,"",Normal,"","","","","","","",VNRacing,39,User story #170: Map Huế Đại Nội ,06/05/2026 04:49 PM,Giang Dương Võ Trà,"",""
+224,Demo 3 Track Huế Đại Nội ,Milestone,New,"",Normal,"","","","","","","",VNRacing,40,User story #170: Map Huế Đại Nội ,06/05/2026 04:50 PM,Giang Dương Võ Trà,"",""
+226,"Dev Implement US 225_Là người chơi, tôi muốn được trao thưởng Cash tùy theo thành tích cuộc đua của tôi để có động lực đạt được vị thứ cao hơn trong cuộc đua.",Summary task,Specified,Long Trần Anh Thượng,Normal,"",28.0,"",Dev,"","","",VNRacing,42,"User story #225: Là người chơi, tôi muốn được trao thưởng Cash tùy theo thành tích cuộc đua của tôi để có động lực đạt được vị thứ cao hơn trong cuộc đua.",06/08/2026 09:22 AM,Giang Dương Võ Trà,"",""
+230,"Là người chơi, tôi muốn có hệ thống mở hòm đồ ngẫu nhiên thu thập được trong quá trình chơi để tạo cảm giác kích thích khi tìm kiếm vật phẩm hiếm",User story,On hold,Phước Hồ Đức,Normal,"",36.0,"",Game Design,"","","",VNRacing,45,Feature #345: Reward,06/08/2026 10:14 AM,Giang Dương Võ Trà,"",""
+231,"Dev_Implement_Là người chơi, tôi muốn có hệ thống mở hòm đồ ngẫu nhiên thu thập được trong quá trình chơi để tạo cảm giác kích thích khi tìm kiếm vật phẩm hiếm",Summary task,On hold,Long Trần Anh Thượng,Normal,6.0,36.0,"",Dev,"","","",VNRacing,46,"User story #230: Là người chơi, tôi muốn có hệ thống mở hòm đồ ngẫu nhiên thu thập được trong quá trình chơi để tạo cảm giác kích thích khi tìm kiếm vật phẩm hiếm",06/08/2026 10:15 AM,Giang Dương Võ Trà,"",""
+234, Các Rewards Item được rút ra theo đúng công thức trong tài liệu Reward Item.,Task,On hold,Đời Huỳnh Văn,Normal,6.0,"","",Dev,"","","",VNRacing,49,"Summary task #231: Dev_Implement_Là người chơi, tôi muốn có hệ thống mở hòm đồ ngẫu nhiên thu thập được trong quá trình chơi để tạo cảm giác kích thích khi tìm kiếm vật phẩm hiếm",06/08/2026 10:16 AM,Giang Dương Võ Trà,Long Trần Anh Thượng,""
+235,Đền bù bằng Cash giá trị tương đương khi rút ra được phần thưởng Visual trùng lặp.,Task,On hold,Đời Huỳnh Văn,Normal,6.0,"","",Dev,"","","",VNRacing,50,"Summary task #231: Dev_Implement_Là người chơi, tôi muốn có hệ thống mở hòm đồ ngẫu nhiên thu thập được trong quá trình chơi để tạo cảm giác kích thích khi tìm kiếm vật phẩm hiếm",06/08/2026 10:17 AM,Giang Dương Võ Trà,Long Trần Anh Thượng,""
+236, Trong Debug có nút để thêm Item dạng LootCrate vào thùng đồ của người chơi.,Task,On hold,Đời Huỳnh Văn,Normal,6.0,"","",Dev,"","","",VNRacing,51,"Summary task #231: Dev_Implement_Là người chơi, tôi muốn có hệ thống mở hòm đồ ngẫu nhiên thu thập được trong quá trình chơi để tạo cảm giác kích thích khi tìm kiếm vật phẩm hiếm",06/08/2026 10:17 AM,Giang Dương Võ Trà,Long Trần Anh Thượng,""
+241,FX_Hồ Thuỷ Tiên,Summary task,In specification,Hoàng Trần Văn Huy,Normal,"",40.0,"",FX,"","","",VNRacing,52,User story #195: Map Hồ Thuỷ Tiên,06/08/2026 02:35 PM,Giang Dương Võ Trà,"",""
+242,FX_Đường bùn lầy_Bùn lầy văng lên camera,Task,Waiting for approve,Hoàng Trần Văn Huy,Normal,24.0,"","",FX,"","","",VNRacing,53,Summary task #241: FX_Hồ Thuỷ Tiên,06/08/2026 02:36 PM,Giang Dương Võ Trà,"",""
+243,FX_Đường bùn lầy_Hiệu ứng với bánh xe,Task,Waiting for approve,Hoàng Trần Văn Huy,Normal,16.0,"","",FX,"","","",VNRacing,54,Summary task #241: FX_Hồ Thuỷ Tiên,06/08/2026 02:48 PM,Giang Dương Võ Trà,"",""
+250,CDN,Feature,In progress,Sơn Nguyễn Nam,Normal,"",68.0,"",Dev,"","","",VNRacing,55,"",06/10/2026 09:55 AM,Giang Dương Võ Trà,"","<img class=""op-uc-image op-uc-image_inline"" src=""/api/v3/attachments/212/content"">"
+251,"Chia nhỏ project, build chunk và upload chunks lên server AWS",Task,In progress,Sơn Nguyễn Nam,Normal,12.0,"","",Dev,"","","",VNRacing,56,Summary task #256: Test tải số lượng 500 lượt,06/10/2026 10:04 AM,Giang Dương Võ Trà,Long Trần Anh Thượng,""
+254,Viết tài liệu hướng dẫn,Task,On hold,Sơn Nguyễn Nam,Normal,4.0,"","",Dev,"","","",VNRacing,59,Summary task #256: Test tải số lượng 500 lượt,06/10/2026 10:05 AM,Giang Dương Võ Trà,Long Trần Anh Thượng,""
+256,Test tải số lượng 500 lượt,Summary task,Specified,Long Trần Anh Thượng,Normal,"",28.0,"",Dev,"","","",VNRacing,60,User story #445: Hoàn thành lõi CDN cho project racing,06/10/2026 10:12 AM,Giang Dương Võ Trà,"",""
+260,"Là GD, tôi muốn tạo động lực cho người chơi tìm kiếm các cuộc đua mới trong một City để tối ưu hóa thời gian chơi cũng như tối đa hóa sử dụng số lượng Asset đã sản xuất",User story,In progress,Phước Hồ Đức,Normal,"",20.0,"",Game Design,"","","",VNRacing,61,Sub Feature #342: Track Selection,06/10/2026 10:31 AM,Giang Dương Võ Trà,"","\- Kích hoạt cơ chế First Race + First Win mỗi khi người chơi đua/thắng một cuộc đua mới.  
+\- Scale tự động phần thưởng của FirstRace + First Win theo Progression của City hiện tại."
+261,"Là QA, tôi muốn có khả năng Reload lại Goals của các City, thay đổi Progress của các Goals và kích hoạt hoàn thành trao thưởng cho các Goals đó để thuận tiện cho việc kiểm tra tính khả thi và hấp dẫn của các Goals trong từng City.",User story,In progress,Phước Hồ Đức,Normal,"",8.0,"",Game Design,"","","",VNRacing,62,Sub Feature #331: Goals Unlock,06/10/2026 10:32 AM,Giang Dương Võ Trà,"","\- Bảng Debug cho phép Reload &amp; Reset các Goals hiện tại của City.  
+\- Bảng Debug cho phép điều chỉnh Progress của các Goals hiện tại của City.  
+\- Bảng Debug cho phép kích hoạt hoàn thành và trao thưởng cho các Goals hiện tại của các City."
+262,"Là người chơi, tôi muốn các xe được trao thưởng ở mỗi City mới có điểm khởi đầu sức mạnh tăng dần theo chiều dài Progression để cảm nhận rõ hơn quá trình Progression.",User story,In specification,Phước Hồ Đức,Normal,"","","",Game Design,"","","",VNRacing,63,Feature #344: Car-Progression,06/10/2026 10:33 AM,Giang Dương Võ Trà,"","\- Lập danh sách và đưa vào Game các Dummy Car cho 4 City còn lại. (12 xe)  
+\- Map sẵn mốc CR khởi đầu cho các Dummy Car."
+263,"Là người chơi, tôi muốn có hệ thống thành tựu với các mục tiêu dài hạn và phần thưởng giá trị để tăng động lực gắn bó lâu dài với game",User story,In specification,Phước Hồ Đức,Normal,"","","",Game Design,"","","",VNRacing,64,Epic #183: VNTour ,06/10/2026 10:34 AM,Giang Dương Võ Trà,"","\- Achievement sử dụng một Pool nhiệm vụ riêng biệt, dựa trên mốc tiến trình cá nhân của người chơi, khác biệt với các nhiệm vụ CityGoals hay Daily Challenges  
+\- Achievement bao gồm các nhiệm vụ có thể hoàn thành được khi chơi đơn và các nhiệm vụ chỉ có thể hoàn thành khi chơi mạng.  
+\- Achievement có phần thưởng dược quy định sẵn, không Scale hay thay đổi theo mốc Progression của người chơi.  
+\- Có Screen Achivement riêng để người chơi theo dõi danh sách mục tiêu và nhận thưởng.  
+\- Debug bổ sung chức năng hoàn thành nhanh các mốc Achievements để kiểm tra."
+264,Concept Asset_Quốc Học Huế,Summary task,In progress,Châu Nguyễn Ngọc Á,Normal,"",34.0,"",2D,"","","",VNRacing,65,User story #190: Map Quốc Học Huế,06/10/2026 11:41 AM,Giang Dương Võ Trà,"",""
+265,Concept 7 Keyframe_Finalize,Task,New,Châu Nguyễn Ngọc Á,Normal,26.0,"","",2D,"","","",VNRacing,66,Summary task #264: Concept Asset_Quốc Học Huế,06/10/2026 11:42 AM,Giang Dương Võ Trà,"",""
+266,Breakdown Asset List & VFX List_Quốc Học Huế,Task,New,Châu Nguyễn Ngọc Á,Normal,8.0,"","",2D,"","","",VNRacing,67,Summary task #264: Concept Asset_Quốc Học Huế,06/10/2026 11:43 AM,Giang Dương Võ Trà,"",""
+267,Game Design_Document_Achievement,Summary task,New,"",Normal,"","","",Game Design,"","","",VNRacing,68,"User story #263: Là người chơi, tôi muốn có hệ thống thành tựu với các mục tiêu dài hạn và phần thưởng giá trị để tăng động lực gắn bó lâu dài với game",06/10/2026 01:49 PM,Giang Dương Võ Trà,"",""
+268,"Dev_Implement_US263_ Achievement sử dụng một Pool nhiệm vụ riêng biệt, dựa trên mốc tiến trình cá nhân của người chơi",Summary task,In specification,Long Trần Anh Thượng,Normal,"","","",Dev,"","","",VNRacing,69,"User story #263: Là người chơi, tôi muốn có hệ thống thành tựu với các mục tiêu dài hạn và phần thưởng giá trị để tăng động lực gắn bó lâu dài với game",06/10/2026 01:50 PM,Giang Dương Võ Trà,"",""
+269,"Dev_Implement_US262_Là người chơi, tôi muốn các xe được trao thưởng ở mỗi City mới có điểm khởi đầu sức mạnh tăng dần theo chiều dài Progression ",Summary task,In specification,Long Trần Anh Thượng,Normal,"","","",Dev,"","","",VNRacing,70,"User story #262: Là người chơi, tôi muốn các xe được trao thưởng ở mỗi City mới có điểm khởi đầu sức mạnh tăng dần theo chiều dài Progression để cảm nhận rõ hơn quá trình Progression.",06/10/2026 01:52 PM,Giang Dương Võ Trà,"",""
+270,"Dev_Implement_US261_Là QA, tôi muốn có khả năng Reload lại Goals của các City,",Summary task,Developed,Long Trần Anh Thượng,Normal,"",6.0,"",Dev,"","","",VNRacing,71,"User story #261: Là QA, tôi muốn có khả năng Reload lại Goals của các City, thay đổi Progress của các Goals và kích hoạt hoàn thành trao thưởng cho các Goals đó để thuận tiện cho việc kiểm tra tính khả thi và hấp dẫn của các Goals trong từng City.",06/10/2026 01:53 PM,Giang Dương Võ Trà,"",""
+271,"Dev_Implement_260_Là GD, tôi muốn tạo động lực cho người chơi tìm kiếm các cuộc đua mới trong một City",Summary task,Developed,Long Trần Anh Thượng,Normal,"",20.0,"",Dev,"","","",VNRacing,72,"User story #260: Là GD, tôi muốn tạo động lực cho người chơi tìm kiếm các cuộc đua mới trong một City để tối ưu hóa thời gian chơi cũng như tối đa hóa sử dụng số lượng Asset đã sản xuất",06/10/2026 01:54 PM,Giang Dương Võ Trà,"",""
+272,GAME MODE,Epic,New,"",Normal,"",142.0,"",Game Design,"","","",VNRacing,73,"",06/10/2026 02:13 PM,Giang Dương Võ Trà,"",""
+273,MULTIPLAYER,Feature,In specification,"",Normal,"",94.0,"",Game Design,"","","",VNRacing,74,Epic #272: GAME MODE,06/10/2026 02:14 PM,Giang Dương Võ Trà,"",""
+274,DAILY CHALLENGE,Feature,In specification,"",Normal,"",48.0,"",Game Design,"","","",VNRacing,75,Epic #272: GAME MODE,06/10/2026 02:14 PM,Giang Dương Võ Trà,"",""
+275,Dev_Implement _Multi Player,Summary task,In specification,Long Trần Anh Thượng,Normal,"",78.0,"",Dev,"","","",VNRacing,76,User story #439: Là người chơi tôi muốn được ghép trận đua với người chơi khác và có khả năng cancel giữa chừng trước khi vào trận ,06/10/2026 02:16 PM,Giang Dương Võ Trà,"",""
+276,Implement giao diện UI_Multiplayer theo thiết kế,Task,On hold,Khan Vương Huỳnh,Normal,30.0,"","",Dev,"","","",VNRacing,77,Summary task #275: Dev_Implement _Multi Player,06/10/2026 02:22 PM,Giang Dương Võ Trà,Long Trần Anh Thượng,""
+277,Implement_Anim_FX_UI_Multiplayer,Task,New,Khan Vương Huỳnh,Normal,8.0,"","",Dev,"","","",VNRacing,78,Summary task #275: Dev_Implement _Multi Player,06/10/2026 02:23 PM,Giang Dương Võ Trà,Long Trần Anh Thượng,""
+278,Dev_Implement_Collision Debug,Summary task,Specified,Long Trần Anh Thượng,Normal,"",34.0,"",Dev,"","","",VNRacing,79,"User story #284: Là người chơi, tôi muốn cảm giác va chạm mang tính Arcade để giữ nhịp độ cuộc đua ổn định, xe không bị lật và nhanh chóng quay lại đường đua sau khi tông vào tường hoặc vật thể",06/10/2026 02:32 PM,Giang Dương Võ Trà,"","[(9+) CollisionTest\_Brief\_V1\_20260506 | Notion](https://app.notion.com/p/sss-click/CollisionTest_Brief_V1_20260506-376d1a0054d28030b7d9db62e86b7790)
+
+<figure class=""table op-uc-figure_align-center op-uc-figure""><table class=""op-uc-table"" style=""border-style:none;""><tbody><tr class=""op-uc-table--row""><td class=""op-uc-table--cell"" style=""border-color:#000000;padding:0px 3px;vertical-align:top;""><p class=""op-uc-p"">Build level test DriveMode - Debug Collision</p></td><td class=""op-uc-table--cell"" style=""border-bottom:1px solid #000000;border-right:1px solid #000000;border-top:1px solid #000000;padding:0px 3px;vertical-align:top;""><p class=""op-uc-p"">Xây dựng level test collision theo mô tả trong tài liệu</p></td></tr><tr class=""op-uc-table--row""><td class=""op-uc-table--cell"" style=""border-bottom:1px solid #000000;border-left:1px solid #000000;border-right:1px solid #000000;padding:0px 3px;vertical-align:top;""><p class=""op-uc-p"">Tạo UI overlay cho Debug Collision&nbsp;</p></td><td class=""op-uc-table--cell"" style=""border-bottom:1px solid #000000;border-right:1px solid #000000;padding:0px 3px;vertical-align:top;""><p class=""op-uc-p"">Thêm các nút trong module Debug Overlay và Test Map<br>Tạo và cập nhật logic UI cho Debug Collision Overlay<br><br data-cke-filler=""true""></p></td></tr><tr class=""op-uc-table--row""><td class=""op-uc-table--cell"" style=""border-bottom:1px solid #000000;border-left:1px solid #000000;border-right:1px solid #000000;padding:0px 3px;vertical-align:top;""><p class=""op-uc-p"">Cài đặt logic các kịch bản va chạm với xe AI</p></td><td class=""op-uc-table--cell"" style=""border-bottom:1px solid #000000;border-right:1px solid #000000;padding:0px 3px;vertical-align:top;""><p class=""op-uc-p"">Triển khai các actor test Collision với môi trường<br>Triển khai các chức năng hỗ trợ xe AI va chạm người chơi</p></td></tr></tbody></table></figure>"
+279,DriveMode - Physics,Feature,New,"",Normal,"",54.0,"",Game Design,"","","",VNRacing,80,Epic #151: Drive Mode,06/10/2026 02:38 PM,Giang Dương Võ Trà,"",""
+280,"Là QA, tôi muốn xem bảng tóm tắt thông số người chơi (City, Playtime, Races, Cars, Items) cập nhật liên tục để kiểm tra tính chính xác của dữ liệu và so sánh với các mục tiêu Design.",User story,Specified,Phước Hồ Đức,Normal,"",6.0,"",Game Design,"","","",VNRacing,81,Epic #183: VNTour ,06/10/2026 03:17 PM,Giang Dương Võ Trà,"",""
+281,"Dev_Implement_US280_Là QA, tôi muốn xem bảng tóm tắt thông số người chơi (City, Playtime, Races, Cars, Items)",Summary task,Developed,Long Trần Anh Thượng,Normal,"",6.0,"",Dev,"","","",VNRacing,82,"User story #280: Là QA, tôi muốn xem bảng tóm tắt thông số người chơi (City, Playtime, Races, Cars, Items) cập nhật liên tục để kiểm tra tính chính xác của dữ liệu và so sánh với các mục tiêu Design.",06/10/2026 03:18 PM,Giang Dương Võ Trà,"",""
+284,"Là người chơi, tôi muốn cảm giác va chạm mang tính Arcade để giữ nhịp độ cuộc đua ổn định, xe không bị lật và nhanh chóng quay lại đường đua sau khi tông vào tường hoặc vật thể",User story,Scheduled,Phước Hồ Đức,Normal,"",50.0,"",Game Design,"",User Story Submit ( 15/6-28/6/2026) ,"",VNRacing,4,Feature #279: DriveMode - Physics,06/10/2026 04:24 PM,Giang Dương Võ Trà,"","\- Thiết lập Map Test với các trường hợp va chạm sau: Front, FrontLeft/Right, SideLeft/Right, RearLeft/Right.  
+\- Hệ thống phải ưu tiên giữ đà tiến (momentum) và điều hướng xe về phía Racing Line sau va chạm  
+\- Phản hồi chính xác theo các vùng va chạm: Front, FrontLeft/Right, SideLeft/Right, RearLeft/Right.  
+\- Tuyệt đối không để xe xảy ra tình trạng lật úp khi va chạm với các vật thể môi trường cố định."
+293,"Là người chơi, tôi muốn được trao thưởng Items mỗi khi hoàn thành một cuộc đua để tăng động lực hoàn thành các cuộc đua.",User story,In specification,Phước Hồ Đức,Normal,"",12.0,"",Game Design,"","","",VNRacing,86,Feature #345: Reward,06/11/2026 10:44 AM,Giang Dương Võ Trà,"","\- Kích hoạt trao thưởng Item Tokens theo vị thứ cho người chơi (Về nhất - 3 Tokens, nhì - 2 Tokens, ba - 1 Token)  
+\- Kích hoạt UI trao thưởng ấn tượng mỗi khi trao thưởng Item về đích cho người chơi.  
+\- Về thứ 4 trở đi không kích hoạt trao thưởng Item Tokens."
+294,"Dev_Implement_US 293_Là người chơi, tôi muốn được trao thưởng Items mỗi khi hoàn thành một cuộc đua để tăng động lực hoàn thành các cuộc đua.",Summary task,Specified,Long Trần Anh Thượng,Normal,"",12.0,"",Dev,"","","",VNRacing,87,"User story #293: Là người chơi, tôi muốn được trao thưởng Items mỗi khi hoàn thành một cuộc đua để tăng động lực hoàn thành các cuộc đua.",06/11/2026 10:45 AM,Giang Dương Võ Trà,"",""
+295,Level_Tạo Map Test ,Summary task,Developed,Thống Trần Cao,Normal,"",12.0,"",Level,"","","",VNRacing,88,"User story #284: Là người chơi, tôi muốn cảm giác va chạm mang tính Arcade để giữ nhịp độ cuộc đua ổn định, xe không bị lật và nhanh chóng quay lại đường đua sau khi tông vào tường hoặc vật thể",06/11/2026 10:50 AM,Giang Dương Võ Trà,"",""
+298,CUSTOMIZE ,Epic,In specification,"",Normal,"",40.0,"",Game Design,"","","",VNRacing,91,"",06/11/2026 11:03 AM,Giang Dương Võ Trà,"",""
+299,Customize Room_Theme Change ,Sub Feature,New,"",Normal,"",24.0,"",2D,"","","",VNRacing,92,Feature #400: Theme Change,06/11/2026 11:03 AM,Giang Dương Võ Trà,"",""
+301,FX_UI_US 293,Summary task,In specification,Hoàng Trần Văn Huy,Normal,"","","",FX,"","","",VNRacing,94,"User story #293: Là người chơi, tôi muốn được trao thưởng Items mỗi khi hoàn thành một cuộc đua để tăng động lực hoàn thành các cuộc đua.",06/11/2026 11:15 AM,Giang Dương Võ Trà,"",""
+302,"Là người chơi, tôi muốn biết tiến trình các nhiệm vụ mình cần phải làm để hoàn thành một City",User story,In specification,Phước Hồ Đức,Normal,"","","",Game Design,"","","",VNRacing,95,Sub Feature #331: Goals Unlock,06/11/2026 11:36 AM,Giang Dương Võ Trà,"","\- Update trạng thái của nhiệm vụ trong CityGoals mỗi khi người chơi đạt mốc hoàn thành.  
+\- UI Update trạng thái của CityGoals mỗi khi người chơi hoàn thành một mốc Progression.  
+\- UI Update trạng thái của CityGoals luôn xuất hiện cao nhất mỗi khi tiến trình được Update dù người chơi đang ở Screen nào đi nữa."
+303,"Là QA, tôi muốn hoàn thành nhanh một cuộc đua bất kỳ để kiểm tra luồng trả thưởng",User story,In progress,Phước Hồ Đức,Normal,"","","",Game Design,"","","",VNRacing,96,Epic #183: VNTour ,06/11/2026 11:37 AM,Giang Dương Võ Trà,"",""
+305,"Là người chơi, tôi muốn được trao thưởng theo từng mốc hoàn thành các CityGoals để có thêm động lực tiến tới mục tiêu Unlock một City mới.",User story,Specified,Phước Hồ Đức,Normal,"",4.0,"",Game Design,"","","",VNRacing,97,Sub Feature #386: Item Unlock,06/11/2026 01:22 PM,Giang Dương Võ Trà,"","\- Các nút Claims kích hoạt các Popup UI trao thưởng.  
+\- Kích hoạt trao thưởng cho người chơi khi hoàn thành bất cứ CityGoal nào từ Tiers 1 -&gt; Tiers 3  
+\- Xác định sẵn công thức hoặc DataTable trả thưởng cho người chơi mỗi khi hoàn thành một Goals.  
+\- Các Goals trong Panel Goals hiện nút Claims mỗi khi hoàn thành một nhiệm vụ."
+306,"Là GD, tôi muốn trao thưởng cho Player các Items thuộc về Item Pool của City đó theo các quy định đã đề ra để đảm bảo trải nghiệm trao thưởng của người chơi có ý nghĩa.",User story,In progress,Phước Hồ Đức,Normal,"",6.0,"",Game Design,"","","",VNRacing,98,Feature #345: Reward,06/11/2026 01:22 PM,Giang Dương Võ Trà,"",""
+307,"Là người chơi, tôi muốn biết mình cần làm những nhiệm vụ nào để hoàn thành một City để có định hướng khi chơi Game.",User story,Specified,Phước Hồ Đức,Normal,"","","",Game Design,"","","",VNRacing,99,Sub Feature #331: Goals Unlock,06/11/2026 01:23 PM,Giang Dương Võ Trà,"",(US 3379 cũ)
+308,"Là QC, tôi muốn có khả năng hoàn thành nhanh các City từ C1 - C5 và ngược lại để Review hạng mục liên quan tới City đó như Cash, Unlock Cars, Car Rating, v.v",User story,In specification,Phước Hồ Đức,Normal,"",22.0,"",Game Design,"",User Story Submit ( 15/6-28/6/2026) ,"",VNRacing,3,Sub Feature #339: Map Scene Unlock,06/11/2026 01:23 PM,Giang Dương Võ Trà,"","\- Bảng Debug cho phép nhảy nhanh qua các City từ C1- C5 với các hạng mục thay đổi tương ứng.
+
+\- Các hạng mục thay đổi bao gồm:
+
+*   Cash trong Player Wallet.
+    
+*   Update bảng Goal mới cho City.
+    
+*   Items trong Inventory.
+    
+*   Số lượng xe sở hữu trong Player Garage ( Chọn trong Customize)
+    
+*   Chỉnh sửa chỉ số sức mạnh xe theo mẫu (Car CR).
+    
+*   Bản đồ của thành phố được Unlock xem được trong Map VN tour (US <mention class=""mention"" data-id=""410"" data-type=""work_package"" data-text=""#410"">#410</mention> )"
+309,"	Là QA, tôi muốn có khả năng kích hoạt trao thưởng bất kỳ lúc nào trong Game để check xem tỉ lệ trao thưởng có hợp lý hay không.",User story,In progress,Phước Hồ Đức,Normal,"",2.0,"",Game Design,"","","",VNRacing,100,Feature #345: Reward,06/11/2026 01:23 PM,Giang Dương Võ Trà,"",""
+310,"Là người chơi, tôi muốn các Item trao thưởng trong một thành phố đi liền với các xe mà tôi đã Unlock để cảm giác Progression được liền mạch và có ý nghĩa",User story,Specified,Phước Hồ Đức,Normal,"","","",Game Design,"","","",VNRacing,101,Sub Feature #386: Item Unlock,06/11/2026 01:23 PM,Giang Dương Võ Trà,"","(US 3381 cũ)  
+\- Quy định Reward ItemPool cho từng City.  
+\- Rút phần thưởng ra chỉ từ Reward Item Pool của các City đó."
+317,FX_UI_US 2409,Summary task,New,"",Normal,"",4.0,"",FX,"","","",VNRacing,102,"User story #305: Là người chơi, tôi muốn được trao thưởng theo từng mốc hoàn thành các CityGoals để có thêm động lực tiến tới mục tiêu Unlock một City mới.",06/12/2026 10:56 AM,Giang Dương Võ Trà,"",""
+318,FX_UI521_Card Item ,Task,Waiting for approve,Hoàng Trần Văn Huy,Normal,4.0,"","",FX,"","","",VNRacing,103,Summary task #317: FX_UI_US 2409,06/12/2026 10:57 AM,Giang Dương Võ Trà,"","update lại theo tài liệu như: luôn luôn chỉ nhận được x1 card, màu độ hiếm (trắng - common, blue - uncommon, xanh lá - rare)"
+319,Asset Making_Prop,Task,New,Nam Nguyễn Kỳ,Normal,"","","",3D ,"","","",VNRacing,104,Summary task #207: Asset Making_Quốc Học Huế,06/12/2026 11:07 AM,Giang Dương Võ Trà,"",""
+320,Main menu_Theme Change,Sub Feature,New,"",Normal,"","","",2D,"","","",VNRacing,105,Feature #400: Theme Change,06/12/2026 11:22 AM,Giang Dương Võ Trà,"",""
+322,Dev_Implement_US 3382 ,Summary task,Specified,Long Trần Anh Thượng,Normal,"",6.0,"",Dev,"","","",VNRacing,107,"User story #306: Là GD, tôi muốn trao thưởng cho Player các Items thuộc về Item Pool của City đó theo các quy định đã đề ra để đảm bảo trải nghiệm trao thưởng của người chơi có ý nghĩa.",06/12/2026 01:21 PM,Giang Dương Võ Trà,"",""
+324,Basic Racing,Feature,In specification,"",Normal,"",24.0,"",Game Design,"","","",VNRacing,109,Epic #151: Drive Mode,06/12/2026 01:38 PM,Giang Dương Võ Trà,"",""
+325,Customize Room Ver 04 ,User story,New,"",Normal,"",24.0,"",2D,"","","",VNRacing,110,Sub Feature #299: Customize Room_Theme Change ,06/12/2026 03:35 PM,Giang Dương Võ Trà,"",""
+326,Level_Asset Assembly_Customize Room ver 04,Summary task,In progress,Nhật Võ Tấn,Normal,"",24.0,"",Level,"","","",VNRacing,111,User story #325: Customize Room Ver 04 ,06/12/2026 03:36 PM,Giang Dương Võ Trà,"",""
+327,Level_Assembly_Customize room ver 4,Task,Waiting for approve,Nhật Võ Tấn,Normal,12.0,"","",Level,"","","",VNRacing,112,Summary task #326: Level_Asset Assembly_Customize Room ver 04,06/12/2026 03:38 PM,Giang Dương Võ Trà,"",""
+328,Level_Setup Lighting_Bake_Customize Room Ver 4,Task,Waiting for approve,Nhật Võ Tấn,Normal,12.0,"","",Level,"","","",VNRacing,113,Summary task #326: Level_Asset Assembly_Customize Room ver 04,06/12/2026 03:39 PM,Giang Dương Võ Trà,"",""
+329,City Progression,Feature,In specification,Phước Hồ Đức,Normal,"",60.0,"",Game Design,"","","",VNRacing,114,Epic #183: VNTour ,06/12/2026 03:57 PM,Son Nguyen,"","*   Unlock city
+    
+    *   Hoàn thành city goal City1 -City 2 hoàn thành sang city 3
+        
+        *   Hoàn thành city goal-reward
+            
+*   Goal Update
+    
+    *   Theo thiết kế
+        
+    *   UI - Aimation
+        
+    *   Map -Placeholder
+        
+    *   Track-Placeholder
+        
+*   <br>
+    
+*   Hiển thị UI show dc reward city 1 và 2 đã nhận
+    
+*   Bao gồm cả item
+    
+*   Unlock xe
+    
+*   Tổng số các goal hoàn thành được ( Unlock Goal)
+    
+*   Lập trình Goal - Goal debug
+    
+*   Vị trí nhập liệu cho Goal"
+331,Goals Unlock,Sub Feature,New,Phước Hồ Đức,Normal,"",8.0,"",Game Design,"","","",VNRacing,115,Feature #329: City Progression,06/12/2026 04:07 PM,Son Nguyen,"","Sub Feature liên quan tới các chức năng:  
+\- Update Goals mới khi vào City.  
+\- Update tiến trình Goals trong khi chơi."
+332,Customize Room Ver 05,User story,New,"",Normal,"","","",2D,"","","",VNRacing,116,Sub Feature #299: Customize Room_Theme Change ,06/12/2026 04:20 PM,Giang Dương Võ Trà,"",""
+333,Goals Config,Sub Feature,New,Phước Hồ Đức,Normal,"","","",Game Design,"","","",VNRacing,117,Feature #329: City Progression,06/12/2026 04:39 PM,Son Nguyen,"","*   Tổng số các goal hoàn thành được ( Unlock Goal)
+    
+*   Lập trình Goal - Goal debug
+    
+*   Vị trí nhập liệu cho Goal"
+334,NOS,Feature,New,"",Normal,"","","",Game Design,"","","",VNRacing,118,Epic #151: Drive Mode,06/12/2026 04:39 PM,Giang Dương Võ Trà,"",""
+335,RAMP,Feature,New,"",Normal,"","","",Game Design,"","","",VNRacing,119,Epic #151: Drive Mode,06/12/2026 04:39 PM,Giang Dương Võ Trà,"",""
+336,CAMERA,Feature,In progress,"",Normal,"",86.0,"",Game Design,"","","",VNRacing,120,Epic #151: Drive Mode,06/12/2026 04:40 PM,Giang Dương Võ Trà,"",""
+337,Car Unlock,Sub Feature,New,Phước Hồ Đức,Normal,"","","",Game Design,"","","",VNRacing,121,"",06/12/2026 04:41 PM,Son Nguyen,"","Unlock Car thưởng sau khi mở City, Chạy cinematic"
+338,SETTING,Feature,New,"",Normal,"","","",Game Design,"","","",VNRacing,122,Epic #151: Drive Mode,06/12/2026 04:43 PM,Giang Dương Võ Trà,"",""
+339,Map Scene Unlock,Sub Feature,New,Phước Hồ Đức,Normal,"",48.0,"",Game Design,"","","",VNRacing,123,Feature #329: City Progression,06/12/2026 04:51 PM,Son Nguyen,"","Khi Unlock City thì Unlock Cinematic của City đó.  
+Debug Unlock City có thể Unlock City và Review Cinematic khi hoàn thành một City:  
+\- Unlock các city bất kỳ, Unlock city nào thì Unlock luôn các city trước đó.  
+\- Review được Introduce scene của City được Unlock."
+341,Area-Track Unlock,Feature,In specification,Phước Hồ Đức,High,"",108.0,"",Game Design,"","","",VNRacing,124,Epic #183: VNTour ,06/12/2026 05:01 PM,Son Nguyen,"",""
+342,Track Selection,Sub Feature,New,Phước Hồ Đức,Normal,"",68.0,"",Game Design,"","","",VNRacing,125,Feature #341: Area-Track Unlock,06/12/2026 05:03 PM,Son Nguyen,"","*   Chọn track
+    
+*   Load track
+    
+*   Highlght track (phần art)- đã có
+    
+*   Track record ( vị thứ đã về của người chơi),&nbsp;
+    
+*   Cập nhật tiến trình khu vực (Area Panel Update)
+    
+*   Hiệu ứng UI và Animation cho việc cập nhật tiến trình"
+343,Track Config,Sub Feature,New,Phước Hồ Đức,Normal,"",40.0,"",Game Design,"","","",VNRacing,126,Feature #341: Area-Track Unlock,06/12/2026 05:07 PM,Son Nguyen,"","*   Setup Độ khó cho track ở Debug.
+    
+*   Track Config ( tool để GD nhập bảng).
+    
+*   Hệ thống Placeholder cho các nội dung chưa định danh (Dummy)
+    
+*   Chế độ Đua mô phỏng (Fast Result) cho Dummy Track"
+344,Car-Progression,Feature,In specification,"",Normal,"","","",Game Design,"","","",VNRacing,127,Epic #183: VNTour ,06/15/2026 09:26 AM,Son Nguyen,"",""
+345,Reward,Feature,New,"",High,"",56.0,"",Game Design,"","","",VNRacing,128,Epic #183: VNTour ,06/15/2026 09:35 AM,Son Nguyen,"",""
+346,Dev_Implement_3380(cũ)_Là người chơi tôi muốn biết tiến trình và nhiệm vụ phải làm để hoàn thành 1 City,Summary task,In specification,Long Trần Anh Thượng,Normal,"","","",Dev,"","","",VNRacing,129,"User story #302: Là người chơi, tôi muốn biết tiến trình các nhiệm vụ mình cần phải làm để hoàn thành một City",06/15/2026 10:03 AM,Giang Dương Võ Trà,"",""
+347,GD_Document_Basic Racing ,Summary task,In specification,Phước Hồ Đức,Normal,"",4.0,"",Game Design,"","","",VNRacing,130,Feature #324: Basic Racing,06/15/2026 11:37 AM,Giang Dương Võ Trà,"",""
+348,GD_Play test_US 306_Trao thưởng các item thuộc về Item Pool...,Task,New,Phước Hồ Đức,Normal,"","","",Game Design,"","","",VNRacing,131,"User story #306: Là GD, tôi muốn trao thưởng cho Player các Items thuộc về Item Pool của City đó theo các quy định đã đề ra để đảm bảo trải nghiệm trao thưởng của người chơi có ý nghĩa.",06/15/2026 11:41 AM,Giang Dương Võ Trà,"",""
+349,GD_Play test_US308_Debug_Unlock City_C1-C5,Task,New,Phước Hồ Đức,Normal,2.0,"","",Game Design,"","","",VNRacing,132,"User story #308: Là QC, tôi muốn có khả năng hoàn thành nhanh các City từ C1 - C5 và ngược lại để Review hạng mục liên quan tới City đó như Cash, Unlock Cars, Car Rating, v.v",06/15/2026 11:45 AM,Giang Dương Võ Trà,"",""
+350,GD_ Play test_US 303 ,Summary task,In specification,Phước Hồ Đức,Normal,"","","",Game Design,"","","",VNRacing,133,"User story #303: Là QA, tôi muốn hoàn thành nhanh một cuộc đua bất kỳ để kiểm tra luồng trả thưởng",06/15/2026 01:19 PM,Giang Dương Võ Trà,"",""
+351," Tôi muốn có cảm giác đua xe ARCADE , DRIFT để thu thập NOS ",User story,In progress,Phước Hồ Đức,Normal,"",4.0,"",Game Design,"","","",VNRacing,134,Feature #324: Basic Racing,06/15/2026 01:25 PM,Giang Dương Võ Trà,"",""
+353," Là người chơi, tôi muốn có thể điều chỉnh độ nhạy của Steering để kiểm soát xe mượt mà hơn theo kỹ năng cá nhân",User story,In progress,Phước Hồ Đức,Normal,"","","",Game Design,"","","",VNRacing,136,Feature #338: SETTING,06/15/2026 01:27 PM,Giang Dương Võ Trà,"",""
+354,GD_ Play test_US 353_Độ nhạy của Steering ,Task,New,Phước Hồ Đức,Normal,"","","",Game Design,"","","",VNRacing,137,"User story #353:  Là người chơi, tôi muốn có thể điều chỉnh độ nhạy của Steering để kiểm soát xe mượt mà hơn theo kỹ năng cá nhân",06/15/2026 01:28 PM,Giang Dương Võ Trà,"",""
+359,Update tài liệu GDD của Destruction Objects ( Drive Mode - Collision - Destruction Object ),Task,New,Phước Hồ Đức,High,4.0,"","",Game Design,"","","",VNRacing,139,"",06/15/2026 03:18 PM,Phước Hồ Đức,"","Các US liên quan:  
+Là người chơi, tôi muốn có thể va chạm và phá hủy các chướng ngại vật ngẫu nhiên trên đường đua để nhận được thêm Nitrous (NOS), tạo cảm giác thống trị và kịch tính hơn trong cuộc đua"
+361,Test và FB cho hạng mục Progression #3382,Task,New,Phước Hồ Đức,Normal,4.0,"","",Game Design,"","","",VNRacing,141,"",06/15/2026 03:52 PM,Phước Hồ Đức,"",""
+362,Test và FB cho hạng mục Progression #3378,Task,New,Phước Hồ Đức,Normal,4.0,"","",Game Design,"","","",VNRacing,142,"",06/15/2026 03:53 PM,Phước Hồ Đức,"",""
+366,SHOP & IAP,Epic,New,"",Normal,"",20.0,"",Dev,"","","",VNRacing,143,"",06/16/2026 11:10 AM,Giang Dương Võ Trà,"",""
+368,Sketch 7 key visual_Hồ Thuỷ Tiên,Task,In progress,Châu Nguyễn Ngọc Á,Normal,38.0,"","",2D,"","","",VNRacing,145,Summary task #197: Asset Concept_Hồ Thuỷ Tiên,06/16/2026 11:33 AM,Giang Dương Võ Trà,"",""
+369,Finalize 7 key visual_Hồ Thuỷ Tiên,Task,New,Châu Nguyễn Ngọc Á,Normal,48.0,"","",2D,"","","",VNRacing,146,Summary task #197: Asset Concept_Hồ Thuỷ Tiên,06/16/2026 11:33 AM,Giang Dương Võ Trà,"",""
+370,Breakdown Asset List & VFX List_Hồ Thuỷ Tiên,Task,New,Châu Nguyễn Ngọc Á,Normal,8.0,"","",2D,"","","",VNRacing,147,Summary task #197: Asset Concept_Hồ Thuỷ Tiên,06/16/2026 11:34 AM,Giang Dương Võ Trà,"",""
+371,Minimap ,Sub Feature,New,"",Normal,"",16.0,"",Game Design,"","","",VNRacing,148,Feature #324: Basic Racing,06/16/2026 02:42 PM,Giang Dương Võ Trà,"",""
+375,"Là người chơi, tôi muốn Camera di chuyển linh hoạt theo hướng bẻ lái để mở rộng tầm nhìn về phía góc cua và tăng cảm giác chân thực",User story,In progress,Phước Hồ Đức,Normal,"",14.0,"",Game Design,"",User Story Submit ( 15/6-28/6/2026) ,"",VNRacing,5,Feature #336: CAMERA,06/17/2026 08:37 AM,Giang Dương Võ Trà,"","**DriveMode - Camera - Steering**
+
+\- Khi rẽ trái/phải, Camera phải di chuyển theo phương ngang một chút về hướng đó  
+\- Nếu người chơi đổi hướng rẽ đột ngột, Camera phải quay về vị trí cân bằng ở giữa trước khi di chuyển sang hướng mới  
+\- Nếu chưa đạt vị trí tối đa mà người chơi đã đổi hướng, Camera phải dừng ngay lập tức và quay về tâm  
+\- Hiệu ứng này phải đồng bộ kích hoạt với hiệu ứng Suspension của xe trong DriveMode - Physics - Suspension.  
+\- Các thay đổi Camera này phải diễn ra thông qua biểu đồ Curve để đảm bảo quá trình chuyển đổi (Blending) mượt mà,"
+376,"Là người chơi, tôi muốn Camera có góc nhìn rộng và mạnh mẽ hơn khi thực hiện cú Drift để tăng cảm giác phấn khích của dòng game Arcade",User story,In progress,Phước Hồ Đức,Normal,"",10.0,"",Game Design,"","","",VNRacing,152,Feature #336: CAMERA,06/17/2026 08:38 AM,Giang Dương Võ Trà,"","\- Các cơ chế di chuyển ngang tương tự Steering nhưng với chỉ số khoảng cách lớn hơn  
+\- Camera phải tự động tăng nhẹ trường nhìn (Field of View - FOV) trong suốt quá trình Drift  
+\- Các thay đổi Camera này phải diễn ra thông qua biểu đồ Curve để đảm bảo quá trình chuyển đổi (Blending) mượt mà,"
+377,"Là người chơi, tôi muốn thấy hiệu ứng Camera giật mạnh và thay đổi tiêu cự khi dùng NOS để cảm nhận được gia tốc cực đại của xe",User story,In progress,Phước Hồ Đức,Normal,"",20.0,"",Game Design,"","","",VNRacing,153,Feature #336: CAMERA,06/17/2026 08:38 AM,Giang Dương Võ Trà,"","**DriveMode - Camera - NOS**
+
+\- Khi kích hoạt NOS, Camera phải giật mạnh ra sau, tăng FOV và tăng khoảng cách so với xe  
+\- Các hiệu ứng được phân bậc: Bậc 1(Mới bắt đầu) -&gt; Thay đổi FOV và khoảng cách ở mức tối đa, Bâc 2(Còn 1/2 thanh) -&gt; FOV và khoảng cách thu hẹp dần về trạng thái bình thường nhưng vẫn giữ cảm giác nhanh, Bậc 3 (Hết NOS): Trả các thông số Camera về mặc định.  
+\- Các thay đổi Camera khi Steer vẫn phải có hiệu lực và được cộng dồn vào hiệu ứng của NOS.  
+\- Các thay đổi Camera này phải diễn ra thông qua biểu đồ Curve để đảm bảo quá trình chuyển đổi (Blending) mượt mà,"
+378,"Là người chơi, tôi muốn Camera có phản hồi rung động khi va chạm để nhận biết được mức độ thiệt hại và tác động vật lý",User story,In specification,Phước Hồ Đức,Normal,"",12.0,"",Game Design,"","","",VNRacing,154,Feature #336: CAMERA,06/17/2026 08:38 AM,Giang Dương Võ Trà,"","\- Camera phải có hiệu ứng giật (Feedback) nhẹ ngược lại với hướng va chạm  
+\- Camera phải có hiệu ứng rung nhẹ (Shake) ngược lại hướng bị tác động  
+\- Sau hiệu ứng giật/rung, Camera phải hồi phục về trạng thái bình thường một cách mượt mà  
+\- Các thay đổi Camera này phải diễn ra thông qua biểu đồ Curve để đảm bảo quá trình chuyển đổi (Blending) mượt mà,"
+379,"Là người chơi, tôi muốn Camera tự động điều chỉnh độ cao và góc nhìn khi lên/xuống dốc để luôn quan sát được đoạn đường phía trước",User story,In progress,Phước Hồ Đức,Normal,"",14.0,"",Game Design,"",User Story Submit ( 15/6-28/6/2026) ,"",VNRacing,6,Feature #336: CAMERA,06/17/2026 08:39 AM,Giang Dương Võ Trà,"","\- Khi vào vùng dốc, Camera phải phóng đại FOV nhẹ, di chuyển lên trên (trục Z) và lùi về sau (trục X)  
+\- Camera phải cao hơn bình thường để người chơi thấy được đỉnh dốc hoặc chân dốc  
+\- Để tránh lỗi hiển thị lúc bắt đầu đua, hiệu ứng này chỉ được kích hoạt 10 giây sau khi cuộc đua bắt đầu  
+\- Các thay đổi Camera này phải diễn ra thông qua biểu đồ Curve để đảm bảo quá trình chuyển đổi (Blending) mượt mà,"
+380,DriveMode - Camera - NOS,Task,In progress,Như Trương,Normal,14.0,"","",Dev,"","","",VNRacing,155,Summary task #397: Dev_Implement_US377 - Camera - NOS,06/17/2026 08:39 AM,Long Trần Anh Thượng,Long Trần Anh Thượng,"\- Khi kích hoạt NOS, Camera phải giật mạnh ra sau, tăng FOV và tăng khoảng cách so với xe  
+\- Các hiệu ứng được phân bậc: Bậc 1(Mới bắt đầu) -&gt; Thay đổi FOV và khoảng cách ở mức tối đa, Bâc 2(Còn 1/2 thanh) -&gt; FOV và khoảng cách thu hẹp dần về trạng thái bình thường nhưng vẫn giữ cảm giác nhanh, Bậc 3 (Hết NOS): Trả các thông số Camera về mặc định.  
+\- Các thay đổi Camera khi Steer vẫn phải có hiệu lực và được cộng dồn vào hiệu ứng của NOS.  
+\- Các thay đổi Camera này phải diễn ra thông qua biểu đồ Curve để đảm bảo quá trình chuyển đổi (Blending) mượt mà"
+381,"Là người chơi, tôi muốn Camera thay đổi góc nhìn khi xe bay trên không để quan sát được vị trí tiếp đất an toàn",User story,In specification,Phước Hồ Đức,Normal,"",8.0,"",Game Design,"","","",VNRacing,156,Feature #336: CAMERA,06/17/2026 08:39 AM,Giang Dương Võ Trà,"","\- Ngay khi xe rời Ramp hoặc rơi từ trên cao, Camera phải có hiệu ứng chúc xuống và đưa ra xa  
+\- Hiệu ứng này phải đảm bảo người chơi thấy được phần mặt đường trước mặt xe để chuẩn bị tiếp đất  
+\- Hiệu ứng Camera OnAir phải được duy trì liên tục cho đến khi xe chạm đất hoàn toàn mới trả về trạng thái đua bình thường  
+\- Khi tiếp đất, Camera có hiệu ứng rung lắc nhẹ thể hiện Impact khi tiếp đất, hiệu ứng phụ thuộc vào tốc độ và độ cao tối đa của xe trước khi tiếp đất.  
+\- Các thay đổi Camera này phải diễn ra thông qua biểu đồ Curve để đảm bảo quá trình chuyển đổi (Blending) mượt mà,"
+382,Implement_US 375_  Camera - Steering,Summary task,Developed,Long Trần Anh Thượng,Normal,"",8.0,"",Dev,"","","",VNRacing,157,"User story #375: Là người chơi, tôi muốn Camera di chuyển linh hoạt theo hướng bẻ lái để mở rộng tầm nhìn về phía góc cua và tăng cảm giác chân thực",06/17/2026 08:43 AM,Giang Dương Võ Trà,"",""
+383,DriveMode - Camera - Collision,Task,New,Như Trương,Normal,12.0,"","",Dev,"","","",VNRacing,158,Summary task #399: Dev_Implment_US 378_  Camera - Collision,06/17/2026 08:43 AM,Long Trần Anh Thượng,Long Trần Anh Thượng,"\- Camera phải có hiệu ứng giật (Feedback) nhẹ ngược lại với hướng va chạm  
+\- Camera phải có hiệu ứng rung nhẹ (Shake) ngược lại hướng bị tác động  
+\- Sau hiệu ứng giật/rung, Camera phải hồi phục về trạng thái bình thường một cách mượt mà  
+\- Các thay đổi Camera này phải diễn ra thông qua biểu đồ Curve để đảm bảo quá trình chuyển đổi (Blending) mượt mà,"
+384,DriveMode - Camera - OnAir&TouchDown,Task,New,Như Trương,Normal,8.0,"","",Dev,"","","",VNRacing,159,"User story #381: Là người chơi, tôi muốn Camera thay đổi góc nhìn khi xe bay trên không để quan sát được vị trí tiếp đất an toàn",06/17/2026 08:44 AM,Long Trần Anh Thượng,Long Trần Anh Thượng,"\- Ngay khi xe rời Ramp hoặc rơi từ trên cao, Camera phải có hiệu ứng chúc xuống và đưa ra xa  
+\- Hiệu ứng này phải đảm bảo người chơi thấy được phần mặt đường trước mặt xe để chuẩn bị tiếp đất  
+\- Hiệu ứng Camera OnAir phải được duy trì liên tục cho đến khi xe chạm đất hoàn toàn mới trả về trạng thái đua bình thường  
+\- Khi tiếp đất, Camera có hiệu ứng rung lắc nhẹ thể hiện Impact khi tiếp đất, hiệu ứng phụ thuộc vào tốc độ và độ cao tối đa của xe trước khi tiếp đất.  
+\- Các thay đổi Camera này phải diễn ra thông qua biểu đồ Curve để đảm bảo quá trình chuyển đổi (Blending) mượt mà,"
+385,-,Sub Feature,New,Phước Hồ Đức,Normal,"","","",Game Design,"","","",VNRacing,160,"",06/17/2026 08:47 AM,Phước Hồ Đức,"",""
+386,Item Unlock,Sub Feature,New,Phước Hồ Đức,Normal,"",4.0,"",Game Design,"","","",VNRacing,161,Feature #329: City Progression,06/17/2026 08:48 AM,Phước Hồ Đức,"",""
+388,Cập nhật ID gói bundle trên store,Task,On hold,Khan Vương Huỳnh,Normal,8.0,"","",Dev,"","","",VNRacing,163,Epic #366: SHOP & IAP,06/17/2026 09:11 AM,Long Trần Anh Thượng,Long Trần Anh Thượng,Cập nhật đủ các ID bundle trên store (Android &amp; iOS)
+391,"Là người chơi, tôi muốn MiniMap hiển thị lộ trình, vị trí đối thủ và các điểm mốc quan trọng, đồng thời tự động thay đổi mức thu phóng theo tốc độ xe để hỗ trợ quan sát và định hướng hiệu quả trong suốt cuộc đua.",User story,Scheduled,Phước Hồ Đức,Normal,"",16.0,"",Game Design,"",User Story Submit ( 15/6-28/6/2026) ,"",VNRacing,1,Sub Feature #371: Minimap ,06/17/2026 09:18 AM,Giang Dương Võ Trà,"","&nbsp;Setup Map Test với đầy đủ các Elements có thể xuất hiện trên MiniMap  
+\- MiniMap phải thể hiện đường đua (track) thông qua góc nhìn từ trên xuống (Top-Down)  
+\- Các icon (đối thủ, vạch đích...) phải tự động giảm dần độ mờ (giảm Opacity) khi chúng di chuyển tiến gần về phía rìa ngoài cùng của khung hiển thị MiniMap  
+\- Các lớp icon trên MiniMap phải tuân thủ thứ tự ưu tiên (Z-index) từ trên xuống dưới:  
+       Ưu tiên cao nhất: Icon người chơi (luôn đè lên các icon khác khi trùng vị trí)  
+       Ưu tiên trung bình: Icon đối thủ.  
+       Ưu tiên thấp nhất: Icon Start/Finish Line, Checkpoint, và Item
+
+\- MiniMap phải tự động thực hiện Zoom Out (thu nhỏ bản đồ) khi người chơi tăng tốc từ chậm sang nhanh (Slow Speed → Fast Speed) và Zoom In (phóng to bản đồ) khi xe giảm tốc độ hoặc phanh gấp"
+392,"Implement_US391_Là người chơi, tôi muốn MiniMap hiển thị lộ trình, vị trí đối thủ và các điểm mốc quan trọng, đồng thời tự động thay đổi mức thu phóng theo tốc độ xe để hỗ trợ quan sát và định hướng hiệu quả trong suốt cuộc đua.",Summary task,In progress,Long Trần Anh Thượng,Normal,"",12.0,"",Dev,"","","",VNRacing,165,"User story #391: Là người chơi, tôi muốn MiniMap hiển thị lộ trình, vị trí đối thủ và các điểm mốc quan trọng, đồng thời tự động thay đổi mức thu phóng theo tốc độ xe để hỗ trợ quan sát và định hướng hiệu quả trong suốt cuộc đua.",06/17/2026 09:19 AM,Giang Dương Võ Trà,"",""
+394,"Là Player, tôi muốn các nhiệm vụ Goals để Unlock City mới dễ thực hiện, bám sát với Progression tự nhiên trong quá trình chơi để trải nghiệm game liền mạch và không cảm thấy bị gò bó bởi các thử thách quá khó so với cấp độ xe hiện tại",User story,In progress,Phước Hồ Đức,Normal,"","","",Game Design,"","","",VNRacing,167,Sub Feature #333: Goals Config,06/17/2026 09:23 AM,Phước Hồ Đức,"","\- Thiết kế sẵn Pool nhiệm vụ với 11 nhiệm vụ.  
+\- Phân bậc nhiệm vụ theo lộ trình phát triển (Tiered Progression).  
+\- Các nhiệm vụ được phân ra làm 2 loại: Progression và Checkbox.  
+\- Các nhiệm vụ đảm bảo Track đúng và đủ tiến trình thực hiện để Update chính xác."
+395,"Là QC, tôi muốn có thể thay đổi các thông số hoàn thành của các Goals thông qua một dạng bảng DataTable để thử nghiệm nhiều loại nhiệm vụ khác nhau, tối ưu hóa việc cân bằng game mà không cần can thiệp vào mã nguồn",User story,In progress,Phước Hồ Đức,Normal,"","","",Game Design,"","","",VNRacing,168,Sub Feature #333: Goals Config,06/17/2026 09:27 AM,Phước Hồ Đức,"","\- Hỗ trợ cấu trúc bảng dữ liệu (Data Table Support) hoặc loại nhập liệu khác tương đương.  
+\- Có các thông số có thể điều chỉnh được. (Hành động, số lượng, thay đổi phân bậc, phần thưởng).  
+\- Khả năng đồng bộ với dữ liệu hiện tại của Game (Hot Reload/Sync) để test nhanh In-Game.  
+\- Tích hợp trong hệ thống Debug hiện có.  
+\- Cho phép điều chỉnh nhiệm vụ cụ thể của từng CIty hoặc Random."
+396,Implement_US376_ Camera - Drifting,Summary task,Developed,Long Trần Anh Thượng,Normal,"",8.0,"",Dev,"","","",VNRacing,169,"User story #376: Là người chơi, tôi muốn Camera có góc nhìn rộng và mạnh mẽ hơn khi thực hiện cú Drift để tăng cảm giác phấn khích của dòng game Arcade",06/17/2026 09:30 AM,Giang Dương Võ Trà,"",""
+397,Dev_Implement_US377 - Camera - NOS,Summary task,In progress,Long Trần Anh Thượng,Normal,"",14.0,"",Dev,"","","",VNRacing,170,"User story #377: Là người chơi, tôi muốn thấy hiệu ứng Camera giật mạnh và thay đổi tiêu cự khi dùng NOS để cảm nhận được gia tốc cực đại của xe",06/17/2026 09:31 AM,Giang Dương Võ Trà,"",""
+398,GD_Play Test_US 378_Camera Collision,Task,New,Phước Hồ Đức,Normal,"","","",Game Design,"","","",VNRacing,171,"User story #378: Là người chơi, tôi muốn Camera có phản hồi rung động khi va chạm để nhận biết được mức độ thiệt hại và tác động vật lý",06/17/2026 09:34 AM,Giang Dương Võ Trà,"",""
+399,Dev_Implment_US 378_  Camera - Collision,Summary task,Specified,Long Trần Anh Thượng,Normal,"",12.0,"",Dev,"","","",VNRacing,172,"User story #378: Là người chơi, tôi muốn Camera có phản hồi rung động khi va chạm để nhận biết được mức độ thiệt hại và tác động vật lý",06/17/2026 09:34 AM,Giang Dương Võ Trà,"",""
+400,Theme Change,Feature,New,"",Normal,"",24.0,"",Game Design,"","","",VNRacing,173,Epic #298: CUSTOMIZE ,06/17/2026 10:12 AM,Giang Dương Võ Trà,"",""
+401,Car Customize Visual,Feature,In specification,Phước Hồ Đức,Normal,"","","",Game Design,"","","",VNRacing,174,Epic #298: CUSTOMIZE ,06/17/2026 10:14 AM,Giang Dương Võ Trà,"",""
+402,Car Customize Performance,Feature,New,"",Normal,"","","",Game Design,"","","",VNRacing,175,Epic #298: CUSTOMIZE ,06/17/2026 10:14 AM,Giang Dương Võ Trà,"",""
+403,Car Selection,Feature,In specification,"",Normal,"",12.0,"",Game Design,"","","",VNRacing,176,Epic #298: CUSTOMIZE ,06/17/2026 10:15 AM,Giang Dương Võ Trà,"","Switch Car: [https://project.clickstudio.com.vn/api/v3/attachments/230/content](https://project.clickstudio.com.vn/api/v3/attachments/230/content)
+
+<br>"
+404,Research Document & Architech ,Task,Waiting for approve,Đời Huỳnh Văn,Normal,4.0,"","",Dev,"","","",VNRacing,177,Epic #298: CUSTOMIZE ,06/17/2026 10:16 AM,Giang Dương Võ Trà,"",""
+405,Shop Display ,Feature,New,"",Normal,"","","",Dev,"","","",VNRacing,178,Epic #366: SHOP & IAP,06/17/2026 10:34 AM,Giang Dương Võ Trà,"",""
+406,Dev_Implment_US410 _City (C1-C5),Summary task,Developed,Long Trần Anh Thượng,Normal,"",24.0,"",Dev,"","","",VNRacing,179,"User story #410: Là QC, tôi muốn thấy các City Dummy với bộ dữ liệu được Setup làm Place Holder để kiểm tra các City và các Track đã được Unlock, giúp đảm bảo tính sẵn sàng của môi trường kiểm thử và luồng dữ liệu tiến trình",06/17/2026 11:05 AM,Giang Dương Võ Trà,"",""
+407,"Là người chơi, tôi muốn mỗi City khi Unlock sẽ chạy một đoạn Cinematic giới thiệu các địa điểm đặc trưng của City đó để tăng sự phấn khích.",User story,New,"",Normal,"","","",Game Design,"","","",VNRacing,180,Sub Feature #339: Map Scene Unlock,06/17/2026 01:40 PM,Phước Hồ Đức,"","\- Khi người chơi Unlock City mới, có hiệu ứng giới thiệu thành phố kích hoạt khi mở City mới, kích hoạt Cinematic giới thiệu thành phố, địa danh đặc trưng và cảnh đẹp của thành phố đó.  
+\- Bảng Debug cho phép Review Cinematic đi theo từng City."
+408,"Là người chơi, tôi muốn nhận xe mới và xem các đoạn Animation trên UI giới thiệu ấn tượng của xe ngay khi hoàn thành một thành phố để cảm thấy thỏa mãn với thành quả của mình và hào hứng bắt đầu hành trình tại địa danh tiếp theo",User story,New,"",Normal,"","","",Game Design,"","","",VNRacing,181,Sub Feature #339: Map Scene Unlock,06/17/2026 01:43 PM,Phước Hồ Đức,"","\- Hệ thống phải chạy một đoạn Animation trên UI hiển thị hình ảnh 3 chiếc xe đặc trưng mà người chơi sắp được nhận làm phần thưởng  
+\- Hệ thống phải cấp đúng bộ 3 xe đặc trưng của thành phố đó vào Player Garage ngay sau khi mở khóa  
+\- Các xe được trao thưởng phải được thiết lập mức Car Rating (CR) khởi đầu theo đúng bảng mapping của từng thành phố  
+\- Hệ thống phải tự động thêm toàn bộ các Item Visual mặc định đi kèm với các xe mới này vào Inventory của người chơi"
+409,Tạo map test Collision,Task,Waiting for approve,Thống Trần Cao,Normal,12.0,"","",Level,"","","",VNRacing,182,Summary task #295: Level_Tạo Map Test ,06/17/2026 01:49 PM,Giang Dương Võ Trà,"",""
+410,"Là QC, tôi muốn thấy các City Dummy với bộ dữ liệu được Setup làm Place Holder để kiểm tra các City và các Track đã được Unlock, giúp đảm bảo tính sẵn sàng của môi trường kiểm thử và luồng dữ liệu tiến trình",User story,Scheduled,Phước Hồ Đức,Normal,"",26.0,"",Game Design,"",User Story Submit ( 15/6-28/6/2026) ,"",VNRacing,2,Sub Feature #339: Map Scene Unlock,06/17/2026 01:54 PM,Phước Hồ Đức,"","\- Khi Unlock City, hệ thống phải hiển thị các thành phố chưa có trong danh sách triển khai chính thức ( từ C2 đến C5) ở dạng Dummy để làm môi trường giữ chỗ.  
+\- Người chơi có thể di chuyển qua các City Dummy trong Screen VNTour để check các thành phố đó."
+421,FX_Quốc Học Huế ,Summary task,In specification,Hoàng Trần Văn Huy,Normal,"",24.0,"",FX,"","","",VNRacing,184,User story #190: Map Quốc Học Huế,06/17/2026 03:29 PM,Giang Dương Võ Trà,"",""
+422,FX ánh sáng RGB cầu tràng tiền,Task,Waiting for approve,Hoàng Trần Văn Huy,Normal,16.0,"","",FX,"","","",VNRacing,185,Summary task #421: FX_Quốc Học Huế ,06/17/2026 03:30 PM,Giang Dương Võ Trà,"",""
+423,FX ánh sáng RGB cầu Gỗ Lim,Task,Waiting for approve,Hoàng Trần Văn Huy,Normal,8.0,"","",FX,"","","",VNRacing,186,Summary task #421: FX_Quốc Học Huế ,06/17/2026 03:30 PM,Giang Dương Võ Trà,"",""
+424,Track Rewards,Sub Feature,New,Phước Hồ Đức,Normal,"","","",Game Design,"","","",VNRacing,187,Feature #341: Area-Track Unlock,06/17/2026 03:31 PM,Phước Hồ Đức,"",""
+425,Track Unlock,Sub Feature,New,"",Normal,"","","",Game Design,"","","",VNRacing,188,Feature #341: Area-Track Unlock,06/17/2026 03:48 PM,Phước Hồ Đức,"",*   Tự động mở khóa toàn bộ lộ trình khi vào City mới.
+426,Challenge Unlock,Sub Feature,In specification,"",Normal,"",24.0,"",Game Design,"","","",VNRacing,189,Feature #274: DAILY CHALLENGE,06/17/2026 04:48 PM,Giang Dương Võ Trà,"",""
+427,"Là người chơi, tôi muốn thấy được nhiệm vụ mới khi đăng nhập lần đầu trong ngày",User story,In specification,"",Normal,"",24.0,"",Game Design,"","","",VNRacing,190,Sub Feature #426: Challenge Unlock,06/17/2026 04:49 PM,Giang Dương Võ Trà,"",""
+428,Tạo UI và kho daily challange,Task,New,Đạt Quảng Tấn,Normal,24.0,"","",Dev,"","","",VNRacing,191,Summary task #429: Dev_Implement_427_Nhiệm vụ mới khi đăng nhập lần đầu trong ngày,06/17/2026 04:52 PM,Long Trần Anh Thượng,Long Trần Anh Thượng,""
+429,Dev_Implement_427_Nhiệm vụ mới khi đăng nhập lần đầu trong ngày,Summary task,In specification,Long Trần Anh Thượng,Normal,"",24.0,"",Dev,"","","",VNRacing,192,"User story #427: Là người chơi, tôi muốn thấy được nhiệm vụ mới khi đăng nhập lần đầu trong ngày",06/17/2026 04:53 PM,Giang Dương Võ Trà,"",""
+430,Chức năng lấy challange mới mỗi ngày,Task,On hold,Đạt Quảng Tấn,Normal,16.0,"","",Dev,"","","",VNRacing,193,Summary task #433: Dev_Implement_US 432_Data các nhiệm vụ Daily Challenge,06/17/2026 04:53 PM,Long Trần Anh Thượng,Long Trần Anh Thượng,""
+431,Challenge Config ,Sub Feature,In specification,"",Normal,"",24.0,"",Game Design,"","","",VNRacing,194,Feature #274: DAILY CHALLENGE,06/17/2026 04:54 PM,Giang Dương Võ Trà,"",""
+432,"Là người chơi, tôi muốn có các nhiệm vụ Daily Challenge nhiều thể loại",User story,In specification,"",Normal,"",24.0,"",Game Design,"","","",VNRacing,195,Sub Feature #431: Challenge Config ,06/17/2026 04:54 PM,Giang Dương Võ Trà,"","*   Có bộ UI để hiển thị các Daily Challenges
+    
+*   Tạo danh sách nhiệm vụ mẫu, Pool nhiệm vụ chung.
+    
+*   Chỉnh sửa nhiệm vụ thông qua Data Table."
+433,Dev_Implement_US 432_Data các nhiệm vụ Daily Challenge,Summary task,In specification,Long Trần Anh Thượng,Normal,"",16.0,"",Dev,"","","",VNRacing,196,"User story #432: Là người chơi, tôi muốn có các nhiệm vụ Daily Challenge nhiều thể loại",06/17/2026 04:56 PM,Giang Dương Võ Trà,"",""
+434,"Là người chơi, tôi muốn có khả năng đổi xe nhanh trong Screen Customize",User story,Confirmed,Phước Hồ Đức,Normal,"",12.0,"",Game Design,"","","",VNRacing,197,Feature #403: Car Selection,06/17/2026 05:01 PM,Giang Dương Võ Trà,"","*   Update UI
+    
+*   Tạo danh sách xe đù 15 xe.
+    
+*   Hiển thị thông tin điều kiện để Unlock các xe chưa sở hữu."
+436,Dev_Implement_US434_Khả năng đổi xe nhanh trong Screen Customize,Summary task,Developed,Long Trần Anh Thượng,Normal,"",12.0,"",Dev,"","","",VNRacing,199,"User story #434: Là người chơi, tôi muốn có khả năng đổi xe nhanh trong Screen Customize",06/17/2026 05:02 PM,Giang Dương Võ Trà,"",""
+437,Ghép Trận ,Sub Feature,In specification,"",Normal,"",78.0,"",Game Design,"","","",VNRacing,200,Feature #273: MULTIPLAYER,06/18/2026 08:13 AM,Giang Dương Võ Trà,"",""
+438,Implement logic ghép trận của multiplayer,Task,New,Khan Vương Huỳnh,Normal,40.0,"","",Dev,"","","",VNRacing,201,Summary task #275: Dev_Implement _Multi Player,06/18/2026 08:14 AM,Long Trần Anh Thượng,Long Trần Anh Thượng,""
+439,Là người chơi tôi muốn được ghép trận đua với người chơi khác và có khả năng cancel giữa chừng trước khi vào trận ,User story,In specification,Phước Hồ Đức,Normal,"",78.0,"",Game Design,"","","",VNRacing,202,Sub Feature #437: Ghép Trận ,06/18/2026 08:15 AM,Giang Dương Võ Trà,"",""
+440,"Là người chơi, tôi muốn được tuỳ chọn đổi xe trong mode đua Multi-Player",User story,In specification,Phước Hồ Đức,Normal,"","","",Game Design,"","","",VNRacing,203,Sub Feature #437: Ghép Trận ,06/18/2026 08:15 AM,Giang Dương Võ Trà,"",""
+442,Tạo Mockup city 4 trên UI,Task,In progress,Hiếu Hoàng Trọng,Normal,8.0,"","",Dev,"","","",VNRacing,205,Summary task #485: Dev_Implement_US355_Được chọn track trên bản đồ,06/18/2026 08:38 AM,Long Trần Anh Thượng,Long Trần Anh Thượng,""
+443,Tạo Mockup UI của City 5 trên UI,Task,New,Hiếu Hoàng Trọng,Normal,8.0,"","",Dev,"","","",VNRacing,206,Summary task #485: Dev_Implement_US355_Được chọn track trên bản đồ,06/18/2026 08:39 AM,Long Trần Anh Thượng,Long Trần Anh Thượng,""
+445,Hoàn thành lõi CDN cho project racing,User story,New,"",Normal,"",28.0,"",Dev,"","","",VNRacing,208,Feature #250: CDN,06/18/2026 08:59 AM,Giang Dương Võ Trà,"",""
+446,"Hoàn thiện, đóng gói CDN feature",User story,New,"",Normal,"",40.0,"",Dev,"","","",VNRacing,209,Feature #250: CDN,06/18/2026 09:00 AM,Giang Dương Võ Trà,"",""
+447,Vào Trận - Trong Trận ,Sub Feature,New,"",Normal,"","","",Game Design,"","","",VNRacing,210,Feature #273: MULTIPLAYER,06/18/2026 10:03 AM,Giang Dương Võ Trà,"",""
+448,Sau trận ,Sub Feature,New,"",Normal,"","","",Game Design,"","","",VNRacing,211,Feature #273: MULTIPLAYER,06/18/2026 10:03 AM,Giang Dương Võ Trà,"",""
+452,"Là Người chơi, tôi muốn có thể truy cập vào Cửa hàng từ nhiều màn hình khác nhau để thuận tiện cho việc mua sắm khi cần thiết",User story,New,"",Normal,"","","",Game Design,"","","",VNRacing,212,Feature #405: Shop Display ,06/18/2026 01:30 PM,Giang Dương Võ Trà,"",""
+453,"Là Người chơi, tôi muốn các mặt hàng được phân loại rõ ràng theo tab để dễ dàng tim kiếm gói vật phẩm phù hợp",User story,New,"",Normal,"","","",Game Design,"","","",VNRacing,213,Feature #405: Shop Display ,06/18/2026 01:31 PM,Giang Dương Võ Trà,"",""
+454,GD_Play test_US 391_Minimap ,Task,New,Phước Hồ Đức,Normal,4.0,"","",Game Design,"","","",VNRacing,214,"User story #391: Là người chơi, tôi muốn MiniMap hiển thị lộ trình, vị trí đối thủ và các điểm mốc quan trọng, đồng thời tự động thay đổi mức thu phóng theo tốc độ xe để hỗ trợ quan sát và định hướng hiệu quả trong suốt cuộc đua.",06/18/2026 01:33 PM,Giang Dương Võ Trà,"",""
+455,Purchase Flow ,Feature,New,"",Normal,"",12.0,"",Game Design,"","","",VNRacing,215,Epic #366: SHOP & IAP,06/18/2026 01:47 PM,Giang Dương Võ Trà,"",""
+456,"Là Người chơi, tôi muốn thực hiện các bước mua hàng một cách minh bach và có bước xác nhân để tránh mua nhẩm",User story,New,"",Normal,"",12.0,"",Game Design,"","","",VNRacing,216,Feature #455: Purchase Flow ,06/18/2026 01:47 PM,Giang Dương Võ Trà,"",""
+457,Dev_Implement_US456_Thực hiện các bước mua hàng ,Summary task,Specified,Long Trần Anh Thượng,Normal,"",12.0,"",Dev,"","","",VNRacing,217,"User story #456: Là Người chơi, tôi muốn thực hiện các bước mua hàng một cách minh bach và có bước xác nhân để tránh mua nhẩm",06/18/2026 01:48 PM,Giang Dương Võ Trà,"",""
+458,TA_Setting Camera - Steering ,Summary task,In progress,Phú Phạm Tấn,Normal,"",4.0,"",TechArt,"","","",VNRacing,218,"User story #375: Là người chơi, tôi muốn Camera di chuyển linh hoạt theo hướng bẻ lái để mở rộng tầm nhìn về phía góc cua và tăng cảm giác chân thực",06/18/2026 01:52 PM,Giang Dương Võ Trà,"",""
+459,Setting Camera - Steering,Task,In progress,Phú Phạm Tấn,Normal,4.0,"","",TechArt,"","","",VNRacing,219,Summary task #458: TA_Setting Camera - Steering ,06/18/2026 01:53 PM,Giang Dương Võ Trà,"",""
+460,GD_Play test_Camera_Steering,Task,New,Phước Hồ Đức,Normal,2.0,"","",Game Design,"","","",VNRacing,220,"User story #375: Là người chơi, tôi muốn Camera di chuyển linh hoạt theo hướng bẻ lái để mở rộng tầm nhìn về phía góc cua và tăng cảm giác chân thực",06/18/2026 01:54 PM,Giang Dương Võ Trà,"",""
+461,"Là người chơi, tôi muốn tất cả các khu vực (Area) và chặng đua (Track) trong một thành phố được mở khóa ngay lập tức khi tôi đặt chân đến đó để có thể tự do lựa chọn thử thách theo ý thích.",User story,New,Phước Hồ Đức,Normal,"","","",Game Design,"","","",VNRacing,221,Sub Feature #425: Track Unlock,06/18/2026 01:55 PM,Phước Hồ Đức,"","\- Ngay khi một City mới được mở khóa, hệ thống phải tự động chuyển trạng thái của 5 Area và 15 Tracks của City mới (mỗi Area có 3 Tracks) sang &quot;Unlocked&quot;.  
+\- Người chơi có thể chọn đua bất kỳ Track nào trong danh sách 15 chặng của thành phố hiện tại mà không cần phải đua theo thứ tự tuyến tính.  
+\- Màn hình VN Tour Map phải hiển thị đầy đủ icon của các Area và danh sách các Track tương ứng ngay từ lần truy cập đầu tiên vào thành phố mới."
+462,"Là QC, tôi muốn thấy các Area và Track chưa có dữ liệu chính thức dưới dạng ""Dummy"" để đảm bảo luồng tiến trình vẫn hoạt động ổn định trong quá trình phát triển.",User story,New,"",Normal,"","","",Game Design,"","","",VNRacing,222,Sub Feature #343: Track Config,06/18/2026 02:01 PM,Phước Hồ Đức,"","\- Các Area chưa được thiết kế asset hoặc tên gọi chính thức phải hiển thị tên theo quy tắc: Area #\[N\] (ví dụ: Area #1, Area #2).  
+\- Các Track bên trong Area Dummy phải được đặt tên là Track #\[N\] và sử dụng một Map cảnh quan tạm thời (Placeholder) để có thể vào đua được.  
+\- Dữ liệu về độ khó (E/M/H) và phần thưởng của các Dummy Track phải được map theo bảng thông số mặc định của thành phố đó để phục vụ việc test cân bằng kinh tế và độ khó."
+463,"Là QC/Developer, tôi muốn có khả năng nhận kết quả nhanh khi chọn đua các Dummy Track để tiết kiệm thời gian kiểm thử các điều kiện hoàn thành Goal.",User story,New,"",Normal,"","","",Game Design,"","","",VNRacing,223,Sub Feature #343: Track Config,06/18/2026 02:02 PM,Phước Hồ Đức,"","\- Đối với các chặng đua ở trạng thái Dummy, khi người chơi/QC bấm nút Race, hệ thống phải hiển thị một Pop-up xác nhận kết quả thay vì load vào màn đua thực tế.&nbsp;  
+\- Pop-up phải cung cấp 2 lựa chọn: Thắng (Win) và Thua (Lose).   
+\- Nếu chọn Thắng: Hệ thống trả về kết quả tương đương vị trí P1, trao thưởng Cash (bao gồm cả First Win/First Time Bonus) và Tokens theo đúng quy định của thành phố đó.   
+\- Nếu chọn Thua: Hệ thống trả về trạng thái không hoàn thành và đưa người chơi quay lại màn hình chọn Track."
+464,GD_Play test_US 410_Unlock City_C1-C5 ,Task,New,Phước Hồ Đức,Normal,2.0,"","",Game Design,"","","",VNRacing,224,"User story #410: Là QC, tôi muốn thấy các City Dummy với bộ dữ liệu được Setup làm Place Holder để kiểm tra các City và các Track đã được Unlock, giúp đảm bảo tính sẵn sàng của môi trường kiểm thử và luồng dữ liệu tiến trình",06/18/2026 02:08 PM,Giang Dương Võ Trà,"",""
+465,GD_Playtest_Collision Debug,Task,New,Phước Hồ Đức,Normal,4.0,"","",Game Design,"","","",VNRacing,225,"User story #284: Là người chơi, tôi muốn cảm giác va chạm mang tính Arcade để giữ nhịp độ cuộc đua ổn định, xe không bị lật và nhanh chóng quay lại đường đua sau khi tông vào tường hoặc vật thể",06/18/2026 02:12 PM,Giang Dương Võ Trà,"",""
+466,"Là Player, tôi muốn Area được chọn trên bản đồ VN Tour sẽ được highlight và TrackList xuất hiện kèm theo hiệu ứng animation để tôi có phản hồi thị giác rõ ràng về vị trí địa lý đang chọn.",User story,In specification,Phước Hồ Đức,Normal,"",48.0,"",Game Design,"","","",VNRacing,226,Sub Feature #342: Track Selection,06/18/2026 02:15 PM,Phước Hồ Đức,"","\- Hiệu ứng Chọn (Selection &amp; Highlight): Kích hoạt hiệu ứng thị giác (highlight/xoáy) tại Area được chọn đồng thời thực hiện animation &quot;push&quot; danh sách Track ra màn hình một cách mượt mà.&nbsp;  
+\- Hiển thị Thông tin: Mỗi thẻ chặng đua phải hiển thị đầy đủ 4 trường dữ liệu: Tên Track, Thứ hạng tốt nhất (Best Rank), Kỷ lục thời gian (Track Record) và Nhãn độ khó (E/M/H).   
+\- Cơ chế Thu hồi (Deselect): Chạy animation đảo ngược để đóng danh sách và tắt highlight khu vực khi người chơi bấm nút Back hoặc chạm vùng trống bên ngoài.   
+\- Hỗ trợ Dữ liệu Dummy: Tính năng highlight và animation phải hoạt động ổn định trên cả các khu vực/chặng đua giữ chỗ (Dummy Area/Track) của các thành phố chưa triển khai asset (C2 - C5)"
+467,"Là người chơi, tôi muốn nhận được phần thưởng Cash sau mỗi cuộc đua dựa trên thành tích của mình để có đủ tài nguyên nâng cấp hiệu năng xe (Performance) theo cấp độ của từng thành phố",User story,New,"",Normal,"","","",Game Design,"","","",VNRacing,227,Sub Feature #424: Track Rewards,06/18/2026 02:17 PM,Phước Hồ Đức,"","\- Tính toán theo vị thế: Hệ thống phải tự động trao thưởng Cash dựa trên vị trí về đích (P1, P2, P3, P4+). Số tiền thưởng cơ bản giảm dần theo bậc 20% cho mỗi vị trí tiếp theo.  
+\- Áp dụng hệ số ScaleIndex: Giá trị Cash thưởng phải được nhân với hệ số ScaleIndex tương ứng với thành phố hiện tại (ví dụ: City 2 nhân 3.2, City 5 nhân 26) để đảm bảo cân bằng kinh tế.  
+\-Thưởng chặng đua mới (New Race Bonus): Hệ thống phải kiểm tra và cộng thêm First Time Bonus (lần đầu hoàn thành) và First Win Bonus (lần đầu thắng) cho mỗi Track. Mỗi loại thưởng này chỉ được nhận duy nhất 1 lần/track.  
+\-Hiển thị kết quả: Tại màn hình Race Results, phải hiển thị bảng tổng kết chi tiết các nguồn tiền nhận được (Position Cash, Bonus Cash).  
+~~\-Cập nhật Wallet: Số dư tại thanh Top Bar (Wallet) phải chạy hiệu ứng đếm số (Counting animation) ngay khi người chơi quay lại màn hình chọn Track~~"
+468,"Là người chơi, tôi muốn nhận được các vật phẩm (Items) ngẫu nhiên thông qua hệ thống Tokens sau cuộc đua để sưu tầm các linh kiện nâng cấp và phụ kiện trang trí xe",User story,New,"",Normal,"","","",Game Design,"","","",VNRacing,228,Sub Feature #424: Track Rewards,06/18/2026 02:18 PM,Phước Hồ Đức,"","\- Số lượng Tokens theo hạng: Hệ thống trao thưởng số lượng lượt mở quà (Tokens) dựa trên thứ hạng: Về nhất (P1): 3 Tokens, Về nhì (P2): 2 Tokens, Về ba (P3): 1 Token. Hạng 4 trở đi không nhận được Tokens.&nbsp;  
+\- Cơ chế rút từ City Pool: Vật phẩm nhận được phải được rút ngẫu nhiên từ Reward Item Pool duy nhất của thành phố đó, bao gồm 3 loại: Visual Parts (50%), Performance Parts (35%) và Currency (15%).   
+\- Xử lý trùng lặp (Duplicate Handling): Nếu bốc trúng Item Visual đã sở hữu, hệ thống phải tự động quy đổi thành Cash đền bù tương ứng với độ hiếm (Common: $100, Uncommon: $200, Rare: $300).   
+\- Hiệu ứng trao thưởng: Hệ thống phải kích hoạt hiệu ứng FX và Animation mở quà ấn tượng tại màn hình kết quả để tăng cảm giác phấn khích.   
+\- Cập nhật Inventory: Vật phẩm sau khi nhận phải được cập nhật ngay lập tức vào Player Inventory và đồng bộ lên Cloud để đảm bảo an toàn dữ liệu"
+469,TA_Setting_Camera_Drifting,Summary task,In progress,Phú Phạm Tấn,Normal,"","","",TechArt,"","","",VNRacing,229,"User story #376: Là người chơi, tôi muốn Camera có góc nhìn rộng và mạnh mẽ hơn khi thực hiện cú Drift để tăng cảm giác phấn khích của dòng game Arcade",06/18/2026 02:20 PM,Giang Dương Võ Trà,"",""
+470,TA_Setting_Camera_Uphill - Downhill,Summary task,In progress,Phú Phạm Tấn,Normal,"",4.0,"",TechArt,"","","",VNRacing,230,"User story #379: Là người chơi, tôi muốn Camera tự động điều chỉnh độ cao và góc nhìn khi lên/xuống dốc để luôn quan sát được đoạn đường phía trước",06/18/2026 02:21 PM,Giang Dương Võ Trà,"",""
+471,Dev_Implement_Camera Up hill & Downhill ,Summary task,Developed,Long Trần Anh Thượng,Normal,"",8.0,"",Dev,"","","",VNRacing,244,"User story #379: Là người chơi, tôi muốn Camera tự động điều chỉnh độ cao và góc nhìn khi lên/xuống dốc để luôn quan sát được đoạn đường phía trước",06/18/2026 02:22 PM,Giang Dương Võ Trà,"",""
+472,TA_Setting_US377 - Camera - NOS,Summary task,Scheduled,Phú Phạm Tấn,Normal,"",4.0,"",TechArt,"","","",VNRacing,231,"User story #377: Là người chơi, tôi muốn thấy hiệu ứng Camera giật mạnh và thay đổi tiêu cự khi dùng NOS để cảm nhận được gia tốc cực đại của xe",06/18/2026 02:23 PM,Giang Dương Võ Trà,"",""
+473,"Là người chơi, tôi muốn theo dõi được tiến độ hoàn thành của mình tại từng khu vực cụ thể để biết mình còn bao nhiêu thử thách cần chinh phục.",User story,New,"",Normal,"","","",Game Design,"","","",VNRacing,232,Sub Feature #342: Track Selection,06/18/2026 02:26 PM,Phước Hồ Đức,"","\- Mỗi Panel Area trên UI phải hiển thị trạng thái của 3 Track nội bộ thông qua các chỉ báo trực quan Icon trạng thái).  
+\- Hệ thống phải phân biệt rõ 3 trạng thái trên Panel:&nbsp;  
+Chưa đua (Not Raced): Track chưa có dữ liệu record.   
+Đã hoàn thành (Completed): Đã về đích ở vị trí P2-P4.  
+Chiến thắng (Victory): Đã về nhất (P1).  
+\- Panel Area phải hiển thị tổng số Track đã &quot;Mastered&quot; (ví dụ: &quot;Progress: 2/3 Won&quot;). Khi cả 3 Track đều đạt P1, Area đó được đánh dấu là &quot;Cleared&quot; hoặc &quot;Mastered&quot;."
+474,"Là người chơi, tôi muốn thấy các hiệu ứng hình ảnh sinh động khi hoàn thành chặng đua hoặc khi khu vực được cập nhật thông tin để cảm thấy sự tiến bộ rõ rệt.",User story,New,"",Normal,"","","",Game Design,"","","",VNRacing,233,Sub Feature #342: Track Selection,06/18/2026 02:27 PM,Phước Hồ Đức,"","\- Khi người chơi quay lại màn hình chọn Track sau một trận đua, Panel của Track đó phải chạy một Update Animation (ví dụ: hiệu ứng sáng lên hoặc đổ màu) để cập nhật kết quả mới nhất (Rank, Best Time).&nbsp;  
+\- Khi một Track chuyển trạng thái từ &quot;Chưa đua&quot; sang &quot;Chiến thắng&quot;, icon chặng đua trên Panel Area phải có hiệu ứng Update ấn tượng.   
+\- Khi hoàn thành toàn bộ 3 Track trong một Area (Chiến thắng cả 3), toàn bộ Panel Area đó phải chạy một hiệu ứng Mastery Animation đặc biệt để chúc mừng người chơi.   
+~~\- Các thông số về tiền thưởng (Cash) và phần thưởng (Rewards) nhận được từ trận đua vừa rồi phải được cập nhật trên thanh Top Bar (Wallet) bằng hiệu ứng đếm số (Counting animation).~~"
+475,Setting_Camera_Uphill - Downhill,Task,In progress,Phú Phạm Tấn,Normal,4.0,"","",TechArt,"","","",VNRacing,234,Summary task #470: TA_Setting_Camera_Uphill - Downhill,06/18/2026 02:32 PM,Giang Dương Võ Trà,"",""
+476,GD_Play Test_Camera_Uphill - Downhill,Task,New,Phước Hồ Đức,Normal,2.0,"","",Game Design,"","","",VNRacing,235,"User story #379: Là người chơi, tôi muốn Camera tự động điều chỉnh độ cao và góc nhìn khi lên/xuống dốc để luôn quan sát được đoạn đường phía trước",06/18/2026 02:36 PM,Giang Dương Võ Trà,"",""
+477,GD_Play test_Camera_Drift,Task,New,Phước Hồ Đức,Normal,2.0,"","",Game Design,"","","",VNRacing,236,"User story #376: Là người chơi, tôi muốn Camera có góc nhìn rộng và mạnh mẽ hơn khi thực hiện cú Drift để tăng cảm giác phấn khích của dòng game Arcade",06/18/2026 02:39 PM,Giang Dương Võ Trà,"",""
+478,"Là người chơi, tôi muốn Camera của xe tự động điều chỉnh khoảng cách và trường nhìn (FOV) theo tốc độ hiện tại của xe để cảm nhận được sự gia tốc và tốc độ một cách chân thực, đồng thời có tầm nhìn bao quát hơn khi đua ở vận tốc cao.",User story,Specified,Phước Hồ Đức,Normal,"",8.0,"",Game Design,"","","",VNRacing,237,Feature #336: CAMERA,06/18/2026 02:41 PM,Phước Hồ Đức,"","\- Biến thiên Dynamic: Tự động điều chỉnh khoảng cách SpringArm và FOV tăng/giảm mượt mà theo vận tốc thực tế thông qua các biểu đồ Curve thiết lập sẵn.&nbsp;  
+\-Hiệu ứng Tốc độ: Kích hoạt các lớp hiệu ứng thị giác theo mốc vận tốc: Motion Blur (Không/Bình thường/Mạnh) và tăng Vignette (tối góc) khi vượt ngưỡng 200 km/h.   
+\-Logic Cộng dồn: Các thay đổi camera theo tốc độ phải được tính toán cộng dồn với các trạng thái camera khác (Steering, NOS) và tuân thủ quy tắc trễ 10 giây đầu trận của camera địa hình."
+479,Dev_Implement_Camera Theo speed,Summary task,In specification,Long Trần Anh Thượng,Normal,"",8.0,"",Dev,"","","",VNRacing,238,"User story #478: Là người chơi, tôi muốn Camera của xe tự động điều chỉnh khoảng cách và trường nhìn (FOV) theo tốc độ hiện tại của xe để cảm nhận được sự gia tốc và tốc độ một cách chân thực, đồng thời có tầm nhìn bao quát hơn khi đua ở vận tốc cao.",06/18/2026 02:49 PM,Giang Dương Võ Trà,"",""
+480,TA_Setting_Camera Theo speed,Summary task,In specification,Phú Phạm Tấn,Normal,"","","",TechArt,"","","",VNRacing,239,"User story #478: Là người chơi, tôi muốn Camera của xe tự động điều chỉnh khoảng cách và trường nhìn (FOV) theo tốc độ hiện tại của xe để cảm nhận được sự gia tốc và tốc độ một cách chân thực, đồng thời có tầm nhìn bao quát hơn khi đua ở vận tốc cao.",06/18/2026 02:49 PM,Giang Dương Võ Trà,"",""
+481,GD_Play Test_Camera_NOS,Task,New,Phước Hồ Đức,Normal,2.0,"","",Game Design,"","","",VNRacing,240,"User story #377: Là người chơi, tôi muốn thấy hiệu ứng Camera giật mạnh và thay đổi tiêu cự khi dùng NOS để cảm nhận được gia tốc cực đại của xe",06/18/2026 03:18 PM,Giang Dương Võ Trà,"",""
+482,Setting_US377 - Camera - NOS,Task,In progress,Phú Phạm Tấn,Normal,4.0,"","",TechArt,"","","",VNRacing,241,Summary task #472: TA_Setting_US377 - Camera - NOS,06/18/2026 03:32 PM,Giang Dương Võ Trà,"",""
+483,GD_Play test_US 478_Camera Theo speed,Task,New,"",Normal,"","","",Game Design,"","","",VNRacing,242,"User story #478: Là người chơi, tôi muốn Camera của xe tự động điều chỉnh khoảng cách và trường nhìn (FOV) theo tốc độ hiện tại của xe để cảm nhận được sự gia tốc và tốc độ một cách chân thực, đồng thời có tầm nhìn bao quát hơn khi đua ở vận tốc cao.",06/18/2026 03:39 PM,Giang Dương Võ Trà,"",""
+484,Điều chỉnh camera theo speed,Task,New,Như Trương,Normal,8.0,"","",Dev,"","","",VNRacing,243,Summary task #479: Dev_Implement_Camera Theo speed,06/18/2026 03:44 PM,Long Trần Anh Thượng,Long Trần Anh Thượng,""
+485,Dev_Implement_US355_Được chọn track trên bản đồ,Summary task,Specified,Long Trần Anh Thượng,Normal,"",48.0,"",Dev,"","","",VNRacing,245,"User story #466: Là Player, tôi muốn Area được chọn trên bản đồ VN Tour sẽ được highlight và TrackList xuất hiện kèm theo hiệu ứng animation để tôi có phản hồi thị giác rõ ràng về vị trí địa lý đang chọn.",06/18/2026 05:25 PM,Giang Dương Võ Trà,"",""
+486,"Hoàn thiện, đóng gói chức năng CDN",Task,New,Sơn Nguyễn Nam,Normal,24.0,"","",Dev,"","","",VNRacing,246,"User story #446: Hoàn thiện, đóng gói CDN feature",06/19/2026 09:22 AM,Long Trần Anh Thượng,Long Trần Anh Thượng,""
+487,Tích hợp quy trình CDN vào trong CI/CD,Task,New,Chánh Tông Nguyễn,Normal,16.0,"","",Dev,"","","",VNRacing,247,"User story #446: Hoàn thiện, đóng gói CDN feature",06/19/2026 09:25 AM,Long Trần Anh Thượng,P.H. Tan,""
+488,Dev_Implement_US308_Debug Unlock City ,Summary task,In specification,Long Trần Anh Thượng,Normal,"",20.0,"",Dev,"","","",VNRacing,248,"User story #308: Là QC, tôi muốn có khả năng hoàn thành nhanh các City từ C1 - C5 và ngược lại để Review hạng mục liên quan tới City đó như Cash, Unlock Cars, Car Rating, v.v",06/19/2026 09:56 AM,Giang Dương Võ Trà,"",""
+489,"Là player, tôi muốn được lựa chọn thay đổi các phụ kiện cho 6 vị trí trên xe để tạo phong cách độc đáo cho xe của mình.",User story,New,"",Normal,"","","",Game Design,"","","",VNRacing,249,Sub Feature #555: Customize Body Parts,06/19/2026 03:39 PM,Giang Dương Võ Trà,"","*   Cung cấp đầy đủ **6 vị trí tùy chỉnh** trên xe bao gồm: Cản trước (Front Bumper), Cản sau (Rear Bumper), Ốp sườn (Sideboard), Cánh gió (Spoiler), Nóc xe (Roof) và Vành xe (Wheel).
+    
+*   Đối với các phụ kiện đã sở hữu hoặc đã mở khóa, giá lắp đặt hiển thị trên giao diện phải luôn là **$0.**
+    
+*   Khi người chơi thay đổi một bộ phận (Part Visual), bộ phận đó phải chạy **hiệu ứng nhấp nháy** để báo hiệu việc thay đổi đã được ghi nhận."
+490,"Là người chơi, tôi muốn thay đổi màu sơn, chất liệu hoặc dán tem trang trí cho xe để làm nổi bật bản sắc cá nhân",User story,New,"",Normal,"","","",Game Design,"","","",VNRacing,250,Sub Feature #556: Customize Paints & Decals,06/19/2026 03:40 PM,Giang Dương Võ Trà,"","*   Cung cấp ít nhất **15 loại vật liệu/màu sơn** (cho cả thân xe và vành xe) và **5 loại tem dán (Decals) cho mỗi loại xe.**
+    
+*   **Người chơi chỉ được phép chọn Materials hoặc Decals trong cùng một lúc, việc chọn một loại mới sẽ thay thế loại cũ.**
+    
+*   **Khi người chơi xác nhận đổi màu sơn hoặc tem dán, toàn bộ thân xe phải chạy một hiệu ứng đổi Material sinh động.**"
+491,"Là Player, tôi muốn có thể trang trí decal lên xe của mình ",User story,New,"",Normal,"","","",Game Design,"","","",VNRacing,251,Sub Feature #556: Customize Paints & Decals,06/19/2026 03:42 PM,Giang Dương Võ Trà,"",""
+492,Block out_Keyframe_Map Hồ Thuỷ Tiên ,Summary task,In progress,Nhật Võ Tấn,Normal,"",24.0,"",Level,"","","",VNRacing,252,User story #195: Map Hồ Thuỷ Tiên,06/20/2026 10:33 AM,Giang Dương Võ Trà,"",""
+493,Block Key frame_Hồ Thuỷ Tiên Sprint,Task,Waiting for approve,Nhật Võ Tấn,Normal,6.0,"","",Level,"","","",VNRacing,253,Summary task #492: Block out_Keyframe_Map Hồ Thuỷ Tiên ,06/20/2026 10:39 AM,Giang Dương Võ Trà,"",""
+494,Block Keyframe_Hồ Thuỷ Tiên_Time Attack,Task,Waiting for approve,Nhật Võ Tấn,Normal,12.0,"","",Level,"","","",VNRacing,254,Summary task #492: Block out_Keyframe_Map Hồ Thuỷ Tiên ,06/20/2026 10:54 AM,Giang Dương Võ Trà,"",""
+495,Block Keyframe_Hồ Thuỷ Tiên_Circuit,Task,In progress,Nhật Võ Tấn,Normal,6.0,"","",Level,"","","",VNRacing,255,Summary task #492: Block out_Keyframe_Map Hồ Thuỷ Tiên ,06/20/2026 10:54 AM,Giang Dương Võ Trà,"",""
+496,UI/UX | Minimap Design Asset ,Summary task,In specification,Ty Đặng Công Hoàng,Normal,"","","",UI,"","","",VNRacing,256,"User story #391: Là người chơi, tôi muốn MiniMap hiển thị lộ trình, vị trí đối thủ và các điểm mốc quan trọng, đồng thời tự động thay đổi mức thu phóng theo tốc độ xe để hỗ trợ quan sát và định hướng hiệu quả trong suốt cuộc đua.",06/20/2026 11:03 AM,Giang Dương Võ Trà,"",""
+497,Setting_Camera_Drifting,Task,In progress,Phú Phạm Tấn,Normal,"","","",TechArt,"","","",VNRacing,257,Summary task #469: TA_Setting_Camera_Drifting,06/20/2026 11:17 AM,Giang Dương Võ Trà,"",""
+498,Setting_Camera Theo speed,Task,New,Phú Phạm Tấn,Normal,"","","",TechArt,"","","",VNRacing,258,Summary task #480: TA_Setting_Camera Theo speed,06/20/2026 11:21 AM,Giang Dương Võ Trà,"",""
+499,GD_Play test_US309_Debug kích hoạt trao thưởng - Tỉ lệ trao thưởng ,Task,New,"",Normal,2.0,"","",Game Design,"","","",VNRacing,259,"User story #309: 	Là QA, tôi muốn có khả năng kích hoạt trao thưởng bất kỳ lúc nào trong Game để check xem tỉ lệ trao thưởng có hợp lý hay không.",06/22/2026 10:10 AM,Giang Dương Võ Trà,"",""
+500,GD_Play test_261_Debug Reload Goal ... kích hoạt hoàn thành trao thưởng,Task,New,Phước Hồ Đức,Normal,2.0,"","",Game Design,"","","",VNRacing,260,"User story #261: Là QA, tôi muốn có khả năng Reload lại Goals của các City, thay đổi Progress của các Goals và kích hoạt hoàn thành trao thưởng cho các Goals đó để thuận tiện cho việc kiểm tra tính khả thi và hấp dẫn của các Goals trong từng City.",06/22/2026 10:14 AM,Giang Dương Võ Trà,"",""
+501,Kiểm tra toàn bộ flow của hệ thống city và debug tương ứng,Task,In progress,Thịnh Nguyễn Cửu Đức,Normal,20.0,"","",Dev,"","","",VNRacing,261,Summary task #488: Dev_Implement_US308_Debug Unlock City ,06/22/2026 10:38 AM,Long Trần Anh Thượng,Long Trần Anh Thượng,""
+502,TA_Setting_Camera_Collsion,Summary task,Scheduled,Phú Phạm Tấn,Normal,"","","",TechArt,"","","",VNRacing,262,"User story #378: Là người chơi, tôi muốn Camera có phản hồi rung động khi va chạm để nhận biết được mức độ thiệt hại và tác động vật lý",06/22/2026 10:47 AM,Giang Dương Võ Trà,"",""
+503,Setting Camera Collsion,Task,New,Phú Phạm Tấn,Normal,"","","",TechArt,"","","",VNRacing,263,Summary task #502: TA_Setting_Camera_Collsion,06/22/2026 10:47 AM,Giang Dương Võ Trà,"",""
+504,Dev_Implement_Level_Huế Đại Nội ,Summary task,Specified,Long Trần Anh Thượng,Normal,"",6.0,"",Dev,"","","",VNRacing,264,User story #170: Map Huế Đại Nội ,06/22/2026 04:49 PM,Giang Dương Võ Trà,"",""
+555,Customize Body Parts,Sub Feature,New,"",Normal,"","","",Game Design,"","","",VNRacing,266,Feature #401: Car Customize Visual,06/23/2026 01:01 PM,Phước Hồ Đức,"","Lựa chọn và lắp đặt phụ kiện cho 6 vị trí trên xe  
+\- Front Bumper  
+\- Rear Bumper  
+\- Sideboard  
+\- Roof  
+\- Wheels  
+\- Spoiler"
+556,Customize Paints & Decals,Sub Feature,New,"",Normal,"","","",Game Design,"","","",VNRacing,267,Feature #401: Car Customize Visual,06/23/2026 01:03 PM,Phước Hồ Đức,"","Lựa chọn và lắp đặt các loại vật liệu và màu sắc cho thân xe (Body Material) và vành xe (Wheel Material).  
+Lựa chọn và lắp đặt các loại Decals lên Body xe."
+557,Customize Preview,Sub Feature,New,"",Normal,"","","",Game Design,"","","",VNRacing,268,Feature #401: Car Customize Visual,06/23/2026 01:04 PM,Phước Hồ Đức,"","Xem trước các lựa chọn chưa được Unlock.
+
+Tự động Revert các trạng thái Customize về lựa chọn trước đó sau khi xem xong Preview."
+558,Camera Functions,Sub Feature,Confirmed,"",Normal,"","","",Game Design,"","","",VNRacing,269,Feature #401: Car Customize Visual,06/23/2026 01:05 PM,Phước Hồ Đức,"","Chức năng tự động chuyển các góc quay cận cảnh vào từng bộ phận xe khi người chơi bắt đầu tùy chỉnh bộ phận đó.
+
+Tự do xoay Camera khi người chơi ở Screen Customize tổng."
+559,Car Test,Sub Feature,New,"",Normal,"","","",Game Design,"","","",VNRacing,270,Feature #401: Car Customize Visual,06/23/2026 01:06 PM,Phước Hồ Đức,"","Bật/tắt giao diện người chơi trong Customize để xem rõ các tùy chọn Customize hiện tại trên xe.  
+Thêm tính năng Play test ngay lập tức để đưa xe vào map test
+
+<br>"
+560,"Là người chơi, tôi muốn được ướm thử (Preview) các món đồ chưa sở hữu để hình dung diện mạo xe trước khi quyết định mua hoặc nỗ lực mở khóa",User story,New,"",Normal,"","","",Game Design,"","","",VNRacing,271,Sub Feature #557: Customize Preview,06/23/2026 01:18 PM,Phước Hồ Đức,"","*   Tất cả các phụ kiện hiện có trong Game phải được hiển thị trong danh sách; những món chưa có trong kho đồ (Inventory) sẽ ở trạng thái **Khóa (Locked).**
+    
+*   Cho phép người chơi chọn các món đồ đang bị Khóa để hiển thị tạm thời trên xe, nhưng nút **Apply/Purchase** phải bị vô hiệu hóa nếu người chơi không đáp ứng đủ điều kiện
+    
+*   Nếu người chơi thoát khỏi màn hình tùy chỉnh mà không thực hiện hành vi mua hoặc áp dụng, xe phải **tự động trở về diện mạo hợp lệ gần nhất**"
+561,"Là người chơi, tôi muốn góc quay camera tự động điều chỉnh linh hoạt theo từng bộ phận đang tùy chỉnh để có thể quan sát chi tiết nhất các thay đổi",User story,New,"",Normal,"","","",Game Design,"","","",VNRacing,272,Sub Feature #558: Camera Functions,06/23/2026 01:19 PM,Phước Hồ Đức,"","*   Khi ở màn hình tùy chỉnh tổng quát, người chơi có quyền **tự do xoay camera (Rotate)** xung quanh xe để ngắm nhìn toàn cảnh.
+    
+*   Khi người chơi chạm vào một bộ phận cụ thể (ví dụ: Wheel hoặc Front Bumper), camera phải thực hiện hiệu ứng **chuyển cảnh (Blend)** đến vị trí cận cảnh của bộ phận đó.
+    
+*   Trong trạng thái đang tập trung vào một bộ phận cụ thể, chức năng xoay camera tự do sẽ bị **tạm khóa** để đảm bảo người chơi quan sát rõ chi tiết đang chỉnh sửa."
+562,"Là người chơi, tôi muốn ẩn toàn bộ giao diện điều khiển để có thể ngắm nhìn chiếc xe của mình một cách trọn vẹn nhất không bị cản trở",User story,New,"",Normal,"","","",Game Design,"","","",VNRacing,273,Sub Feature #559: Car Test,06/23/2026 01:20 PM,Phước Hồ Đức,"","*   Khi bấm vào nút **Hide UI**, tất cả các bảng chọn, nút bấm điều hướng và thông tin nhân vật phải biến mất hoàn toàn khỏi màn hình.
+    
+*   Trong chế độ ẩn giao diện, người chơi vẫn có thể **tự do xoay camera** để quan sát xe dưới mọi góc độ (trừ khi camera đang bị khóa ở một bộ phận cụ thể).
+    
+*   Hệ thống chỉ hiển thị duy nhất một nút bấm **Show UI** (hoặc nút Back) để người chơi có thể khôi phục lại giao diện làm việc bất cứ lúc nào."
+563,Core Upgrades,Sub Feature,New,"",Normal,"","","",Game Design,"","","",VNRacing,274,Feature #402: Car Customize Performance,06/23/2026 01:38 PM,Phước Hồ Đức,"",*   4 hạng mục nâng cấp Performance của xe và 6 mốc nâng cấp của từng hạng mục.
+564,Car CR Calculations,Sub Feature,New,"",Normal,"","","",Game Design,"","","",VNRacing,275,Feature #402: Car Customize Performance,06/23/2026 01:38 PM,Phước Hồ Đức,"",*   Phương pháp tính toán chỉ số sức mạnh xe.
+565,Performance Test Drive,Sub Feature,New,"",Normal,"","","",Game Design,"","","",VNRacing,276,Feature #402: Car Customize Performance,06/23/2026 01:39 PM,Phước Hồ Đức,"",*   Chế độ lái thử xe trong Customize Performance.
+566,"Là người chơi, tôi muốn nâng cấp các chỉ số quan trọng của xe (Tốc độ, Gia tốc, Độ bám đường, Nitro) qua 6 mốc khác nhau để xe trở nên mạnh mẽ hơn, đủ sức chinh phục các đối thủ tại những thành phố có độ khó cao",User story,New,"",Normal,"","","",Game Design,"","","",VNRacing,277,Sub Feature #563: Core Upgrades,06/23/2026 01:40 PM,Phước Hồ Đức,"","*   **4 Hạng mục nâng cấp:** Hệ thống phải cung cấp đủ 4 mục nâng cấp riêng biệt: **Speed** (Tốc độ), **Acceleration** (Gia tốc), **Grip** (Độ bám đường) và **Nitro**.
+    
+*   **6 Cấp độ nâng cấp:** Mỗi hạng mục có 6 mốc tiến trình từ **Lv0 đến Lv6**. Khi đạt đến Lv6, giao diện phải hiển thị nhãn &quot;**MAX**&quot; thay vì số cấp độ.
+    
+*   **Yêu cầu tài nguyên:**
+    
+    *   Từ **Lv0 → Lv3**: Người chơi chỉ cần chi trả bằng **Cash**.
+        
+    *   Từ **Lv4 → Lv6**: Yêu cầu kết hợp cả **Cash** và **Performance Items** (vật phẩm hiệu năng).
+        
+*   Chi phí nâng cấp (Cash) phải tăng dần qua từng cấp độ và được nhân với **ScaleIndex** tương ứng của thành phố hiện tại để đảm bảo tính thử thách."
+567,"Là người chơi, tôi muốn thấy điểm chỉ số sức mạnh (Car Rating - CR) của xe được cập nhật ngay khi tôi thực hiện nâng cấp để biết chính xác đẳng cấp hiện tại của phương tiện so với mặt bằng chung",User story,New,"",Normal,"","","",Game Design,"","","",VNRacing,278,Sub Feature #564: Car CR Calculations,06/23/2026 01:42 PM,Phước Hồ Đức,"","*   Điểm CR phải được hệ thống tự động tính toán dựa trên 3 chỉ số: **Speed, Acceleration và Grip**, kết hợp với hệ số sai lệch **D** để phản ánh đúng thực tế hiệu năng.
+    
+*   Việc nâng cấp chỉ số **Nitro** tuyệt đối **không được làm thay đổi** điểm CR hiển thị của xe.
+    
+*   **Phân vùng chỉ số:**
+    
+    *   **Global CR:** Điểm tổng phải nằm trong dải từ **0 đến 18** để so sánh toàn game.
+        
+    *   **Local CR:** Mỗi xe có dải sức mạnh riêng (0-6) được mapping lên trục Global CR tùy theo phân khúc xe đó.
+        
+*   Chỉ số CR trên UI phải được làm mới ngay sau khi người chơi bấm xác nhận mua (Purchase) một hạng mục nâng cấp hợp lệ."
+568,"Là người chơi, tôi muốn có thể đưa chiếc xe vừa nâng cấp vào chạy thử nghiệm trong môi trường thực tế để cảm nhận sự khác biệt về cảm giác lái và tốc độ trước khi tham gia các giải đua chính thức.",User story,New,"",Normal,"","","",Game Design,"","","",VNRacing,279,Sub Feature #565: Performance Test Drive,06/23/2026 01:43 PM,Phước Hồ Đức,"","*   Nút &quot;**Test Drive**&quot; phải xuất hiện trực tiếp ngay trong màn hình Customize Performance để người chơi không phải quay lại menu chính.
+    
+*   Cho phép người chơi tùy chỉnh số lượng vòng đua thử nghiệm từ **1 đến 5 vòng.**
+    
+*   **Sử dụng xe hiện tại của người chơi trong một track đua chuyên biệt dành cho việc kiểm thử. (Click Circuit đã làm)**"
+569,Nghiên cứu multiplayer dựa trên yêu cầu sơ bộ của feature list,Task,In progress,Khan Vương Huỳnh,Normal,16.0,"","",Dev,"","","",VNRacing,280,Feature #273: MULTIPLAYER,06/23/2026 01:58 PM,Long Trần Anh Thượng,Long Trần Anh Thượng,"Dựa trên yêu cầu feature list sơ bộ này, nghiên cứu các kỹ thuật cần thiết và báo cáo lại
+
+<figure class=""image op-uc-figure""><div class=""op-uc-figure--content""><img class=""op-uc-image"" src=""https://media.discordapp.net/attachments/1427156301150163005/1518457066639982592/image.png?ex=6a3b4e58&amp;is=6a39fcd8&amp;hm=0f8d4587dcb80d0900e6497eec824562071f42ee053d2b88bbc0bb5583e7f720&amp;=&amp;format=webp&amp;quality=lossless&amp;width=1616&amp;height=906"" alt=""Image""></div></figure>"
+570,"Là người chơi, tôi muốn có thể lựa chọn các hạng mục độ xe bằng cách chạm trực tiếp vào các điểm đánh dấu (dấu chấm trắng) trên thân xe để tương tác với phương tiện một cách trực quan và nhanh chóng truy cập vào bộ phận mình muốn thay đổi.",User story,New,"",Normal,"","","",Game Design,"","","",VNRacing,281,Sub Feature #555: Customize Body Parts,06/23/2026 02:07 PM,Phước Hồ Đức,"","*   Khi ở trong màn hình **Customize Visual**, hệ thống phải hiển thị các dấu chấm trắng (Hotspots) tại 6 vị trí có thể tùy chỉnh trên model xe 3D bao gồm: Cản trước, Cản sau, Ốp sườn, Cánh gió, Nóc xe và Vành xe
+    
+*   Người chơi có thể chạm (Tap) trực tiếp vào các dấu chấm này trên thân xe để thay đổi hạng mục tùy chỉnh hiện tại thay vì chỉ sử dụng bảng menu icon bên trái màn hình.
+    
+*   Ngay khi người chơi vào **Garage**, xe phải thực hiện hiệu ứng nhấp nháy toàn thân để báo hiệu cho người chơi biết rằng họ có thể chạm trực tiếp vào các điểm trên xe để bắt đầu tùy chỉnh."
+574,Dev_Implement_US351_Drift để thu thập NOS,Summary task,In specification,Long Trần Anh Thượng,Normal,"",2.0,"",Dev,"","","",VNRacing,282,"User story #351:  Tôi muốn có cảm giác đua xe ARCADE , DRIFT để thu thập NOS ",06/23/2026 02:46 PM,Giang Dương Võ Trà,"",""
+575,Implement NOS function,Task,New,Đạt Quảng Tấn,Normal,2.0,"","",Dev,"","","",VNRacing,283,Summary task #574: Dev_Implement_US351_Drift để thu thập NOS,06/23/2026 02:51 PM,Long Trần Anh Thượng,Long Trần Anh Thượng,""
+576,Đặc tả kiến trúc & Nghiệp vụ cho Daily challange,Task,In progress,Đạt Quảng Tấn,Normal,8.0,"","",Dev,"","","",VNRacing,284,"User story #432: Là người chơi, tôi muốn có các nhiệm vụ Daily Challenge nhiều thể loại",06/23/2026 03:10 PM,Long Trần Anh Thượng,Long Trần Anh Thượng,""

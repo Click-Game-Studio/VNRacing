@@ -1,0 +1,446 @@
+// ===========================================================================
+// VNRacing — C4 views (drill-down)
+// ---------------------------------------------------------------------------
+// STRUCTURE follows the OpenProject 2026-06-15 product taxonomy:
+//   index (System Context)
+//     └ client            -> containers
+//         └ container      -> features it owns (grouped by Epic)
+//             └ feature     -> its components (L3)
+//
+// Feature elements are nested under epics (client.epicDrive.dmPhys, ...), so
+// view refs are fully qualified from the root. Leaf code ids (f01_simcar, ...)
+// are stable across the re-grouping. See Docs/traceability.md.
+// ===========================================================================
+
+views {
+
+  //=========================================================================
+  // LEVEL 1 — System Context (landscape)
+  //=========================================================================
+  view index {
+    title 'VNRacing — System Context (start here)'
+    include
+      player,
+      nakama, edgegap, gameAnalytics, appStore, cdn, backendEconomy
+    include client with {
+      navigateTo containers
+    }
+    style client {
+      color primary
+    }
+    style nakama, edgegap, gameAnalytics, appStore, cdn, backendEconomy {
+      color muted
+      opacity 55%
+    }
+  }
+
+  //=========================================================================
+  // LEVEL 2 — Containers inside the client
+  //=========================================================================
+  view containers of client {
+    title 'VNRacing Client — Containers (click a container to drill in)'
+    include
+      player,
+      nakama, gameAnalytics, appStore, cdn, backendEconomy
+    include client.ui          with { navigateTo c_ui }
+    include client.gameplay    with { navigateTo c_gameplay }
+    include client.meta        with { navigateTo c_meta }
+    include client.backendComm with { navigateTo c_backend }
+    include client.tooling     with { navigateTo c_tooling }
+    include client.localData   with { navigateTo c_localdata }
+
+    style client.* {
+      color blue
+    }
+    style player, nakama, gameAnalytics, appStore, cdn, backendEconomy {
+      color muted
+      opacity 50%
+    }
+  }
+
+  // ---- one view per container: features it owns, grouped by epic -----------
+  view c_ui of client.ui {
+    title 'Container: UI / UMG Layer'
+    include
+      client.ui,
+      client.epicCustomize.cuRoom.f06_bp, client.epicSupport.supShop.f10_bp,
+      client.epicSupport.supTut.f14_bp, client.epicDrive.dmRace.f02_bp_flow,
+      client.epicCustomize.cuMenu.cumenu_bp, client.cdnFeat.f13_wid
+    include client.gameplay    with { navigateTo c_gameplay }
+    include client.meta        with { navigateTo c_meta }
+    include client.backendComm with { navigateTo c_backend }
+    style client.gameplay, client.meta, client.backendComm {
+      color muted
+      opacity 45%
+    }
+  }
+
+  view c_gameplay of client.gameplay {
+    title 'Container: Gameplay Runtime — features (Drive Mode + Support)'
+    include client.gameplay
+    include client.epicDrive.dmPhys with { navigateTo dmPhys }
+    include client.epicDrive.dmRace with { navigateTo dmRace }
+    include client.epicDrive.dmNos  with { navigateTo dmNos }
+    include client.epicDrive.dmRamp with { navigateTo dmRamp }
+    include client.epicDrive.dmCam  with { navigateTo dmCam }
+    include client.epicSupport.supAi   with { navigateTo supAi }
+    include client.epicSupport.supPool with { navigateTo supPool }
+    include client.meta      with { navigateTo c_meta }
+    include client.localData with { navigateTo c_localdata }
+    include client.tooling   with { navigateTo c_tooling }
+    style client.meta, client.localData, client.tooling {
+      color muted
+      opacity 45%
+    }
+  }
+
+  view c_meta of client.meta {
+    title 'Container: Meta / Economy — features (VNTour + Customize + Support)'
+    include client.meta
+    include client.epicVNTour.vtCity     with { navigateTo vtCity }
+    include client.epicVNTour.vtTrack    with { navigateTo vtTrack }
+    include client.epicVNTour.vtCarProg  with { navigateTo vtCarProg }
+    include client.epicVNTour.vtReward   with { navigateTo vtReward }
+    include client.epicCustomize.cuRoom  with { navigateTo cuRoom }
+    include client.epicDrive.dmSet       with { navigateTo dmSet }
+    include client.epicSupport.supInv    with { navigateTo supInv }
+    include client.epicSupport.supProf   with { navigateTo supProf }
+    include client.epicSupport.supShop   with { navigateTo supShop }
+    include client.epicSupport.supTut    with { navigateTo supTut }
+    include client.localData   with { navigateTo c_localdata }
+    include client.backendComm with { navigateTo c_backend }
+    include gameAnalytics
+    style client.localData, client.backendComm, gameAnalytics {
+      color muted
+      opacity 45%
+    }
+  }
+
+  view c_backend of client.backendComm {
+    title 'Container: Backend Communication — features'
+    include client.backendComm
+    include client.epicGameMode.gmMp with { navigateTo gmMp }
+    include client.cdnFeat           with { navigateTo cdnFeat }
+    include nakama, edgegap, cdn, backendEconomy
+    style nakama, edgegap, cdn, backendEconomy {
+      color muted
+      opacity 50%
+    }
+  }
+
+  view c_tooling of client.tooling {
+    title 'Container: Debug / Tooling — features (Support)'
+    include client.tooling
+    include client.epicSupport.supDbg  with { navigateTo supDbg }
+    include client.epicSupport.supPerf with { navigateTo supPerf }
+    include client.gameplay with { navigateTo c_gameplay }
+    style client.gameplay {
+      color muted
+      opacity 45%
+    }
+  }
+
+  view c_localdata of client.localData {
+    title 'Container: Local Data / SaveGame'
+    include
+      client.localData,
+      client.epicCustomize.cuRoom.f06_save, client.epicSupport.supProf.f08_session,
+      client.epicDrive.dmSet, client.epicSupport.supTut.f14_mgr
+    include client.meta     with { navigateTo c_meta }
+    include client.gameplay with { navigateTo c_gameplay }
+    style client.meta, client.gameplay {
+      color muted
+      opacity 45%
+    }
+  }
+
+  //=========================================================================
+  // LEVEL 3 — one Component view per feature (drill-down target)
+  //=========================================================================
+
+  // ---- Epic: Drive Mode ---------------------------------------------------
+  view dmPhys of client.epicDrive.dmPhys {
+    title 'DM-PHYS DriveMode - Physics (#279)'
+    include client.epicDrive.dmPhys, client.epicDrive.dmPhys.*
+    include client.epicDrive.dmRace with { navigateTo dmRace }
+    include client.epicDrive.dmCam  with { navigateTo dmCam }
+    include client.epicSupport.supAi with { navigateTo supAi }
+    include client.epicVNTour.vtReward with { navigateTo vtReward }
+    style client.epicDrive.dmRace, client.epicDrive.dmCam, client.epicSupport.supAi, client.epicVNTour.vtReward {
+      color muted
+      opacity 40%
+    }
+  }
+
+  view dmRace of client.epicDrive.dmRace {
+    title 'DM-RACE Basic Racing (#324)'
+    include client.epicDrive.dmRace, client.epicDrive.dmRace.*
+    include client.epicDrive.dmPhys with { navigateTo dmPhys }
+    include client.epicSupport.supAi with { navigateTo supAi }
+    include client.epicSupport.supPool with { navigateTo supPool }
+    include client.epicVNTour.vtCity with { navigateTo vtCity }
+    include client.epicCustomize.cuRoom with { navigateTo cuRoom }
+    include client.epicSupport.supProf with { navigateTo supProf }
+    include client.epicSupport.supTut with { navigateTo supTut }
+    style client.epicDrive.dmPhys, client.epicSupport.supAi, client.epicSupport.supPool,
+          client.epicVNTour.vtCity, client.epicCustomize.cuRoom, client.epicSupport.supProf, client.epicSupport.supTut {
+      color muted
+      opacity 40%
+    }
+  }
+
+  view dmNos of client.epicDrive.dmNos {
+    title 'DM-NOS NOS (#334)'
+    include client.epicDrive.dmNos, client.epicDrive.dmNos.*
+    include client.epicDrive.dmPhys with { navigateTo dmPhys }
+    include client.epicSupport.supAi with { navigateTo supAi }
+    style client.epicDrive.dmPhys, client.epicSupport.supAi {
+      color muted
+      opacity 40%
+    }
+  }
+
+  view dmRamp of client.epicDrive.dmRamp {
+    title 'DM-RAMP RAMP (#335)'
+    include client.epicDrive.dmRamp, client.epicDrive.dmRamp.*
+    include client.epicDrive.dmPhys with { navigateTo dmPhys }
+    style client.epicDrive.dmPhys {
+      color muted
+      opacity 40%
+    }
+  }
+
+  view dmCam of client.epicDrive.dmCam {
+    title 'DM-CAM CAMERA (#336)'
+    include client.epicDrive.dmCam, client.epicDrive.dmCam.*
+    include client.epicDrive.dmPhys with { navigateTo dmPhys }
+    style client.epicDrive.dmPhys {
+      color muted
+      opacity 40%
+    }
+  }
+
+  view dmSet of client.epicDrive.dmSet {
+    title 'DM-SET SETTING (#338)'
+    include client.epicDrive.dmSet, client.epicDrive.dmSet.*
+  }
+
+  // ---- Epic: VNTour -------------------------------------------------------
+  view vtMap of client.epicVNTour.vtMap {
+    title 'VT-MAP VN Tour - Map Đua / Huế City (#168/#169)'
+    include client.epicVNTour.vtMap, client.epicVNTour.vtMap.*
+    include client.epicVNTour.vtCity with { navigateTo vtCity }
+    include client.epicVNTour.vtTrack with { navigateTo vtTrack }
+    style client.epicVNTour.vtCity, client.epicVNTour.vtTrack {
+      color muted
+      opacity 40%
+    }
+  }
+
+  view vtCity of client.epicVNTour.vtCity {
+    title 'VT-CITY City Progression (#329)'
+    include client.epicVNTour.vtCity, client.epicVNTour.vtCity.*
+    include client.epicDrive.dmRace with { navigateTo dmRace }
+    include client.epicVNTour.vtTrack with { navigateTo vtTrack }
+    include client.epicVNTour.vtCarProg with { navigateTo vtCarProg }
+    include client.epicVNTour.vtReward with { navigateTo vtReward }
+    include client.epicCustomize.cuRoom with { navigateTo cuRoom }
+    include client.epicSupport.supProf with { navigateTo supProf }
+    include client.epicSupport.supDbg with { navigateTo supDbg }
+    style client.epicDrive.dmRace, client.epicVNTour.vtTrack, client.epicVNTour.vtCarProg,
+          client.epicVNTour.vtReward, client.epicCustomize.cuRoom, client.epicSupport.supProf, client.epicSupport.supDbg {
+      color muted
+      opacity 40%
+    }
+  }
+
+  view vtTrack of client.epicVNTour.vtTrack {
+    title 'VT-TRACK Area-Track Unlock (#341)'
+    include client.epicVNTour.vtTrack, client.epicVNTour.vtTrack.*
+    include client.epicVNTour.vtCity with { navigateTo vtCity }
+    style client.epicVNTour.vtCity {
+      color muted
+      opacity 40%
+    }
+  }
+
+  view vtCarProg of client.epicVNTour.vtCarProg {
+    title 'VT-CARPROG Car-Progression (#344)'
+    include client.epicVNTour.vtCarProg, client.epicVNTour.vtCarProg.*
+    include client.epicVNTour.vtCity with { navigateTo vtCity }
+    include client.epicCustomize.cuRoom with { navigateTo cuRoom }
+    style client.epicVNTour.vtCity, client.epicCustomize.cuRoom {
+      color muted
+      opacity 40%
+    }
+  }
+
+  view vtReward of client.epicVNTour.vtReward {
+    title 'VT-REWARD Reward (#345)'
+    include client.epicVNTour.vtReward, client.epicVNTour.vtReward.*
+    include client.epicVNTour.vtCity with { navigateTo vtCity }
+    include client.epicSupport.supInv with { navigateTo supInv }
+    include client.epicSupport.supProf with { navigateTo supProf }
+    include client.epicDrive.dmPhys with { navigateTo dmPhys }
+    style client.epicVNTour.vtCity, client.epicSupport.supInv, client.epicSupport.supProf, client.epicDrive.dmPhys {
+      color muted
+      opacity 40%
+    }
+  }
+
+  // ---- Epic: GAME MODE ----------------------------------------------------
+  view gmMp of client.epicGameMode.gmMp {
+    title 'GM-MP MULTIPLAYER (#273)'
+    include client.epicGameMode.gmMp, client.epicGameMode.gmMp.*
+    include client.epicSupport.supProf with { navigateTo supProf }
+    include nakama, edgegap
+    style client.epicSupport.supProf {
+      color muted
+      opacity 40%
+    }
+    style nakama, edgegap {
+      color muted
+      opacity 50%
+    }
+  }
+
+  view gmDc of client.epicGameMode.gmDc {
+    title 'GM-DC DAILY CHALLENGE (#274) — ❌ GAP (chưa có code)'
+    include client.epicGameMode.gmDc, client.epicGameMode.gmDc.*
+  }
+
+  // ---- Epic: CUSTOMIZE ----------------------------------------------------
+  view cuRoom of client.epicCustomize.cuRoom {
+    title 'CU-ROOM Customize Room (#299)'
+    include client.epicCustomize.cuRoom, client.epicCustomize.cuRoom.*
+    include client.epicDrive.dmRace with { navigateTo dmRace }
+    include client.epicSupport.supAi with { navigateTo supAi }
+    include client.epicVNTour.vtCity with { navigateTo vtCity }
+    include client.epicSupport.supInv with { navigateTo supInv }
+    include client.epicSupport.supProf with { navigateTo supProf }
+    include client.epicVNTour.vtCarProg with { navigateTo vtCarProg }
+    style client.epicDrive.dmRace, client.epicSupport.supAi, client.epicVNTour.vtCity,
+          client.epicSupport.supInv, client.epicSupport.supProf, client.epicVNTour.vtCarProg {
+      color muted
+      opacity 40%
+    }
+  }
+
+  view cuMenu of client.epicCustomize.cuMenu {
+    title 'CU-MENU Main menu_Level (#320)'
+    include client.epicCustomize.cuMenu, client.epicCustomize.cuMenu.*
+  }
+
+  // ---- Top-level feature: CDN ---------------------------------------------
+  view cdnFeat of client.cdnFeat {
+    title 'CDN Content Download (#250)'
+    include
+      client.cdnFeat, client.cdnFeat.*,
+      cdn
+    style cdn {
+      color muted
+      opacity 50%
+    }
+  }
+
+  //=========================================================================
+  // Hệ thống nền (Support) — ngoài CSV
+  //=========================================================================
+  view supAi of client.epicSupport.supAi {
+    title 'SUP-AI Racer AI (ngoài CSV)'
+    include client.epicSupport.supAi, client.epicSupport.supAi.*
+    include client.epicDrive.dmPhys with { navigateTo dmPhys }
+    include client.epicDrive.dmRace with { navigateTo dmRace }
+    include client.epicCustomize.cuRoom with { navigateTo cuRoom }
+    style client.epicDrive.dmPhys, client.epicDrive.dmRace, client.epicCustomize.cuRoom {
+      color muted
+      opacity 40%
+    }
+  }
+
+  view supPool of client.epicSupport.supPool {
+    title 'SUP-POOL Object Pooling (ngoài CSV)'
+    include client.epicSupport.supPool, client.epicSupport.supPool.*
+    include client.epicDrive.dmRace with { navigateTo dmRace }
+    style client.epicDrive.dmRace {
+      color muted
+      opacity 40%
+    }
+  }
+
+  view supInv of client.epicSupport.supInv {
+    title 'SUP-INV Inventory (ngoài CSV)'
+    include client.epicSupport.supInv, client.epicSupport.supInv.*
+    include client.epicCustomize.cuRoom with { navigateTo cuRoom }
+    include client.epicVNTour.vtReward with { navigateTo vtReward }
+    style client.epicCustomize.cuRoom, client.epicVNTour.vtReward {
+      color muted
+      opacity 40%
+    }
+  }
+
+  view supProf of client.epicSupport.supProf {
+    title 'SUP-PROF User Profile / Economy (ngoài CSV)'
+    include client.epicSupport.supProf, client.epicSupport.supProf.*
+    include client.epicDrive.dmRace with { navigateTo dmRace }
+    include client.epicVNTour.vtCity with { navigateTo vtCity }
+    include client.epicCustomize.cuRoom with { navigateTo cuRoom }
+    include client.epicVNTour.vtReward with { navigateTo vtReward }
+    include client.epicGameMode.gmMp with { navigateTo gmMp }
+    style client.epicDrive.dmRace, client.epicVNTour.vtCity, client.epicCustomize.cuRoom,
+          client.epicVNTour.vtReward, client.epicGameMode.gmMp {
+      color muted
+      opacity 40%
+    }
+  }
+
+  view supShop of client.epicSupport.supShop {
+    title 'SUP-SHOP Shop / IAP / Ads (ngoài CSV)'
+    include
+      client.epicSupport.supShop, client.epicSupport.supShop.*,
+      appStore
+    style appStore {
+      color muted
+      opacity 50%
+    }
+  }
+
+  view supTut of client.epicSupport.supTut {
+    title 'SUP-TUT Tutorial / Onboarding (ngoài CSV)'
+    include client.epicSupport.supTut, client.epicSupport.supTut.*
+    include client.epicDrive.dmRace with { navigateTo dmRace }
+    include client.epicVNTour.vtCity with { navigateTo vtCity }
+    style client.epicDrive.dmRace, client.epicVNTour.vtCity {
+      color muted
+      opacity 40%
+    }
+  }
+
+  view supDbg of client.epicSupport.supDbg {
+    title 'SUP-DBG Debug & Track Test (ngoài CSV)'
+    include client.epicSupport.supDbg, client.epicSupport.supDbg.*
+    include client.epicDrive.dmPhys with { navigateTo dmPhys }
+    include client.epicDrive.dmRace with { navigateTo dmRace }
+    include client.epicVNTour.vtCity with { navigateTo vtCity }
+    style client.epicDrive.dmPhys, client.epicDrive.dmRace, client.epicVNTour.vtCity {
+      color muted
+      opacity 40%
+    }
+  }
+
+  view supPerf of client.epicSupport.supPerf {
+    title 'SUP-PERF Performance & PSO (ngoài CSV)'
+    include client.epicSupport.supPerf, client.epicSupport.supPerf.*
+    include client.epicDrive.dmPhys with { navigateTo dmPhys }
+    include client.epicDrive.dmRace with { navigateTo dmRace }
+    include client.epicVNTour.vtCity with { navigateTo vtCity }
+    style client.epicDrive.dmPhys, client.epicDrive.dmRace, client.epicVNTour.vtCity {
+      color muted
+      opacity 40%
+    }
+  }
+}
+
+
+
+
