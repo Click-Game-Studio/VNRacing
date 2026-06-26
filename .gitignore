@@ -79,5 +79,49 @@ Thumbs.db
 desktop.ini
 *~
 
+# --- Audits (nội dung đã chuyển vào portal) --------------------------------
+Docs/audit/
+
+# --- Low-level design (nội dung đã chuyển vào portal) ----------------------
+Docs/ld/
+
+# --- C4 model cũ (portal dùng likec4/ riêng) ------------------------------
+Docs/c4/
+
+# --- Progression v8 (design planning, file xlsx/csv không track) -----------
+Docs/progression-v8/
+
+# --- Multiplayer source doc (đã có trong portal multiplayer version) -------
+Docs/Multiplayer_New.md
+Docs/Multiplayer_Status_And_Roadmap.md
+
+# --- HLD/LLD tổng thể (tham khảo local) ------------------------------------
+Docs/VNRacing_HLD.md
+Docs/VNRacing_LLD.md
+
+# --- Traceability matrix ----------------------------------------------------
+Docs/traceability.md
+
+# --- Structurizr generated output (source DSL giữ lại) ----------------------
+Docs/structurizr/dist_json/
+Docs/structurizr/dist_probe/
+
+# --- Docusaurus cũ assets ---------------------------------------------------
+Docs/portal-docusaurus-assets/
+
+# --- Legacy docs (kept local for reference) ----------------------------------
+# Docusaurus portal replaced by Astro/Starlight (Docs/portal)
+Docs/portal-docusaurus/
+
+# --- OpenSpec local artifacts (not tracked) ----------------------------------
+openspec/
+
+# --- Claude Code local config ------------------------------------------------
+.mcp.json
+
+# --- Build logs (Docs/portal) ------------------------------------------------
+Docs/portal/build_*.log
+Docs/portal/build_*.txt
+
 # --- Misc local scratch ------------------------------------------------------
 test.txt

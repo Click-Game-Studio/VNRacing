@@ -30,17 +30,15 @@ VNRacing/
 │   │       ├── current/           #     Latest version
 │   │       ├── multiplayer/       #     Multiplayer version
 │   │       └── v1/                #     v1 snapshot
-│   ├── c4/                        # (local) C4 model cũ
-│   ├── audit/                     # (local) Audit source docs
-│   ├── ld/                        # (local) Low-level design docs
+│   ├── c4/                        # C4 model cũ
+│   ├── audit/                     # Audit source docs
+│   ├── ld/                        # Low-level design docs
 │   └── structurizr/               # Structurizr workspace (workspace.dsl + docs + adrs)
 ├── .github/workflows/
 │   └── docs.yml                   # CI/CD: build Docs/portal → GitHub Pages
 ├── .gitignore
 └── README.md
 ```
-
-> **Ghi chú:** Các thư mục `audit/`, `ld/`, `c4/`, `progression-v8/` được giữ local để tham khảo, không track trên git. Chỉ `Docs/portal/` và `Docs/structurizr/` (source) được đẩy lên.
 
 ## Docs Portal
 
@@ -63,16 +61,3 @@ Chi tiết: xem [Docs/portal/README.md](Docs/portal/README.md)
 2. **Sidebar config** trong `astro.config.mjs` — không tự động
 3. **Build trước push** — `npm run build` phải OK
 4. **Branch + PR** — không push thẳng main
-
-## Tài liệu tham khảo (local)
-
-Các tài liệu không track trên git nhưng vẫn còn trên đĩa:
-
-| Thư mục | Nội dung |
-|---|---|
-| `Docs/audit/` | Audit source — nội dung đã chuyển vào portal |
-| `Docs/ld/` | Low-level design chi tiết |
-| `Docs/c4/` | C4 model cũ + LikeC4 render scripts |
-| `Docs/progression-v8/` | Design planning progression |
-| `Docs/VNRacing_HLD.md` | High Level Design tổng thể |
-| `Docs/VNRacing_LLD.md` | Low Level Design tổng thể |
