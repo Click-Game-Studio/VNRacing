@@ -1,29 +1,78 @@
 # VNRacing Documentation
 
-Tài liệu thiết kế chính thức cho project VNRacing.
+Tài liệu kiến trúc và thiết kế cho dự án VNRacing.
 
-Repository này hiện chỉ lưu hai tài liệu tổng hợp chính:
+## Quick start
 
-```text
-Docs/
-├── VNRacing_HLD.md
-└── VNRacing_LLD.md
+Docs portal (Astro + Starlight + LikeC4):
+
+```bash
+cd Docs/portal
+npm install   # one time
+npm run dev   # http://localhost:4321/VNRacing/
+npm run build # static site → dist/
 ```
 
-## Tài liệu
+## Cấu trúc repo
 
-| File | Nội dung |
-| --- | --- |
-| [Docs/VNRacing_HLD.md](./Docs/VNRacing_HLD.md) | High Level Design: kiến trúc tổng quan, runtime architecture, gameplay systems, meta-game, online/backend, save/data boundary và technology stack. |
-| [Docs/VNRacing_LLD.md](./Docs/VNRacing_LLD.md) | Low Level Design: class/subsystem ownership, data flow, lifecycle, delegate/API boundary, checklist kiểm chứng triển khai. |
+```
+VNRacing/
+├── Docs/
+│   ├── portal/                    # ★ Docs portal chính (Astro/Starlight)
+│   │   ├── src/content/docs/      #   Nội dung .md/.mdx
+│   │   │   ├── architecture/      #     arc42 architecture docs
+│   │   │   ├── features/          #     Feature docs
+│   │   │   ├── multiplayer/       #     Multiplayer Preview version
+│   │   │   ├── decisions/         #     ADR
+│   │   │   └── v1/                #     Snapshot lịch sử
+│   │   ├── src/content/versions/  #   Cấu hình version (Latest/v1/multiplayer)
+│   │   └── likec4/                #   C4 model source
+│   │       ├── current/           #     Latest version
+│   │       ├── multiplayer/       #     Multiplayer version
+│   │       └── v1/                #     v1 snapshot
+│   ├── c4/                        # (local) C4 model cũ
+│   ├── audit/                     # (local) Audit source docs
+│   ├── ld/                        # (local) Low-level design docs
+│   └── structurizr/               # Structurizr workspace (workspace.dsl + docs + adrs)
+├── .github/workflows/
+│   └── docs.yml                   # CI/CD: build Docs/portal → GitHub Pages
+├── .gitignore
+└── README.md
+```
 
-## Quy tắc cập nhật
+> **Ghi chú:** Các thư mục `audit/`, `ld/`, `c4/`, `progression-v8/` được giữ local để tham khảo, không track trên git. Chỉ `Docs/portal/` và `Docs/structurizr/` (source) được đẩy lên.
 
-- Source code hiện tại của project Unreal là nguồn ưu tiên cho thông tin kỹ thuật.
-- Các tài liệu design mới dùng làm nguồn tham chiếu cho gameplay, economy, progression, customization và rewards.
-- Không đưa tài liệu mẫu hoặc tài liệu cũ vào nội dung chính thức nếu không còn phù hợp với source hiện tại.
-- Khi có thay đổi lớn về kiến trúc, cập nhật HLD trước, sau đó cập nhật LLD tương ứng.
+## Docs Portal
 
-## Cấu trúc hiện tại
+Trang tài liệu kiến trúc tương tác — deploy tại GitHub Pages.
 
-Repo này đã được rút gọn để phục vụ việc chuẩn hoá lại tài liệu. Các tài liệu cũ đã được thay bằng hai bản HLD/LLD tổng hợp ở thư mục `Docs/`.
+**Stack:** Astro + Starlight + LikeC4 (diagram C4 tương tác)
+
+**3 versions:**
+| Version | URL prefix | Mô tả |
+|---|---|---|
+| Latest | (default) | Bản hiện tại, cập nhật liên tục |
+| v1 | `v1/` | Snapshot lịch sử — KHÔNG chỉnh sửa |
+| Multiplayer Preview 🆕 | `multiplayer/` | Tính năng multiplayer đang phát triển |
+
+Chi tiết: xem [Docs/portal/README.md](Docs/portal/README.md)
+
+## Quy tắc
+
+1. **Không sửa file trong `v1/`** — snapshot lịch sử
+2. **Sidebar config** trong `astro.config.mjs` — không tự động
+3. **Build trước push** — `npm run build` phải OK
+4. **Branch + PR** — không push thẳng main
+
+## Tài liệu tham khảo (local)
+
+Các tài liệu không track trên git nhưng vẫn còn trên đĩa:
+
+| Thư mục | Nội dung |
+|---|---|
+| `Docs/audit/` | Audit source — nội dung đã chuyển vào portal |
+| `Docs/ld/` | Low-level design chi tiết |
+| `Docs/c4/` | C4 model cũ + LikeC4 render scripts |
+| `Docs/progression-v8/` | Design planning progression |
+| `Docs/VNRacing_HLD.md` | High Level Design tổng thể |
+| `Docs/VNRacing_LLD.md` | Low Level Design tổng thể |
