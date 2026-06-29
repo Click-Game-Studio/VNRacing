@@ -1,0 +1,1292 @@
+<!doctype html>
+<html lang="vi"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workshop: Docs Portal · Xem, Sửa, Deploy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&amp;family=IBM+Plex+Mono:wght@300;400;500;600&amp;family=Noto+Serif+SC:wght@300;400;500;600;700;900&amp;family=Noto+Sans+SC:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* 🖋 墨水经典 (Monocle default) */
+    --ink:#0a0a0b;
+    --ink-rgb:10,10,11;
+    --paper:#f1efea;
+    --paper-rgb:241,239,234;
+    --paper-tint:#e8e5de;
+    --ink-tint:#18181a;
+    --mono:"IBM Plex Mono",ui-monospace,monospace;
+    --serif-en:"Playfair Display","Source Serif 4",Georgia,serif;
+    --serif-body-en:"Source Serif 4",Georgia,serif;
+    --serif-zh:"Noto Serif SC",source-han-serif-sc,serif;
+    --sans-zh:"Noto Sans SC",source-han-sans-sc,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:100%;height:100%;overflow:hidden;background:var(--ink);color:var(--paper);font-family:var(--sans-zh);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  canvas.bg{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;display:block;transition:opacity 1.2s ease}
+  canvas#bg-light{opacity:0}
+  canvas#bg-dark{opacity:1}
+  body.light-bg canvas#bg-light{opacity:1}
+  body.light-bg canvas#bg-dark{opacity:0}
+  #deck{position:fixed;inset:0;width:10000vw;height:100vh;display:flex;flex-wrap:nowrap;transition:transform .9s cubic-bezier(.77,0,.175,1);z-index:10;will-change:transform}
+  .slide{width:100vw;height:100vh;flex:0 0 100vw;position:relative;padding:6vh 6vw 10vh 6vw;display:flex;flex-direction:column;overflow:hidden}
+  .slide.light{color:var(--ink)}
+  .slide.dark{color:var(--paper)}
+  .slide::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;transition:background .7s ease}
+  .slide.light::before{background:rgba(var(--paper-rgb),.78);backdrop-filter:blur(3px)}
+  .slide.dark::before{background:rgba(var(--ink-rgb),.78);backdrop-filter:blur(3px)}
+  .slide.hero.light::before{background:rgba(var(--paper-rgb),.16);backdrop-filter:none}
+  .slide.hero.dark::before{background:rgba(var(--ink-rgb),.12);backdrop-filter:none}
+  .slide.hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none}
+  .slide.hero.light::after{background:linear-gradient(180deg,rgba(var(--paper-rgb),.28) 0%,rgba(var(--paper-rgb),0) 14%,rgba(var(--paper-rgb),0) 86%,rgba(var(--paper-rgb),.28) 100%)}
+  .slide.hero.dark::after{background:linear-gradient(180deg,rgba(var(--ink-rgb),.32) 0%,rgba(var(--ink-rgb),0) 14%,rgba(var(--ink-rgb),0) 86%,rgba(var(--ink-rgb),.32) 100%)}
+  .chrome{display:flex;justify-content:space-between;align-items:flex-start;font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.7}
+  .chrome .left,.chrome .right{display:flex;gap:2.4em;align-items:center}
+  .chrome .sep{width:40px;height:1px;background:currentColor;opacity:.4}
+  .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.55}
+  .foot .title{font-family:var(--serif-zh);font-weight:400;letter-spacing:.05em;text-transform:none;opacity:.75;font-size:13px}
+  .tag{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;padding:6px 14px;border:1px solid currentColor;opacity:.85}
+  .rule{width:100%;height:1px;background:currentColor;opacity:.25;margin:3vh 0}
+  .rule.v{width:1px;height:100%;margin:0}
+  .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.3em;text-transform:uppercase;opacity:.6;margin-bottom:2.6vh}
+  .display{font-family:var(--serif-en);font-weight:700;font-size:11vw;line-height:.92;letter-spacing:-.025em}
+  .display-zh{font-family:var(--serif-zh);font-weight:700;font-size:7.8vw;line-height:1.04;letter-spacing:-.005em}
+  .h1-zh{font-family:var(--serif-zh);font-weight:700;font-size:4.6vw;line-height:1.12;letter-spacing:-.005em}
+  .h2-zh{font-family:var(--serif-zh);font-weight:600;font-size:3.2vw;line-height:1.2;letter-spacing:0}
+  .h3-zh{font-family:var(--serif-zh);font-weight:500;font-size:1.9vw;line-height:1.35}
+  .body-zh{font-family:var(--sans-zh);font-weight:400;font-size:max(15px,1.22vw);line-height:1.75;opacity:.82;letter-spacing:.01em}
+  .body-serif{font-family:var(--serif-zh);font-weight:400;font-size:max(15px,1.3vw);line-height:1.65;opacity:.88}
+  .lead{font-family:var(--serif-zh);font-weight:400;font-size:1.9vw;line-height:1.4;opacity:.85}
+  .meta{font-family:var(--mono);font-size:max(11px,.88vw);letter-spacing:.16em;text-transform:uppercase;opacity:.6}
+  .big-num{font-family:var(--serif-en);font-weight:800;font-size:10vw;line-height:.85;letter-spacing:-.03em;font-feature-settings:"tnum"}
+  .mid-num{font-family:var(--serif-en);font-weight:700;font-size:5.5vw;line-height:.88;letter-spacing:-.02em;font-feature-settings:"tnum"}
+  .ghost{font-family:var(--serif-en);font-weight:900;font-size:34vw;line-height:.8;opacity:.06;letter-spacing:-.04em;position:absolute;font-feature-settings:"tnum"}
+  .col{display:flex;flex-direction:column;gap:2.4vh}
+  .row{display:flex;align-items:center;gap:3vw}
+  .grid-6{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr);gap:4vw 6vw;flex:1;align-content:center;padding:2vh 0}
+  .grid-9{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:3vh 4vw;flex:1;align-content:center}
+  .grid-4{display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(2,1fr);gap:4vh 6vw;flex:1;align-content:center}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:4vw;flex:1;align-content:center}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:4vw;flex:1;align-items:center}
+  .split-55{display:grid;grid-template-columns:55fr 45fr;gap:5vw;flex:1;align-items:stretch}
+  .fill{flex:1}
+  .center{align-items:center;justify-content:center;text-align:center}
+  .bottom-left{position:absolute;left:6vw;bottom:9vh;max-width:50vw}
+  .bottom-right{position:absolute;right:6vw;bottom:9vh;max-width:50vw;text-align:right}
+  .top-right{position:absolute;right:6vw;top:6vh;text-align:right}
+  .h-hero{font-family:var(--serif-zh);font-weight:900;font-size:10vw;line-height:.96;letter-spacing:-.02em}
+  .h-xl{font-family:var(--serif-zh);font-weight:700;font-size:6.2vw;line-height:1.08;letter-spacing:-.01em}
+  .h-sub{font-family:var(--serif-zh);font-weight:500;font-size:3.1vw;line-height:1.25;letter-spacing:0;opacity:.7}
+  .h-md{font-family:var(--serif-zh);font-weight:600;font-size:2.3vw;line-height:1.3}
+  .h-hero-en,.h-xl-en{font-family:var(--serif-en);letter-spacing:-.025em}
+  .lead{font-family:var(--serif-zh);font-weight:400;font-size:1.75vw;line-height:1.5;opacity:.86}
+  .meta-row{display:flex;gap:1.2em;align-items:baseline;flex-wrap:wrap;font-family:var(--mono);font-size:max(12px,.92vw);letter-spacing:.16em;text-transform:uppercase;opacity:.6}
+  .frame{flex:1;display:flex;flex-direction:column;min-height:0}
+  .frame.grid-2-7-5,.frame.grid-2-6-6,.frame.grid-2-8-4,.frame.grid-3-3,.frame.grid-6{display:grid}
+  .grid-2-7-5{display:grid;grid-template-columns:7fr 5fr;gap:3vw 4vh;align-items:start}
+  .grid-2-6-6{display:grid;grid-template-columns:1fr 1fr;gap:3vw 4vh;align-items:start}
+  .grid-2-8-4{display:grid;grid-template-columns:8fr 4fr;gap:3vw 4vh;align-items:start}
+  .grid-3-3{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:minmax(0,1fr);gap:2.4vh 2vw}
+  .stat-card{display:flex;flex-direction:column;gap:.8vh;align-items:flex-start;padding-top:1.6vh;border-top:1px solid currentColor;border-color:rgba(127,127,127,.3)}
+  .stat-card .stat-label{font-family:var(--mono);font-size:max(10px,.78vw);letter-spacing:.24em;text-transform:uppercase;opacity:.55}
+  .stat-card .stat-nb{font-family:var(--serif-en);font-weight:800;font-size:5.8vw;line-height:.9;letter-spacing:-.03em;font-feature-settings:"tnum";margin-top:.4vh}
+  .stat-card .stat-nb .stat-unit{font-family:var(--serif-zh);font-weight:500;font-size:.38em;letter-spacing:0;opacity:.72;margin-left:.14em}
+  .stat-card .stat-note{font-family:var(--sans-zh);font-weight:400;font-size:max(13px,1.05vw);line-height:1.5;opacity:.72;margin-top:.6vh}
+  .grid-4 .stat-card .stat-nb{font-size:7.5vw}
+  .grid-3 .stat-card .stat-nb{font-size:6.8vw}
+  .pipeline-section{margin-top:4.4vh;padding-top:2.8vh;border-top:1px dashed rgba(127,127,127,.32)}
+  .pipeline-section:first-of-type{border-top:0;padding-top:0;margin-top:3vh}
+  .pipeline-label{font-family:var(--mono);font-size:max(11px,.85vw);letter-spacing:.24em;text-transform:uppercase;opacity:.62;margin-bottom:2.2vh}
+  .pipeline{display:grid;grid-template-columns:repeat(5,1fr);gap:1.2vw}
+  .pipeline[data-cols="3"]{grid-template-columns:repeat(3,1fr)}
+  .pipeline[data-cols="4"]{grid-template-columns:repeat(4,1fr)}
+  .pipeline[data-cols="6"]{grid-template-columns:repeat(6,1fr)}
+  .step{display:flex;flex-direction:column;gap:.8vh;padding-top:1.4vh;border-top:1px solid currentColor;border-color:rgba(127,127,127,.35)}
+  .step-nb{font-family:var(--serif-en);font-style:italic;font-weight:500;font-size:1.15vw;opacity:.45}
+  .step-title{font-family:var(--sans-zh);font-weight:700;font-size:1.55vw;letter-spacing:.01em;line-height:1.2}
+  .step-desc{font-family:var(--sans-zh);font-weight:400;font-size:max(12px,.95vw);line-height:1.45;opacity:.72}
+  .callout{padding:3vh 2.4vw;border-left:3px solid currentColor;position:relative;font-family:var(--serif-zh);font-size:max(15px,1.2vw);line-height:1.55;opacity:.92}
+  .slide.light .callout{background:rgba(var(--ink-rgb),.05)}
+  .slide.dark .callout{background:rgba(var(--paper-rgb),.06)}
+  .callout .cite{display:block;margin-top:1.6vh;font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.6}
+  .callout .q-big{font-family:var(--serif-zh);font-weight:600;font-size:max(17px,1.6vw);line-height:1.42}
+  .frame-img{overflow:hidden;position:relative;background:rgba(0,0,0,.04);box-sizing:border-box;width:100%;border-radius:4px}
+  .slide.dark .frame-img{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.12)}
+  .frame-img > img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+  .frame-cap{display:flex;justify-content:space-between;align-items:baseline;gap:1vw;margin-top:.8vh;font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;opacity:.72}
+  .frame-cap .pf{font-family:var(--serif-zh);font-weight:600;font-size:max(13px,1vw);letter-spacing:.04em;text-transform:none;opacity:.94}
+  .frame-cap .nb{font-family:var(--serif-en);font-style:italic;font-size:max(15px,1.2vw);letter-spacing:.02em;text-transform:none;opacity:.88}
+  .frame-cap .idx{font-family:var(--mono);opacity:.5}
+  figure.tile{display:flex;flex-direction:column;margin:0;min-width:0}
+  figure.tile > .frame-img{flex:0 0 auto}
+  .ico{width:1em;height:1em;display:inline-block;vertical-align:-.12em;stroke:currentColor;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+  .ico-lg,.ico-md,.ico-sm{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}
+  .ico-lg{width:2.6vw;height:2.6vw;stroke-width:1.2;display:inline-block}
+  .ico-md{width:1.8vw;height:1.8vw;stroke-width:1.3;display:inline-block;vertical-align:-.4em}
+  .ico-sm{width:1.1vw;height:1.1vw;stroke-width:1.4;display:inline-block;vertical-align:-.15em;opacity:.7}
+  .demo-badge{display:inline-flex;align-items:center;gap:.6em;padding:.6em 1.4em;border:1.5px solid currentColor;font-family:var(--mono);font-size:12px;letter-spacing:.24em;text-transform:uppercase;opacity:.85}
+  #nav{position:fixed;left:50%;bottom:2.6vh;transform:translateX(-50%);z-index:30;display:flex;gap:10px;padding:8px 14px;border-radius:999px;background:rgba(0,0,0,.18);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+  #nav .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:all .3s ease;border:0;padding:0}
+  #nav .dot:hover{background:rgba(255,255,255,.5);transform:scale(1.15)}
+  #nav .dot.active{background:rgba(255,255,255,.95);width:22px;border-radius:999px}
+  body.light-bg #nav{background:rgba(255,255,255,.25)}
+  body.light-bg #nav .dot{background:rgba(var(--ink-rgb),.25)}
+  body.light-bg #nav .dot.active{background:rgba(var(--ink-rgb),.9)}
+  #hint{position:fixed;bottom:3vh;right:3vw;z-index:30;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.4;mix-blend-mode:difference;color:#aaa}
+  @media (max-width:900px){
+    .display{font-size:16vw}
+    .display-zh{font-size:12vw}
+    .h1-zh{font-size:7vw}
+    .h-hero{font-size:14vw}
+    .h-xl{font-size:9vw}
+    .pipeline{grid-template-columns:repeat(2,1fr)}
+    .grid-2-7-5,.grid-2-6-6,.grid-2-8-4{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<canvas id="bg-dark" class="bg"></canvas>
+<canvas id="bg-light" class="bg"></canvas>
+<div id="hint">← → · ESC</div>
+
+<div id="deck">
+
+<!-- ███████████████████████████████████████████████████
+     PHẦN 1: TỔNG QUAN
+     ███████████████████████████████████████████████████ -->
+
+<!-- SLIDE 1 · COVER -->
+<section class="slide hero dark" data-screen-label="01 Cover">
+  <div class="chrome">
+    <div>Phan Huynh Tan · 2026.06</div>
+    <div>Vol.01</div>
+  </div>
+  <div class="frame" style="display:grid; gap:5vh; align-content:center; min-height:80vh">
+    <div class="kicker">Internal Workshop</div>
+    <h1 class="h-hero" style="font-size:8.8vw">Docs Portal</h1>
+    <h2 class="h-sub" style="max-width:50vw">Xem, Sửa, Deploy — hệ thống tài liệu kiến trúc với Astro + Starlight + LikeC4</h2>
+    <div class="meta-row">
+      <span>Phan Huỳnh Tân</span><span>·</span><span>Nội bộ team dev</span>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Workshop · Docs Portal</div>
+    <div>— 2026 —</div>
+  </div>
+</section>
+
+<!-- SLIDE 2 · VẤN ĐỀ -->
+<section class="slide light" data-screen-label="02 Problem">
+  <div class="chrome">
+    <div>Tổng quan · The Problem</div>
+    <div>02 / 22</div>
+  </div>
+  <div class="frame" style="padding-top:5vh">
+    <div class="kicker">Vấn đề.</div>
+    <h2 class="h-xl">Docs rải rác, khó kiểm soát</h2>
+    <p class="lead" style="margin-bottom:6vh; max-width:55vw">Ba vấn đề mà team dev nào cũng gặp</p>
+
+    <div class="grid-3">
+      <div style="display:flex;flex-direction:column;gap:2.4vh;padding-top:2vh;border-top:1px solid currentColor;border-color:rgba(127,127,127,.3)">
+        <div class="meta">PROBLEM 01</div>
+        <div class="h2-zh" style="font-size:2.8vw">Rải rác</div>
+        <p class="body-zh">Tài liệu nằm khắp nơi — Notion, Google Doc, GitHub Wiki, file .md lẻ — không ai biết đâu là bản chuẩn.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:2.4vh;padding-top:2vh;border-top:1px solid currentColor;border-color:rgba(127,127,127,.3)">
+        <div class="meta">PROBLEM 02</div>
+        <div class="h2-zh" style="font-size:2.8vw">Khó review</div>
+        <p class="body-zh">Không có quy trình review, không biết ai sửa gì, version nào là hiện tại. Gặp lỗi không trace ngược được.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:2.4vh;padding-top:2vh;border-top:1px solid currentColor;border-color:rgba(127,127,127,.3)">
+        <div class="meta">PROBLEM 03</div>
+        <div class="h2-zh" style="font-size:2.8vw">Không đồng bộ</div>
+        <p class="body-zh">Diagram kiến trúc trong file PowerPoint, code thì thay đổi hàng tuần — không ai cập nhật kịp.</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Workshop · Docs Portal</div>
+    <div>Part 1 · Overview</div>
+  </div>
+</section>
+
+<!-- SLIDE 3 · GIẢI PHÁP -->
+<section class="slide dark" data-screen-label="03 Solution">
+  <div class="chrome">
+    <div>Tổng quan · Giải pháp</div>
+    <div>03 / 22</div>
+  </div>
+  <div class="frame" style="padding-top:5vh">
+    <div class="kicker">Solution.</div>
+    <h2 class="h-xl">Portal tập trung, có version</h2>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:2vw; margin-top:6vh">
+      <div class="callout" style="border-left-color:currentColor; flex:1; display:flex; flex-direction:column">
+        <div class="kicker" style="opacity:.8">Nền tảng</div>
+        <div class="q-big">Astro + Starlight</div>
+        <div class="body-zh" style="margin-top:1.4vh">Static site generator tối giản, Markdown-first, tích hợp search sẵn.</div>
+      </div>
+      <div class="callout" style="border-left-color:currentColor; flex:1; display:flex; flex-direction:column">
+        <div class="kicker" style="opacity:.8">Cấu trúc</div>
+        <div class="q-big">arc42</div>
+        <div class="body-zh" style="margin-top:1.4vh">Template kiến trúc có tổ chức: tổng quan → container → component → code.</div>
+      </div>
+      <div class="callout" style="border-left-color:currentColor; flex:1; display:flex; flex-direction:column">
+        <div class="kicker" style="opacity:.8">Diagram</div>
+        <div class="q-big">C4 + LikeC4</div>
+        <div class="body-zh" style="margin-top:1.4vh">Tác nhân → quan hệ → góc nhìn. Diagram động, tương tác được.</div>
+      </div>
+      <div class="callout" style="border-left-color:currentColor; flex:1; display:flex; flex-direction:column">
+        <div class="kicker" style="opacity:.8">Versioning</div>
+        <div class="q-big">3 version</div>
+        <div class="body-zh" style="margin-top:1.4vh">Hiện tại, snapshot, tính năng mới. Switcher chuyển đổi tức thì.</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Workshop · Docs Portal</div>
+    <div>Part 1 · Overview</div>
+  </div>
+</section>
+
+<!-- SLIDE 4 · ACT I DIVIDER · TỔNG QUAN -->
+<section class="slide hero light" data-screen-label="04 Act I">
+  <div class="chrome">
+    <div>Phần 1 · Tổng quan</div>
+    <div>Act I · 04 / 22</div>
+  </div>
+  <div class="frame" style="display:grid; gap:5vh; align-content:center; min-height:80vh">
+    <div class="kicker">Act I</div>
+    <h1 class="h-hero" style="font-size:8vw">Tổng quan</h1>
+    <p class="lead" style="max-width:45vw">
+      Vấn đề, giải pháp, versioning và nơi deploy.
+    </p>
+  </div>
+  <div class="foot">
+    <div>Phần 1 · Tổng quan</div>
+    <div>— · —</div>
+  </div>
+</section>
+
+<!-- ███████████████████████████████████████████████████
+     PHẦN 2: XEM & SỬ DỤNG — DEMO
+     ███████████████████████████████████████████████████ -->
+
+<!-- SLIDE 5 · PORTAL WALKTHROUGH -->
+<section class="slide light" data-screen-label="05 Portal">
+  <div class="chrome">
+    <div>Phần 2 · Xem &amp; Sử dụng</div>
+    <div>05 / 22</div>
+  </div>
+  <div class="frame" style="display:grid; gap:4vh; align-content:center; min-height:80vh">
+    <div class="kicker">Walkthrough</div>
+    <h2 class="h-xl">Duyệt nhanh portal</h2>
+    <p class="lead" style="max-width:50vw">Navigation qua sidebar và thanh search, đọc kiến trúc theo arc42.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2vw;margin-top:2vh">
+      <div style="display:flex;flex-direction:column;gap:1.2vh;padding-top:1.6vh;border-top:1px solid currentColor;border-color:rgba(127,127,127,.3)">
+        <div class="meta">ARC42 · 01</div>
+        <div class="h3-zh">Tổng quan hệ thống</div>
+        <div class="body-zh">Mục tiêu, stakeholder, định hướng kiến trúc</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1.2vh;padding-top:1.6vh;border-top:1px solid currentColor;border-color:rgba(127,127,127,.3)">
+        <div class="meta">ARC42 · 02</div>
+        <div class="h3-zh">Container &amp; Component</div>
+        <div class="body-zh">Chi tiết từng module, diagram C4 tương tác</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1.2vh;padding-top:1.6vh;border-top:1px solid currentColor;border-color:rgba(127,127,127,.3)">
+        <div class="meta">ARC42 · 03</div>
+        <div class="h3-zh">Quyết định &amp; Code</div>
+        <div class="body-zh">ADR, ràng buộc, ánh xạ đến mã nguồn</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Workshop · Docs Portal</div>
+    <div>Part 2 · Walkthrough</div>
+  </div>
+</section>
+
+<!-- SLIDE 6 · C4 DIAGRAM -->
+<section class="slide dark" data-screen-label="06 C4 Diagram">
+  <div class="chrome">
+    <div>Phần 2 · Xem &amp; Sử dụng</div>
+    <div>06 / 22</div>
+  </div>
+  <div class="frame grid-2-6-6" style="padding-top:5vh">
+    <div>
+      <div class="kicker">C4 tương tác</div>
+      <h2 class="h-xl">Zoom · Pan · Click</h2>
+      <p class="body-zh" style="margin-top:3vh">
+        Diagram C4 không phải ảnh tĩnh — bạn có thể phóng to, thu nhỏ, kéo để xem chi tiết từng container.
+      </p>
+      <p class="body-zh" style="margin-top:2vh">
+        Click vào một box để đi sâu xuống Component level. Mỗi view được generate từ mã LikeC4, đảm bảo luôn đồng bộ.
+      </p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:2vh;justify-content:flex-start">
+      <span class="meta" style="font-size:11px">— Diagram layers</span>
+      <div class="callout">
+        <div class="q-big">Context → Container → Component → Code</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1vh;padding-top:1.6vh;border-top:1px solid currentColor;border-color:rgba(127,127,127,.3);margin-top:2vh">
+        <div class="kicker" style="font-size:11px;margin-bottom:.6vh;opacity:.8">LIKE C4</div>
+        <p class="body-zh">Ngôn ngữ khai báo diagram. Code sinh tự động ảnh SVG + interactive overlay.</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Workshop · Docs Portal</div>
+    <div>Part 2 · Diagram</div>
+  </div>
+</section>
+
+<!-- SLIDE 7 · VERSION SWITCHING -->
+<section class="slide light" data-screen-label="07 Version Switch">
+  <div class="chrome">
+    <div>Phần 2 · Xem &amp; Sử dụng</div>
+    <div>07 / 22</div>
+  </div>
+  <div class="frame" style="padding-top:5vh">
+    <div class="kicker">Versioning</div>
+    <h2 class="h-xl">Chuyển đổi giữa các version</h2>
+    <p class="lead" style="max-width:55vw;margin-bottom:4vh">So sánh sự khác biệt giữa các phiên bản kiến trúc.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:3vw">
+      <div style="display:flex;flex-direction:column;gap:1.6vh;padding:2.4vh 1.8vw;border:1px solid currentColor;border-color:rgba(127,127,127,.25)">
+        <div class="kicker" style="font-size:11px;opacity:.9">CURRENT</div>
+        <div><span class="mid-num">Hiện tại</span></div>
+        <p class="body-zh">Version đang chạy trên production. Mọi thay đổi đều phải merge vào đây.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1.6vh;padding:2.4vh 1.8vw;border:1px solid currentColor;border-color:rgba(127,127,127,.25)">
+        <div class="kicker" style="font-size:11px;opacity:.9">SNAPSHOT</div>
+        <div><span class="mid-num">Lịch sử</span></div>
+        <p class="body-zh">Các version đã lưu tại thời điểm release. Chỉ đọc — không sửa.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1.6vh;padding:2.4vh 1.8vw;border:1px solid currentColor;border-color:rgba(127,127,127,.25)">
+        <div class="kicker" style="font-size:11px;opacity:.9">FEATURE</div>
+        <div><span class="mid-num">Mới</span></div>
+        <p class="body-zh">Version thử nghiệm cho tính năng đang phát triển. Có thể mở rộng.</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Workshop · Docs Portal</div>
+    <div>Part 2 · Versioning</div>
+  </div>
+</section>
+
+<!-- SLIDE 8 · FEATURE TOUR -->
+<section class="slide dark" data-screen-label="08 Features">
+  <div class="chrome">
+    <div>Phần 2 · Tính năng</div>
+    <div>08 / 22</div>
+  </div>
+  <div class="frame" style="padding-top:5vh">
+    <div class="kicker">Feature Tour</div>
+    <h2 class="h-xl">Một số tính năng cụ thể</h2>
+
+    <div class="grid-3-3" style="margin-top:4vh">
+      <div style="display:flex;flex-direction:column;gap:1.2vh;padding-top:1.6vh;border-top:1px solid currentColor;border-color:rgba(127,127,127,.3)">
+        <i data-lucide="search-check" class="ico-md"></i>
+        <div class="h3-zh">Search toàn cục</div>
+        <div class="body-zh">Tìm tài liệu theo từ khóa, kết quả real-time.</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1.2vh;padding-top:1.6vh;border-top:1px solid currentColor;border-color:rgba(127,127,127,.3)">
+        <i data-lucide="sidebar" class="ico-md"></i>
+        <div class="h3-zh">Sidebar navigation</div>
+        <div class="body-zh">Cây thư mục nhóm theo version + chủ đề.</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1.2vh;padding-top:1.6vh;border-top:1px solid currentColor;border-color:rgba(127,127,127,.3)">
+        <i data-lucide="git-branch" class="ico-md"></i>
+        <div class="h3-zh">Version switcher</div>
+        <div class="body-zh">Dropdown chuyển đổi giữa các phiên bản.</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1.2vh;padding-top:1.6vh;border-top:1px solid currentColor;border-color:rgba(127,127,127,.3)">
+        <i data-lucide="maximize-2" class="ico-md"></i>
+        <div class="h3-zh">C4 diagram live</div>
+        <div class="body-zh">Zoom, pan, click vào container để xem component.</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1.2vh;padding-top:1.6vh;border-top:1px solid currentColor;border-color:rgba(127,127,127,.3)">
+        <i data-lucide="moon" class="ico-md"></i>
+        <div class="h3-zh">Dark mode</div>
+        <div class="body-zh">Chuyển đổi giao diện sáng/tối.</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1.2vh;padding-top:1.6vh;border-top:1px solid currentColor;border-color:rgba(127,127,127,.3)">
+        <i data-lucide="smartphone" class="ico-md"></i>
+        <div class="h3-zh">Responsive</div>
+        <div class="body-zh">Xem được trên mobile, tablet.</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Workshop · Docs Portal</div>
+    <div>Part 2 · Features</div>
+  </div>
+</section>
+
+<!-- SLIDE 9 · DEMO MARKER 1 -->
+<section class="slide hero dark" data-screen-label="09 Demo 1">
+  <div class="chrome">
+    <div>DEMO · Phần 2</div>
+    <div>09 / 22</div>
+  </div>
+  <div class="frame" style="display:grid; gap:5vh; align-content:center; min-height:80vh; text-align:center">
+    <div class="kicker">→ DEMO</div>
+    <h1 class="h-hero" style="font-size:7.5vw">Xem &amp; Sử dụng</h1>
+    <div class="demo-badge" style="margin:0 auto">
+      <i data-lucide="play" class="ico-sm" style="width:14px;height:14px"></i>
+      5 bước · 30 phút
+    </div>
+    <div style="display:flex; gap:2vw; justify-content:center; margin-top:2vh">
+      <div class="step" style="border-top-color:rgba(255,255,255,.25);max-width:12vw;gap:.6vh">
+        <div class="step-nb">01</div>
+        <div class="step-title" style="font-size:1.1vw">Mở portal local</div>
+        <div class="step-desc" style="font-size:.85vw">Sidebar + search</div>
+      </div>
+      <div class="step" style="border-top-color:rgba(255,255,255,.25);max-width:12vw;gap:.6vh">
+        <div class="step-nb">02</div>
+        <div class="step-title" style="font-size:1.1vw">arc42</div>
+        <div class="step-desc" style="font-size:.85vw">Tổng quan → container</div>
+      </div>
+      <div class="step" style="border-top-color:rgba(255,255,255,.25);max-width:12vw;gap:.6vh">
+        <div class="step-nb">03</div>
+        <div class="step-title" style="font-size:1.1vw">C4 diagram</div>
+        <div class="step-desc" style="font-size:.85vw">Zoom · Pan · Click</div>
+      </div>
+      <div class="step" style="border-top-color:rgba(255,255,255,.25);max-width:12vw;gap:.6vh">
+        <div class="step-nb">04</div>
+        <div class="step-title" style="font-size:1.1vw">Version</div>
+        <div class="step-desc" style="font-size:.85vw">Chuyển đổi, so sánh</div>
+      </div>
+      <div class="step" style="border-top-color:rgba(255,255,255,.25);max-width:12vw;gap:.6vh">
+        <div class="step-nb">05</div>
+        <div class="step-title" style="font-size:1.1vw">Tính năng</div>
+        <div class="step-desc" style="font-size:.85vw">Demo cụ thể</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Phần 2 · Demo trực tiếp</div>
+    <div>5 bước · 30'</div>
+  </div>
+</section>
+
+<!-- ███████████████████████████████████████████████████
+     PHẦN 3: CẤU TRÚC NỘI DUNG — DEMO + LIVE CODE
+     ███████████████████████████████████████████████████ -->
+
+<!-- SLIDE 10 · ACT II DIVIDER -->
+<section class="slide hero light" data-screen-label="10 Act II">
+  <div class="chrome">
+    <div>Phần 3 · Cấu trúc nội dung</div>
+    <div>Act II · 10 / 22</div>
+  </div>
+  <div class="frame" style="display:grid; gap:5vh; align-content:center; min-height:80vh">
+    <div class="kicker">Act II</div>
+    <h1 class="h-hero" style="font-size:7.8vw">Cấu trúc nội dung</h1>
+    <p class="lead" style="max-width:45vw">
+      Cây thư mục, ánh xạ URL, frontmatter, cấu hình navigation và version.
+    </p>
+  </div>
+  <div class="foot">
+    <div>Phần 3 · Cấu trúc nội dung</div>
+    <div>— · —</div>
+  </div>
+</section>
+
+<!-- SLIDE 11 · DIRECTORY STRUCTURE -->
+<section class="slide dark" data-screen-label="11 Directory">
+  <div class="chrome">
+    <div>Phần 3 · Cấu trúc</div>
+    <div>11 / 22</div>
+  </div>
+  <div class="frame" style="padding-top:5vh">
+    <div class="kicker">Cây thư mục</div>
+    <h2 class="h-xl">Duyệt từng khu vực</h2>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4vw;margin-top:4vh">
+      <div>
+        <div class="callout" style="margin-bottom:2vh">
+          <div class="kicker" style="font-size:11px;margin-bottom:.6vh">THƯ MỤC GỐC</div>
+          <div class="body-zh" style="font-family:var(--mono);font-size:max(13px,1vw);letter-spacing:0;text-transform:none;line-height:2.2">
+            src/<br>
+            &nbsp;&nbsp;content/docs/current/<br>
+            &nbsp;&nbsp;content/docs/snapshots/<br>
+            &nbsp;&nbsp;content/docs/features/<br>
+            &nbsp;&nbsp;diagrams/<br>
+            astro.config.mjs<br>
+            sidebars.ts
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:2.4vh">
+        <p class="body-zh">Mỗi version là một thư mục riêng dưới <span class="meta" style="text-transform:none;font-size:inherit">content/docs/</span>. Starlight tự động tạo URL từ cấu trúc thư mục.</p>
+        <div style="padding-top:1.6vh;border-top:1px solid currentColor;border-color:rgba(127,127,127,.3)">
+          <p class="body-zh" style="opacity:.7">Cấu trúc <span class="meta" style="text-transform:none;font-size:inherit">arc42</span> được tổ chức theo đúng template, giúp ai cũng tìm được mục cần.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Workshop · Docs Portal</div>
+    <div>Part 3 · Directory</div>
+  </div>
+</section>
+
+<!-- SLIDE 12 · URL MAPPING — pipeline flow -->
+<section class="slide light" data-screen-label="12 URL Mapping">
+  <div class="chrome">
+    <div>Phần 3 · Cấu trúc</div>
+    <div>12 / 22</div>
+  </div>
+  <div class="frame" style="padding-top:4vh">
+    <div class="kicker">URL Mapping</div>
+    <h2 class="h-xl">Từ file nguồn đến URL</h2>
+
+    <!-- Rule bar -->
+    <div style="display:flex;align-items:center;gap:1.2vw;padding:1.2vh 2vw;margin-top:2vh;background:var(--paper-tint);border-radius:6px">
+      <span class="meta" style="white-space:nowrap;font-size:max(11px,.75vw)">QUY TẮC</span>
+      <span style="font-family:var(--mono);font-size:max(12px,.85vw);letter-spacing:0;text-transform:none;opacity:.85">
+        content<del style="color:var(--accent);opacity:.4">/docs</del>/<span style="color:var(--accent)">version</span>/<del style="color:var(--accent);opacity:.4">NN-</del><span style="color:var(--accent)">slug</span>.md
+        <span style="font-family:var(--font-body);margin:0 .6vw">→</span>
+        /docs/<span style="color:var(--accent)">version</span>/<span style="color:var(--accent)">slug</span>/
+      </span>
+      <span class="meta" style="font-size:max(10px,.7vw);opacity:.7;margin-left:auto">
+        Bỏ <code style="color:var(--accent)">content/</code> + số thứ tự + <code style="color:var(--accent)">.md</code>
+      </span>
+    </div>
+
+    <!-- 3 pipeline rows -->
+    <div style="display:flex;flex-direction:column;gap:2vh;margin-top:3vh">
+
+      <!-- Row 1 -->
+      <div style="display:grid;grid-template-columns:1fr 5vw 1fr;gap:1vw;align-items:center">
+        <div style="padding:1.2vh 1.4vw;display:flex;align-items:center;gap:1vw;background:var(--surface);border:1px solid var(--border);border-radius:6px">
+          <div style="width:3px;height:3.6vh;background:var(--accent);opacity:.5;border-radius:2px;flex-shrink:0"></div>
+          <div>
+            <div class="meta" style="font-size:max(9px,.55vw);margin-bottom:.2vh;text-transform:uppercase">SOURCE</div>
+            <div style="font-family:var(--mono);font-size:max(12px,.82vw);letter-spacing:0;text-transform:none">
+              content/docs/<span style="color:var(--accent)">current</span>/<del style="color:var(--muted);text-decoration-color:var(--accent);text-decoration-thickness:1.5px">01-</del>introduction.md
+            </div>
+          </div>
+        </div>
+
+        <!-- Pipe connector -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:.4vh">
+          <div style="width:1.2vw;height:1.2vw;border-radius:50%;background:var(--accent);opacity:.7"></div>
+          <div style="width:1.5px;height:2.2vh;background:var(--accent);opacity:.3"></div>
+          <div style="display:flex;flex-direction:column;align-items:center;line-height:1.2">
+            <span style="font-size:max(8px,.5vw);color:var(--muted);font-family:var(--mono);letter-spacing:0;text-transform:uppercase">strip</span>
+            <span style="font-size:max(8px,.5vw);color:var(--muted);font-family:var(--mono);letter-spacing:0;text-transform:uppercase">prefix</span>
+          </div>
+          <div style="width:1.5px;height:2.2vh;background:var(--accent);opacity:.3"></div>
+          <div style="width:.6vw;height:.6vw;border-right:1.5px solid var(--accent);border-bottom:1.5px solid var(--accent);transform:rotate(-45deg);opacity:.6"></div>
+        </div>
+
+        <div style="padding:1.2vh 1.4vw;display:flex;align-items:center;gap:1vw;background:var(--paper-tint);border:1px solid var(--border);border-radius:6px">
+          <div style="width:3px;height:3.6vh;background:var(--accent);border-radius:2px;flex-shrink:0"></div>
+          <div>
+            <div class="meta" style="font-size:max(9px,.55vw);margin-bottom:.2vh;text-transform:uppercase">URL</div>
+            <div style="font-family:var(--mono);font-size:max(12px,.82vw);letter-spacing:0;text-transform:none">
+              /docs/<span style="color:var(--accent)">current</span>/introduction/
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 2 -->
+      <div style="display:grid;grid-template-columns:1fr 5vw 1fr;gap:1vw;align-items:center">
+        <div style="padding:1.2vh 1.4vw;display:flex;align-items:center;gap:1vw;background:var(--surface);border:1px solid var(--border);border-radius:6px">
+          <div style="width:3px;height:3.6vh;background:var(--accent);opacity:.5;border-radius:2px;flex-shrink:0"></div>
+          <div>
+            <div class="meta" style="font-size:max(9px,.55vw);margin-bottom:.2vh;text-transform:uppercase">SOURCE</div>
+            <div style="font-family:var(--mono);font-size:max(12px,.82vw);letter-spacing:0;text-transform:none">
+              content/docs/<span style="color:var(--accent)">current</span>/<del style="color:var(--muted);text-decoration-color:var(--accent);text-decoration-thickness:1.5px">02-</del>system-overview.md
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;align-items:center;gap:.4vh">
+          <div style="width:1.2vw;height:1.2vw;border-radius:50%;background:var(--accent);opacity:.7"></div>
+          <div style="width:1.5px;height:2.2vh;background:var(--accent);opacity:.3"></div>
+          <div style="display:flex;flex-direction:column;align-items:center;line-height:1.2">
+            <span style="font-size:max(8px,.5vw);color:var(--muted);font-family:var(--mono);letter-spacing:0;text-transform:uppercase">strip</span>
+            <span style="font-size:max(8px,.5vw);color:var(--muted);font-family:var(--mono);letter-spacing:0;text-transform:uppercase">prefix</span>
+          </div>
+          <div style="width:1.5px;height:2.2vh;background:var(--accent);opacity:.3"></div>
+          <div style="width:.6vw;height:.6vw;border-right:1.5px solid var(--accent);border-bottom:1.5px solid var(--accent);transform:rotate(-45deg);opacity:.6"></div>
+        </div>
+
+        <div style="padding:1.2vh 1.4vw;display:flex;align-items:center;gap:1vw;background:var(--paper-tint);border:1px solid var(--border);border-radius:6px">
+          <div style="width:3px;height:3.6vh;background:var(--accent);border-radius:2px;flex-shrink:0"></div>
+          <div>
+            <div class="meta" style="font-size:max(9px,.55vw);margin-bottom:.2vh;text-transform:uppercase">URL</div>
+            <div style="font-family:var(--mono);font-size:max(12px,.82vw);letter-spacing:0;text-transform:none">
+              /docs/<span style="color:var(--accent)">current</span>/system-overview/
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 3 — different version -->
+      <div style="display:grid;grid-template-columns:1fr 5vw 1fr;gap:1vw;align-items:center">
+        <div style="padding:1.2vh 1.4vw;display:flex;align-items:center;gap:1vw;background:var(--surface);border:1px solid var(--border);border-radius:6px">
+          <div style="width:3px;height:3.6vh;background:var(--accent);opacity:.5;border-radius:2px;flex-shrink:0"></div>
+          <div>
+            <div class="meta" style="font-size:max(9px,.55vw);margin-bottom:.2vh;text-transform:uppercase">SOURCE</div>
+            <div style="font-family:var(--mono);font-size:max(12px,.82vw);letter-spacing:0;text-transform:none">
+              content/docs/<span style="color:var(--accent)">features</span>/<del style="color:var(--muted);text-decoration-color:var(--accent);text-decoration-thickness:1.5px">02-</del>new-module.md
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;align-items:center;gap:.4vh">
+          <div style="width:1.2vw;height:1.2vw;border-radius:50%;background:var(--accent);opacity:.7"></div>
+          <div style="width:1.5px;height:2.2vh;background:var(--accent);opacity:.3"></div>
+          <div style="display:flex;flex-direction:column;align-items:center;line-height:1.2">
+            <span style="font-size:max(8px,.5vw);color:var(--muted);font-family:var(--mono);letter-spacing:0;text-transform:uppercase">strip</span>
+            <span style="font-size:max(8px,.5vw);color:var(--muted);font-family:var(--mono);letter-spacing:0;text-transform:uppercase">prefix</span>
+          </div>
+          <div style="width:1.5px;height:2.2vh;background:var(--accent);opacity:.3"></div>
+          <div style="width:.6vw;height:.6vw;border-right:1.5px solid var(--accent);border-bottom:1.5px solid var(--accent);transform:rotate(-45deg);opacity:.6"></div>
+        </div>
+
+        <div style="padding:1.2vh 1.4vw;display:flex;align-items:center;gap:1vw;background:var(--paper-tint);border:1px solid var(--border);border-radius:6px">
+          <div style="width:3px;height:3.6vh;background:var(--accent);border-radius:2px;flex-shrink:0"></div>
+          <div>
+            <div class="meta" style="font-size:max(9px,.55vw);margin-bottom:.2vh;text-transform:uppercase">URL</div>
+            <div style="font-family:var(--mono);font-size:max(12px,.82vw);letter-spacing:0;text-transform:none">
+              /docs/<span style="color:var(--accent)">features</span>/new-module/
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom: index.md special case -->
+    <div style="display:flex;align-items:center;gap:1.2vw;margin-top:4vh;padding:1.2vh 1.6vw;border-top:1px solid var(--border)">
+      <div style="font-family:var(--mono);font-size:max(11px,.75vw);letter-spacing:0;text-transform:none;background:var(--paper-tint);padding:.4vh .8vw;border-radius:4px">
+        content/docs/<span style="color:var(--accent)">version</span>/<span style="color:var(--accent)">index</span>.md
+      </div>
+      <div style="display:flex;align-items:center;gap:.6vw">
+        <span style="font-size:max(11px,.7vw)">→</span>
+        <span style="font-family:var(--mono);font-size:max(11px,.75vw);letter-spacing:0;text-transform:none;background:var(--paper-tint);padding:.4vh .8vw;border-radius:4px">
+          /docs/<span style="color:var(--accent)">version</span>/
+        </span>
+        <span class="body-zh" style="font-size:max(11px,.7vw);margin-left:1vw;opacity:.7">
+          <span class="meta" style="text-transform:none;font-size:inherit">index.md</span> = URL root của thư mục
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Workshop · Docs Portal</div>
+    <div>Part 3 · URL Mapping</div>
+  </div>
+</section>
+
+<!-- SLIDE 13 · FRONTMATTER + MARKDOWN -->
+<section class="slide dark" data-screen-label="13 Frontmatter">
+  <div class="chrome">
+    <div>Phần 3 · Cấu trúc</div>
+    <div>13 / 22</div>
+  </div>
+  <div class="frame" style="padding-top:5vh">
+    <div class="kicker">Frontmatter</div>
+    <h2 class="h-xl">Cấu trúc Markdown cơ bản</h2>
+
+    <div class="grid-2-6-6" style="margin-top:3vh">
+      <div class="callout" style="flex:1">
+        <div class="kicker" style="font-size:11px;margin-bottom:.6vh">FRONTMATTER</div>
+        <pre style="font-family:var(--mono);font-size:max(12px,.88vw);line-height:1.6;opacity:.9;margin-top:1.2vh;text-transform:none;letter-spacing:0;white-space:pre-wrap">---
+title: Tổng quan hệ thống
+description: Mô tả kiến trúc tổng thể
+sidebar:
+  label: Overview
+  order: 1
+---</pre>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:2.4vh;justify-content:center">
+        <p class="body-zh">Mỗi file Markdown mở đầu bằng frontmatter YAML — nơi khai báo title, description, sidebar label, order.</p>
+        <p class="body-zh">Phần còn lại là Markdown thuần. Starlight tự render thành HTML với navigation.</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Workshop · Docs Portal</div>
+    <div>Part 3 · Frontmatter</div>
+  </div>
+</section>
+
+<!-- SLIDE 14 · NAV & VERSION CONFIG -->
+<section class="slide light" data-screen-label="14 Nav Config">
+  <div class="chrome">
+    <div>Phần 3 · Cấu hình</div>
+    <div>14 / 22</div>
+  </div>
+  <div class="frame" style="padding-top:5vh">
+    <div class="kicker">Configuration</div>
+    <h2 class="h-xl">Thanh điều hướng &amp; Version</h2>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4vw;margin-top:4vh">
+      <div style="display:flex;flex-direction:column;gap:2vh">
+        <div class="meta">NAVIGATION</div>
+        <p class="body-zh">File <span class="meta" style="text-transform:none;font-size:inherit">sidebars.ts</span> khai báo cấu trúc thanh bên. Thêm mục mới = thêm entry trong này.</p>
+        <div class="callout">
+          <div class="body-zh" style="font-family:var(--mono);font-size:max(11px,.85vw);letter-spacing:0;text-transform:none">sidebars: [<br>&nbsp;&nbsp;{ label: 'Tổng quan', items: ['intro', 'overview'] }<br>]</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:2vh">
+        <div class="meta">VERSION SWITCHER</div>
+        <p class="body-zh">Cấu hình version trong <span class="meta" style="text-transform:none;font-size:inherit">astro.config.mjs</span>. Thêm version mới = thêm entry, kết quả xuất hiện ngay trên switcher.</p>
+        <div class="callout">
+          <div class="body-zh" style="font-family:var(--mono);font-size:max(11px,.85vw);letter-spacing:0;text-transform:none">versions: [<br>&nbsp;&nbsp;{ slug: 'current', label: 'Hiện tại' },<br>&nbsp;&nbsp;{ slug: 'v2.0', label: 'Tính năng mới' }<br>]</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Workshop · Docs Portal</div>
+    <div>Part 3 · Config</div>
+  </div>
+</section>
+
+<!-- SLIDE 15 · DEMO MARKER 2 -->
+<section class="slide hero dark" data-screen-label="15 Demo 2">
+  <div class="chrome">
+    <div>DEMO · Phần 3</div>
+    <div>15 / 22</div>
+  </div>
+  <div class="frame" style="display:grid; gap:5vh; align-content:center; min-height:80vh; text-align:center">
+    <div class="kicker">→ DEMO + LIVE CODE</div>
+    <h1 class="h-hero" style="font-size:7.5vw">Cấu trúc nội dung</h1>
+    <div class="demo-badge" style="margin:0 auto">
+      <i data-lucide="play" class="ico-sm" style="width:14px;height:14px"></i>
+      6 bước · 25 phút
+    </div>
+    <div style="display:flex; gap:1.4vw; justify-content:center; margin-top:2vh; flex-wrap:wrap">
+      <div class="step" style="border-top-color:rgba(255,255,255,.25);max-width:11vw;gap:.6vh">
+        <div class="step-nb">01</div>
+        <div class="step-title" style="font-size:1vw">Duyệt cây thư mục</div>
+      </div>
+      <div class="step" style="border-top-color:rgba(255,255,255,.25);max-width:11vw;gap:.6vh">
+        <div class="step-nb">02</div>
+        <div class="step-title" style="font-size:1vw">File → URL</div>
+      </div>
+      <div class="step" style="border-top-color:rgba(255,255,255,.25);max-width:11vw;gap:.6vh">
+        <div class="step-nb">03</div>
+        <div class="step-title" style="font-size:1vw">Frontmatter</div>
+      </div>
+      <div class="step" style="border-top-color:rgba(255,255,255,.25);max-width:11vw;gap:.6vh">
+        <div class="step-nb">04</div>
+        <div class="step-title" style="font-size:1vw">Thêm nav item</div>
+      </div>
+      <div class="step" style="border-top-color:rgba(255,255,255,.25);max-width:11vw;gap:.6vh">
+        <div class="step-nb">05</div>
+        <div class="step-title" style="font-size:1vw">Thêm version</div>
+      </div>
+      <div class="step" style="border-top-color:rgba(255,255,255,.25);max-width:11vw;gap:.6vh">
+        <div class="step-nb">06</div>
+        <div class="step-title" style="font-size:1vw">HMR real-time</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Phần 3 · Demo + Live Code</div>
+    <div>6 bước · 25'</div>
+  </div>
+</section>
+
+<!-- ███████████████████████████████████████████████████
+     PHẦN 4: TẠO NỘI DUNG MỚI & C4 MODEL — DEMO
+     ███████████████████████████████████████████████████ -->
+
+<!-- SLIDE 16 · ACT III DIVIDER -->
+<section class="slide hero light" data-screen-label="16 Act III">
+  <div class="chrome">
+    <div>Phần 4 · Nội dung mới &amp; C4</div>
+    <div>Act III · 16 / 22</div>
+  </div>
+  <div class="frame" style="display:grid; gap:5vh; align-content:center; min-height:80vh">
+    <div class="kicker">Act III</div>
+    <h1 class="h-hero" style="font-size:6.8vw">Nội dung mới &amp; C4 Model</h1>
+    <p class="lead" style="max-width:48vw">
+      Tạo trang, khai báo điều hướng, C4: tác nhân → quan hệ → góc nhìn.
+    </p>
+  </div>
+  <div class="foot">
+    <div>Phần 4 · Content &amp; C4</div>
+    <div>— · —</div>
+  </div>
+</section>
+
+<!-- SLIDE 17 · NEW PAGE -->
+<section class="slide light" data-screen-label="17 New Page">
+  <div class="chrome">
+    <div>Phần 4 · Tạo nội dung</div>
+    <div>17 / 22</div>
+  </div>
+  <div class="frame" style="padding-top:5vh">
+    <div class="kicker">Create</div>
+    <h2 class="h-xl">Tạo trang mới</h2>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4vw;margin-top:4vh">
+      <div style="display:flex;flex-direction:column;gap:2.4vh">
+        <div class="callout">
+          <div class="kicker" style="font-size:11px;margin-bottom:.6vh">BƯỚC</div>
+          <div class="step" style="border-top-color:rgba(127,127,127,.3);gap:.6vh;border-top-width:0;padding-top:0">
+            <div class="step-nb">01</div>
+            <div class="step-title">Tạo file .md</div>
+            <div class="step-desc">Trong thư mục version tương ứng</div>
+          </div>
+          <div class="step" style="border-top-color:rgba(127,127,127,.3);gap:.6vh">
+            <div class="step-nb">02</div>
+            <div class="step-title">Viết frontmatter</div>
+            <div class="step-desc">title, description, sidebar info</div>
+          </div>
+          <div class="step" style="border-top-color:rgba(127,127,127,.3);gap:.6vh">
+            <div class="step-nb">03</div>
+            <div class="step-title">Nội dung Markdown</div>
+            <div class="step-desc">Viết như thường, Starlight render</div>
+          </div>
+          <div class="step" style="border-top-color:rgba(127,127,127,.3);gap:.6vh">
+            <div class="step-nb">04</div>
+            <div class="step-title">Đăng ký navigation</div>
+            <div class="step-desc">Thêm entry vào sidebars.ts</div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:2vh;justify-content:center">
+        <p class="body-zh">Kết quả: URL tự động sinh theo đường dẫn file, HMR reload ngay lập tức, trang xuất hiện trong sidebar.</p>
+        <div class="demo-badge" style="margin-top:2vh">
+          <i data-lucide="play" class="ico-sm" style="width:12px;height:12px"></i>
+          DEMO · Live code
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Workshop · Docs Portal</div>
+    <div>Part 4 · Create</div>
+  </div>
+</section>
+
+<!-- SLIDE 18 · C4 MODEL -->
+<section class="slide dark" data-screen-label="18 C4 Model">
+  <div class="chrome">
+    <div>Phần 4 · C4 Model</div>
+    <div>18 / 22</div>
+  </div>
+  <div class="frame" style="padding-top:5vh">
+    <div class="kicker">C4 Model</div>
+    <h2 class="h-xl">Tác nhân → Quan hệ → Góc nhìn</h2>
+    <p class="body-zh" style="margin-bottom:4vh; max-width:50vw">Ba tầng của C4: định nghĩa actor khởi đầu, xây dựng mô hình quan hệ, tạo góc nhìn.</p>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:2vw">
+      <div style="padding:2.8vh 1.8vw; border:1px solid currentColor; border-color:rgba(127,127,127,.2); display:flex;flex-direction:column;gap:1.4vh">
+        <div class="kicker" style="font-size:11px;opacity:.8">TẦNG 1</div>
+        <div class="h3-zh" style="font-family:var(--serif-zh)">Tác nhân</div>
+        <p class="body-zh">Khai báo person, system, container — ai và cái gì tham gia hệ thống.</p>
+      </div>
+      <div style="padding:2.8vh 1.8vw; border:1px solid currentColor; border-color:rgba(127,127,127,.2); display:flex;flex-direction:column;gap:1.4vh">
+        <div class="kicker" style="font-size:11px;opacity:.8">TẦNG 2</div>
+        <div class="h3-zh" style="font-family:var(--serif-zh)">Quan hệ</div>
+        <p class="body-zh">Xác định cách các tác nhân tương tác — gọi API, gửi event, đọc/ghi DB.</p>
+      </div>
+      <div style="padding:2.8vh 1.8vw; border:1px solid currentColor; border-color:rgba(127,127,127,.2); display:flex;flex-direction:column;gap:1.4vh">
+        <div class="kicker" style="font-size:11px;opacity:.8">TẦNG 3</div>
+        <div class="h3-zh" style="font-family:var(--serif-zh)">Góc nhìn</div>
+        <p class="body-zh">Tạo view: context → container → component. Mỗi view sinh diagram tự động.</p>
+      </div>
+    </div>
+    <p class="body-zh" style="margin-top:4vh">
+      LikeC4 code → diagram SVG tương tác. Sửa code = diagram cập nhật.
+    </p>
+  </div>
+  <div class="foot">
+    <div>Workshop · Docs Portal</div>
+    <div>Part 4 · C4</div>
+  </div>
+</section>
+
+<!-- SLIDE 19 · DEMO MARKER 3 -->
+<section class="slide hero dark" data-screen-label="19 Demo 3">
+  <div class="chrome">
+    <div>DEMO · Phần 4</div>
+    <div>19 / 22</div>
+  </div>
+  <div class="frame" style="display:grid; gap:5vh; align-content:center; min-height:80vh; text-align:center">
+    <div class="kicker">→ DEMO</div>
+    <h1 class="h-hero" style="font-size:7.5vw">Tạo nội dung &amp; C4</h1>
+    <div class="demo-badge" style="margin:0 auto">
+      <i data-lucide="play" class="ico-sm" style="width:14px;height:14px"></i>
+      5 bước · 30 phút
+    </div>
+    <div style="display:flex; gap:1.4vw; justify-content:center; margin-top:2vh; flex-wrap:wrap">
+      <div class="step" style="border-top-color:rgba(255,255,255,.25);max-width:11vw;gap:.6vh">
+        <div class="step-nb">01</div>
+        <div class="step-title" style="font-size:1vw">Tạo trang mới</div>
+      </div>
+      <div class="step" style="border-top-color:rgba(255,255,255,.25);max-width:11vw;gap:.6vh">
+        <div class="step-nb">02</div>
+        <div class="step-title" style="font-size:1vw">Đăng ký nav</div>
+      </div>
+      <div class="step" style="border-top-color:rgba(255,255,255,.25);max-width:11vw;gap:.6vh">
+        <div class="step-nb">03</div>
+        <div class="step-title" style="font-size:1vw">C4: actors</div>
+      </div>
+      <div class="step" style="border-top-color:rgba(255,255,255,.25);max-width:11vw;gap:.6vh">
+        <div class="step-nb">04</div>
+        <div class="step-title" style="font-size:1vw">Sửa view</div>
+      </div>
+      <div class="step" style="border-top-color:rgba(255,255,255,.25);max-width:11vw;gap:.6vh">
+        <div class="step-nb">05</div>
+        <div class="step-title" style="font-size:1vw">Version mới</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Phần 4 · Demo trực tiếp</div>
+    <div>5 bước · 30'</div>
+  </div>
+</section>
+
+<!-- ███████████████████████████████████████████████████
+     PHẦN 5: BUILD, DEPLOY & QUY TẮC — DEMO
+     ███████████████████████████████████████████████████ -->
+
+<!-- SLIDE 20 · ACT IV DIVIDER -->
+<section class="slide hero light" data-screen-label="20 Act IV">
+  <div class="chrome">
+    <div>Phần 5 · Build, Deploy &amp; Rules</div>
+    <div>Act IV · 20 / 22</div>
+  </div>
+  <div class="frame" style="display:grid; gap:5vh; align-content:center; min-height:80vh">
+    <div class="kicker">Act IV</div>
+    <h1 class="h-hero" style="font-size:7.2vw">Build &amp; Deploy</h1>
+    <p class="lead" style="max-width:45vw">
+      Build lỗi → sửa → deploy qua GitHub Actions.
+    </p>
+  </div>
+  <div class="foot">
+    <div>Phần 5 · Build, Deploy &amp; Rules</div>
+    <div>— · —</div>
+  </div>
+</section>
+
+<!-- SLIDE 21 · BUILD & DEPLOY -->
+<section class="slide light" data-screen-label="21 Build Deploy">
+  <div class="chrome">
+    <div>Phần 5 · Build &amp; Deploy</div>
+    <div>21 / 22</div>
+  </div>
+  <div class="frame" style="padding-top:5vh">
+    <div class="kicker">Pipeline</div>
+    <h2 class="h-xl">Build → Push → Deploy</h2>
+
+    <div style="display:grid;grid-template-columns:2.5fr 1fr;gap:4vw;margin-top:4vh">
+      <div>
+        <div class="pipeline" data-cols="4" style="grid-template-columns:repeat(4,1fr);gap:1.4vw">
+          <div class="step">
+            <div class="step-nb">01</div>
+            <div class="step-title" style="font-size:1.2vw">Build</div>
+            <div class="step-desc" style="font-size:.85vw">astro build → kiểm tra lỗi</div>
+          </div>
+          <div class="step">
+            <div class="step-nb">02</div>
+            <div class="step-title" style="font-size:1.2vw">Git push</div>
+            <div class="step-desc" style="font-size:.85vw">Branch → PR → merge</div>
+          </div>
+          <div class="step">
+            <div class="step-nb">03</div>
+            <div class="step-title" style="font-size:1.2vw">Actions</div>
+            <div class="step-desc" style="font-size:.85vw">GitHub Actions workflow</div>
+          </div>
+          <div class="step">
+            <div class="step-nb">04</div>
+            <div class="step-title" style="font-size:1.2vw">Pages</div>
+            <div class="step-desc" style="font-size:.85vw">Auto-deploy lên GitHub Pages</div>
+          </div>
+        </div>
+        <p class="body-zh" style="margin-top:3vh">Tạo lỗi cố ý → build báo lỗi → sửa → build lại thành công → push → Actions chạy → trang cập nhật.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1.6vh;justify-content:center">
+        <div class="demo-badge">
+          <i data-lucide="play" class="ico-sm" style="width:12px;height:12px"></i>
+          DEMO · Build lỗi → sửa
+        </div>
+        <p class="body-zh" style="opacity:.7;font-size:max(12px,.88vw)">
+          Mở GitHub Actions, theo dõi pipeline push → build → deploy.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Workshop · Docs Portal</div>
+    <div>Part 5 · Deploy</div>
+  </div>
+</section>
+
+<!-- SLIDE 22 · GOLDEN RULES -->
+<section class="slide dark" data-screen-label="22 Rules">
+  <div class="chrome">
+    <div>Phần 5 · Quy tắc</div>
+    <div>22 / 22</div>
+  </div>
+  <div class="frame" style="padding-top:5vh">
+    <div class="kicker">Rules</div>
+    <h2 class="h-xl">5 quy tắc vàng</h2>
+
+    <div style="display:flex;flex-direction:column;gap:1.6vh;margin-top:3vh">
+      <div class="rowline" style="border-color:rgba(127,127,127,.25)">
+        <div class="k" style="font-size:1.5vw">#1</div>
+        <div class="v" style="font-weight:600">Không sửa snapshot lịch sử</div>
+        <div class="m">READ ONLY</div>
+      </div>
+      <div class="rowline" style="border-color:rgba(127,127,127,.25)">
+        <div class="k" style="font-size:1.5vw">#2</div>
+        <div class="v" style="font-weight:600">Thanh điều hướng cần khai báo thủ công</div>
+        <div class="m">SIDEBARS.TS</div>
+      </div>
+      <div class="rowline" style="border-color:rgba(127,127,127,.25)">
+        <div class="k" style="font-size:1.5vw">#3</div>
+        <div class="v" style="font-weight:600">Luôn build trước push</div>
+        <div class="m">BUILD GATE</div>
+      </div>
+      <div class="rowline" style="border-color:rgba(127,127,127,.25)">
+        <div class="k" style="font-size:1.5vw">#4</div>
+        <div class="v" style="font-weight:600">Dùng branch + PR, không push thẳng main</div>
+        <div class="m">GIT FLOW</div>
+      </div>
+      <div class="rowline" style="border-color:rgba(127,127,127,.25)">
+        <div class="k" style="font-size:1.5vw">#5</div>
+        <div class="v" style="font-weight:600">Không commit file build log</div>
+        <div class="m">GITIGNORE</div>
+      </div>
+    </div>
+
+    <div style="margin-top:3vh; display:flex; gap:2vw; justify-content:flex-start">
+      <div class="demo-badge">
+        <i data-lucide="play" class="ico-sm" style="width:12px;height:12px"></i>
+        Q&amp;A · Nếu còn thời gian
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Workshop · Docs Portal</div>
+    <div>Part 5 · Rules</div>
+  </div>
+</section>
+
+</div>
+
+<div id="nav"></div>
+
+<script>
+const VS = `attribute vec2 position;void main(){gl_Position=vec4(position,0.0,1.0);}`;
+
+const FS_DARK = `precision highp float;
+uniform vec2 u_resolution;uniform float u_time;uniform vec2 u_mouse;
+vec3 palette(float t,vec3 a,vec3 b,vec3 c,vec3 d){return a+b*cos(6.28318*(c*t+d));}
+void main(){
+  vec2 uv=gl_FragCoord.xy/u_resolution.xy;
+  vec2 p=uv*2.0-1.0;p.x*=u_resolution.x/u_resolution.y;
+  vec2 m=u_mouse*2.0-1.0;m.x*=u_resolution.x/u_resolution.y;
+  float md=length(p-m);
+  float mr=sin(md*15.0-u_time*4.0)*exp(-md*3.0);p+=mr*0.08;
+  vec2 p0=p;
+  for(float i=1.0;i<4.0;i++){
+    p.x+=0.1/i*sin(i*3.0*p.y+u_time*0.4)+0.05;
+    p.y+=0.1/i*cos(i*2.0*p.x+u_time*0.3)-0.05;
+  }
+  float r=length(p);float ang=atan(p.y,p.x);
+  vec3 a=vec3(0.12,0.12,0.13);
+  vec3 b=vec3(0.03,0.04,0.05);
+  vec3 c=vec3(1.0,1.0,1.0);
+  vec3 d=vec3(0.1,0.2,0.4);
+  vec3 col=palette(r*1.5+p0.x*0.5+u_time*0.1,a,b,c,d);
+  float disp=sin(r*25.0-u_time*1.5+ang*2.0)*0.5+0.5;
+  col+=vec3(disp*0.015,disp*0.01,disp*0.02);
+  float hi=pow(sin(p.x*4.0+p.y*3.0+u_time)*0.5+0.5,8.0);
+  col+=hi*0.08;
+  vec3 base=vec3(0.05,0.05,0.06);
+  col=mix(base,col,0.85);
+  gl_FragColor=vec4(col,1.0);
+}`;
+
+const FS_LIGHT = `precision highp float;
+uniform vec2 u_resolution;uniform float u_time;uniform vec2 u_mouse;
+float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+float noise(vec2 p){
+  vec2 i=floor(p),f=fract(p);
+  float a=hash(i),b=hash(i+vec2(1,0));
+  float c=hash(i+vec2(0,1)),d=hash(i+vec2(1,1));
+  vec2 u=f*f*(3.0-2.0*f);
+  return mix(a,b,u.x)+(c-a)*u.y*(1.0-u.x)+(d-b)*u.x*u.y;
+}
+float fbm(vec2 p){
+  float v=0.0,a=0.5;
+  mat2 m=mat2(0.80,0.60,-0.60,0.80);
+  for(int i=0;i<5;i++){v+=a*noise(p);p=m*p*2.02;a*=0.5;}
+  return v;
+}
+void main(){
+  vec2 uv=gl_FragCoord.xy/u_resolution.xy;
+  vec2 p=uv;p.x*=u_resolution.x/u_resolution.y;
+  vec2 m=u_mouse;m.x*=u_resolution.x/u_resolution.y;
+  vec2 md=p-m;float dl=length(md);
+  p+=normalize(md+vec2(0.0001))*exp(-dl*5.0)*0.03;
+  vec2 q=vec2(fbm(p*1.8+u_time*0.07),fbm(p*1.8+vec2(5.2,1.3)+u_time*0.06));
+  vec2 r=vec2(fbm(p*2.0+q*1.3+vec2(1.7,9.2)+u_time*0.05),
+              fbm(p*2.0+q*1.3+vec2(8.3,2.8)+u_time*0.04));
+  float f=fbm(p*2.2+r*1.5);
+  vec3 silverDark=vec3(0.86,0.85,0.84);
+  vec3 paper=vec3(0.955,0.945,0.925);
+  vec3 col=mix(silverDark,paper,f);
+  float ph=r.x*2.2+u_time*0.35;
+  col+=vec3(0.78,0.62,0.92)*sin(ph)*0.055;
+  col+=vec3(0.55,0.72,0.95)*sin(ph*0.8+2.0)*0.05;
+  float hl=smoothstep(0.48,0.92,f);
+  col+=hl*0.06;
+  gl_FragColor=vec4(col,1.0);
+}`;
+
+const mouse={x:0.5,y:0.5};
+addEventListener('mousemove',e=>{mouse.x=e.clientX/innerWidth;mouse.y=e.clientY/innerHeight});
+
+function bootGL(canvasId, fsSrc){
+  const canvas=document.getElementById(canvasId);
+  const gl=canvas.getContext('webgl',{alpha:false,antialias:true});
+  if(!gl) return ()=>false;
+  const mk=(t,s)=>{const sh=gl.createShader(t);gl.shaderSource(sh,s);gl.compileShader(sh);return sh};
+  const prog=gl.createProgram();
+  gl.attachShader(prog,mk(gl.VERTEX_SHADER,VS));
+  gl.attachShader(prog,mk(gl.FRAGMENT_SHADER,fsSrc));
+  gl.linkProgram(prog);gl.useProgram(prog);
+  const buf=gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
+  const pos=gl.getAttribLocation(prog,'position');
+  gl.enableVertexAttribArray(pos);gl.vertexAttribPointer(pos,2,gl.FLOAT,false,0,0);
+  const lRes=gl.getUniformLocation(prog,'u_resolution');
+  const lT=gl.getUniformLocation(prog,'u_time');
+  const lM=gl.getUniformLocation(prog,'u_mouse');
+  const resize=()=>{
+    const d=Math.min(window.devicePixelRatio||1,2);
+    canvas.width=innerWidth*d;canvas.height=innerHeight*d;
+    gl.viewport(0,0,canvas.width,canvas.height);
+  };
+  addEventListener('resize',resize);resize();
+  return (tSec)=>{
+    gl.uniform2f(lRes,canvas.width,canvas.height);
+    gl.uniform1f(lT,tSec);
+    gl.uniform2f(lM,mouse.x,1-mouse.y);
+    gl.drawArrays(gl.TRIANGLES,0,6);
+    return true;
+  };
+}
+const drawDark=bootGL('bg-dark',FS_DARK);
+const drawLight=bootGL('bg-light',FS_LIGHT);
+const t0=Date.now();
+(function loop(){
+  const t=(Date.now()-t0)/1000;
+  drawDark(t);drawLight(t);
+  requestAnimationFrame(loop);
+})();
+
+const deck=document.getElementById('deck');
+const slides=deck.querySelectorAll('.slide');
+const nav=document.getElementById('nav');
+let idx=0,total=slides.length,lock=false;
+
+deck.style.width=(total*100)+'vw';
+
+slides.forEach((s,i)=>{
+  const b=document.createElement('button');
+  b.className='dot';b.dataset.i=i;b.setAttribute('aria-label','Page '+(i+1));
+  b.onclick=()=>go(i);
+  nav.appendChild(b);
+});
+
+function go(n){
+  if(lock)return;
+  idx=Math.max(0,Math.min(total-1,n));
+  deck.style.transform=`translateX(${-idx*100}vw)`;
+  slides.forEach((s,i)=>s.classList.toggle('active',i===idx));
+  nav.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===idx));
+  const el=slides[idx];
+  const th=el.dataset.theme || (el.classList.contains('light')?'light':(el.classList.contains('dark')?'dark':'dark'));
+  document.body.classList.toggle('light-bg',th==='light');
+  lock=true;setTimeout(()=>lock=false,700);
+}
+
+let overviewOn=false;
+const ov=document.createElement('div');
+ov.id='overview';
+ov.style.cssText='position:fixed;inset:0;z-index:100;background:rgba(var(--ink-rgb),.92);backdrop-filter:blur(12px);display:none;overflow-y:auto;padding:4vh 4vw';
+document.body.appendChild(ov);
+
+function buildOverview(){
+  ov.innerHTML='';
+  const grid=document.createElement('div');
+  grid.style.cssText='display:grid;grid-template-columns:repeat(4,1fr);gap:2vh 1.6vw;max-width:90vw;margin:0 auto';
+  slides.forEach((s,i)=>{
+    const card=document.createElement('div');
+    card.style.cssText='cursor:pointer;border-radius:6px;overflow:hidden;border:2px solid '+(i===idx?'rgba(var(--paper-rgb),.8)':'rgba(var(--paper-rgb),.15)')+';transition:border-color .2s';
+    card.onmouseenter=()=>card.style.borderColor='rgba(var(--paper-rgb),.6)';
+    card.onmouseleave=()=>card.style.borderColor=i===idx?'rgba(var(--paper-rgb),.8)':'rgba(var(--paper-rgb),.15)';
+    const wrap=document.createElement('div');
+    wrap.style.cssText='width:100%;aspect-ratio:16/9;overflow:hidden;position:relative;pointer-events:none;background:'+(s.classList.contains('light')?'var(--paper)':'var(--ink)');
+    const clone=s.cloneNode(true);
+    clone.style.cssText='width:100vw;height:100vh;transform:scale('+(1/4.5)+');transform-origin:top left;position:absolute;top:0;left:0;pointer-events:none';
+    wrap.appendChild(clone);
+    const label=document.createElement('div');
+    label.style.cssText='padding:6px 10px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--paper);opacity:.7';
+    label.textContent=(i+1)+' / '+total;
+    card.appendChild(wrap);
+    card.appendChild(label);
+    card.onclick=()=>{toggleOverview();go(i)};
+    grid.appendChild(card);
+  });
+  ov.appendChild(grid);
+}
+
+function toggleOverview(){
+  overviewOn=!overviewOn;
+  if(overviewOn){buildOverview();ov.style.display='block';}
+  else{ov.style.display='none';}
+}
+
+addEventListener('keydown',e=>{
+  if(e.key==='Escape'){e.preventDefault();toggleOverview();return;}
+  if(overviewOn)return;
+  if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '||e.key==='ArrowDown')go(idx+1);
+  if(e.key==='ArrowLeft'||e.key==='PageUp'||e.key==='ArrowUp')go(idx-1);
+  if(e.key==='Home')go(0);
+  if(e.key==='End')go(total-1);
+});
+
+let wheelTO=null,wheelAcc=0;
+addEventListener('wheel',e=>{
+  wheelAcc+=e.deltaY+e.deltaX;
+  if(Math.abs(wheelAcc)>50){go(idx+(wheelAcc>0?1:-1));wheelAcc=0;}
+  clearTimeout(wheelTO);wheelTO=setTimeout(()=>wheelAcc=0,150);
+},{passive:true});
+
+let tx=0,ty=0;
+addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
+addEventListener('touchend',e=>{
+  const dx=(e.changedTouches[0].clientX-tx);
+  const dy=(e.changedTouches[0].clientY-ty);
+  if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy))go(idx+(dx<0?1:-1));
+},{passive:true});
+
+go(0);
+</script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>lucide.createIcons();</script>
+
+
+</body></html>
