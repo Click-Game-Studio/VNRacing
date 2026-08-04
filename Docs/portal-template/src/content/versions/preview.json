@@ -1,0 +1,13 @@
+{
+  "sidebar": [
+    {
+      "label": "Preview Guide",
+      "items": [
+        { "label": "Overview", "slug": "index" },
+        { "label": "Architecture", "slug": "architecture" },
+        { "label": "Example feature", "slug": "features/example-feature" },
+        { "label": "ADR 0001", "slug": "decisions/0001-static-documentation" }
+      ]
+    }
+  ]
+}

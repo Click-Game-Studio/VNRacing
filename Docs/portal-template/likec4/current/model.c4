@@ -1,0 +1,24 @@
+specification {
+  element actor
+  element system
+  element component
+}
+
+model {
+  visitor = actor 'Documentation reader'
+  portal = system 'Documentation portal' {
+    exampleFeature = component 'Example feature docs'
+    compiler = component 'Content and model compiler'
+    search = component 'Static search index'
+  }
+  visitor -> portal 'Reads documentation'
+  portal.exampleFeature -> portal.compiler 'Compiled by'
+  portal.compiler -> portal.search 'Indexes pages'
+}
+
+views {
+  view architecture {
+    title 'Latest architecture: portal, compiler, and search'
+    include *
+  }
+}

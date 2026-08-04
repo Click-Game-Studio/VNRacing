@@ -1,0 +1,15 @@
+---
+title: Preview architecture
+description: Expanded proposed architecture model.
+---
+
+import DiagramView from '../../../components/DiagramView.tsx';
+
+export const base = import.meta.env.BASE_URL;
+export const links = { 'portal.exampleFeature': '/preview/features/example-feature/' };
+
+**Preview model:** portal, compiler, search, API service, and analytics. Proposed components make this model visibly larger than Latest.
+
+<DiagramView client:only="react" viewId="architecture" project="preview" base={base} label="Preview project architecture diagram" nodeLinks={links} />
+
+Diagram interaction is optional. Open the [Preview example feature](/preview/features/example-feature/) with a normal link.

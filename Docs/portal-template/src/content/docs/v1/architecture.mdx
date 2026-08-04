@@ -1,0 +1,15 @@
+---
+title: v1 architecture
+description: Smaller historical architecture model.
+---
+
+import DiagramView from '../../../components/DiagramView.tsx';
+
+export const base = import.meta.env.BASE_URL;
+export const links = { 'portal.exampleFeature': '/v1/features/example-feature/' };
+
+**v1 model:** one portal system containing one documented feature. This model is intentionally smaller than Latest.
+
+<DiagramView client:only="react" viewId="architecture" project="v1" base={base} label="v1 project architecture diagram" nodeLinks={links} />
+
+Diagram interaction is optional. Open the [v1 example feature](/v1/features/example-feature/) with a normal link.

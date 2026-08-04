@@ -1,0 +1,20 @@
+specification {
+  element actor
+  element system
+  element component
+}
+
+model {
+  visitor = actor 'Documentation reader'
+  portal = system 'v1 documentation portal' {
+    exampleFeature = component 'Example feature docs v1'
+  }
+  visitor -> portal 'Reads frozen docs'
+}
+
+views {
+  view architecture {
+    title 'v1 architecture: compact historical portal'
+    include *
+  }
+}

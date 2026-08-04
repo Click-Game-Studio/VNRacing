@@ -1,0 +1,30 @@
+specification {
+  element actor
+  element system
+  element component
+  element externalSystem
+}
+
+model {
+  visitor = actor 'Documentation reader'
+  api = externalSystem 'Metadata API'
+  analytics = externalSystem 'Privacy-safe analytics'
+  portal = system 'Preview documentation portal' {
+    exampleFeature = component 'Example feature docs Preview'
+    compiler = component 'Content and model compiler'
+    search = component 'Static search index'
+    metadataAdapter = component 'Build-time metadata adapter'
+  }
+  visitor -> portal 'Reads proposed docs'
+  portal.exampleFeature -> portal.compiler 'Compiled by'
+  portal.compiler -> portal.search 'Indexes pages'
+  portal.metadataAdapter -> api 'Reads metadata at build time'
+  portal -> analytics 'Sends anonymous events'
+}
+
+views {
+  view architecture {
+    title 'Preview architecture: expanded integrations'
+    include *
+  }
+}

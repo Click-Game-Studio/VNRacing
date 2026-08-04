@@ -1,0 +1,15 @@
+---
+title: Latest architecture
+description: Interactive architecture model for the latest snapshot.
+---
+
+import DiagramView from '../../components/DiagramView.tsx';
+
+export const base = import.meta.env.BASE_URL;
+export const links = { 'portal.exampleFeature': '/features/example-feature/' };
+
+**Latest model:** browser portal plus content compiler and search index.
+
+<DiagramView client:only="react" viewId="architecture" project="current" base={base} label="Latest project architecture diagram" nodeLinks={links} />
+
+Diagram interaction enhances this page. Keyboard and non-JavaScript users can open the [Latest example feature](/features/example-feature/) directly.
