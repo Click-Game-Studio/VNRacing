@@ -30,6 +30,7 @@ VNRacing/
 │   │       ├── current/           #     Latest version
 │   │       ├── multiplayer/       #     Multiplayer version
 │   │       └── v1/                #     v1 snapshot
+│   ├── portal-template/           # Mirror của docs-portal-template (dogfooding)
 │   ├── c4/                        # C4 model cũ
 │   ├── audit/                     # Audit source docs
 │   ├── ld/                        # Low-level design docs
@@ -54,6 +55,10 @@ Trang tài liệu kiến trúc tương tác — deploy tại GitHub Pages.
 | Multiplayer Preview 🆕 | `multiplayer/` | Tính năng multiplayer đang phát triển |
 
 Chi tiết: xem [Docs/portal/README.md](Docs/portal/README.md)
+
+## Docs Portal Template
+
+`Docs/portal-template/` là bản mirror của template portal tài liệu dùng chung cho các dự án Click Game Studio. Nguồn chính thức: [Click-Game-Studio/docs-portal-template](https://github.com/Click-Game-Studio/docs-portal-template) — sửa upstream trước, sau đó port về đây.
 
 ## Quy tắc
 

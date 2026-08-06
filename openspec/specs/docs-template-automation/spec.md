@@ -1,7 +1,7 @@
 # docs-template-automation Specification
 
 ## Purpose
-TBD - created by archiving change add-reusable-docs-portal-template. Update Purpose after archive.
+Automated validation and deployment infrastructure for the documentation portal template, providing deterministic local checks, CI validation, and GitHub Pages deployment capability.
 ## Requirements
 ### Requirement: Deterministic local validation
 The template SHALL provide commands that check Astro content and types, compile all LikeC4 projects, build the static portal, confirm Pagefind output, confirm all twelve required version routes, and reject broken local links.
@@ -26,47 +26,18 @@ The template SHALL provide commands that check Astro content and types, compile 
 - **WHEN** generated HTML points to a missing internal page or asset
 - **THEN** the validation command exits non-zero with the source page and broken target identified
 
-### Requirement: Build-only VNRacing CI
-The repository SHALL contain a path-scoped workflow at `.github/workflows/docs-template-check.yml` that validates template changes but never deploys them.
+### Requirement: GitHub Pages deployment workflow
+The template SHALL include `.github/workflows/pages.yml` that installs dependencies, validates content, builds static output, and deploys to GitHub Pages when at repository root.
 
-#### Scenario: Template pull request
-- **WHEN** a pull request changes `Docs/portal-template/**` or the check workflow
-- **THEN** CI installs with `npm ci` and validates root-base and project-base builds
+#### Scenario: Workflow activates at repository root
+- **WHEN** template contents are at repository root and workflow is triggered
+- **THEN** GitHub registers the workflow and executes deployment steps
 
-#### Scenario: CI permissions
-- **WHEN** the build-only workflow runs
-- **THEN** it has read-only repository permissions and does not request Pages write or identity-token permissions
-
-#### Scenario: Unrelated repository change
-- **WHEN** a change does not touch template paths or the check workflow
-- **THEN** the template validation workflow is not triggered by that change
-
-### Requirement: Extracted GitHub Pages deployment
-The template SHALL include `.github/workflows/pages.yml` inside its own directory so it is inert while nested in VNRacing and usable after template contents are copied to a repository root.
-
-#### Scenario: Template remains nested
-- **WHEN** the template is stored at `Docs/portal-template/` in VNRacing
-- **THEN** GitHub does not register its nested deployment workflow and the existing VNRacing Pages deployment is unaffected
-
-#### Scenario: Template becomes repository root
-- **WHEN** the template contents are copied to a repository root and Pages through Actions is enabled
-- **THEN** the bundled workflow installs, validates, uploads the generated static artifact, and deploys it to GitHub Pages
-
-#### Scenario: Deployment metadata is configured
+#### Scenario: Deployment metadata configured via repository variables
 - **WHEN** repository variables provide site URL and base path
-- **THEN** the deployment workflow passes them to the build rather than hardcoding a VNRacing repository name or organization
+- **THEN** the deployment workflow passes them to the build without hardcoded values
 
-### Requirement: Scoped branch implementation
-Implementation SHALL occur on `feat/docs-portal-template`, remain uncommitted and unpushed, and preserve user-owned changes in `.gitignore` and `CLAUDE.md`.
+#### Scenario: Deployment permissions configured
+- **WHEN** the deployment workflow runs
+- **THEN** it has Pages write and id-token permissions for deployment
 
-#### Scenario: Branch is created
-- **WHEN** implementation begins from `docs/workshop-training`
-- **THEN** the working branch becomes `feat/docs-portal-template` without discarding existing uncommitted files
-
-#### Scenario: Implementation scope is inspected
-- **WHEN** implementation finishes
-- **THEN** only `Docs/portal-template/`, `.github/workflows/docs-template-check.yml`, and this OpenSpec change contain implementation additions, while `.gitignore` and `CLAUDE.md` remain user-owned and unstaged
-
-#### Scenario: Delivery remains local
-- **WHEN** the autonomous implementation completes
-- **THEN** no commit is created and no branch is pushed

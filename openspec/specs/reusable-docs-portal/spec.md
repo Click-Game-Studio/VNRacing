@@ -1,18 +1,18 @@
 # reusable-docs-portal Specification
 
 ## Purpose
-TBD - created by archiving change add-reusable-docs-portal-template. Update Purpose after archive.
+Versioned documentation portal template for software architecture documentation, providing Starlight navigation, LikeC4 diagram integration, and base-path flexibility for deployment to root or project subpaths.
 ## Requirements
 ### Requirement: Independent reusable portal
-The template SHALL be a self-contained project under `Docs/portal-template/` and SHALL NOT require files from `Docs/portal/` at install, build, or runtime.
+The template SHALL be self-contained and SHALL NOT require files from outside its own root directory at install, build, or runtime.
 
 #### Scenario: Template installs independently
-- **WHEN** dependencies are installed from `Docs/portal-template/package-lock.json`
-- **THEN** installation completes without reading a package manifest or source file from `Docs/portal/`
+- **WHEN** dependencies are installed from the template's `package-lock.json`
+- **THEN** installation completes without reading package manifests or source files from outside the template directory
 
-#### Scenario: Existing portal remains untouched
-- **WHEN** the template change is implemented
-- **THEN** no implementation edit is made under `Docs/portal/` or to `.github/workflows/docs.yml`
+#### Scenario: Template builds independently
+- **WHEN** the template is built
+- **THEN** build completes using only files within the template directory
 
 ### Requirement: Core documentation experience
 The portal SHALL provide Starlight navigation, manual sidebars, Markdown and MDX rendering, responsive light/dark presentation, and Pagefind-backed full-text search in production output.
@@ -41,7 +41,7 @@ Each version SHALL contain concise project-neutral examples covering an index, a
 
 #### Scenario: Template is copied to another project
 - **WHEN** a team reads the bundled content
-- **THEN** it can identify where to replace project metadata, architecture model, feature documentation, and decisions without removing VNRacing-specific taxonomy
+- **THEN** it can identify where to replace project metadata, architecture model, feature documentation, and decisions without project-specific taxonomy
 
 ### Requirement: Interactive version-aware diagrams
 Architecture pages SHALL load the selected LikeC4 project lazily, support native LikeC4 interaction, and map configured nodes to feature pages while preserving both deployment base path and documentation version.
@@ -123,4 +123,4 @@ The template README SHALL document local development, content/model replacement,
 
 #### Scenario: New team adopts template
 - **WHEN** a team follows README from a clean checkout
-- **THEN** it can install, run, validate, customize, and deploy the portal without consulting VNRacing workshop documents
+- **THEN** it can install, run, validate, customize, and deploy the portal without consulting documents outside the template

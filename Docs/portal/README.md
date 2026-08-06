@@ -2,6 +2,8 @@
 
 Trang tài liệu kiến trúc PrototypeRacing — xây dựng bằng [Astro](https://astro.build/) + [Starlight](https://starlight.astro.build/), diagram bằng [LikeC4](https://likec4.dev/).
 
+> Bắt đầu một portal tài liệu mới? Dùng template dùng chung: [Click-Game-Studio/docs-portal-template](https://github.com/Click-Game-Studio/docs-portal-template).
+
 ## Quick start
 
 ```bash

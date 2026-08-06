@@ -1,10 +1,20 @@
 # Reusable documentation portal
 
-Copyable static documentation portal using Astro, Starlight, MDX, React, LikeC4, and `starlight-versions`. Project is independent: install, build, and runtime use only files in this directory.
+> **This is a mirror.** The canonical source of truth is [`Click-Game-Studio/docs-portal-template`](https://github.com/Click-Game-Studio/docs-portal-template). This copy is kept inside VNRacing for dogfooding — to exercise template changes against a real repository's CI. Make fixes upstream first, then port them here.
+
+Copyable static documentation portal using Astro, Starlight, MDX, React, LikeC4, and `starlight-versions`. The project is self-contained: install, build, and runtime use only files within this project root.
+
+## When to use this template
+
+Use this template when a project needs **versioned architecture documentation with diagrams that stay in sync with the text** — multiple documentation snapshots served side by side, C4 architecture models compiled from text at build time, and static hosting with full-text search.
+
+It is a poor fit for single unversioned docs sites, prose-only documentation with no architecture model, or anything needing runtime content.
+
+See [`GUIDE.md`](GUIDE.md) for the full adoption guide, the reasoning behind the design, and customization patterns. See [`CONTRIBUTING.md`](CONTRIBUTING.md) to change the template itself.
 
 ## Install and run locally
 
-Requirements: Node.js 22.22.3 or newer and npm.
+Requirements: Node.js 22.22.3 or newer and npm. Run `nvm use` to match the pinned version in `.nvmrc`.
 
 ```bash
 npm ci
@@ -92,4 +102,4 @@ Copy **contents** of this directory, including `.github/`, to new repository roo
 4. In repository **Settings → Pages**, select **GitHub Actions** as source.
 5. Push to `main` or run bundled **Deploy documentation portal** workflow manually.
 
-Nested `.github/workflows/pages.yml` is inert while template remains under `Docs/portal-template/`. It activates only when copied to repository root. It installs cleanly, checks content, builds with repository variables, validates generated output, uploads `dist/`, and deploys through GitHub Pages.
+The bundled `.github/workflows/pages.yml` workflow activates when the template contents are at repository root. It installs dependencies, checks content, builds with repository variables, validates generated output, uploads `dist/`, and deploys through GitHub Pages.
