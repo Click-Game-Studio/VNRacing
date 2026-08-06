@@ -1,0 +1,49 @@
+version: 2
+
+updates:
+  - package-ecosystem: npm
+    directory: '/'
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: 'chore(deps)'
+      prefix-development: 'chore(deps-dev)'
+    groups:
+      astro:
+        patterns:
+          - 'astro'
+          - '@astrojs/*'
+      react:
+        patterns:
+          - 'react'
+          - 'react-dom'
+          - '@types/react'
+          - '@types/react-dom'
+      dev-dependencies:
+        dependency-type: development
+    ignore:
+      # likec4 is pinned to 1.55.x on purpose. From 1.56.0 onward likec4 depends
+      # on vite ^8 (rolldown-based), which installs a nested vite@8 alongside the
+      # vite@7 that astro 6.4.6 hoists (rollup-based). The two plugin-context
+      # types are incompatible, so `npm run check` fails at the LikeC4VitePlugin()
+      # call in astro.config.mjs with:
+      #   Property 'rolldownVersion' is missing in type ...rollup...PluginContextMeta
+      #   but required in type ...rolldown...PluginContextMeta
+      # 1.55.0 is the last release on vite ^7.3.1 and dedupes to a single vite@7.
+      # Major and minor bumps are held; 1.55.x patch updates still come through.
+      # Re-evaluate once Astro moves to vite 8 — then drop this ignore entirely.
+      - dependency-name: 'likec4'
+        update-types:
+          - 'version-update:semver-major'
+          - 'version-update:semver-minor'
+
+  - package-ecosystem: github-actions
+    directory: '/'
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 3
+    commit-message:
+      prefix: 'chore(ci)'

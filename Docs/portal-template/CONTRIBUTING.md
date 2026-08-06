@@ -85,9 +85,34 @@ npm run verify:subpath
 
 Commit both `package.json` and `package-lock.json` together.
 
-### Updating the deployment workflow
+#### Dependency constraints
 
-The bundled `.github/workflows/pages.yml` is the deployment workflow for repositories that adopt this template. Changes to it must be tested by creating a test repository, configuring Pages, and running a full deploy. Do not merge workflow changes that have not been tested against an actual GitHub Pages deployment.
+Some versions in `package.json` are held deliberately. `package.json` is strict JSON and cannot carry comments, so the reasons live here. Read this section before bumping anything.
+
+**`likec4` is pinned to 1.55.x. Do not bump it to 1.56.0 or later.**
+
+LikeC4 1.55.0 is the last release built against `vite ^7.3.1`. From 1.56.0 onward it depends on `vite ^8`, which is rolldown-based. Astro 6.4.6 hoists `vite@7`, which is rollup-based, so npm installs a second, nested `vite@8` under `likec4` instead of deduping. The two packages export incompatible `PluginContextMeta` types, and `npm run check` fails at the `LikeC4VitePlugin()` call in `astro.config.mjs`:
+
+```
+Property 'rolldownVersion' is missing in type '...rollup...PluginContextMeta'
+but required in type '...rolldown...PluginContextMeta'
+```
+
+The build itself may still succeed, which makes this easy to miss locally — `astro check` is what catches it, so never skip it on a dependency change.
+
+`.github/dependabot.yml` carries a matching `ignore` entry that holds major and minor `likec4` bumps while still allowing 1.55.x patches. If you remove the pin, remove that ignore entry too, and vice versa — they must agree.
+
+Re-evaluate this constraint when Astro moves to vite 8. At that point both packages resolve to a single vite 8 and the pin can be dropped. To check, upgrade `likec4` on a branch and run `npm run check`; if it passes, the constraint is obsolete and both this section and the Dependabot ignore should be deleted.
+
+### Updating the workflows
+
+Two workflows ship with the template and serve different jobs.
+
+`.github/workflows/ci.yml` ("Validate portal") runs on every pull request and on every push to a non-main branch. It runs the same three commands listed under [Testing changes](#testing-changes) on the Node version in `.nvmrc`, and requests only `contents: read`. This is the gate on incoming changes, including Dependabot pull requests. Changes to it can be verified by opening a pull request and reading the check run.
+
+`.github/workflows/pages.yml` is the deployment workflow for repositories that adopt this template. It builds with the adopting repository's own `SITE_URL` and `BASE_PATH` variables and validates that build before uploading, so a broken build never reaches Pages. Changes to it must be tested by creating a test repository, configuring Pages, and running a full deploy. Do not merge deployment workflow changes that have not been tested against an actual GitHub Pages deployment.
+
+Keep the validation in `pages.yml` scoped to the base path it is actually deploying. The exhaustive root-and-subpath matrix belongs in `ci.yml`, where it gates merges; repeating it in `pages.yml` would slow every deploy without catching anything new.
 
 ## Pull request guidelines
 
@@ -97,6 +122,7 @@ The bundled `.github/workflows/pages.yml` is the deployment workflow for reposit
 - [ ] Commit messages follow conventional commit format: `type(scope): description`.
 - [ ] New versions include all seven integration points.
 - [ ] Dependency changes include both `package.json` and `package-lock.json`.
+- [ ] Dependency changes respect [Dependency constraints](#dependency-constraints); a bump that removes a pin also removes the matching `.github/dependabot.yml` ignore entry.
 - [ ] Changes to `.github/workflows/pages.yml` have been tested in a live deployment.
 
 ### Commit message format
